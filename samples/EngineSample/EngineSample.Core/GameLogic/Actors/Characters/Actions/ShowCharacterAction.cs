@@ -1,0 +1,55 @@
+﻿using Bau.Monogame.Engine.Domain.Core.Tools.Tween;
+using Microsoft.Xna.Framework;
+
+namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;
+
+/// <summary>
+///		Acción para mostrar un personaje
+/// </summary>
+public class ShowCharacterAction : AbstractCharacterAction
+{
+	/// <summary>
+	///		Actualiza la acción de mostrar
+	/// </summary>
+	protected override bool UpdateAction(CharacterActor actor, float elapsed, GameTime gameTime)
+	{
+		TweenResult<Vector2> tweenPosition = TweenCalculator.CalculateVector2(elapsed + (float) gameTime.ElapsedGameTime.TotalSeconds, Duration,
+																			  StartPosition, EndPosition);
+		TweenResult<float> tweenOpacity = TweenCalculator.CalculateFloat(elapsed + (float) gameTime.ElapsedGameTime.TotalSeconds, Duration,
+																		 StartOpacity, EndOpacity);
+
+			// Cambia la definición del personaje
+			actor.SetDefinition(DefinitionId);
+			// Cambia los estados del actor
+			actor.Transform.WorldBounds.X = tweenPosition.Value.X;
+			actor.Transform.WorldBounds.Y = tweenPosition.Value.Y;
+			actor.Opacity = tweenOpacity.Value;
+			// Devuelve el valor que indica si ha terminado la acción
+			return tweenPosition.IsComplete && tweenOpacity.IsComplete;
+	}
+
+	/// <summary>
+	///		Id de la definición
+	/// </summary>
+	public required string DefinitionId { get; init; }
+
+	/// <summary>
+	///		Posición en la que debe comenzar a mostrarse el personaje
+	/// </summary>
+	public required Vector2 StartPosition { get; init; }
+
+	/// <summary>
+	///		Posición en la que debe terminar de mostrarse el personaje
+	/// </summary>
+	public required Vector2 EndPosition { get; init; }
+
+	/// <summary>
+	///		Arranque de la opacidad
+	/// </summary>
+	public float StartOpacity { get; set; } = 1;
+
+	/// <summary>
+	///		Final de la opacidad
+	/// </summary>
+	public float EndOpacity { get; set; } = 1;
+}
