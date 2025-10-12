@@ -1,4 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Core.Tools.Tween;
+﻿using Bau.Libraries.BauGame.Engine.Tools.Tween;
 using Microsoft.Xna.Framework;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;

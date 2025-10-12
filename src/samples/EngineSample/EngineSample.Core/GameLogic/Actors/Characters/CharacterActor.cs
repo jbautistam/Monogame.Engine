@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using Bau.Libraries.BauGame.Engine.Core.Actors;
-using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Actors;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using EngineSample.Core.GameLogic.Actors.Characters.Actions;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters;

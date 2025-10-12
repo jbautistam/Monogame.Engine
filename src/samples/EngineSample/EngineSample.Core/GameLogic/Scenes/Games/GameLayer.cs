@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Core.Scenes;
-using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Scenes;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Core.Actors.Particles;
-using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Games;
+using Bau.Libraries.BauGame.Engine.Actors.Particles;
+using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 using EngineSample.Core.GameLogic.Actors;
 using EngineSample.Core.GameLogic.Actors.Characters;
 
@@ -223,16 +223,16 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 				switch (type)
 				{
 					case 1:
-							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Core.Actors.Particles.Effects.ParticlesConfettiEffect(1_000);
+							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Actors.Particles.Effects.ParticlesConfettiEffect(1_000);
 						break;
 					case 2:
-							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Core.Actors.Particles.Effects.ParticlesExplossionEffect(1_000);
+							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Actors.Particles.Effects.ParticlesExplossionEffect(1_000);
 						break;
 					case 3:
-							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Core.Actors.Particles.Effects.ParticlesFireworkEffect(1_000);
+							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Actors.Particles.Effects.ParticlesFireworkEffect(1_000);
 						break;
 					case 4:
-							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Core.Actors.Particles.Effects.ParticlesSparklesEffect(1_000);
+							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Actors.Particles.Effects.ParticlesSparklesEffect(1_000);
 						break;
 				}
 				// Emite las partículas

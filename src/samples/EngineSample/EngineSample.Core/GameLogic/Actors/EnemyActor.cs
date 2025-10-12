@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Core.Actors;
-using Bau.Libraries.BauGame.Engine.Core.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Core.Models;
-using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers;
+using Bau.Libraries.BauGame.Engine.Actors;
+using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
+using Bau.Libraries.BauGame.Engine.Models;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
 namespace EngineSample.Core.GameLogic.Actors;
 

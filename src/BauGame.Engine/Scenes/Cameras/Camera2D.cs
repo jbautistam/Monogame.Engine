@@ -1,0 +1,283 @@
+﻿using Bau.Libraries.BauGame.Engine.Models;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+
+/// <summary>
+///     Control de cámara
+/// </summary>
+public class Camera2D
+{
+    // Variables privadas
+    private Viewport _screenViewport;
+    private Matrix? _transformMatrix, _inverseMatrix;
+    private Vector2 _position, _origin;
+    private Rectangle _worldBounds = new();
+    private float _rotation, _zoom;
+
+    public Camera2D(Viewport viewport)
+    {
+        ScreenViewport = viewport;
+        Zoom = 1.0f;
+        Origin = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
+        Position = new Vector2(0, 0);
+    }
+
+    /// <summary>
+    ///     Actualiza las matrices
+    /// </summary>
+    private void Update()
+    {
+        if (_transformMatrix is null)
+        {
+            Matrix transform = Matrix.CreateTranslation(new Vector3(-Position, 0)) *
+                               Matrix.CreateRotationZ(Rotation) *
+                               Matrix.CreateScale(Zoom, Zoom, 1) *
+                               Matrix.CreateTranslation(new Vector3(Origin, 0));
+
+                // Obtiene las matrices de salida (utiliza una matriz intermedia porque no se puede hacer un Invert de un Matrix?
+                _transformMatrix = transform;
+                _inverseMatrix = Matrix.Invert(_transformMatrix ?? new Matrix());
+        }
+    }
+
+    /// <summary>
+    ///     Conversión de coordenadas de pantalla a coordenadas de mundo
+    /// </summary>
+    public Vector2 ScreenToWorld(Vector2 screenPosition)
+    {
+        // Actualiza las matrices
+        Update();
+        // Transforma el vector (después del update, ya existe la matriz)
+        return Vector2.Transform(screenPosition, _inverseMatrix!.Value);
+    }
+
+    /// <summary>
+    ///     Conversión de coordenadas de mundo a coordenadas de pantalla
+    /// </summary>
+    public Vector2 WorldToScreen(Vector2 worldPosition)
+    {
+        // Actualiza las matrices
+        Update();
+        // Transforma el vector (después del update, ya existe la matriz)
+        return Vector2.Transform(worldPosition, _transformMatrix!.Value);
+    }
+
+    /// <summary>
+    ///     Conversión de coordenadas relativas a coordenadas de patalla
+    /// </summary>
+    public Vector2 WorldToScreenRelative(Vector2 relativePosition)
+    {
+        Vector2 topLeft = Position - new Vector2(ScreenViewport.Width * 0.5f, ScreenViewport.Height * 0.5f) / Zoom;
+        Vector2 offset = new(relativePosition.X * ScreenViewport.Width / Zoom,
+                             relativePosition.Y * ScreenViewport.Height / Zoom);
+
+            // Devuelve la posición
+            return WorldToScreen(topLeft + offset);
+    }
+
+    /// <summary>
+    ///     Convierte coordenadas de pantalla a coordenadas de mundo
+    /// </summary>
+    public RectangleF ScreenToWorldRect(Rectangle screenRect)
+    {
+        Matrix inverseTransform = _inverseMatrix ?? new Matrix();
+        Vector2 topLeft = Vector2.Transform(new Vector2(screenRect.Left, screenRect.Top), inverseTransform);
+        Vector2 topRight = Vector2.Transform(new Vector2(screenRect.Right, screenRect.Top), inverseTransform);
+        Vector2 bottomLeft = Vector2.Transform(new Vector2(screenRect.Left, screenRect.Bottom), inverseTransform);
+        Vector2 bottomRight = Vector2.Transform(new Vector2(screenRect.Right, screenRect.Bottom), inverseTransform);
+        float minX = MathHelper.Min(MathHelper.Min(topLeft.X, topRight.X), MathHelper.Min(bottomLeft.X, bottomRight.X));
+        float minY = MathHelper.Min(MathHelper.Min(topLeft.Y, topRight.Y), MathHelper.Min(bottomLeft.Y, bottomRight.Y));
+        float maxX = MathHelper.Max(MathHelper.Max(topLeft.X, topRight.X), MathHelper.Max(bottomLeft.X, bottomRight.X));
+        float maxY = MathHelper.Max(MathHelper.Max(topLeft.Y, topRight.Y), MathHelper.Max(bottomLeft.Y, bottomRight.Y));
+
+            // Devuelve el rectángulo convertido
+            return new RectangleF(minX, minY, maxX - minX, maxY - minY);
+    }
+
+    /// <summary>
+    ///     Convierte coordenadas de mundo a coordenadas de pantalla
+    /// </summary>
+    public Rectangle WorldToScreenRect(RectangleF worldRect)
+    {
+        Vector2 topLeft = WorldToScreen(new Vector2(worldRect.Left, worldRect.Top));
+        Vector2 topRight = WorldToScreen(new Vector2(worldRect.Right, worldRect.Top));
+        Vector2 bottomLeft = WorldToScreen(new Vector2(worldRect.Left, worldRect.Bottom));
+        Vector2 bottomRight = WorldToScreen(new Vector2(worldRect.Right, worldRect.Bottom));
+        float minX = MathHelper.Min(MathHelper.Min(topLeft.X, topRight.X), MathHelper.Min(bottomLeft.X, bottomRight.X));
+        float minY = MathHelper.Min(MathHelper.Min(topLeft.Y, topRight.Y), MathHelper.Min(bottomLeft.Y, bottomRight.Y));
+        float maxX = MathHelper.Max(MathHelper.Max(topLeft.X, topRight.X), MathHelper.Max(bottomLeft.X, bottomRight.X));
+        float maxY = MathHelper.Max(MathHelper.Max(topLeft.Y, topRight.Y), MathHelper.Max(bottomLeft.Y, bottomRight.Y));
+
+            // Devuelve el rectángulo convertido
+            return new Rectangle((int) minX, (int) minY, (int) (maxX - minX), (int) (maxY - minY));
+    }
+
+    /// <summary>
+    ///     Comprueba si un elemento está en la lista
+    /// </summary>
+    public bool IsInView(RectangleF bounds)
+    {
+        // Convertimos esquinas del bounding box a pantalla
+        Vector2 topLeft = WorldToScreen(new Vector2(bounds.Left, bounds.Top));
+        Vector2 bottomRight = WorldToScreen(new Vector2(bounds.Right, bounds.Bottom));
+        Rectangle screenRect = new((int) Math.Min(topLeft.X, bottomRight.X), (int) Math.Min(topLeft.Y, bottomRight.Y),
+                                   (int) Math.Abs(bottomRight.X - topLeft.X), (int) Math.Abs(bottomRight.Y - topLeft.Y));
+
+            // Comprobamos si intersecta con el viewport
+            return screenRect.Intersects(ScreenViewport.Bounds);
+    }
+
+    /// <summary>
+    ///     Limita un punto a los límites del mundo
+    /// </summary>
+    private Vector2 Clamp(Vector2 point)
+    {
+        float zoom = Zoom == 0 ? 1 : Zoom;
+        float viewWidth = 0.5f * ScreenViewport.Width / zoom;
+        float viewHeight = 0.5f * ScreenViewport.Height / zoom;
+
+        // Opción avanzada (con rotación) — descomenta si necesitas soporte para rotación
+        /*
+        float diagonal = (float)Math.Sqrt(ScreenViewport.Width * ScreenViewport.Width +
+                                            ScreenViewport.Height * ScreenViewport.Height);
+        float maxViewRadius = diagonal / (2f * Zoom);
+        float viewWidth = maxViewRadius * 2;
+        float viewHeight = maxViewRadius * 2;
+        */
+        float clampedX = MathHelper.Clamp(point.X, WorldBounds.X + viewWidth, WorldBounds.Width - viewWidth);
+        float clampedY = MathHelper.Clamp(point.Y, WorldBounds.Y + viewHeight, WorldBounds.Height - viewHeight);
+
+            // Devuelve el vector limitado
+            return new Vector2(clampedX, clampedY);
+    }
+
+    /// <summary>
+    ///     Aumenta el Zoom
+    /// </summary>
+    public void ZoomIn(float deltaZoom)
+    {
+        Zoom *= 1f + deltaZoom;
+    }
+
+    /// <summary>
+    ///     Disminuye el zoom
+    /// </summary>
+    public void ZoomOut(float deltaZoom)
+    {
+        Zoom /= 1f + deltaZoom;
+    }
+
+    /// <summary>
+    ///     Comienza el dibujo del mundo
+    /// </summary>
+	public void BeginDrawWorld()
+	{
+        // Actualiza las matrices
+        Update();
+        // Limpia la pantalla y arranca el dibujo
+        SpriteBatchController.Clear();
+        SpriteBatchController.BeginDraw(_transformMatrix);
+	}
+
+    /// <summary>
+    ///     Arranca el dibujo de la UI
+    /// </summary>
+	public void BeginDrawUI()
+	{
+        SpriteBatchController.BeginDraw(null);
+	}
+
+    /// <summary>
+    ///     Método para finalizar el lote de dibujo
+    /// </summary>
+    public void EndDraw()
+    {
+        SpriteBatchController.End();
+    }
+
+	/// <summary>
+	///     Posición de la cámara
+	/// </summary>
+	public Vector2 Position 
+    { 
+        get { return _position; } 
+        set 
+        { 
+            _position = Clamp(value);
+            _transformMatrix = null;
+        }
+    }
+
+    /// <summary>
+    ///     Origen de la cámara
+    /// </summary>
+    public Vector2 Origin
+    { 
+        get { return _origin; } 
+        set 
+        { 
+            _origin = value;
+            _transformMatrix = null;
+        }
+    }
+
+    /// <summary>
+    ///     Rotación de la cámara
+    /// </summary>
+    public float Rotation 
+    { 
+        get { return _rotation; }
+        set 
+        {
+            _rotation = value;
+            _transformMatrix = null;
+        }
+    }
+
+    /// <summary>
+    ///     Zoom de la cámara
+    /// </summary>
+    public float Zoom 
+    { 
+        get { return _zoom; }
+        set
+        {
+            _zoom = value;
+            _transformMatrix = null;
+        }
+    }
+
+    /// <summary>
+    ///     Viewport del mundo
+    /// </summary>
+    public Rectangle WorldBounds 
+    { 
+        get { return _worldBounds; }
+        set
+        {
+            _worldBounds = value;
+            Position = Clamp(Position);
+        }
+    }
+
+    /// <summary>
+    ///     Viewport de la pantalla (en píxeles)
+    /// </summary>
+    public Viewport ScreenViewport
+    { 
+        get { return _screenViewport; }
+        set
+        {
+            _screenViewport = value;
+            Origin = new Vector2(_screenViewport.Width / 2f, _screenViewport.Height / 2f);
+            _transformMatrix = null;
+        }
+    }
+
+    /// <summary>
+    ///     Controlador de sprites
+    /// </summary>
+    public SpriteBatchController SpriteBatchController { get; } = new();
+}
