@@ -1,7 +1,7 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
+﻿using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Components.Health;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Components.Health;
 
 /// <summary>
 ///		Componente de salud

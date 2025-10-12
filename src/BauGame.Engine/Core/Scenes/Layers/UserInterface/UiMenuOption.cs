@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.UserInterface;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.UserInterface;
 
 /// <summary>
 ///     Opción de menú

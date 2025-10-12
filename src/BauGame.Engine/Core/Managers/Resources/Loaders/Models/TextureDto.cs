@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Core.Managers.Resources.Loaders.Models;
+﻿namespace Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Loaders.Models;
 
 /// <summary>
 ///		Datos de una textura

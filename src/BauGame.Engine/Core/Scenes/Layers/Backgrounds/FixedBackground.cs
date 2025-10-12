@@ -1,7 +1,7 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Managers.Resources.Textures;
+﻿using Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Textures;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.Backgrounds;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Backgrounds;
 
 /// <summary>
 ///     Fondo fijo

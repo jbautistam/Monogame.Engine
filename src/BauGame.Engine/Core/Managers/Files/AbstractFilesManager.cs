@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-namespace Bau.Monogame.Engine.Domain.Core.Managers.Files;
+namespace Bau.Libraries.BauGame.Engine.Core.Managers.Files;
 
 /// <summary>
 ///     Base para los manager del sistema de archivos

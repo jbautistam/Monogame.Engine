@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Base;
+﻿namespace Bau.Libraries.BauGame.Engine.Base;
 
 /// <summary>
 ///     Base para los diccionarios

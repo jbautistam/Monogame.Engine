@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Managers;
+namespace Bau.Libraries.BauGame.Engine.Core.Managers;
 
 /// <summary>
 ///     Manager del motor 

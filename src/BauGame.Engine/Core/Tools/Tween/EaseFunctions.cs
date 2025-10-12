@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Core.Tools.Tween;
+﻿namespace Bau.Libraries.BauGame.Engine.Core.Tools.Tween;
 
 /// <summary>
 ///     Funciones de easing para interpolación

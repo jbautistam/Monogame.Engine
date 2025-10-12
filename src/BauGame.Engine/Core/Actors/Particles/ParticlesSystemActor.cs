@@ -1,9 +1,9 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Managers.Resources.Textures;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
+﻿using Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Textures;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Particles;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Particles;
 
 /// <summary>
 ///     Manager de un sistema de partículas

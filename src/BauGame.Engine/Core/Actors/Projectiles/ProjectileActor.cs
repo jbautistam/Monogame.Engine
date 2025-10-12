@@ -1,7 +1,7 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Scenes.Layers;
+﻿using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Projectiles;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Projectiles;
 
 /// <summary>
 ///     Clase con los datos de un proyectil

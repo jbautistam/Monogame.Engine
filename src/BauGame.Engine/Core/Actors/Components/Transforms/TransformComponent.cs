@@ -1,7 +1,7 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Models;
+﻿using Bau.Libraries.BauGame.Engine.Core.Models;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Components.Transforms;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Components.Transforms;
 
 /// <summary>
 ///		Componente de transformación

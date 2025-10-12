@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Particles.Effects;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Particles.Effects;
 
 /// <summary>
 ///		Efecto para emisión de un sistema de confetti

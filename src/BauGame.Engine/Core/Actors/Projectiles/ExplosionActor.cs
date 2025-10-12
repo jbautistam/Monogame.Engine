@@ -1,7 +1,7 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
+﻿using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Projectiles;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Projectiles;
 
 /// <summary>
 ///     Actor para presentación de explosiones

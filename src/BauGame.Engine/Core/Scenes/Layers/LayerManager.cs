@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers;
 
 /// <summary>
 ///     Manager para las capas de una escena

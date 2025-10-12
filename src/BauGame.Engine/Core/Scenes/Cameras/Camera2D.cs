@@ -1,8 +1,8 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Models;
+﻿using Bau.Libraries.BauGame.Engine.Core.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
 
 /// <summary>
 ///     Control de cámara

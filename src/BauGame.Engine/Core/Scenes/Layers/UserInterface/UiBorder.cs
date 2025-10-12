@@ -1,7 +1,7 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
+﻿using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.UserInterface;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.UserInterface;
 
 /// <summary>
 ///		Componente con un borde

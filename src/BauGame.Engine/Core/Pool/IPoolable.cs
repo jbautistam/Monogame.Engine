@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Core.Pool;
+﻿namespace Bau.Libraries.BauGame.Engine.Core.Pool;
 
 /// <summary>
 ///     Interface para los elementos que se pueden introducir en un pool

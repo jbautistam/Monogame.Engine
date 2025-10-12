@@ -1,8 +1,8 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Actors;
-using Bau.Monogame.Engine.Domain.Core.Actors.Components.Physics;
+﻿using Bau.Libraries.BauGame.Engine.Core.Actors;
+using Bau.Libraries.BauGame.Engine.Core.Actors.Components.Physics;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Physics;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Physics;
 
 /// <summary>
 ///     Grid espacial

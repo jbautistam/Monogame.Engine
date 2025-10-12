@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Monogame.Engine.Domain.Core.Models;
+using Bau.Libraries.BauGame.Engine.Core.Models;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Components.Physics;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Components.Physics;
 
 /// <summary>
 ///		Representación de un colider como círculo

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.UserInterface;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.UserInterface;
 
 /// <summary>
 ///     Clase base para un elemento de interface de usuario

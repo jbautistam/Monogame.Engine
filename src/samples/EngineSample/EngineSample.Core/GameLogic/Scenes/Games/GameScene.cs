@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Monogame.Engine.Domain.Core.Scenes;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Layers;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Layers.Backgrounds;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Layers.Builders.UserInterface;
-using Bau.Monogame.Engine.Domain;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Layers.UserInterface;
+using Bau.Libraries.BauGame.Engine.Core.Scenes;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Backgrounds;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Builders.UserInterface;
+using Bau.Libraries.BauGame.Engine;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.UserInterface;
 
 namespace EngineSample.Core.GameLogic.Scenes.Games;
 
@@ -110,7 +110,7 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 			LayerManager.Update(gameTime);
 			UpdateUserInterface();
 			// Sale de la partida si se ha pulsado el botón de Scape o el Back del GamePad
-			if (GameEngine.Instance.InputManager.IsAction(Bau.Monogame.Engine.Domain.Core.Managers.Input.InputMappings.DefaulQuitAction))
+			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Core.Managers.Input.InputMappings.DefaulQuitAction))
 				nextScene = GameEngine.Instance.SceneManager.GetScene(MainMenu.MainMenuScene.SceneName) ?? this;
 			// Devuelve la nueva escena
 			return nextScene;

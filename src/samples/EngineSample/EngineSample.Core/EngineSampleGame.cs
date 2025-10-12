@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Bau.Monogame.Engine.Domain;
-using Bau.Monogame.Engine.Domain.Core.Managers.Input;
-using Bau.Monogame.Engine.Domain.Core.Managers.Input.Builders;
+using Bau.Libraries.BauGame.Engine;
+using Bau.Libraries.BauGame.Engine.Core.Managers.Input;
+using Bau.Libraries.BauGame.Engine.Core.Managers.Input.Builders;
 
 namespace EngineSample.Core;
 
@@ -15,7 +15,7 @@ public class EngineSampleGame : Game
 	{
 		// Instancia el motor del juego
 		GameEngine.Instantiate(this,
-							   new Bau.Monogame.Engine.Domain.Core.Configuration.EngineSettings
+							   new Bau.Libraries.BauGame.Engine.Core.Configuration.EngineSettings
 									{
 										FullScreen = false,
 										ScreenWidth = 1_024,
@@ -68,7 +68,7 @@ public class EngineSampleGame : Game
 			builder.WithAction(InputMappings.DefaultIntroAction)
 						.WithKeyboard(InputMappings.Status.JustPressed, Keys.Enter)
 				   .WithAction(InputMappings.DefaultMouseClickAction)
-						.WithMouse(InputMappings.Status.JustPressed, Bau.Monogame.Engine.Domain.Core.Managers.Input.MouseController.MouseStatus.MouseButton.Left)
+						.WithMouse(InputMappings.Status.JustPressed, Bau.Libraries.BauGame.Engine.Core.Managers.Input.MouseController.MouseStatus.MouseButton.Left)
 				   .WithAction(InputMappings.DefaulQuitAction)
 						.WithKeyboard(InputMappings.Status.JustPressed, Keys.Escape);
 			// Añade los mapeos al sistema

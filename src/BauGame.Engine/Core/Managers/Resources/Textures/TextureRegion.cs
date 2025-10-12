@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Monogame.Engine.Domain.Core.Managers.Resources.Textures;
+namespace Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Textures;
 
 /// <summary>
 ///		Región de una textura

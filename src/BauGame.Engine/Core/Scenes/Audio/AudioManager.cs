@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Audio;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Audio;
 
 /// <summary>
 ///     Manager de audio

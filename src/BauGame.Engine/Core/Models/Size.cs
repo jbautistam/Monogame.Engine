@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Core.Models;
+﻿namespace Bau.Libraries.BauGame.Engine.Core.Models;
 
 /// <summary>
 ///		Estructura con los datos de tamaño

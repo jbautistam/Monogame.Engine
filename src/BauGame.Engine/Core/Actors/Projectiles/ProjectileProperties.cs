@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Core.Actors.Projectiles;
+﻿namespace Bau.Libraries.BauGame.Engine.Core.Actors.Projectiles;
 
 /// <summary>
 ///     Clase con las propiedades de un proyectil

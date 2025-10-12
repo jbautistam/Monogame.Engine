@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain;
+namespace Bau.Libraries.BauGame.Engine;
 
 /// <summary>
 ///     Clase principal del motor

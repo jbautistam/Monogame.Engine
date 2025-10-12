@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Configuration;
+namespace Bau.Libraries.BauGame.Engine.Core.Configuration;
 
 /// <summary>
 ///     Configuración de sistema

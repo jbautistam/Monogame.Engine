@@ -1,5 +1,5 @@
-﻿using Bau.Monogame.Engine.Domain;
-using Bau.Monogame.Engine.Domain.Core.Managers.Resources.Textures;
+﻿using Bau.Libraries.BauGame.Engine;
+using Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Textures;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters;
 

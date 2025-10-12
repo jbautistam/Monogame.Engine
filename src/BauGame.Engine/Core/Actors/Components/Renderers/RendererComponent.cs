@@ -1,9 +1,9 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Managers.Resources.Textures;
-using Bau.Monogame.Engine.Domain.Core.Models;
+﻿using Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Textures;
+using Bau.Libraries.BauGame.Engine.Core.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Components.Renderers;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Components.Renderers;
 
 /// <summary>
 ///		Componente para representación de un actor

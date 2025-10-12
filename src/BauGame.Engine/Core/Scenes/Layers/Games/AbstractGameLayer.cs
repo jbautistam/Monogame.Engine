@@ -1,7 +1,7 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
+﻿using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.Games;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Games;
 
 /// <summary>
 ///		Clase abstracta de definición de partidas

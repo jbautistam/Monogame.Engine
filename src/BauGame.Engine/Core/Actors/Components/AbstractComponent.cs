@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Components;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Components;
 
 /// <summary>
 ///		Datos base de un componente

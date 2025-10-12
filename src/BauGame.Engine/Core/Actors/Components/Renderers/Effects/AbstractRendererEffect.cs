@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Components.Renderers.Effects;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Components.Renderers.Effects;
 
 /// <summary>
 ///		Efectos asociados al dibujo

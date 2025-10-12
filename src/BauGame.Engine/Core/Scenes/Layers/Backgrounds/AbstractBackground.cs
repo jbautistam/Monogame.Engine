@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.Backgrounds;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Backgrounds;
 
 /// <summary>
 ///		Base de los fondos

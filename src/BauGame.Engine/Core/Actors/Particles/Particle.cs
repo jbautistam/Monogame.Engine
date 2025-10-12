@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Particles;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Particles;
 
 // <summary>
 ///     Definición de una partícula

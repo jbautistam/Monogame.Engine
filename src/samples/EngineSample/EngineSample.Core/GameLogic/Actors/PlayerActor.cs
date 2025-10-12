@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Monogame.Engine.Domain;
-using Bau.Monogame.Engine.Domain.Core.Actors;
-using Bau.Monogame.Engine.Domain.Core.Actors.Components.Health;
-using Bau.Monogame.Engine.Domain.Core.Actors.Components.Physics;
-using Bau.Monogame.Engine.Domain.Core.Models;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Layers;
+using Bau.Libraries.BauGame.Engine;
+using Bau.Libraries.BauGame.Engine.Core.Actors;
+using Bau.Libraries.BauGame.Engine.Core.Actors.Components.Health;
+using Bau.Libraries.BauGame.Engine.Core.Actors.Components.Physics;
+using Bau.Libraries.BauGame.Engine.Core.Models;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers;
 
 namespace EngineSample.Core.GameLogic.Actors;
 
@@ -31,7 +31,7 @@ public class PlayerActor : AbstractActor
 										Health = 100,
 										Lives = 3,
 										InvulnerabilityTime = 3,
-										InvulnerabilityEffect = new Bau.Monogame.Engine.Domain.Core.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
+										InvulnerabilityEffect = new Bau.Libraries.BauGame.Engine.Core.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
 																		{
 																			Colors = [ Color.Green, Color.Red, Color.Navy ],
 																			TimeBetweenColor = 0.5f

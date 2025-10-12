@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors;
 
 /// <summary>
 ///		Clase abstracta para la definición de actores

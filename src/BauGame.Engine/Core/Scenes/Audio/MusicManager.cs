@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Audio;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Audio;
 
 /// <summary>
 ///     Manager para música ambiental

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Monogame.Engine.Domain.Core.Managers.Resources.Textures;
+namespace Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Textures;
 
 /// <summary>
 ///		Clase abstracta para la textura

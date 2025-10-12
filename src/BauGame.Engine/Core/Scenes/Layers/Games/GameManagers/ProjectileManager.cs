@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Monogame.Engine.Domain.Core.Actors.Projectiles;
+using Bau.Libraries.BauGame.Engine.Core.Actors.Projectiles;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.Games.GameManagers;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Games.GameManagers;
 
 /// <summary>
 ///     Manager de proyectiles

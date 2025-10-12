@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Bau.Monogame.Engine.Domain.Core.Managers.Input.GamePadController;
+namespace Bau.Libraries.BauGame.Engine.Core.Managers.Input.GamePadController;
 
 /// <summary>
 ///     Manager de teclas pulsadas

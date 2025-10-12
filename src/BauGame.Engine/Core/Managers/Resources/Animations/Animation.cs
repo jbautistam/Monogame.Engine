@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Core.Managers.Resources.Animations;
+﻿namespace Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Animations;
 
 /// <summary>
 ///		Clase con los datos de una animación

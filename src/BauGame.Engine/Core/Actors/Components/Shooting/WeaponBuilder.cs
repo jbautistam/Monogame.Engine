@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Components.Shooting;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Components.Shooting;
 
 /// <summary>
 ///		Generador de armas

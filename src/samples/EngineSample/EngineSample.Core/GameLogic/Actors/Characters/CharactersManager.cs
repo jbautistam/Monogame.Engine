@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Monogame.Engine.Domain.Core.Actors;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Layers;
+using Bau.Libraries.BauGame.Engine.Core.Actors;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters;
 
@@ -71,5 +71,5 @@ public class CharacterManager(AbstractLayer layer) : AbstractActor(layer)
 	/// <summary>
 	///		Personajes
 	/// </summary>
-	private Bau.Monogame.Engine.Domain.Base.DictionaryModel<CharacterActor> Characters { get; } = new();
+	private Bau.Libraries.BauGame.Engine.Base.DictionaryModel<CharacterActor> Characters { get; } = new();
 }

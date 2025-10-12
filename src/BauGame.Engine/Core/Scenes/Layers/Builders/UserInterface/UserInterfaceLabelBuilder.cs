@@ -1,7 +1,7 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Scenes.Layers.UserInterface;
+﻿using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.UserInterface;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.Builders.UserInterface;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador de etiquetas

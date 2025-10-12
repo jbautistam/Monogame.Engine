@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.UserInterface.EventArguments;
+﻿namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.UserInterface.EventArguments;
 
 /// <summary>
 ///		Argumentos del evento de click sobre una opción

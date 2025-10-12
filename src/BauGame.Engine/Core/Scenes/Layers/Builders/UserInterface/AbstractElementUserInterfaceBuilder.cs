@@ -1,4 +1,4 @@
-﻿namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.Builders.UserInterface;
+﻿namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Clase base para los interfaces de usuario

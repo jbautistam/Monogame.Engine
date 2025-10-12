@@ -1,8 +1,8 @@
-﻿using Bau.Monogame.Engine.Domain.Core.Managers.Resources.Animations;
-using Bau.Monogame.Engine.Domain.Core.Managers.Resources.Textures;
+﻿using Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Animations;
+using Bau.Libraries.BauGame.Engine.Core.Managers.Resources.Textures;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Actors.Components.Renderers;
+namespace Bau.Libraries.BauGame.Engine.Core.Actors.Components.Renderers;
 
 /// <summary>
 ///		Componente de animación

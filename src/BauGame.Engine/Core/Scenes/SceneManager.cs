@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes;
 
 /// <summary>
 ///     Manager de escenas

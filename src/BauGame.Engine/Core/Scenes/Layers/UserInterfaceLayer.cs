@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Layers.UserInterface;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.UserInterface;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers;
 
 /// <summary>
 ///     Clase base para las definiciones de capas de interface de usuario

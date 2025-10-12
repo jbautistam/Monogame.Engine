@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Monogame.Engine.Domain.Core.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Core.Scenes.Cameras;
 
-namespace Bau.Monogame.Engine.Domain.Core.Scenes.Layers.UserInterface;
+namespace Bau.Libraries.BauGame.Engine.Core.Scenes.Layers.UserInterface;
 
 /// <summary>
 ///		Componente de fondo

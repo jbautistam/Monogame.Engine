@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Monogame.Engine.Domain.Core.Models;
+namespace Bau.Libraries.BauGame.Engine.Core.Models;
 
 /// <summary>
 ///     Rectángulo con valores decimales
