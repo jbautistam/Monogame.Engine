@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bau.Monogame.Engine.Domain", "src\Bau.Monogame.Engine.Domain\Bau.Monogame.Engine.Domain.csproj", "{9E9FF7C0-BCC7-5A25-79F4-8E6C1423F170}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauGame.Engine", "src\BauGame.Engine\BauGame.Engine.csproj", "{0B29708A-5982-6539-886C-ADA030183B14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineSample.Core", "samples\EngineSample\EngineSample.Core\EngineSample.Core.csproj", "{8ACB114C-6056-4608-A075-472FD826ECC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineSample.Core", "src\samples\EngineSample\EngineSample.Core\EngineSample.Core.csproj", "{A8088058-8725-51A9-B3CF-F90D86149C28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineSample.DesktopGL", "samples\EngineSample\EngineSample.DesktopGL\EngineSample.DesktopGL.csproj", "{E5C69A44-BBAA-4465-B54F-D4F2D7921197}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineSample.DesktopGL", "src\samples\EngineSample\EngineSample.DesktopGL\EngineSample.DesktopGL.csproj", "{4A7EFC9F-13D3-8F6B-4891-D303589654C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9E9FF7C0-BCC7-5A25-79F4-8E6C1423F170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E9FF7C0-BCC7-5A25-79F4-8E6C1423F170}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E9FF7C0-BCC7-5A25-79F4-8E6C1423F170}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E9FF7C0-BCC7-5A25-79F4-8E6C1423F170}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8ACB114C-6056-4608-A075-472FD826ECC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8ACB114C-6056-4608-A075-472FD826ECC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8ACB114C-6056-4608-A075-472FD826ECC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8ACB114C-6056-4608-A075-472FD826ECC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5C69A44-BBAA-4465-B54F-D4F2D7921197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5C69A44-BBAA-4465-B54F-D4F2D7921197}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5C69A44-BBAA-4465-B54F-D4F2D7921197}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5C69A44-BBAA-4465-B54F-D4F2D7921197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B29708A-5982-6539-886C-ADA030183B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B29708A-5982-6539-886C-ADA030183B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B29708A-5982-6539-886C-ADA030183B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B29708A-5982-6539-886C-ADA030183B14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8088058-8725-51A9-B3CF-F90D86149C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8088058-8725-51A9-B3CF-F90D86149C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8088058-8725-51A9-B3CF-F90D86149C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8088058-8725-51A9-B3CF-F90D86149C28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A7EFC9F-13D3-8F6B-4891-D303589654C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A7EFC9F-13D3-8F6B-4891-D303589654C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A7EFC9F-13D3-8F6B-4891-D303589654C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A7EFC9F-13D3-8F6B-4891-D303589654C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
