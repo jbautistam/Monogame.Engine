@@ -20,7 +20,7 @@ public class EnemyActor : AbstractActor
 		CollisionComponent collision = new(this, physicsPlayerLayer);
 
 			// Configura las colisiones
-			collision.Colliders.Add(new RectangleCollider(collision, null));
+			collision.Colliders.Add(new CircleCollider(collision, null));
 			// Añade la colisión a los componentes
 			Components.Add(collision);
 	}

@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 /// <summary>
 ///		Representación de un colider como círculo
 /// </summary>
-public class CircleCollider(CollisionComponent collision, Circle relative) : AbstractCollider(collision)
+public class CircleCollider(CollisionComponent collision, Circle? relative) : AbstractCollider(collision)
 {
 	/// <summary>
 	///		Obtiene los límites como rectángulo
@@ -34,13 +34,16 @@ public class CircleCollider(CollisionComponent collision, Circle relative) : Abs
         RectangleF bounds = Collision.Owner.Transform.WorldBounds;
 
             // Calcula el círculo con respecto al padre
-            return new Circle(new Vector2(bounds.X + Relative.Center.X,
-										  bounds.Y + Relative.Center.Y),
-							  Relative.Radius);
+			if (Relative is null)
+				return new Circle(new Vector2(bounds.X, bounds.Y), 0.5f * bounds.Width);
+			else
+				return new Circle(new Vector2(bounds.X + Relative?.Center.X ?? 0,
+											  bounds.Y + Relative?.Center.Y ?? 0),
+								  Relative?.Radius ?? 0);
 	}
 
 	/// <summary>
 	///		Centro
 	/// </summary>
-	public Circle Relative { get; } = relative;
+	public Circle? Relative { get; } = relative;
 }
