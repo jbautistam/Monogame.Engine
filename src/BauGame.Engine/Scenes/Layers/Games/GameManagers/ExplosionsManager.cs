@@ -14,7 +14,7 @@ public class ExplosionsManager(AbstractLayer layer)
     /// <summary>
     ///     Crea una explosión
     /// </summary>
-    public ExplosionActor Create(string texture, string region, Vector2 position, float radius, int damage, float duration = 0.5f)
+    public ExplosionActor Create(string texture, string region, Vector2 position, int zOrder, float radius, int damage, float duration = 0.5f)
     {
         ExplosionActor? explosion = _explossions.GetFirstInactive();
         
@@ -22,7 +22,7 @@ public class ExplosionsManager(AbstractLayer layer)
             if (explosion is null)
             {
                 // Crea la explosión
-                explosion = new ExplosionActor(Layer);
+                explosion = new ExplosionActor(Layer, zOrder);
                 // Añade la explosión al pool
                 _explossions.Add(explosion);
             }

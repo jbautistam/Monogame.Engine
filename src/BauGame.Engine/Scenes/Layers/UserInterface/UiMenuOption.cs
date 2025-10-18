@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///     Opción de menú
 /// </summary>
-public class UiMenuOption(UserInterfaceLayer layer, UiPosition position, int optionId) : UiElement(layer, position)
+public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position, int optionId) : UiElement(layer, position)
 {
     // Variables privadas
     private bool _isInitialized;

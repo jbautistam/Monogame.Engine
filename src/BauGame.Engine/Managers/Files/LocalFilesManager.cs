@@ -5,7 +5,6 @@
 /// </summary>
 public class LocalFilesManager(FilesManager filesManager) : AbstractFilesManager(filesManager)
 {
-
     /// <summary>
     ///     Lee un archivo de texto
     /// </summary>

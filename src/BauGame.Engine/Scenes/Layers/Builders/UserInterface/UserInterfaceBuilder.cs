@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 /// <summary>
 ///		Builder para interface de usuario
 /// </summary>
-public class UserInterfaceBuilder(AbstractScene scene, string name, int sortIndex)
+public class UserInterfaceBuilder()
 {
 	/// <summary>
 	///		Añade un elemento a la capa
@@ -13,18 +13,18 @@ public class UserInterfaceBuilder(AbstractScene scene, string name, int sortInde
 	public UserInterfaceBuilder WithItem(UiElement item)
 	{
 		// Añade el elemento
-		Layer.Items.Add(item);
+		Items.Add(item);
 		// Devuelve el generador
 		return this;
 	}
 
 	/// <summary>
-	///		Genera la capa
+	///		Genera los elementos
 	/// </summary>
-	public UserInterfaceLayer Build() => Layer;
+	public List<UiElement> Build() => Items;
 
 	/// <summary>
-	///		Datos de la capa
+	///		Elementos de la capa de interface de usuario
 	/// </summary>
-	public UserInterfaceLayer Layer { get; } = new(scene, name, sortIndex);
+	public List<UiElement> Items { get; } = [];
 }

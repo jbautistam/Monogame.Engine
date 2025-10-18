@@ -763,3 +763,12 @@
 
 #begin Settings/textures.json
 /copy:Settings/textures.json
+
+#begin Settings/tilesets.json
+/copy:Settings/tilesets.json
+
+#begin Settings/Maps/Map_001.tmx
+/copy:Settings/Maps/Map_001.tmx
+
+#begin Settings/Maps/desert.tsx
+/copy:Settings/Maps/desert.tsx

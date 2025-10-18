@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
 /// <summary>
 ///     Clase con los datos de un proyectil
 /// </summary>
-public class ProjectileActor(AbstractLayer layer) : AbstractActor(layer)
+public class ProjectileActor(AbstractLayer layer, int zOrder) : AbstractActor(layer, zOrder)
 {
 /*
     // Nuevas propiedades para explosiones

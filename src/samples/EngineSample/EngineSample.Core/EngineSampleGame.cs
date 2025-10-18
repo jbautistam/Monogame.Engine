@@ -23,7 +23,8 @@ public class EngineSampleGame : Game
 										ContentRoot = "Content",
 										DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight,
 										MainAssembly = System.Reflection.Assembly.GetExecutingAssembly(),
-										ResourceFolder = "EngineSample.Core.Localization.Resources"
+										ResourceFolder = "EngineSample.Core.Localization.Resources",
+										
 									}
 							  );
 		// Inicializa el motor
@@ -37,9 +38,12 @@ public class EngineSampleGame : Game
 	{
 		// Inicializa el juego
 		base.Initialize();
+		// Indica que está en modo de depuración
+		GameEngine.Instance.EngineSettings.DebugMode = true;
 		// Añade las escenas
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.MainMenu.MainMenuScene(GameLogic.Scenes.MainMenu.MainMenuScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Games.GameScene(GameLogic.Scenes.Games.GameScene.SceneName));
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.TilesSample.TilesScene(GameLogic.Scenes.TilesSample.TilesScene.SceneName, 1));
 		// Prepara la escena
 		GameEngine.Instance.SceneManager.ChangeScene("MainMenu");
 		// Prepara los mapeos

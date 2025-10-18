@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///		Componente con un borde
 /// </summary>
-public class UiBorder(UserInterfaceLayer layer, UiPosition positions) : UiElement(layer, positions)
+public class UiBorder(AbstractUserInterfaceLayer layer, UiPosition positions) : UiElement(layer, positions)
 {
 	/// <summary>
 	///		Calcula los límites del control

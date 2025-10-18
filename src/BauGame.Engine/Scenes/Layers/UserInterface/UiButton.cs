@@ -30,7 +30,7 @@ public class UiButton : UiElement
         Selected
     }
 
-    public UiButton(UserInterfaceLayer layer, UiPosition position) : base(layer, position)
+    public UiButton(AbstractUserInterfaceLayer layer, UiPosition position) : base(layer, position)
     {
         Position.Padding = new UIMargin(10);
     }

@@ -7,7 +7,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 /// </summary>
 public class UserInterfaceButtonBuilder
 {
-	public UserInterfaceButtonBuilder(UserInterfaceLayer layer, float x, float y, float width, float height)
+	public UserInterfaceButtonBuilder(AbstractUserInterfaceLayer layer, float x, float y, float width, float height)
 	{
 		Button = new UiButton(layer, new UiPosition(x, y, width, height));
 	}

@@ -8,14 +8,14 @@ namespace EngineSample.Core.GameLogic.Actors.Characters;
 /// <summary>
 ///		Actor del manager de personajes
 /// </summary>
-public class CharacterManager(AbstractLayer layer) : AbstractActor(layer)
+public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActor(layer, zOrder)
 {
 	/// <summary>
 	///		Añade un personaje
 	/// </summary>
 	public CharacterActor Add(string name)
 	{
-		CharacterActor character = new(this)
+		CharacterActor character = new(this, ZOrder)
 										{
 											Enabled = false
 										};

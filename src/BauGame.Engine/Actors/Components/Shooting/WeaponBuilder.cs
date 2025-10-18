@@ -83,7 +83,7 @@ public class WeaponBuilder
     /// <summary>
     ///     Crea una pistola
     /// </summary>
-    public WeaponBuilder WithPistol(string texture, string region)
+    public WeaponBuilder WithPistol(string texture, string region, int zOrder)
     {
         // Crea la pistola
         WithWeapon("Pistol", false, new Projectiles.ProjectileProperties
@@ -92,7 +92,8 @@ public class WeaponBuilder
                                                 Region = region,
                                                 Speed = 500f,
                                                 MaxDistance = 400f,
-                                                Damage = 25
+                                                Damage = 25,
+                                                ZOrder = zOrder
                                             }
                   );
         WithShootOffset(new Vector2(15, 0));
@@ -106,7 +107,7 @@ public class WeaponBuilder
     /// <summary>
     ///     Crea un rifle
     /// </summary>
-    public WeaponBuilder WithShotgun(string texture, string region)
+    public WeaponBuilder WithShotgun(string texture, string region, int zOrder)
     {
         // Crea el rifle
         WithWeapon("Shotgun", false, new Projectiles.ProjectileProperties
@@ -115,7 +116,8 @@ public class WeaponBuilder
                                                 Region = region,
                                                 Speed = 400f,
                                                 MaxDistance = 300f,
-                                                Damage = 15
+                                                Damage = 15,
+                                                ZOrder = zOrder
                                             }
                   );
         WithShootOffset(new Vector2(20, 0));
@@ -130,7 +132,7 @@ public class WeaponBuilder
     /// <summary>
     ///     Crea una ametralladora con dos cañones
     /// </summary>
-    public WeaponBuilder WithMachineGun(string texture, string region)
+    public WeaponBuilder WithMachineGun(string texture, string region, int zOrder)
     {
         // Crea la ametralladora
         WithWeapon("Machine gun", true, new Projectiles.ProjectileProperties
@@ -139,7 +141,8 @@ public class WeaponBuilder
                                                 Region = region,
                                                 Speed = 600f,
                                                 MaxDistance = 600f,
-                                                Damage = 12
+                                                Damage = 12,
+                                                ZOrder = zOrder
                                             }
                   );
         WithShootOffset(new Vector2(25, -2));

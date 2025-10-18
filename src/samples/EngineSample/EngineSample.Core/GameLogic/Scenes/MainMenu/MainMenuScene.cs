@@ -50,17 +50,18 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private UserInterfaceLayer CreateHudLayer()
 	{
-		UserInterfaceBuilder builder = new(this, "Hud", 1);
+		UserInterfaceLayer uiLayer = new(this, "Menu", 1);
+		UserInterfaceBuilder builder = new();
 
 			// Añade los componentes del interface de usuario
-			builder.WithItem(new UserInterfaceLabelBuilder(builder.Layer, "Este es el texto de la etiqueta", 0.5f, 0.5f, 1, 1)
+			builder.WithItem(new UserInterfaceLabelBuilder(uiLayer, "Este es el texto de la etiqueta", 0.5f, 0.5f, 1, 1)
 									.WithFont(DefaultFont)
 									.Build()
 							);
-			builder.WithItem(CreateMainMenu(builder.Layer));
-			builder.WithItem(new UserInterfaceBackgroundBuilder(builder.Layer, "sprites/gradient", 0.15f, 0.77f, 0.7f, 0.2f)
+			builder.WithItem(CreateMainMenu(uiLayer));
+			builder.WithItem(new UserInterfaceBackgroundBuilder(uiLayer, "sprites/gradient", 0.15f, 0.77f, 0.7f, 0.2f)
 									.Build());
-			builder.WithItem(new UserInterfaceBalloonLabelBuilder(builder.Layer,
+			builder.WithItem(new UserInterfaceBalloonLabelBuilder(uiLayer,
 																	"""
 																	Quiero comprobar cuanto es el ancho de este elemento en la pantalla y para eso tenemos que tener un texto muy largo que se salga de la pantalla
 																	Este es un texto muy largo
@@ -74,14 +75,16 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 									.WithId("lblPrompt")
 									.Build()
 							);
+			// Añade los elementos generados a la capa
+			uiLayer.Items.AddRange(builder.Build());
 			// y devuelve la capa creada
-			return builder.Build();
+			return uiLayer;
 	}
 
 	/// <summary>
 	///		Crea el menú principal
 	/// </summary>
-	private UiMenu CreateMainMenu(UserInterfaceLayer layer)
+	private UiMenu CreateMainMenu(AbstractUserInterfaceLayer layer)
 	{
 		UserInterfaceMenuBuilder builder = new(layer, 0.1f, 0.1f, 0.5f, 0.5f);
 
@@ -97,6 +100,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 					.WithOption(2, "Update text", DefaultFont, 0.2f, 0.2f, 0.6f, 1)
 					.WithOption(3, "Music", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption(4, "Effect", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption(5, "Tiles sample", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption(40, "Quit", DefaultFont, 0.2f, 0.4f, 0.6f, 1);
 			// Guarda el menú en una variable
 			_menu = builder.Build();
@@ -120,11 +124,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 				switch (_menu.GetAndResetClickOption())
 				{
 					case 1:
-							AbstractScene? gameScene = GameEngine.Instance.SceneManager.GetScene(Games.GameScene.SceneName);
-
-								// Guarda la escena nueva
-								if (gameScene is not null)
-									nextScene = gameScene;
+							nextScene = GetNewScene(Games.GameScene.SceneName);
 						break;
 					case 2:
 							ChangeText();
@@ -135,12 +135,29 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 					case 4:
 							PlayEffect();
 						break;
+					case 5:
+							nextScene = GetNewScene(TilesSample.TilesScene.SceneName);
+						break;
 					case 40:
 							GameEngine.Instance.Exit();
 						break;
 				}
 			// Devuelve la nueva escena
 			return nextScene;
+	}
+
+	/// <summary>
+	///		Obtiene una escena
+	/// </summary>
+	private AbstractScene GetNewScene(string name)
+	{
+		AbstractScene? nextScene = GameEngine.Instance.SceneManager.GetScene(name);
+
+			// Guarda la escena nueva
+			if (nextScene is not null)
+				return nextScene;
+			else
+				return this;
 	}
 
 	/// <summary>
@@ -171,7 +188,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private void ChangeText()
 	{
-		UserInterfaceLayer? layer = LayerManager.Get<UserInterfaceLayer>("Hud");
+		AbstractUserInterfaceLayer? layer = LayerManager.Get<AbstractUserInterfaceLayer>("Hud");
 
 			if (layer is not null)
 			{

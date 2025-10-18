@@ -29,11 +29,6 @@ public abstract class AbstractCollider(CollisionComponent collision)
     protected abstract bool IsCollidingWith(AbstractCollider second);
 
     /// <summary>
-    ///    Escala un valor relativo con respecto al total
-    /// </summary>
-    protected float Scale(float relative, float total) => relative * total;
-
-    /// <summary>
     ///     Colisión
     /// </summary>
     public CollisionComponent Collision { get; } = collision;

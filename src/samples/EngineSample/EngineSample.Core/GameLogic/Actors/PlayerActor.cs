@@ -4,7 +4,6 @@ using Bau.Libraries.BauGame.Engine;
 using Bau.Libraries.BauGame.Engine.Actors;
 using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
 using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Models;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
@@ -19,12 +18,12 @@ public class PlayerActor : AbstractActor
 	private Vector2 _speed = new();
 	private HealthComponent _health;
 
-	public PlayerActor(AbstractLayer layer, int physicsPlayerLayer) : base(layer)
+	public PlayerActor(AbstractLayer layer, int physicsPlayerLayer) : base(layer, 0)
 	{
 		CollisionComponent collision = new(this, physicsPlayerLayer);
 
 			// Inicializa la colisión
-			collision.Colliders.Add(new RectangleCollider(collision, new RectangleF(0, 0, 1, 1)));
+			collision.Colliders.Add(new RectangleCollider(collision, null));
 			// Inicializa el componente de salud
 			_health = new HealthComponent(this)
 									{

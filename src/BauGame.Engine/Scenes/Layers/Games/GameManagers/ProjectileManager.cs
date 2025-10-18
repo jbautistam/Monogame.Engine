@@ -22,7 +22,7 @@ public class ProjectileManager(AbstractLayer layer)
             if (projectile is null)
             {
                 // Crea el proyectil
-                projectile = new ProjectileActor(Layer);
+                projectile = new ProjectileActor(Layer, properties.ZOrder);
                 // Añade el proyectil al pool
                 _projectiles.Add(projectile);
             }

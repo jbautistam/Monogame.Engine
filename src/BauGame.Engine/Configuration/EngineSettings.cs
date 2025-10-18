@@ -18,6 +18,11 @@ public class EngineSettings
     public bool IsDesktop = OperatingSystem.IsMacOS() || OperatingSystem.IsLinux() || OperatingSystem.IsWindows();
 
     /// <summary>
+    ///     Indica si está en modo de depuración
+    /// </summary>
+    public bool DebugMode { get; set; }
+
+    /// <summary>
     ///     Directorio raíz del contenido
     /// </summary>
     public required string ContentRoot { get; init; }

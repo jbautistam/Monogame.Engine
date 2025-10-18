@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///     Clase base para un elemento de interface de usuario
 /// </summary>
-public abstract class UiElement(UserInterfaceLayer layer, UiPosition position)
+public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition position)
 {
     /// <summary>
     ///     Cálculo del layout
@@ -36,7 +36,7 @@ public abstract class UiElement(UserInterfaceLayer layer, UiPosition position)
     /// <summary>
     ///     Manager del elemento
     /// </summary>
-    public UserInterfaceLayer Layer { get; } = layer;
+    public AbstractUserInterfaceLayer Layer { get; } = layer;
 
     /// <summary>
     ///     Identificador del elemento

@@ -29,4 +29,9 @@ public class ProjectileProperties
     ///     Daño que causa el proyectil
     /// </summary>
     public required int Damage { get; init; }
+
+    /// <summary>
+    ///     Orden de dibujo del proyectil
+    /// </summary>
+    public required int ZOrder { get; init; }
 }

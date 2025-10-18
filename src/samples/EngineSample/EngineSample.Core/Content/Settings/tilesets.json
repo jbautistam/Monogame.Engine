@@ -1,0 +1,56 @@
+﻿[
+	{
+		"Id": 1,
+		"Texture": "BlockA0",
+		"Region": "Default",
+		"IsSolid": true
+	},
+	{
+		"Id": 2,
+		"Texture": "BlockA1",
+		"Region": "Default",
+		"IsSolid": true
+	},
+	{
+		"Id": 2,
+		"Texture": "BlockA2",
+		"Region": "Default",
+		"IsSolid": true
+	},
+	{
+		"Id": 3,
+		"Texture": "BlockA3",
+		"Region": "Default",
+		"IsSolid": true
+	},
+	{
+		"Id": 4,
+		"Texture": "BlockA4",
+		"Region": "Default",
+		"IsSolid": true
+	},
+	{
+		"Id": 5,
+		"Texture": "BlockA5",
+		"Region": "Default",
+		"IsSolid": true
+	},
+	{
+		"Id": 6,
+		"Texture": "BlockB0",
+		"Region": "Default",
+		"IsSolid": true
+	},
+	{
+		"Id": 7,
+		"Texture": "BlockB1",
+		"Region": "Default",
+		"IsSolid": true
+	},
+	{
+		"Id": 8,
+		"Texture": "Platform",
+		"Region": "Default",
+		"IsSolid": true
+	}
+]

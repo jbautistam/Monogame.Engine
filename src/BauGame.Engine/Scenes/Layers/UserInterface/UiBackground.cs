@@ -7,7 +7,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///		Componente de fondo
 /// </summary>
-public class UiBackground(UserInterfaceLayer layer, UiPosition positions) : UiElement(layer, positions)
+public class UiBackground(AbstractUserInterfaceLayer layer, UiPosition positions) : UiElement(layer, positions)
 {
 	// Variables privadas
 	private bool _isInitialized;

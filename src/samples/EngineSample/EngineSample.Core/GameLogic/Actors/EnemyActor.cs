@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine.Actors;
 using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Models;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
@@ -16,12 +15,12 @@ public class EnemyActor : AbstractActor
 	// Variables privadas
 	private Vector2 _speed = new();
 
-	public EnemyActor(AbstractLayer layer, int physicsPlayerLayer) : base(layer)
+	public EnemyActor(AbstractLayer layer, int physicsPlayerLayer) : base(layer, 1)
 	{
 		CollisionComponent collision = new(this, physicsPlayerLayer);
 
 			// Configura las colisiones
-			collision.Colliders.Add(new RectangleCollider(collision, new RectangleF(0, 0, 1, 1)));
+			collision.Colliders.Add(new RectangleCollider(collision, null));
 			// Añade la colisión a los componentes
 			Components.Add(collision);
 	}

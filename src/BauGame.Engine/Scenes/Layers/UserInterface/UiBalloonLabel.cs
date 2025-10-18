@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///     Control de texto para una etiqueta
 /// </summary>
-public class UiBalloonLabel(UserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+public class UiBalloonLabel(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
 {
     // Variables privadas
     private bool _isInitialized;

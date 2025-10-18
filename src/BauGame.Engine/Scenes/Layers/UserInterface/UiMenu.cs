@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///		Componente para presentación de un menú
 /// </summary>
-public class UiMenu(UserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
 {
     // Eventos públicos
     public event EventHandler<EventArguments.OptionClickEventArgs>? Click;

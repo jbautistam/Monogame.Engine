@@ -85,6 +85,46 @@
 		{
 			"name": "sylvie-smile",
 			"asset": "images/characters/sylvie/smile"
+		},
+		{
+			"name": "BlockA0",
+			"asset": "Tiles/BlockA0"
+		},
+		{
+			"name": "BlockA1",
+			"asset": "Tiles/BlockA1"
+		},
+		{
+			"name": "BlockA2",
+			"asset": "Tiles/BlockA2"
+		},
+		{
+			"name": "BlockA3",
+			"asset": "Tiles/BlockA3"
+		},
+		{
+			"name": "BlockA4",
+			"asset": "Tiles/BlockA4"
+		},
+		{
+			"name": "BlockA5",
+			"asset": "Tiles/BlockA5"
+		},
+		{
+			"name": "BlockA6",
+			"asset": "Tiles/BlockA6"
+		},
+		{
+			"name": "BlockB0",
+			"asset": "Tiles/BlockB0"
+		},
+		{
+			"name": "BlockB1",
+			"asset": "Tiles/BlockB1"
+		},
+		{
+			"name": "Platform",
+			"asset": "Tiles/Platform"
 		}
 	],
 	"animations": [

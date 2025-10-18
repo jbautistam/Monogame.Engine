@@ -61,7 +61,7 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	private void CreateCharacters()
 	{
 		// Crea el manager de personajes
-		_characterManager = new(this);
+		_characterManager = new(this, 2);
 		// Crea los personajes
 		CreateCharacter(_characterManager, "sylvie");
 		CreateCharacter(_characterManager, "james");
@@ -90,7 +90,7 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	private void CreateParticles()
 	{
 		// Genera el actor del sistema de partículas
-		_particlesManager = new(this)
+		_particlesManager = new(this, 3)
 								{
 									Position = new Vector2(0, 0),
 									Texture = "particle",

@@ -84,6 +84,21 @@ public class RectangleF(float x, float y, float width, float height)
     }
 
     /// <summary>
+    ///     Sobrecarga el operador +
+    /// </summary>
+    public static RectangleF operator +(RectangleF? left, RectangleF? right)
+    {
+        if (left is null && right is null)
+            return new RectangleF(0, 0, 0, 0);
+        else if (left is null)
+            return right!;
+        else if (right is null)
+            return left!;
+        else
+            return new RectangleF(left.X + right.X, left.Y + right.Y, left.Width + right.Width, left.Height + right.Height);
+    }
+
+    /// <summary>
     ///     Sobrecarga el operador !=
     /// </summary>
     public static bool operator !=(RectangleF? left, RectangleF? right) => !(left == right);

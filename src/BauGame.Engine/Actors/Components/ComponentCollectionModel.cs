@@ -23,7 +23,7 @@ public class ComponentCollectionModel(AbstractActor owner) : List<AbstractCompon
 	internal void Draw(Scenes.Cameras.Camera2D camera, GameTime gameTime)
 	{
 		foreach (AbstractComponent component in this)
-			if (component.Enabled && component.Drawable)
+			if (component.Enabled && (component.Drawable || GameEngine.Instance.EngineSettings.DebugMode))
 				component.Draw(camera, gameTime);
 	}
 

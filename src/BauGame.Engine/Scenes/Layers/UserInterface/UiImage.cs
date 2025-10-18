@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///     Control para mostrar una imagen
 /// </summary>
-public class UiImage(UserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
 {
     /// <summary>
     ///     Cálculo del layout del elemento

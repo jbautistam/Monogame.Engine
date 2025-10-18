@@ -2,9 +2,7 @@
 using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 
 namespace EngineSample.Core.GameLogic.Scenes.Games;
 
@@ -21,7 +19,7 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 	public const int PhysicsNpcProjectileLayer = 4;
 
 	// Variables privadas
-	private UserInterfaceLayer? _hudLayer;
+	private Common.HudLayer? _hudLayer;
 
 	/// <summary>
 	///		Arranca la escena
@@ -29,7 +27,8 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 	protected override void StartScene()
 	{
 		// Guarda el interface de usuario Hud
-		_hudLayer = CreateHudLayer();
+		_hudLayer = new Common.HudLayer(this, "Hud", 1);
+		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
 		LayerManager.AddLayer(new GameLayer(this, SceneName, 1));
 		LayerManager.AddLayer(CreateBackgroundLayer());
@@ -64,42 +63,6 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 	}
 
 	/// <summary>
-	///		Crea la capa de HUD del interface de usuario
-	/// </summary>
-	private UserInterfaceLayer CreateHudLayer()
-	{
-		UserInterfaceBuilder builder = new(this, "Hud", 1);
-
-			// Añade la etiqueta
-			builder.WithItem(new UserInterfaceLabelBuilder(builder.Layer, "Este es el texto de la etiqueta", 0.5f, 0.5f, 1, 1)
-									.WithFont("Fonts/Hud")
-									.Build()
-							);
-			builder.WithItem(new UserInterfaceLabelBuilder(builder.Layer, "Score", 0.01f, 0.01f, 1, 1)
-									.WithFont("Fonts/Hud")
-									.WithColor(Color.Red)
-									.Build()
-							);
-			builder.WithItem(new UserInterfaceLabelBuilder(builder.Layer, "0", 0.07f, 0.01f, 1, 1)
-									.WithFont("Fonts/Hud")
-									.WithColor(Color.White)
-									.WithId("lblScore")
-									.Build()
-							);
-			builder.WithItem(new UserInterfaceLabelBuilder(builder.Layer, "Inferior", 0, 0.95f, 1, 1)
-									.WithFont("Fonts/Hud")
-									.Build()
-							);
-			builder.WithItem(new UserInterfaceLabelBuilder(builder.Layer, "Derecha", 0.7f, 0.9f, 1, 1)
-									.WithFont("Fonts/Hud")
-									.WithColor(Color.Red)
-									.Build()
-							);
-			// y devuelve la capa creada
-			return builder.Build();
-	}
-
-	/// <summary>
 	///		Actualiza la escena
 	/// </summary>
 	protected override AbstractScene? UpdateScene(GameTime gameTime)
@@ -108,27 +71,11 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 
 			// Actualiza los actores y el interface de usuario
 			LayerManager.Update(gameTime);
-			UpdateUserInterface();
 			// Sale de la partida si se ha pulsado el botón de Scape o el Back del GamePad
 			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaulQuitAction))
 				nextScene = GameEngine.Instance.SceneManager.GetScene(MainMenu.MainMenuScene.SceneName) ?? this;
 			// Devuelve la nueva escena
 			return nextScene;
-	}
-
-	/// <summary>
-	///		Actualiza el interface de usuario
-	/// </summary>
-	private void UpdateUserInterface()
-	{
-		if (_hudLayer is not null)
-		{
-			UiLabel? lblScore = _hudLayer.GetItem<UiLabel>("lblScore");
-
-				// Cambia las etiquetas
-				if (lblScore is not null)
-					lblScore.Text = "1.221";
-		}
 	}
 
 	/// <summary>

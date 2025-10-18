@@ -11,6 +11,7 @@ public class SpriteBatchController
 	// Variables privadas
 	private GraphicsDevice? _device;
 	private SpriteBatch? _spriteBatch = null;
+	private Texture2D? _whitePixel = null;
 	private bool _isDrawing = false;
 
 	/// <summary>
@@ -20,8 +21,13 @@ public class SpriteBatchController
 	{
 		if (_device is null || _spriteBatch is null)
 		{
+			// Inicia los objetos
 			_device = GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice;
 			_spriteBatch = new SpriteBatch(_device);
+			// Crea una textura de 1x1 píxel blanco
+			_whitePixel = new Texture2D(_device, 1, 1);
+			_whitePixel.SetData([ Color.White ]);
+			// Indica que aún no ha comenzado a dibujar
 			_isDrawing = false;
 		}
 	}
@@ -100,6 +106,48 @@ public class SpriteBatchController
 	{
 		if (_spriteBatch is not null)
 			_spriteBatch.DrawString(font, text, position, color);
+	}
+
+	/// <summary>
+	///		Dibuja un rectángulo sólido de un color
+	/// </summary>
+	public void DrawRectangle(Rectangle rectangle, Color color)
+	{
+		if (_whitePixel is not null && _spriteBatch is not null)
+			_spriteBatch.Draw(_whitePixel, rectangle, color);
+	}
+
+	/// <summary>
+	///		Dibuja las líneas de un rectángulo
+	/// </summary>
+	public void DrawRectangleOutline(Rectangle rectangle, Color color, int thickness = 1)
+	{
+		if (_whitePixel is not null && _spriteBatch is not null)
+		{
+			// Arriba
+			_spriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, thickness), color);
+			// Abajo
+			_spriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - thickness, rectangle.Width, thickness), color);
+			// Izquierda
+			_spriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y, thickness, rectangle.Height), color);
+			// Derecha
+			_spriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X + rectangle.Width - thickness, rectangle.Y, thickness, rectangle.Height), color);
+		}
+	}
+
+	/// <summary>
+	///		Dibuja una línea
+	/// </summary>
+	public void DrawLine(Vector2 start, Vector2 end, Color color, int thickness = 1)
+	{
+		if (_whitePixel is not null && _spriteBatch is not null)
+		{
+			Vector2 edge = end - start;
+			float angle = (float) Math.Atan2(edge.Y, edge.X);
+
+				// Dibuja la línea como un rectángulo rotado
+				_spriteBatch.Draw(_whitePixel, start, null, color, angle, Vector2.Zero, new Vector2(edge.Length(), thickness), SpriteEffects.None, 0);
+		}
 	}
 
 	/// <summary>

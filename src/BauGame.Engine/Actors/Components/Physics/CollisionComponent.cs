@@ -29,6 +29,8 @@ public class CollisionComponent(AbstractActor owner, int physicLayerId) : Abstra
 	/// </summary>
 	public override void Draw(Camera2D camera, GameTime gameTime)
 	{
+		foreach (AbstractCollider collider in Colliders)
+			camera.SpriteBatchController.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.White, 2);
 	}
 
 	/// <summary>

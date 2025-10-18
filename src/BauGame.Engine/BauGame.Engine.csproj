@@ -55,10 +55,14 @@
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceLabelBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceBuilder.cs" />
     <Compile Include="Scenes\Layers\Games\AbstractGameLayer.cs" />
+    <Compile Include="Scenes\Layers\TilesMap\MapDefinition.cs" />
+    <Compile Include="Scenes\Layers\TilesMap\AbstractTilemapLayer.cs" />
+    <Compile Include="Scenes\Layers\TilesMap\TileDefinition.cs" />
+    <Compile Include="Scenes\Layers\UserInterfaceLayer.cs" />
     <Compile Include="Scenes\Physics\CollisionSpatialGrid.cs" />
     <Compile Include="Scenes\Physics\PhysicLayersRelation.cs" />
     <Compile Include="Scenes\Physics\PhysicsManager.cs" />
-    <Compile Include="Scenes\Layers\UserInterfaceLayer.cs" />
+    <Compile Include="Scenes\Layers\AbstractUserInterfaceLayer.cs" />
     <Compile Include="Scenes\Layers\AbstractLayer.cs" />
     <Compile Include="Scenes\AbstractScene.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\ParallaxBackground.cs" />

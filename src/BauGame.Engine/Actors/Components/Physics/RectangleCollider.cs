@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 /// <summary>
 ///		Representación de un colider como rectángulo
 /// </summary>
-public class RectangleCollider(CollisionComponent collision, RectangleF relative) : AbstractCollider(collision)
+public class RectangleCollider(CollisionComponent collision, RectangleF? relative) : AbstractCollider(collision)
 {
     /// <summary>
     ///     Obtiene el rectángulo para pruebas AABB
@@ -30,17 +30,17 @@ public class RectangleCollider(CollisionComponent collision, RectangleF relative
     /// </summary>
     public RectangleF GetBounds()
     {
-        RectangleF bounds = Collision.Owner.Transform.WorldBounds;
+        RectangleF world = Collision.Owner.Transform.WorldBounds;
 
-            // Calcula el rectángulo con respecto al padre
-            return new RectangleF(bounds.X + Scale(Relative.X, bounds.Width),
-                                  bounds.Y + Scale(Relative.Y, bounds.Height),
-                                  bounds.Width + Scale(Relative.Width, bounds.Width),
-                                  bounds.Height + Scale(Relative.Height, bounds.Height));
+            if (Relative is null)
+                return new RectangleF(world.X - 0.5f * world.Width, world.Y - 0.5f * world.Width,
+                                      world.Width, world.Height);
+            else
+                return world + Relative;
     }
 
     /// <summary>
     ///     Posiciones relativas
     /// </summary>
-    public RectangleF Relative { get; } = relative;
+    public RectangleF? Relative { get; } = relative;
 }

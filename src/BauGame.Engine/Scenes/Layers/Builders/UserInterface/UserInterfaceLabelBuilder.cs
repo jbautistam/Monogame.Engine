@@ -8,7 +8,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 /// </summary>
 public class UserInterfaceLabelBuilder : AbstractElementUserInterfaceBuilder<UiLabel>
 {
-	public UserInterfaceLabelBuilder(UserInterfaceLayer layer, string text, float x, float y, float width, float height)
+	public UserInterfaceLabelBuilder(AbstractUserInterfaceLayer layer, string text, float x, float y, float width, float height)
 	{
 		Item = new UiLabel(layer, new UiPosition(x, y, width, height))
 						{

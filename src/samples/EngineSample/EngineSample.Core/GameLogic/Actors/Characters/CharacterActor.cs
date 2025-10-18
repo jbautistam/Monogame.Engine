@@ -9,7 +9,7 @@ namespace EngineSample.Core.GameLogic.Actors.Characters;
 /// <summary>
 ///		Actor de un personaje del cómic
 /// </summary>
-public class CharacterActor(CharacterManager manager) : AbstractActor(manager.Layer)
+public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActor(manager.Layer, zOrder)
 {
 	// Variables privadas
 	private CharacterActorDefinition? _actualDefinition;

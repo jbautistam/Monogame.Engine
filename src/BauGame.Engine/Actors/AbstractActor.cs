@@ -7,9 +7,10 @@ namespace Bau.Libraries.BauGame.Engine.Actors;
 /// </summary>
 public abstract class AbstractActor : Pool.IPoolable
 {
-	protected AbstractActor(Scenes.Layers.AbstractLayer layer)
+	protected AbstractActor(Scenes.Layers.AbstractLayer layer, int zOrder)
 	{
 		Layer = layer;
+		ZOrder = zOrder;
 		Transform = new Components.Transforms.TransformComponent(this);
 		PreviuosTransform = new Components.Transforms.TransformComponent(this);
 		Renderer = new Components.Renderers.RendererComponent(this);
@@ -90,6 +91,11 @@ public abstract class AbstractActor : Pool.IPoolable
 	///		Capa a la que se asocia el actor
 	/// </summary>
 	public Scenes.Layers.AbstractLayer Layer { get; }
+
+	/// <summary>
+	///		Orden de dibujo
+	/// </summary>
+	public int ZOrder { get; set; }
 
 	/// <summary>
 	///		Indica si el actor está activo

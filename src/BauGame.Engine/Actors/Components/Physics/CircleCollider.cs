@@ -34,9 +34,9 @@ public class CircleCollider(CollisionComponent collision, Circle relative) : Abs
         RectangleF bounds = Collision.Owner.Transform.WorldBounds;
 
             // Calcula el círculo con respecto al padre
-            return new Circle(new Vector2(bounds.X + Scale(Relative.Center.X, bounds.Width),
-										  bounds.Y + Scale(Relative.Center.Y, bounds.Height)),
-							  Scale(Relative.Radius, bounds.Width));
+            return new Circle(new Vector2(bounds.X + Relative.Center.X,
+										  bounds.Y + Relative.Center.Y),
+							  Relative.Radius);
 	}
 
 	/// <summary>

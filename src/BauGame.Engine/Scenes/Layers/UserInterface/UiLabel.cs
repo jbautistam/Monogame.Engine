@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///     Control de texto para una etiqueta
 /// </summary>
-public class UiLabel(UserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
 {
     /// <summary>
     ///     Alineación horizontal

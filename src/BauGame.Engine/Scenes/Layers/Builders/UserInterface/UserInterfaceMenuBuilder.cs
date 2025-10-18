@@ -8,7 +8,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 /// </summary>
 public class UserInterfaceMenuBuilder : AbstractElementUserInterfaceBuilder<UiMenu>
 {
-	public UserInterfaceMenuBuilder(UserInterfaceLayer layer, float x, float y, float width, float height)
+	public UserInterfaceMenuBuilder(AbstractUserInterfaceLayer layer, float x, float y, float width, float height)
 	{
 		Item = new UiMenu(layer, new UiPosition(x, y, width, height));
 	}

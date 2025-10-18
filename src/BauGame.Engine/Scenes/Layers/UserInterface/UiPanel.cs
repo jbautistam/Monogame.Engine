@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 /// <summary>
 ///     Componente del interface de usuario para un panel
 /// </summary>
-public class UiPanel(UserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
 {
     /// <summary>
     ///     Cálculo del layout del elemento
