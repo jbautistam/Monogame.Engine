@@ -58,7 +58,7 @@ internal class SoundManager(AudioManager audioManager) : AbstractAudioManager(au
 	/// <summary>
 	///     Actualiza el audio
 	/// </summary>
-	internal override void UpdateAudio(GameTime gameTime)
+	internal override void UpdateAudio(Managers.GameContext gameContext)
 	{
 	}
 

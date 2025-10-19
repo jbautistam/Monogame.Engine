@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Actors;
+﻿using Bau.Libraries.BauGame.Engine.Actors;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
@@ -41,42 +40,42 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
     /// <summary>
     ///     Actualiza los actores de la capa
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
         // Actualiza la capa
-        UpdateLayer(gameTime);
+        UpdateLayer(gameContext);
         // Actualiza las físicas de los actores (antes de actualizar los actores)
         foreach (AbstractActor actor in Actors)
             if (actor.Enabled)
-                actor.UpdatePhisics(gameTime);
+                actor.UpdatePhisics(gameContext);
         // Actualiza los actores
         foreach (AbstractActor actor in Actors) 
             if (actor.Enabled) 
-                actor.Update(gameTime);
+                actor.Update(gameContext);
     }
 
     /// <summary>
     ///     Actualiza la capa
     /// </summary>
-    protected abstract void UpdateLayer(GameTime gameTime);
+    protected abstract void UpdateLayer(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	public void Draw(Cameras.Camera2D camera, GameTime gameTime)
+	public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
 	{
         // Dibuja la capa
-        DrawLayer(camera, gameTime);
+        DrawLayer(camera, gameContext);
         // Dibuja los actores
         foreach (AbstractActor actor in Actors)
             if (actor.Enabled)
-                actor.Draw(camera, gameTime);
+                actor.Draw(camera, gameContext);
 	}
 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected abstract void DrawLayer(Cameras.Camera2D camera, GameTime gameTime);
+	protected abstract void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext);
 
     /// <summary>
     ///     Finaliza la capa

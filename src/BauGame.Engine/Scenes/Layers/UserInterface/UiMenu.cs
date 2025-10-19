@@ -45,23 +45,23 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(GameTime gameTime) 
+    public override void Update(Managers.GameContext gameContext) 
     {
         // Cambia la opción seleccionada
         TreatInputs();
         TreatMouse();
         // Actualiza los elementos
-        Title?.Update(gameTime);
-        HoverBackground?.Update(gameTime);
-        UnselectedBackground?.Update(gameTime);
-        SelectedBackground?.Update(gameTime);
+        Title?.Update(gameContext);
+        HoverBackground?.Update(gameContext);
+        UnselectedBackground?.Update(gameContext);
+        SelectedBackground?.Update(gameContext);
         // Calcula los límites de los elementos hijo
         for (int index = 0; index < Options.Count; index++)
             if (Options[index].Visible)
             {
                 Options[index].Color = GetColor(index);
                 Options[index].Background = GetBackground(index);
-                Options[index].Update(gameTime);
+                Options[index].Update(gameContext);
             }
     }
 
@@ -71,14 +71,14 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     private void TreatInputs()
     {
         // Pasa a la opción anterior
-        if (GameEngine.Instance.InputManager.KeyboardManager.JustPressed(Microsoft.Xna.Framework.Input.Keys.Up))
+        if (GameEngine.Instance.InputManager.IsAction(Managers.Input.InputMappings.DefaultActionUp, Managers.Input.InputMappings.Status.JustPressed))
         {
             _selectedOption--;
             if (_selectedOption < 0)
                 _selectedOption = Options.Count - 1;
         }
         // Pasa a la siguiente opción
-        if (GameEngine.Instance.InputManager.KeyboardManager.JustPressed(Microsoft.Xna.Framework.Input.Keys.Down))
+        if (GameEngine.Instance.InputManager.IsAction(Managers.Input.InputMappings.DefaultActionDown, Managers.Input.InputMappings.Status.JustPressed))
         {
             _selectedOption++;
             if (_selectedOption > Options.Count - 1)
@@ -135,15 +135,15 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public override void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         // Dibuja el título, borde y fondo
-        Title?.Draw(camera, gameTime);
-        Background?.Draw(camera, gameTime);
+        Title?.Draw(camera, gameContext);
+        Background?.Draw(camera, gameContext);
         // Dibuja los elementos hijo
         foreach (UiElement child in Options)
             if (child.Visible)
-                child.Draw(camera, gameTime);
+                child.Draw(camera, gameContext);
     }
 
     /// <summary>

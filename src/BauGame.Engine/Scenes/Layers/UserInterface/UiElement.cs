@@ -26,12 +26,12 @@ public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition pos
     /// <summary>
     ///     Actualiza el contenido
     /// </summary>
-    public abstract void Update(GameTime gameTime);
+    public abstract void Update(Managers.GameContext gameContext);
 
     /// <summary>
     ///     Dibuja el elemento
     /// </summary>
-    public abstract void Draw(Cameras.Camera2D camera, GameTime gameTime);
+    public abstract void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext);
 
     /// <summary>
     ///     Manager del elemento

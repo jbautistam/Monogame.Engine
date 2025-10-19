@@ -10,28 +10,28 @@ public class InputManager
     /// <summary>
     ///     Actualiza el estado
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(GameContext gameContext)
     {
-        KeyboardManager.Update(gameTime);
-        MouseManager.Update(gameTime);
-        GamePadManager.Update(gameTime);
+        KeyboardManager.Update(gameContext);
+        MouseManager.Update(gameContext);
+        GamePadManager.Update(gameContext);
     }
 
     /// <summary>
     ///     Comprueba si se ha cumplido una acción
     /// </summary>
-    public bool IsAction(string action) => IsAction(action, PlayerIndex.One);
+    public bool IsAction(string action, InputMappings.Status? status = null) => IsAction(action, PlayerIndex.One, status);
 
     /// <summary>
     ///     Comprueba si se ha cumplido una acción
     /// </summary>
-    public bool IsAction(string action, PlayerIndex playerIndex)
+    public bool IsAction(string action, PlayerIndex playerIndex, InputMappings.Status? status = null)
     {
         InputMappings? mapping = Mappings.FirstOrDefault(item => item.Name.Equals(action, StringComparison.CurrentCultureIgnoreCase) && item.Enabled);
 
             // Comprueba si se ha ejecutado la acción
             if (mapping is not null)
-                return mapping.Check(this, playerIndex);
+                return mapping.Check(this, playerIndex, status);
             // Si ha llegado hasta aquí es porque no ha encontrado nada
             return false;
     }

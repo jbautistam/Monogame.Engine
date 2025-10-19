@@ -49,14 +49,14 @@ public class TilesPlayerLayer(AbstractScene scene, string name, int sortOrder) :
 	/// <summary>
 	///		Actualiza la capa (los actores se actualizan por separado)
 	/// </summary>
-	protected override void UpdateGameLayer(GameTime gameTime)
+	protected override void UpdateGameLayer(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawGameLayer(Camera2D camera, GameTime gameTime)
+	protected override void DrawGameLayer(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
 	}

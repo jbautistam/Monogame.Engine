@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Actors.Components;
+﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components;
 
 /// <summary>
 ///		Colección de componentes
@@ -10,21 +8,21 @@ public class ComponentCollectionModel(AbstractActor owner) : List<AbstractCompon
 	/// <summary>
 	///		Actualiza los componentes
 	/// </summary>
-	public void Update(GameTime gameTime)
+	public void Update(Managers.GameContext gameContext)
 	{
 		foreach (AbstractComponent component in this)
 			if (component.Enabled)
-				component.Update(gameTime);
+				component.Update(gameContext);
 	}
 
 	/// <summary>
 	///		Dibuja los componentes
 	/// </summary>
-	internal void Draw(Scenes.Cameras.Camera2D camera, GameTime gameTime)
+	internal void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
 	{
 		foreach (AbstractComponent component in this)
 			if (component.Enabled && (component.Drawable || GameEngine.Instance.EngineSettings.DebugMode))
-				component.Draw(camera, gameTime);
+				component.Draw(camera, gameContext);
 	}
 
     /// <summary>

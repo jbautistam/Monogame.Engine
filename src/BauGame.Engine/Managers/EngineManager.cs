@@ -31,8 +31,22 @@ public class EngineManager
 	/// </summary>
 	public void Update(GameTime gameTime)
 	{
-		InputManager.Update(gameTime);
-        SceneManager.Update(gameTime);
+        // Actualiza el contexto de la partida
+        GameContext.Update(gameTime);
+        // Actualiza los datos
+		InputManager.Update(GameContext);
+        SceneManager.Update(GameContext);
+	}
+
+	/// <summary>
+	///		Dibuja los datos del motor
+	/// </summary>
+	public void Draw(GameTime gameTime)
+	{
+        // Actualiza el contexto de la partida
+        GameContext.Update(gameTime);
+        // Actualiza los datos
+        SceneManager.Draw(GameContext);
 	}
 
     /// <summary>
@@ -77,4 +91,9 @@ public class EngineManager
     ///     Manager de escenas
     /// </summary>
     public Scenes.SceneManager SceneManager { get; }
+
+    /// <summary>
+    ///     Contexto de la partida
+    /// </summary>
+    public GameContext GameContext { get; } = new();
 }

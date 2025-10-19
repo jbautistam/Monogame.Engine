@@ -23,7 +23,7 @@ public class UiBalloonLabel(AbstractUserInterfaceLayer layer, UiPosition positio
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(GameTime gameTime) 
+    public override void Update(Managers.GameContext gameContext) 
     {
         // Inicializa el contenido
         if (!_isInitialized)
@@ -35,7 +35,7 @@ public class UiBalloonLabel(AbstractUserInterfaceLayer layer, UiPosition positio
             _isInitialized = true;
         }
         // Añade texto al texto mostrado
-        _elapsed += (float) gameTime.ElapsedGameTime.TotalSeconds;
+        _elapsed += gameContext.DeltaTime;
         if (!string.IsNullOrWhiteSpace(Text) && _showText.Length != Text.Length && _elapsed > Speed)
         {
             // Añade el siguiente carácter
@@ -48,7 +48,7 @@ public class UiBalloonLabel(AbstractUserInterfaceLayer layer, UiPosition positio
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public override void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         if (!string.IsNullOrEmpty(_showText) && SpriteFont is not null)
             DrawWrappedText(camera, _showText, SpriteFont);

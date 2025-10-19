@@ -49,7 +49,7 @@ public class UiButton : UiElement
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(GameTime gameTime)
+    public override void Update(Managers.GameContext gameContext)
     {
         if (Enabled)
         {
@@ -75,23 +75,23 @@ public class UiButton : UiElement
                         Click?.Invoke(this, EventArgs.Empty);
                 }
                 // Actualiza los elementos
-                Label?.Update(gameTime);
-                Background?.Update(gameTime);
-                HoverBackground?.Update(gameTime);
-                PressedBackground?.Update(gameTime);
-                SelectedBackground?.Update(gameTime);
+                Label?.Update(gameContext);
+                Background?.Update(gameContext);
+                HoverBackground?.Update(gameContext);
+                PressedBackground?.Update(gameContext);
+                SelectedBackground?.Update(gameContext);
         }
     }
 
     /// <summary>
     ///     Dibuja el contenido del elemento
     /// </summary>
-    public override void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public override void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         // Dibujar textura de fondo si existe
-        GetBackground(State)?.Draw(camera, gameTime);
+        GetBackground(State)?.Draw(camera, gameContext);
         // Dibuja el texto
-        Label?.Draw(camera, gameTime);
+        Label?.Draw(camera, gameContext);
 
         // Obtiene el fondo adecuado
         UiBackground? GetBackground(ButtonState state)

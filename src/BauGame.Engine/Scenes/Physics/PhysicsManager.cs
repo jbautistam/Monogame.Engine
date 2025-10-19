@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
 
 /// <summary>
 ///		Managers de físicas
@@ -16,7 +14,7 @@ public class PhysicsManager
 	/// <summary>
 	///		Actualiza los datos de físicas
 	/// </summary>
-	public void Update(GameTime gameTime)
+	public void Update(Managers.GameContext gameContext)
 	{
 	}
 

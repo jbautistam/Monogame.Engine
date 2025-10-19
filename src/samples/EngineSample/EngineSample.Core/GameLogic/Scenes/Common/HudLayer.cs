@@ -50,7 +50,7 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 	/// <summary>
 	///		Actualiza el interface de usuario
 	/// </summary>
-	protected override void UpdateUserInterface(GameTime gameTime)
+	protected override void UpdateUserInterface(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		UiLabel? lblScore = GetItem<UiLabel>("lblScore");
 

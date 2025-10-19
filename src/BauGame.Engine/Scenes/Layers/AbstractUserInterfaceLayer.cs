@@ -12,20 +12,20 @@ public abstract class AbstractUserInterfaceLayer(AbstractScene scene, string nam
 	/// <summary>
 	///		Actualiza el interface de usuario de la capa
 	/// </summary>
-	protected override void UpdateLayer(GameTime gameTime)
+	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
         if (Enabled && Scene.Camera is not null)
         {
             Rectangle viewportBounds = new(0, 0, Scene.Camera.ScreenViewport.Width, Scene.Camera.ScreenViewport.Height);
 
                 // Actualiza el interface de usuario (antes de actualizar los elementos)
-                UpdateUserInterface(gameTime);
+                UpdateUserInterface(gameContext);
                 // Actualizar layout de elementos raíz
                 foreach (UiElement element in Items)
                     if (element.Visible)
                     {
                         element.ComputeScreenBounds(viewportBounds);
-                        element.Update(gameTime);
+                        element.Update(gameContext);
                     }
         }
 	}
@@ -33,17 +33,17 @@ public abstract class AbstractUserInterfaceLayer(AbstractScene scene, string nam
     /// <summary>
     ///     Actualiza el interface de usuario
     /// </summary>
-    protected abstract void UpdateUserInterface(GameTime gameTime);
+    protected abstract void UpdateUserInterface(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Dibuja el interface de usuario sobre la capa
 	/// </summary>
-	protected override void DrawLayer(Cameras.Camera2D camera, GameTime gameTime)
+	protected override void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext)
 	{
         if (Enabled)
             foreach (UiElement element in Items)
                 if (element.Visible)
-                    element.Draw(camera, gameTime);
+                    element.Draw(camera, gameContext);
 	}
 
     /// <summary>

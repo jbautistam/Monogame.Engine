@@ -11,9 +11,9 @@ public class MoveCharacterAction : AbstractCharacterAction
 	/// <summary>
 	///		Actualiza la acción de mostrar
 	/// </summary>
-	protected override bool UpdateAction(CharacterActor actor, float elapsed, GameTime gameTime)
+	protected override bool UpdateAction(CharacterActor actor, float elapsed, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
-		TweenResult<Vector2> tweenPosition = TweenCalculator.CalculateVector2(elapsed + (float) gameTime.ElapsedGameTime.TotalSeconds, Duration,
+		TweenResult<Vector2> tweenPosition = TweenCalculator.CalculateVector2(elapsed + gameContext.DeltaTime, Duration,
 																			  ActorStartPosition, EndPosition);
 
 			// Cambia la posición del actor

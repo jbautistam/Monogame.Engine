@@ -99,6 +99,14 @@ public class RectangleF(float x, float y, float width, float height)
     }
 
     /// <summary>
+    ///     Sobrecarga el operador +
+    /// </summary>
+    public static RectangleF operator +(RectangleF rectangle, Vector2 vector)
+    {
+        return new RectangleF(rectangle.X + vector.X, rectangle.Y + vector.Y, rectangle.Width, rectangle.Height);
+    }
+
+    /// <summary>
     ///     Sobrecarga el operador !=
     /// </summary>
     public static bool operator !=(RectangleF? left, RectangleF? right) => !(left == right);

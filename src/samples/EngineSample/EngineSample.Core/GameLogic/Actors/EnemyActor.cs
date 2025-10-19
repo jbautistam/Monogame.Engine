@@ -36,7 +36,7 @@ public class EnemyActor : AbstractActor
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected override void UpdateActor(GameTime gameTime)
+	protected override void UpdateActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		// Mueve el enemigo a la izquierda / derecha
 		if (Transform.WorldBounds.X < 0)
@@ -52,7 +52,7 @@ public class EnemyActor : AbstractActor
 			_speed = new Vector2(-1 * Velocity, 0);
 		}
 		// Coloca el jugador
-		Transform.WorldBounds.Translate(_speed * (float) gameTime.ElapsedGameTime.TotalSeconds);
+		Transform.WorldBounds.Translate(_speed * gameContext.DeltaTime);
 		// Asigna la animación
 		if (_speed.X == 0 && _speed.Y == 0)
 			Renderer.StartAnimation("monsterA-idle", "monsterA-idle-animation", false);
@@ -68,7 +68,7 @@ public class EnemyActor : AbstractActor
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, GameTime gameTime)
+	protected override void DrawActor(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 

@@ -1,6 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
-using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
 
@@ -41,7 +40,7 @@ internal class AnimatorComponent
 	/// <summary>
 	///		Actualiza el estado del componente
 	/// </summary>
-	internal void Update(GameTime gameTime)
+	internal void Update(Managers.GameContext gameContext)
 	{
 		if (_actualAnimation is null)
 			_frame = null;
@@ -53,7 +52,7 @@ internal class AnimatorComponent
 			if (_frame is not null)
 			{
 				// Añade el tiempo pasado
-				_elapsed += (float) gameTime.ElapsedGameTime.TotalSeconds;
+				_elapsed += gameContext.DeltaTime;
 				// Pasa al siguiente frame
 				if (_elapsed >= _frame.time)
 				{

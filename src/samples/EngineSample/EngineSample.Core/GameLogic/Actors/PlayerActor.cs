@@ -51,7 +51,7 @@ public class PlayerActor : AbstractActor
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected override void UpdateActor(GameTime gameTime)
+	protected override void UpdateActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		List<AbstractCollider> colliders = Layer.Scene.PhysicsManager.CollisionSpatialGrid.GetPotentialColliders(this);
 
@@ -69,16 +69,16 @@ public class PlayerActor : AbstractActor
 			// Inicializa la velocidad
 			_speed = new Vector2();
 			// Mueve el jugador con el teclado
-			if (GameEngine.Instance.InputManager.KeyboardManager.IsPressed(Microsoft.Xna.Framework.Input.Keys.Up))
+			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionUp))
 				_speed.Y = -Velocity;
-			if (GameEngine.Instance.InputManager.KeyboardManager.IsPressed(Microsoft.Xna.Framework.Input.Keys.Down))
+			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionDown))
 				_speed.Y = Velocity;
-			if (GameEngine.Instance.InputManager.KeyboardManager.IsPressed(Microsoft.Xna.Framework.Input.Keys.Left))
+			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionLeft))
 				_speed.X = -Velocity;
-			if (GameEngine.Instance.InputManager.KeyboardManager.IsPressed(Microsoft.Xna.Framework.Input.Keys.Right))
+			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionRight))
 				_speed.X = Velocity;
 			// Coloca el jugador
-			Transform.WorldBounds.Translate(_speed * (float) gameTime.ElapsedGameTime.TotalSeconds);
+			Transform.WorldBounds.Translate(_speed * gameContext.DeltaTime);
 			// Normaliza la posición
 			Transform.WorldBounds.Clamp(Layer.Scene.WorldBounds);
 			// Asigna la animación
@@ -96,7 +96,7 @@ public class PlayerActor : AbstractActor
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, GameTime gameTime)
+	protected override void DrawActor(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 

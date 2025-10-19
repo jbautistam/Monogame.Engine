@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Actors;
+﻿using Bau.Libraries.BauGame.Engine.Actors;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
@@ -43,20 +42,20 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActor(l
 	/// <summary>
 	///		Actualiza los personajes
 	/// </summary>
-	protected override void UpdateActor(GameTime gameTime)
+	protected override void UpdateActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		foreach (CharacterActor character in Characters.Items.Values)
-			character.Update(gameTime);
+			character.Update(gameContext);
 	}
 
 	/// <summary>
 	///		Dibuja los personajes
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, GameTime gameTime)
+	protected override void DrawActor(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		foreach (CharacterActor character in Characters.Items.Values)
 			if (character.Enabled)
-				character.Draw(camera, gameTime);
+				character.Draw(camera, gameContext);
 	}
 
 	/// <summary>

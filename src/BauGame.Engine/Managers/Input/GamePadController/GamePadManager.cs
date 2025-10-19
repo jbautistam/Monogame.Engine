@@ -38,7 +38,7 @@ public class GamePadManager
     /// <summary>
     ///     Actualiza el estado
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(GameContext gameContext)
     {
         if (!_initialized)
         {
@@ -53,7 +53,7 @@ public class GamePadManager
             _previous.Add(current.Clone());
         // Obtiene las teclas pulsadas actualmente
         foreach (GamePadStatus current in _current)
-            current.Update(gameTime);
+            current.Update(gameContext);
     }
 
     /// <summary>

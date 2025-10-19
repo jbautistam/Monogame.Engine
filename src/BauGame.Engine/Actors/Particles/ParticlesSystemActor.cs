@@ -71,16 +71,16 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int zOrder)
     /// <summary>
     ///     Actualiza el actor
     /// </summary>
-	protected override void UpdateActor(GameTime gameTime)
+	protected override void UpdateActor(Managers.GameContext gameContext)
 	{
         foreach (Particle particle in _particles.Enumerate())
-            particle.Update(gameTime);
+            particle.Update(gameContext);
 	}
 
     /// <summary>
     ///     Dibuja las partículas activas y sus colas correspondientes
     /// </summary>
-	protected override void DrawActor(Camera2D camera, GameTime gameTime)
+	protected override void DrawActor(Camera2D camera, Managers.GameContext gameContext)
     {
         TextureRegion? region = _texture?.GetRegion(Region);
 

@@ -6,12 +6,18 @@ namespace Bau.Libraries.BauGame.Engine.Managers.Input;
 /// <summary>
 ///     Mapeo de entradas a acciones
 /// </summary>
-public class InputMappings(string name)
+public class InputMappings(string name, bool checkAll)
 {
     // Constantes públicas
     public const string DefaultIntroAction = "Intro";
     public const string DefaultMouseClickAction = "MouseClick";
     public const string DefaulQuitAction = "Quit";
+	public const string DefaultActionUp = "Up";
+	public const string DefaultActionDown = "Down";
+	public const string DefaultActionLeft = "Left";
+	public const string DefaultActionRight = "Right";
+	public const string DefaultActionShoot = "Shoot";
+
     /// <summary>
     ///     Estado que se comprueba
     /// </summary>
@@ -28,18 +34,21 @@ public class InputMappings(string name)
     /// <summary>
     ///     Comprueba la acción con las diferentes teclas y botones
     /// </summary>
-	public bool Check(InputManager manager, PlayerIndex playerIndex) => Enabled && CheckKeys(manager) || CheckMouse(manager) || CheckGamePad(playerIndex, manager);
+	public bool Check(InputManager manager, PlayerIndex playerIndex, Status? status = null) 
+    {
+        return Enabled && CheckKeys(manager, status) || CheckMouse(manager) || CheckGamePad(playerIndex, manager);
+    }
 
     /// <summary>
     ///     Comprueba las teclas definidas en la acción
     /// </summary>
-    private bool CheckKeys(InputManager manager)
+    private bool CheckKeys(InputManager manager, Status? statusSearched = null)
     {
         int keyChecked = 0;
 
             // Comprueba el estado de las teclas del mapeo
             foreach ((Status status, Keys key) in KeyboardKeys)
-                switch (status)
+                switch (GetStatus(status, statusSearched))
                 {
                     case Status.Pressed:
                             if (manager.KeyboardManager.IsPressed(key))
@@ -54,20 +63,20 @@ public class InputMappings(string name)
                                 keyChecked++;
                         break;
                 }
-            // Devuelve el valor que indica que todas las teclas están pulsadas
-            return KeyboardKeys.Count > 0 && keyChecked == KeyboardKeys.Count;
+            // Devuelve el valor que indica si las teclas están pulsadas
+            return IsChecked(KeyboardKeys.Count, keyChecked); // 
     }
 
-    /// <summary>
-    ///     Comprueba los botones del ratón definidos en la acción
-    /// </summary>
-    private bool CheckMouse(InputManager manager)
+	/// <summary>
+	///     Comprueba los botones del ratón definidos en la acción
+	/// </summary>
+	private bool CheckMouse(InputManager manager, Status? statusSearched = null)
     {
         int keyChecked = 0;
 
             // Comprueba el estado de los botones del ratón del mapeo
             foreach ((Status status, MouseController.MouseStatus.MouseButton button) in MouseButtons)
-                switch (status)
+                switch (GetStatus(status, statusSearched))
                 {
                     case Status.Pressed:
                             if (manager.MouseManager.IsPressed(button))
@@ -83,19 +92,19 @@ public class InputMappings(string name)
                         break;
                 }
             // Devuelve el valor que indica que todos los botones del ratón están pulsados
-            return MouseButtons.Count > 0 && keyChecked == MouseButtons.Count;
+            return IsChecked(MouseButtons.Count, keyChecked);
     }
 
     /// <summary>
     ///     Comprueba los botones del gamepad definidos en la acción
     /// </summary>
-    private bool CheckGamePad(PlayerIndex playerIndex, InputManager manager)
+    private bool CheckGamePad(PlayerIndex playerIndex, InputManager manager, Status? statusSearched = null)
     {
         int keyChecked = 0;
 
             // Comprueba el estado de los botones del gamepad del mapeo
             foreach ((Status status, Buttons button) in GamepadButtons)
-                switch (status)
+                switch (GetStatus(status, statusSearched))
                 {
                     case Status.Pressed:
                             if (manager.GamePadManager.IsPressed(playerIndex, button))
@@ -111,13 +120,31 @@ public class InputMappings(string name)
                         break;
                 }
             // Devuelve el valor que indica que todos los botones del ratón están pulsados
-            return GamepadButtons.Count > 0 && keyChecked == GamepadButtons.Count;
+            return IsChecked(GamepadButtons.Count, keyChecked);
     }
+
+    /// <summary>
+    ///     Obtiene el estado buscando dándole preferencia al estado pasado al método
+    /// </summary>
+	private Status GetStatus(Status status, Status? statusSearched) => statusSearched ?? status;
+
+    /// <summary>
+    ///     Comprueba si se cumple una acción con las teclas mapeadas
+    /// </summary>
+	private bool IsChecked(int numberDefined, int numberActive)
+	{
+		return numberDefined > 0 && ((CheckAll && numberDefined == numberActive) || (!CheckAll && numberActive > 0));
+	}
 
     /// <summary>
     ///     Nombre del mapeo
     /// </summary>
     public string Name { get; } = name;
+
+    /// <summary>
+    ///     Indica si se deben comprobar todos los botones combinados o no
+    /// </summary>
+    public bool CheckAll { get; set; } = checkAll;
 
     /// <summary>
     ///     Teclas asociadas al mapeo

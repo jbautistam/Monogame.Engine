@@ -31,17 +31,17 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 	/// <summary>
 	///		Actualiza las físicas
 	/// </summary>
-	public override void UpdatePhysics(GameTime gameTime) {}
+	public override void UpdatePhysics(Managers.GameContext gameContext) {}
 
 	/// <summary>
 	///		Actualiza el componente
 	/// </summary>
-	public override void Update(GameTime gameTime)
+	public override void Update(Managers.GameContext gameContext)
 	{
 		if (_invulnerability > 0)
 		{
 			// Disminuye el tiempo de invulnerabilidad
-			_invulnerability -= (float) gameTime.ElapsedGameTime.TotalSeconds;
+			_invulnerability -= gameContext.DeltaTime;
 			// Si ha terminado la invulnerabilidad se elimina el efecto
 			if (_invulnerability <= 0 && InvulnerabilityEffect is not null)
 				InvulnerabilityEffect.Stop();
@@ -51,7 +51,7 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 	/// <summary>
 	///		Dibuja el compoente (no hace nada, sólo implementa el interface)
 	/// </summary>
-	public override void Draw(Camera2D camera, GameTime gameTime)
+	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
 	{
 	}
 

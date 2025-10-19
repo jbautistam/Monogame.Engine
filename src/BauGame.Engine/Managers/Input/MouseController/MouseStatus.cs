@@ -47,7 +47,7 @@ public class MouseStatus
     /// <summary>
     ///     Actualiza el estado
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(GameContext gameContext)
     {
         MouseState state = Mouse.GetState();
 

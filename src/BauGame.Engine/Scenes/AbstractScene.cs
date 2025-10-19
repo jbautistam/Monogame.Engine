@@ -27,27 +27,27 @@ public abstract class AbstractScene
     /// <summary>
     ///     Actualiza la escena
     /// </summary>
-    public AbstractScene? Update(GameTime gameTime)
+    public AbstractScene? Update(Managers.GameContext gameContext)
     {   
         // Actualiza los datos de la escena
-        AudioManager.Update(gameTime);
-        PhysicsManager.Update(gameTime);
+        AudioManager.Update(gameContext);
+        PhysicsManager.Update(gameContext);
         // Actualiza la escena
-        return UpdateScene(gameTime);
+        return UpdateScene(gameContext);
     }
 
     /// <summary>
     ///     Actualiza la escena
     /// </summary>
-    protected abstract AbstractScene? UpdateScene(GameTime gameTime);
+    protected abstract AbstractScene? UpdateScene(Managers.GameContext gameContext);
 
     /// <summary>
     ///     Dibuja la escena
     /// </summary>
-    public void Draw(GameTime gameTime)
+    public void Draw(Managers.GameContext gameContext)
     {
         if (Camera is not null)
-            LayerManager.Draw(Camera, gameTime);
+            LayerManager.Draw(Camera, gameContext);
     }
 
     /// <summary>
@@ -56,8 +56,7 @@ public abstract class AbstractScene
     public void Start()
     {
         // Inicializa la cámara
-        Camera = new Cameras.Camera2D(GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport);
-        Camera.WorldBounds = WorldBounds;
+        Camera = new Cameras.Camera2D(this, GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport);
         // Arranca la escena
         StartScene();
     }

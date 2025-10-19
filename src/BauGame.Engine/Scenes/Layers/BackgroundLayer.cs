@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
 /// <summary>
 ///		Layer de fondo
@@ -19,21 +17,21 @@ public class BackgroundLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// <summary>
 	///		Actualiza la capa
 	/// </summary>
-	protected override void UpdateLayer(GameTime gameTime)
+	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
 		foreach (Backgrounds.AbstractBackground background in BackgroundLayers)
 			if (background.Visible)
-				background.UpdateLayer(gameTime);
+				background.UpdateLayer(gameContext);
 	}
 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected override void DrawLayer(Cameras.Camera2D camera, GameTime gameTime)
+	protected override void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext)
 	{
 		foreach (Backgrounds.AbstractBackground background in BackgroundLayers)
 			if (background.Visible)
-				background.DrawLayer(camera, gameTime);
+				background.DrawLayer(camera, gameContext);
 	}
 
 	/// <summary>

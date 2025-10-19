@@ -14,7 +14,7 @@ public abstract class AbstractCharacterAction
 	/// <summary>
 	///		Actualiza la acción
 	/// </summary>
-	public bool Update(CharacterActor actor, GameTime gameTime)
+	public bool Update(CharacterActor actor, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		// Obtiene los valores iniciales del actor
 		if (_isFirst)
@@ -26,15 +26,15 @@ public abstract class AbstractCharacterAction
 			_isFirst = false;
 		}
 		// Incrementa el tiempo pasado
-		_elapsed += (float) gameTime.ElapsedGameTime.TotalSeconds;
+		_elapsed += gameContext.DeltaTime;
 		// Actualiza la acción
-		return UpdateAction(actor, _elapsed, gameTime);
+		return UpdateAction(actor, _elapsed, gameContext);
 	}
 
 	/// <summary>
 	///		Actualiza la acción
 	/// </summary>
-	protected abstract bool UpdateAction(CharacterActor actor, float elapsed, GameTime gameTime);
+	protected abstract bool UpdateAction(CharacterActor actor, float elapsed, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Posición inicial del personaje

@@ -35,19 +35,19 @@ public class ProjectileManager(AbstractLayer layer)
     /// <summary>
     ///     Actualiza los proyectiles
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
         foreach (ProjectileActor projectile in _projectiles.Enumerate())
-            projectile.Update(gameTime);
+            projectile.Update(gameContext);
     }
 
     /// <summary>
     ///     Dibuja los proyectiles
     /// </summary>
-    public void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         foreach (ProjectileActor projectile in _projectiles.Enumerate())
-            projectile.Draw(camera, gameTime);
+            projectile.Draw(camera, gameContext);
     }
 
     /// <summary>

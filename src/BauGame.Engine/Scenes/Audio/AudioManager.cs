@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Scenes.Audio;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Audio;
 
 /// <summary>
 ///     Manager de audio
@@ -37,10 +35,10 @@ public class AudioManager
     /// <summary>
     ///     Actualiza el audio
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
-        SoundManager.Update(gameTime);
-        MusicManager.Update(gameTime);
+        SoundManager.Update(gameContext);
+        MusicManager.Update(gameContext);
     }
 
     /// <summary>

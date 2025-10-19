@@ -14,9 +14,9 @@ public class Particle : Pool.IPoolable
     /// <summary>
     ///     Modifica el estado de la partícula
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
-        float elapsedTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
+        float elapsedTime = gameContext.DeltaTime;
         float dragFactor = Math.Max(1 - (elapsedTime * DragPerSecond), 0);
 
             // Inicializa la velocidad

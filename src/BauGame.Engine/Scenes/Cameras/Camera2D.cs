@@ -13,11 +13,11 @@ public class Camera2D
     private Viewport _screenViewport;
     private Matrix? _transformMatrix, _inverseMatrix;
     private Vector2 _position, _origin;
-    private Rectangle _worldBounds = new();
     private float _rotation, _zoom;
 
-    public Camera2D(Viewport viewport)
+    public Camera2D(AbstractScene scene, Viewport viewport)
     {
+        Scene = scene;
         ScreenViewport = viewport;
         Zoom = 1.0f;
         Origin = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
@@ -146,8 +146,8 @@ public class Camera2D
         float viewWidth = maxViewRadius * 2;
         float viewHeight = maxViewRadius * 2;
         */
-        float clampedX = MathHelper.Clamp(point.X, WorldBounds.X + viewWidth, WorldBounds.Width - viewWidth);
-        float clampedY = MathHelper.Clamp(point.Y, WorldBounds.Y + viewHeight, WorldBounds.Height - viewHeight);
+        float clampedX = MathHelper.Clamp(point.X, Scene.WorldBounds.X + viewWidth, Scene.WorldBounds.Width - viewWidth);
+        float clampedY = MathHelper.Clamp(point.Y, Scene.WorldBounds.Y + viewHeight, Scene.WorldBounds.Height - viewHeight);
 
             // Devuelve el vector limitado
             return new Vector2(clampedX, clampedY);
@@ -196,6 +196,11 @@ public class Camera2D
     {
         SpriteBatchController.End();
     }
+
+    /// <summary>
+    ///     Escena a la que se asocia la cámara
+    /// </summary>
+    public AbstractScene Scene { get; }
 
 	/// <summary>
 	///     Posición de la cámara
@@ -246,19 +251,6 @@ public class Camera2D
         {
             _zoom = value;
             _transformMatrix = null;
-        }
-    }
-
-    /// <summary>
-    ///     Viewport del mundo
-    /// </summary>
-    public Rectangle WorldBounds 
-    { 
-        get { return _worldBounds; }
-        set
-        {
-            _worldBounds = value;
-            Position = Clamp(Position);
         }
     }
 

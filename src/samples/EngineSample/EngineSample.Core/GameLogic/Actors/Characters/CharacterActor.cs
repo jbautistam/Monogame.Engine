@@ -31,12 +31,12 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected override void UpdateActor(GameTime gameTime)
+	protected override void UpdateActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		// Ejecuta las acciones
 		if (Actions.Count > 0)
 		{
-			bool end = Actions[0].Update(this, gameTime);
+			bool end = Actions[0].Update(this, gameContext);
 
 				// Si se ha terminado la acción, la elimina de la lista
 				if (end)
@@ -54,7 +54,7 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, GameTime gameTime)
+	protected override void DrawActor(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 /*
 		if (_actualDefinition is not null)

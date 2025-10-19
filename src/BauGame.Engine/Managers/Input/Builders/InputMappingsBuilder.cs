@@ -11,10 +11,10 @@ public class InputMappingsBuilder
 	/// <summary>
 	///		Añade una acción
 	/// </summary>
-	public InputMappingsBuilder WithAction(string action)
+	public InputMappingsBuilder WithAction(string action, bool checkAll)
 	{
 		// Añade el mapeo
-		Mappings.Add(new InputMappings(action));
+		Mappings.Add(new InputMappings(action, checkAll));
 		// Devuelve el generador
 		return this;
 	}

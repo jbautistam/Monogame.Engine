@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
 /// <summary>
 ///     Manager para las capas de una escena
@@ -33,30 +31,30 @@ public class LayerManager(AbstractScene scene)
     /// <summary>
     ///     Actualiza los datos de la capa
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
         foreach (AbstractLayer layer in Layers) 
             if (layer.Enabled)
-                layer.Update(gameTime);
+                layer.Update(gameContext);
     }
 
     /// <summary>
     ///     Dibuja las capas
     /// </summary>
-    public void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
 		// Comienza el dibujo
         camera.BeginDrawWorld();
         // Dibuja las capas de fondo / partida
         foreach (AbstractLayer layer in Layers)
             if (layer.Enabled && layer.Type != AbstractLayer.LayerType.UserInterface)
-                layer.Draw(camera, gameTime);
+                layer.Draw(camera, gameContext);
 		// Comienza el dibujo de la interface de usuario
         camera.BeginDrawUI();
         // Dibuja las capas de fondo / partida
         foreach (AbstractLayer layer in Layers)
             if (layer.Enabled && layer.Type == AbstractLayer.LayerType.UserInterface)
-                layer.Draw(camera, gameTime);
+                layer.Draw(camera, gameContext);
 		// Finaliza el dibujo
         camera.EndDraw();
     }

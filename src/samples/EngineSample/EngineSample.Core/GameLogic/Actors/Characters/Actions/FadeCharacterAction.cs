@@ -11,9 +11,9 @@ public class FadeCharacterAction : AbstractCharacterAction
 	/// <summary>
 	///		Actualiza la acción de mostrar
 	/// </summary>
-	protected override bool UpdateAction(CharacterActor actor, float elapsed, GameTime gameTime)
+	protected override bool UpdateAction(CharacterActor actor, float elapsed, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
-		TweenResult<float> tweenOpacity = TweenCalculator.CalculateFloat(elapsed + (float) gameTime.ElapsedGameTime.TotalSeconds, Duration,
+		TweenResult<float> tweenOpacity = TweenCalculator.CalculateFloat(elapsed + gameContext.DeltaTime, Duration,
 																		 ActorStartOpacity, EndOpacity);
 
 			// Cambia los estados del actor

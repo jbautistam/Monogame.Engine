@@ -12,14 +12,14 @@ public class ParallaxBackground(string texture, int sortOrder) : AbstractBackgro
     /// <summary>
     ///     Actualiza la capa de fondo
     /// </summary>
-	public override void UpdateLayer(GameTime gameTime)
+	public override void UpdateLayer(Managers.GameContext gameContext)
 	{
 	}
 
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    public override void DrawLayer(Camera2D camera, GameTime gameTime)
+    public override void DrawLayer(Camera2D camera, Managers.GameContext gameContext)
     {
         TextureRegion? region = GetTextureRegion("background");
 

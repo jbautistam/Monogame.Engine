@@ -1,5 +1,4 @@
 ﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 
@@ -31,36 +30,36 @@ public abstract class AbstractGameLayer : AbstractLayer
 	/// <summary>
 	///		Actualiza la capa (los actores se actualizan por separado)
 	/// </summary>
-	protected override void UpdateLayer(GameTime gameTime)
+	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
 		// Actualiza los datos de los managers
-		ProjectileManager.Update(gameTime);
-		ExplosionsManager.Update(gameTime);
+		ProjectileManager.Update(gameContext);
+		ExplosionsManager.Update(gameContext);
 		// Actualiza la capa de la partida
-		UpdateGameLayer(gameTime);
+		UpdateGameLayer(gameContext);
 	}
 
 	/// <summary>
 	///		Actualiza los datos particulares de la capa de juego
 	/// </summary>
-	protected abstract void UpdateGameLayer(GameTime gameTime);
+	protected abstract void UpdateGameLayer(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawLayer(Camera2D camera, GameTime gameTime)
+	protected override void DrawLayer(Camera2D camera, Managers.GameContext gameContext)
 	{
 		// Dibuja los datos de los managers
-		ProjectileManager.Draw(camera, gameTime);
-		ExplosionsManager.Draw(camera, gameTime);
+		ProjectileManager.Draw(camera, gameContext);
+		ExplosionsManager.Draw(camera, gameContext);
 		// Dibuja la capa de partida
-		DrawGameLayer(camera, gameTime);
+		DrawGameLayer(camera, gameContext);
 	}
 
 	/// <summary>
 	///		Dibuja los datos de la partida
 	/// </summary>
-	protected abstract void DrawGameLayer(Camera2D camera, GameTime gameTime);
+	protected abstract void DrawGameLayer(Camera2D camera, Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza la capa

@@ -20,7 +20,7 @@ public class UiBackground(AbstractUserInterfaceLayer layer, UiPosition positions
 	/// <summary>
 	///		Actualiza el control
 	/// </summary>
-	public override void Update(GameTime gameTime)
+	public override void Update(Managers.GameContext gameContext)
 	{
         if (!_isInitialized)
         {
@@ -35,7 +35,7 @@ public class UiBackground(AbstractUserInterfaceLayer layer, UiPosition positions
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, GameTime gameTime)
+	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
 	{
 		if (Texture2D is not null)
 			camera.SpriteBatchController.Draw(Texture2D, Position.ScreenPaddedBounds, Color * Opacity);

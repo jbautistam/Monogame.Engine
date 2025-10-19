@@ -36,12 +36,12 @@ public abstract class AbstractBackground(string texture, int sortOrder)
 	/// <summary>
 	///		Actualiza la capa (los actores se actualizan por separado)
 	/// </summary>
-	public abstract void UpdateLayer(GameTime gameTime);
+	public abstract void UpdateLayer(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	public abstract void DrawLayer(Cameras.Camera2D camera, GameTime gameTime);
+	public abstract void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza la capa

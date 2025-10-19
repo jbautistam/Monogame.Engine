@@ -90,37 +90,35 @@ internal class MusicManager(AudioManager audioManager) : AbstractAudioManager(au
     /// <summary>
     ///     Actualiza la música
     /// </summary>
-    internal override void UpdateAudio(GameTime gameTime)
+    internal override void UpdateAudio(Managers.GameContext gameContext)
     {
         if (_isFading)
         {
-            float delta = (float) gameTime.ElapsedGameTime.TotalSeconds * fadeSpeed;
+            if (_currentVolume < _targetVolume)
+                _currentVolume = MathHelper.Min(_currentVolume + gameContext.DeltaTime, _targetVolume);
+            else if (_currentVolume > _targetVolume)
+                _currentVolume = MathHelper.Max(_currentVolume - gameContext.DeltaTime, _targetVolume);
 
-                if (_currentVolume < _targetVolume)
-                    _currentVolume = MathHelper.Min(_currentVolume + delta, _targetVolume);
-                else if (_currentVolume > _targetVolume)
-                    _currentVolume = MathHelper.Max(_currentVolume - delta, _targetVolume);
+            MediaPlayer.Volume = _currentVolume;
 
+            // Si estamos bajando el volumen para cambiar de canción
+            if (_nextSong != null && _currentVolume <= 0.01f)
+            {
+                _currentSong = _nextSong;
+                _nextSong = null;
+                MediaPlayer.Play(_currentSong);
+                _targetVolume = ActualVolume;
+                _currentVolume = 0f;
+                // Continuar fade-in
+            }
+
+            // Si el fade ha terminado
+            if (MathHelper.Distance(_currentVolume, _targetVolume) < 0.01f)
+            {
+                _currentVolume = _targetVolume;
                 MediaPlayer.Volume = _currentVolume;
-
-                // Si estamos bajando el volumen para cambiar de canción
-                if (_nextSong != null && _currentVolume <= 0.01f)
-                {
-                    _currentSong = _nextSong;
-                    _nextSong = null;
-                    MediaPlayer.Play(_currentSong);
-                    _targetVolume = ActualVolume;
-                    _currentVolume = 0f;
-                    // Continuar fade-in
-                }
-
-                // Si el fade ha terminado
-                if (MathHelper.Distance(_currentVolume, _targetVolume) < 0.01f)
-                {
-                    _currentVolume = _targetVolume;
-                    MediaPlayer.Volume = _currentVolume;
-                    _isFading = false;
-                }
+                _isFading = false;
+            }
         }
     }
 

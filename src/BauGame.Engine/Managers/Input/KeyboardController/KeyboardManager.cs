@@ -15,12 +15,12 @@ public class KeyboardManager
     /// <summary>
     ///     Actualiza el estado
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(GameContext gameContext)
     {
         // Clona el estado actual sobre el previo
         _previous = _current.Clone();
         // Obtiene las teclas pulsadas actualmente
-        _current.Update(gameTime);
+        _current.Update(gameContext);
     }
 
     /// <summary>

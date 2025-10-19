@@ -15,7 +15,7 @@ public class BlinkRendererEffect(RendererComponent renderer, float? duration) : 
 	/// <summary>
 	///		Actualiza el color
 	/// </summary>
-	public override void UpdateEffect(GameTime gameTime)
+	public override void UpdateEffect(Managers.GameContext gameContext)
 	{
 		// Obtiene el color inicial de la representación
 		if (_rendererColor is null)
@@ -24,7 +24,7 @@ public class BlinkRendererEffect(RendererComponent renderer, float? duration) : 
 		if (Colors.Count > 0)
 		{
 			// Añade el tiempo pasado
-			_elapsedTime += (float) gameTime.ElapsedGameTime.TotalSeconds;
+			_elapsedTime += gameContext.DeltaTime;
 			// Comprueba si debe cambiar de color
 			if (_elapsedTime > TimeBetweenColor)
 			{

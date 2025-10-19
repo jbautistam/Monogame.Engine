@@ -110,12 +110,12 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// <summary>
 	///		Actualiza la escena
 	/// </summary>
-	protected override AbstractScene? UpdateScene(GameTime gameTime)
+	protected override AbstractScene? UpdateScene(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		AbstractScene nextScene = this;
 
 			// Actualiza los actores
-			LayerManager.Update(gameTime);
+			LayerManager.Update(gameContext);
 			// Sale del juego si se ha pulsado el botón de Scape
 			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaulQuitAction))
 				GameEngine.Instance.Exit();

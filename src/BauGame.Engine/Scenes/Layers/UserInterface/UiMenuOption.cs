@@ -22,7 +22,7 @@ public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position,
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(GameTime gameTime) 
+    public override void Update(Managers.GameContext gameContext) 
     {
         if (!_isInitialized)
         {
@@ -32,14 +32,14 @@ public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position,
             // Indica que ya está inicializado
             _isInitialized = true;
             // Actualiza el contenido
-            Background?.Update(gameTime);
+            Background?.Update(gameContext);
         }
     }
 
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public override void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         if (!string.IsNullOrEmpty(Text) && SpriteFont is not null)
         {
@@ -49,7 +49,7 @@ public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position,
 
                 // Dibuja la textura de fondo si existe
                 Background?.ComputeScreenBounds(Position.ScreenBounds);
-                Background?.Draw(camera, gameTime);
+                Background?.Draw(camera, gameContext);
                 // Dibuja el texto
                 camera.SpriteBatchController.DrawString(SpriteFont, Text, textPosition, Color * Opacity);
         }

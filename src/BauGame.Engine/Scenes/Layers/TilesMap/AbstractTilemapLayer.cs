@@ -11,14 +11,14 @@ public abstract class AbstractTilemapLayer(AbstractScene scene, string name, int
 	/// <summary>
 	///		Actualiza los datos de la capa
 	/// </summary>
-	protected override void UpdateLayer(GameTime gameTime)
+	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
 	}
 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected override void DrawLayer(Camera2D camera, GameTime gameTime)
+	protected override void DrawLayer(Camera2D camera, Managers.GameContext gameContext)
 	{
         if (Map.TileWidth > 0 && Map.TileHeight > 0)
         {

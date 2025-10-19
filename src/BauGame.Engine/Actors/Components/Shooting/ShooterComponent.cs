@@ -11,16 +11,16 @@ public class ShooterComponent(AbstractActor owner) : AbstractComponent(owner, fa
     /// <summary>
     ///     Actualiza las físicas (no hace nada, simplemente implementa la interface)
     /// </summary>
-	public override void UpdatePhysics(GameTime gameTime)
+	public override void UpdatePhysics(Managers.GameContext gameContext)
 	{
 	}
 
     /// <summary>
     ///     Actualiza el componente
     /// </summary>
-	public override void Update(GameTime gameTime)
+	public override void Update(Managers.GameContext gameContext)
 	{
-        CurrentWeapon?.Update(gameTime);
+        CurrentWeapon?.Update(gameContext);
 	}
 
     /// <summary>
@@ -53,7 +53,7 @@ public class ShooterComponent(AbstractActor owner) : AbstractComponent(owner, fa
     /// <summary>
     ///     Dibuja el componente (no hace nada, simplemente implementa la interface)
     /// </summary>
-	public override void Draw(Camera2D camera, GameTime gameTime)
+	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
 	{
 	}
 

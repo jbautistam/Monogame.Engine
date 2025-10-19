@@ -16,12 +16,12 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(GameTime gameTime) {}
+    public override void Update(Managers.GameContext gameContext) {}
 
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public override void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         if (Texture is not null)
         {

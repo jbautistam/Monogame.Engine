@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
+﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
 
 /// <summary>
 ///		Efectos asociados al dibujo
@@ -13,15 +11,15 @@ public abstract class AbstractRendererEffect(RendererComponent renderer, float? 
 	/// <summary>
 	///		Actualiza el efecto
 	/// </summary>
-	public void Update(GameTime gameTime)
+	public void Update(Managers.GameContext gameContext)
 	{
 		// Actualiza el efecto
-		UpdateEffect(gameTime);
+		UpdateEffect(gameContext);
 		// Detiene el efecto si ha superado la duración
 		if (Duration is not null)
 		{
 			// Incrementa el tiempo pasado
-			_ellapsed += (float) gameTime.ElapsedGameTime.TotalSeconds;
+			_ellapsed += gameContext.DeltaTime;
 			// Detiene el efecto
 			if (_ellapsed > Duration)
 				Stop();
@@ -31,7 +29,7 @@ public abstract class AbstractRendererEffect(RendererComponent renderer, float? 
 	/// <summary>
 	///		Actualiza el efecto
 	/// </summary>
-	public abstract void UpdateEffect(GameTime gameTime);
+	public abstract void UpdateEffect(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Detiene el efecto

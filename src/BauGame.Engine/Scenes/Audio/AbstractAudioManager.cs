@@ -13,15 +13,15 @@ internal abstract class AbstractAudioManager(AudioManager audioManager)
 	/// <summary>
 	///		Actualiza el audio
 	/// </summary>
-	internal void Update(GameTime gameTime)
+	internal void Update(Managers.GameContext gameContext)
 	{
-		UpdateAudio(gameTime);
+		UpdateAudio(gameContext);
 	}
 
 	/// <summary>
 	///		Actualiza los datos de audio
 	/// </summary>
-	internal abstract void UpdateAudio(GameTime gameTime);
+	internal abstract void UpdateAudio(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Manager principal de audio

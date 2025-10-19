@@ -69,12 +69,24 @@ public class EngineSampleGame : Game
 		InputMappingsBuilder builder = new();
 
 			// Genera los mapeos
-			builder.WithAction(InputMappings.DefaultIntroAction)
+			builder.WithAction(InputMappings.DefaultIntroAction, true)
 						.WithKeyboard(InputMappings.Status.JustPressed, Keys.Enter)
-				   .WithAction(InputMappings.DefaultMouseClickAction)
+				   .WithAction(InputMappings.DefaultMouseClickAction, true)
 						.WithMouse(InputMappings.Status.JustPressed, Bau.Libraries.BauGame.Engine.Managers.Input.MouseController.MouseStatus.MouseButton.Left)
-				   .WithAction(InputMappings.DefaulQuitAction)
-						.WithKeyboard(InputMappings.Status.JustPressed, Keys.Escape);
+				   .WithAction(InputMappings.DefaulQuitAction, true)
+						.WithKeyboard(InputMappings.Status.JustPressed, Keys.Escape)
+				   .WithAction(InputMappings.DefaultActionUp, false)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.Up)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.NumPad8)
+				   .WithAction(InputMappings.DefaultActionDown, false)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.Down)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.NumPad2)
+				   .WithAction(InputMappings.DefaultActionLeft, false)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.Left)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.NumPad4)
+				   .WithAction(InputMappings.DefaultActionRight, false)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.Right)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.NumPad6);
 			// Añade los mapeos al sistema
 			inputManager.Mappings.AddRange(builder.Build());
 	}
@@ -96,7 +108,7 @@ public class EngineSampleGame : Game
 	protected override void Draw(GameTime gameTime)
 	{
 		// Dibuja la escena actual
-		GameEngine.Instance.SceneManager.Draw(gameTime);
+		GameEngine.Instance.Draw(gameTime);
 		// Llama al método base de dibujo
 		base.Draw(gameTime);
 	}

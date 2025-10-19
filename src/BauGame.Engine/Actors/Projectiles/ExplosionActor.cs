@@ -44,12 +44,12 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     /// <summary>
     ///     Actualiza el actor
     /// </summary>
-	protected override void UpdateActor(GameTime gameTime)
+	protected override void UpdateActor(Managers.GameContext gameContext)
 	{
         if (Enabled)
         {
             // Incrementa el tiempo y calcula el progreso
-            _currentTime += (float) gameTime.ElapsedGameTime.TotalSeconds;
+            _currentTime += gameContext.DeltaTime;
             // Cambia la opacidad
             Renderer.Opacity = 1f - MathHelper.Clamp(_currentTime / Duration, 0f, 1f);
             // Finaliza la explosión
@@ -61,7 +61,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     /// <summary>
     ///     Dibuja el actor
     /// </summary>
-	protected override void DrawActor(Camera2D camera, GameTime gameTime)
+	protected override void DrawActor(Camera2D camera, Managers.GameContext gameContext)
 	{
 		// ... en este caso no hace nada
 	}

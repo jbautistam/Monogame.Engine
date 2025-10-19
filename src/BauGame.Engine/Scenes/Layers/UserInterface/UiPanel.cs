@@ -23,20 +23,20 @@ public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(GameTime gameTime) {}
+    public override void Update(Managers.GameContext gameContext) {}
 
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public override void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         // Dibuja el borde y el fondo
-        Border?.Draw(camera, gameTime);
-        Background?.Draw(camera, gameTime);
+        Border?.Draw(camera, gameContext);
+        Background?.Draw(camera, gameContext);
         // Dibuja los elementos hijo
         foreach (UiElement child in Children)
             if (child.Visible)
-                child.Draw(camera, gameTime);
+                child.Draw(camera, gameContext);
     }
 
     /// <summary>

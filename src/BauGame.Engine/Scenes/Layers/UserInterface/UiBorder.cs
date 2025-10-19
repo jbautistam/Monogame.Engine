@@ -16,14 +16,14 @@ public class UiBorder(AbstractUserInterfaceLayer layer, UiPosition positions) : 
 	/// <summary>
 	///		Actualiza el control
 	/// </summary>
-	public override void Update(GameTime gameTime)
+	public override void Update(Managers.GameContext gameContext)
 	{
 	}
 
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, GameTime gameTime)
+	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
 	{
 	}
 

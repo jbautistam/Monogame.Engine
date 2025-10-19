@@ -18,15 +18,15 @@ public class RendererComponent(AbstractActor actor)
 	/// <summary>
 	///		Arranca la carga de los datos de la definición
 	/// </summary>
-	public void Update(GameTime gameTime)
+	public void Update(Managers.GameContext gameContext)
 	{
 		// Actualiza la textura
 		LoadTexture();
 		// Actualiza la animación
-		Animator.Update(gameTime);
+		Animator.Update(gameContext);
 		// Actualiza los efectos
 		foreach (Effects.AbstractRendererEffect effect in Effects)
-			effect.Update(gameTime);
+			effect.Update(gameContext);
 	}
 
 	/// <summary>
@@ -72,7 +72,7 @@ public class RendererComponent(AbstractActor actor)
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-    public void Draw(Scenes.Cameras.Camera2D camera, GameTime gameTime)
+    public void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
 		TextureRegion? region = GetRegion(Region);
 

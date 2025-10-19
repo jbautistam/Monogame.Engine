@@ -1,11 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
+﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
 
 /// <summary>
 ///		Efecto de cambio de transparrencia
 /// </summary>
-public class TransparencyEffect(RendererComponent renderer, float? duration) : AbstractRendererEffect(renderer, duration)
+public class OpacityEffect(RendererComponent renderer, float? duration) : AbstractRendererEffect(renderer, duration)
 {
 	// Variables privadas
 	private float? _rendererOpacity;
@@ -14,7 +12,7 @@ public class TransparencyEffect(RendererComponent renderer, float? duration) : A
 	/// <summary>
 	///		Actualiza la opacidad
 	/// </summary>
-	public override void UpdateEffect(GameTime gameTime)
+	public override void UpdateEffect(Managers.GameContext gameContext)
 	{
 		Tools.Tween.TweenResult<float> result = Tools.Tween.TweenCalculator.CalculateFloat(_elapsedTime, Time, Start, End, GetEasing());
 
@@ -24,7 +22,7 @@ public class TransparencyEffect(RendererComponent renderer, float? duration) : A
 			// Cambia la opacidad del componente
 			Renderer.Opacity = result.Value;
 			// Añade el tiempo pasado
-			_elapsedTime += (float) gameTime.ElapsedGameTime.TotalSeconds;
+			_elapsedTime += gameContext.DeltaTime;
 			// Si se ha llegado al final, cambia el inicio y fin
 			if (result.IsComplete)
 			{

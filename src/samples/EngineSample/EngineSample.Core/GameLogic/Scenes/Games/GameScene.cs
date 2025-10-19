@@ -65,12 +65,12 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 	/// <summary>
 	///		Actualiza la escena
 	/// </summary>
-	protected override AbstractScene? UpdateScene(GameTime gameTime)
+	protected override AbstractScene? UpdateScene(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		AbstractScene nextScene = this;
 
 			// Actualiza los actores y el interface de usuario
-			LayerManager.Update(gameTime);
+			LayerManager.Update(gameContext);
 			// Sale de la partida si se ha pulsado el botón de Scape o el Back del GamePad
 			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaulQuitAction))
 				nextScene = GameEngine.Instance.SceneManager.GetScene(MainMenu.MainMenuScene.SceneName) ?? this;

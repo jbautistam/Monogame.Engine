@@ -35,25 +35,27 @@ public class ExplosionsManager(AbstractLayer layer)
     /// <summary>
     ///     Actualiza las explosiones
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
         foreach (ExplosionActor explosion in _explossions.Enumerate())
-            explosion.Update(gameTime);
+            explosion.Update(gameContext);
     }
 
     /// <summary>
     ///     Dibuja las explosiones
     /// </summary>
-    public void Draw(Cameras.Camera2D camera, GameTime gameTime)
+    public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         foreach (ExplosionActor explosion in _explossions.Enumerate())
-            explosion.Draw(camera, gameTime);
+            explosion.Draw(camera, gameContext);
     }
 
-    // Verificar colisiones con entidades
+    /// <summary>
+    ///     Verifica las colisiones con entidades
+    /// </summary>
     public List<ExplosionCollision> CheckCollisions(IEnumerable<Rectangle> targets)
     {
-        var collisions = new List<ExplosionCollision>();
+        List<ExplosionCollision> collisions = [];
         
         foreach (var explosion in _explossions.Enumerate())
         {
@@ -93,10 +95,9 @@ public class ExplosionsManager(AbstractLayer layer)
     /// <summary>
     ///     Verifica las colisiones con puntos específicos
     /// </summary>
-    /// <returns></returns>
     public List<ExplosionCollision> CheckCollisions(IEnumerable<Vector2> targetPositions)
     {
-        var collisions = new List<ExplosionCollision>();
+        List<ExplosionCollision> collisions = [];
        
 /*
         foreach (var explosion in ActiveExplosions.Where(e => e.IsActive))

@@ -10,17 +10,17 @@ public abstract class AbstractComponent(AbstractActor owner, bool isDrawable)
 	/// <summary>
 	///		Actualiza los datos del componente para las físicas (si es necesario)
 	/// </summary>
-	public abstract void UpdatePhysics(GameTime gameTime);
+	public abstract void UpdatePhysics(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Actualiza los datos del componente
 	/// </summary>
-	public abstract void Update(GameTime gameTime);
+	public abstract void Update(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Dibuja los datos del componente
 	/// </summary>
-	public abstract void Draw(Scenes.Cameras.Camera2D camera, GameTime gameTime);
+	public abstract void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza el trabajo con el componente

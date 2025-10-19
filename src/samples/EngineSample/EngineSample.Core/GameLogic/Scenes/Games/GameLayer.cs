@@ -103,15 +103,15 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	/// <summary>
 	///		Actualiza la capa (los actores se actualizan por separado)
 	/// </summary>
-	protected override void UpdateGameLayer(GameTime gameTime)
+	protected override void UpdateGameLayer(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
-		TreatInputs(gameTime);
+		TreatInputs(gameContext);
 	}
 
 	/// <summary>
 	///		Trata las entradas
 	/// </summary>
-	private void TreatInputs(GameTime gameTime)
+	private void TreatInputs(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		// Crea los personajes y sus acciones
 		if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.S))
@@ -243,7 +243,7 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawGameLayer(Camera2D camera, GameTime gameTime)
+	protected override void DrawGameLayer(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
 	}

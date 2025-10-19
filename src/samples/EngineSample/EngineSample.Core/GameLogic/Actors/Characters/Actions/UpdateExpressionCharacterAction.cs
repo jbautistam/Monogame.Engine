@@ -10,7 +10,7 @@ public class UpdateExpressionCharacterAction : AbstractCharacterAction
 	/// <summary>
 	///		Actualiza el personaje
 	/// </summary>
-	protected override bool UpdateAction(CharacterActor actor, float elapsed, GameTime gameTime)
+	protected override bool UpdateAction(CharacterActor actor, float elapsed, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		// Cambia la definición del personaje
 		actor.SetDefinition(DefinitionId);

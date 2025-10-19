@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Scenes;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes;
 
 /// <summary>
 ///     Manager de escenas
@@ -58,9 +56,9 @@ public class SceneManager
     /// <summary>
     ///     Actualiza la escena
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
-        AbstractScene? nextScene = _currentScene?.Update(gameTime);
+        AbstractScene? nextScene = _currentScene?.Update(gameContext);
 
             // Cambia la escena
             if (nextScene != _currentScene)
@@ -73,10 +71,10 @@ public class SceneManager
     /// <summary>
     ///     Dibuja la escena
     /// </summary>
-    public void Draw(GameTime gameTime)
+    public void Draw(Managers.GameContext gameContext)
     {
         if (_currentScene is not null)
-            _currentScene.Draw(gameTime);
+            _currentScene.Draw(gameContext);
         //if (TransitionManager.IsTransitioning)
         //{
         //    spriteBatch.Begin();

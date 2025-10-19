@@ -18,12 +18,12 @@ public class Weapon(string name)
     /// <summary>
     ///     Actualiza los datos del arma
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
         if (IsReloading)
         {
             // Incrementa el temporizador de recarga
-            _reloadTimer += (float) gameTime.ElapsedGameTime.TotalSeconds;
+            _reloadTimer += gameContext.DeltaTime;
             // Detiene la recarga
             if (_reloadTimer >= ReloadTime)
             {
@@ -43,7 +43,7 @@ public class Weapon(string name)
             }
         }
         else
-            _timeSinceLastShot += (float) gameTime.ElapsedGameTime.TotalSeconds;
+            _timeSinceLastShot += gameContext.DeltaTime;
     }
 
     /// <summary>

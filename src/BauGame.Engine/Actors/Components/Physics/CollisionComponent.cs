@@ -11,7 +11,7 @@ public class CollisionComponent(AbstractActor owner, int physicLayerId) : Abstra
 	/// <summary>
 	///		Actualiza el componente para sus físicas
 	/// </summary>
-	public override void UpdatePhysics(GameTime gameTime)
+	public override void UpdatePhysics(Managers.GameContext gameContext)
 	{
         if (Colliders.Count > 0 && Owner.PreviuosTransform != Owner.Transform)
             Owner.Layer.Scene.PhysicsManager.CollisionSpatialGrid.Add(Owner);
@@ -20,14 +20,14 @@ public class CollisionComponent(AbstractActor owner, int physicLayerId) : Abstra
 	/// <summary>
 	///		Actualiza el componente
 	/// </summary>
-	public override void Update(GameTime gameTime)
+	public override void Update(Managers.GameContext gameContext)
 	{
 	}
 
 	/// <summary>
 	///		Dibuja el componente
 	/// </summary>
-	public override void Draw(Camera2D camera, GameTime gameTime)
+	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
 	{
 		foreach (AbstractCollider collider in Colliders)
 			switch (collider)

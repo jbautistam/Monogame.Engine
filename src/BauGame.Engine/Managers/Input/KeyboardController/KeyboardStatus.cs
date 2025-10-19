@@ -29,7 +29,7 @@ public class KeyboardStatus
     /// <summary>
     ///     Actualiza el estado
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(GameContext gameContext)
     {
         // Limpia las teclas pulsadas la última vez
         PressedKeys.Clear();

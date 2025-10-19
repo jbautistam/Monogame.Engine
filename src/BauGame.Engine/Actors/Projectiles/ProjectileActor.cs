@@ -56,14 +56,14 @@ public class ProjectileActor(AbstractLayer layer, int zOrder) : AbstractActor(la
     /// <summary>
     ///     Actualiza los datos del proyectil
     /// </summary>
-    protected override void UpdateActor(GameTime gameTime)
+    protected override void UpdateActor(Managers.GameContext gameContext)
     {
         if (Enabled && Properties is not null)
         {
             Vector2 previousPosition = Transform.WorldBounds.TopLeft;
         
                 // Actualizar posición
-                Transform.WorldBounds.Translate(Velocity * (float) gameTime.ElapsedGameTime.TotalSeconds);
+                Transform.WorldBounds.Translate(Velocity * gameContext.DeltaTime);
                 // Calcula la distancia recorrida en este frame
                 CurrentDistance += Vector2.Distance(previousPosition, Transform.WorldBounds.TopLeft);
                 // Comprueba si se superó la distancia máxima
@@ -108,7 +108,7 @@ public class ProjectileActor(AbstractLayer layer, int zOrder) : AbstractActor(la
     /// <summary>
     ///     Dibuja datos adicionales del actor
     /// </summary>
-    protected override void DrawActor(Scenes.Cameras.Camera2D camera, GameTime gameTime)
+    protected override void DrawActor(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         // ... no hace nada, sólo implementa la interface
     }

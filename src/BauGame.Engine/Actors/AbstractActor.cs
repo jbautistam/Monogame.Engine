@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Actors;
+﻿namespace Bau.Libraries.BauGame.Engine.Actors;
 
 /// <summary>
 ///		Clase abstracta para la definición de actores
@@ -25,50 +23,50 @@ public abstract class AbstractActor : Pool.IPoolable
 	/// <summary>
 	///		Actualiza las físicas
 	/// </summary>
-    public void UpdatePhisics(GameTime gameTime)
+    public void UpdatePhisics(Managers.GameContext gameContext)
     {
 		// Actualiza el tamaño del actor a partir del tamaño de la textura
 		Transform.WorldBounds.Resize(Renderer.GetSize());
 		// Actualiza las físicas
 		foreach (Components.AbstractComponent component in Components)
-			component.UpdatePhysics(gameTime);
+			component.UpdatePhysics(gameContext);
     }
 
 	/// <summary>
 	///		Actualiza el actor y sus componentes
 	/// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(Managers.GameContext gameContext)
     {
 		// Guarda la transformación actual (actes de actualizar la transformación en el Update)
 		PreviuosTransform = Transform.Clone();
 		// Primero actualiza el actor
-		UpdateActor(gameTime);
+		UpdateActor(gameContext);
 		// y después los componentes
-		Renderer.Update(gameTime);
-		Components.Update(gameTime);
+		Renderer.Update(gameContext);
+		Components.Update(gameContext);
     }
 
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected abstract void UpdateActor(GameTime gameTime);
+	protected abstract void UpdateActor(Managers.GameContext gameContext);
     
 	/// <summary>
 	///		Dibuja el actor y los componentes
 	/// </summary>
-    public void Draw(Scenes.Cameras.Camera2D camera, GameTime gameTime)
+    public void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
 		// Dibuja la textura y los componentes
-		Renderer.Draw(camera, gameTime);
-		Components.Draw(camera, gameTime);
+		Renderer.Draw(camera, gameContext);
+		Components.Draw(camera, gameContext);
 		// Llama al actor para que se dibuje si es necesario
-		DrawActor(camera, gameTime);
+		DrawActor(camera, gameContext);
     }
 
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected abstract void DrawActor(Scenes.Cameras.Camera2D camera, GameTime gameTime);
+	protected abstract void DrawActor(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza el trabajo con el actor

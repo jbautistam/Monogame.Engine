@@ -29,7 +29,7 @@ public class GamePadStatus(PlayerIndex playerIndex)
     /// <summary>
     ///     Actualiza el estado
     /// </summary>
-    public void Update(GameTime gameTime)
+    public void Update(GameContext gameContext)
     {
         List<Buttons> buttons = [
                                   Buttons.A, Buttons.B, Buttons.X, Buttons.Y,
