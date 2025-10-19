@@ -97,7 +97,7 @@ public class RendererComponent(AbstractActor actor)
 	/// </summary>
 	private TextureRegion? GetRegion(string? region)
 	{
-		if (string.IsNullOrWhiteSpace(region) || _textureSprite is null)
+		if (_textureSprite is null)
 			return null;
 		else if (Animator.IsPlaying)
 			return Animator.GetTexture(_textureSprite);

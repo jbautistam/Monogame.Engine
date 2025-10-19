@@ -14,7 +14,7 @@ public class TextureAtlas(TextureManager textureManager, string id, string asset
     /// <summary>
     ///     Obtiene una región
     /// </summary>
-	public override TextureRegion? GetRegion(string name)
+	public override TextureRegion? GetRegion(string? name)
 	{
         // Crea las regiones
         if (!_initialized)
@@ -25,7 +25,7 @@ public class TextureAtlas(TextureManager textureManager, string id, string asset
             _initialized = true;
         }
         // Devuelve la región
-        return Regions.Get(name);
+        return Regions.Get(NormalizeName(name));
 	}
 
     /// <summary>

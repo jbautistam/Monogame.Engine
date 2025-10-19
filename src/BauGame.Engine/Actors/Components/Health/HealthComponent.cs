@@ -1,5 +1,4 @@
 ﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.Health;
 
@@ -20,11 +19,18 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 		{
 			// Aplica el daño
 			ActualHealth -= damage;
-			// Inicia el tiempo de vulnerabilidad
-			_invulnerability = InvulnerabilityTime;
-			// Aplica el efecto de invulnerabilidad
-			if (InvulnerabilityEffect is not null)
-				Owner.Renderer.Effects.Add(InvulnerabilityEffect);
+			// Comprueba si ha perdido una vida
+			if (ActualHealth <= 0)
+				Lives--;
+			// Si aún tiene vida
+			if (!IsDead)
+			{
+				// Inicia el tiempo de vulnerabilidad
+				_invulnerability = InvulnerabilityTime;
+				// Aplica el efecto de invulnerabilidad
+				if (InvulnerabilityEffect is not null)
+					Owner.Renderer.Effects.Add(InvulnerabilityEffect);
+			}
 		}
 	}
 
@@ -65,7 +71,7 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 	/// <summary>
 	///		Número de vidas inicial
 	/// </summary>
-	public required int Lives { get; init; }
+	public int Lives { get; set; } = 3;
 
 	/// <summary>
 	///		Salud inicial
@@ -86,4 +92,9 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 	///		Efecto de invulnerabilidad
 	/// </summary>
 	public Renderers.Effects.AbstractRendererEffect? InvulnerabilityEffect { get; set; }
+
+	/// <summary>
+	///		Indica si el jugador ha muerto
+	/// </summary>
+	public bool IsDead => Lives < 0;
 }

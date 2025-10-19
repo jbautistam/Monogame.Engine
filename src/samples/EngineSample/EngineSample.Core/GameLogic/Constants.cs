@@ -6,4 +6,5 @@
 internal class Constants
 {
 	// Constantes de las acciones
+	internal const string InputShootAction = nameof(InputShootAction);
 }

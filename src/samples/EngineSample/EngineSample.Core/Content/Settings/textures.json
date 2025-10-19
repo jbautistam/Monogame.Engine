@@ -125,7 +125,12 @@
 		{
 			"name": "Platform",
 			"asset": "Tiles/Platform"
+		},
+		{
+			"name": "Gem",
+			"asset": "Sprites/Gem"
 		}
+
 	],
 	"animations": [
 		{

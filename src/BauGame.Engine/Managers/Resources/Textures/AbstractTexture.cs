@@ -29,7 +29,18 @@ public abstract class AbstractTexture(TextureManager textureManager, string id, 
 	/// <summary>
 	///		Obtiene la <see cref="TextureRegion"/> asociada a un nombre
 	/// </summary>
-	public abstract TextureRegion? GetRegion(string name);
+	public abstract TextureRegion? GetRegion(string? name);
+
+    /// <summary>
+    ///     Normaliza una cadena con el valor predeterminado
+    /// </summary>
+	protected string NormalizeName(string? name)
+	{
+        if (string.IsNullOrWhiteSpace(name))
+            return "Default";
+        else
+            return name;
+	}
 
 	/// <summary>
 	///		Manager del motor

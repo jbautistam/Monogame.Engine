@@ -83,10 +83,10 @@ public class WeaponBuilder
     /// <summary>
     ///     Crea una pistola
     /// </summary>
-    public WeaponBuilder WithPistol(string texture, string region, int zOrder)
+    public WeaponBuilder WithPistol(string name, string texture, string region, int zOrder)
     {
         // Crea la pistola
-        WithWeapon("Pistol", false, new Projectiles.ProjectileProperties
+        WithWeapon(name, false, new Projectiles.ProjectileProperties
                                             {
                                                 Texture = texture,
                                                 Region = region,
@@ -107,10 +107,10 @@ public class WeaponBuilder
     /// <summary>
     ///     Crea un rifle
     /// </summary>
-    public WeaponBuilder WithShotgun(string texture, string region, int zOrder)
+    public WeaponBuilder WithShotgun(string name, string texture, string region, int zOrder)
     {
         // Crea el rifle
-        WithWeapon("Shotgun", false, new Projectiles.ProjectileProperties
+        WithWeapon(name, false, new Projectiles.ProjectileProperties
                                             {
                                                 Texture = texture,
                                                 Region = region,
@@ -132,10 +132,10 @@ public class WeaponBuilder
     /// <summary>
     ///     Crea una ametralladora con dos cañones
     /// </summary>
-    public WeaponBuilder WithMachineGun(string texture, string region, int zOrder)
+    public WeaponBuilder WithMachineGun(string name, string texture, string region, int zOrder)
     {
         // Crea la ametralladora
-        WithWeapon("Machine gun", true, new Projectiles.ProjectileProperties
+        WithWeapon(name, true, new Projectiles.ProjectileProperties
                                             {
                                                 Texture = texture,
                                                 Region = region,

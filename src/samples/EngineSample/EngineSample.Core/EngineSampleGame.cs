@@ -86,7 +86,9 @@ public class EngineSampleGame : Game
 						.WithKeyboard(InputMappings.Status.Pressed, Keys.NumPad4)
 				   .WithAction(InputMappings.DefaultActionRight, false)
 						.WithKeyboard(InputMappings.Status.Pressed, Keys.Right)
-						.WithKeyboard(InputMappings.Status.Pressed, Keys.NumPad6);
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.NumPad6)
+					.WithAction(GameLogic.Constants.InputShootAction, false)
+						.WithKeyboard(InputMappings.Status.Pressed, Keys.Space);
 			// Añade los mapeos al sistema
 			inputManager.Mappings.AddRange(builder.Build());
 	}

@@ -30,8 +30,8 @@ public class DictionaryModel<TypeData>
     /// </summary>
     public TypeData? Get(string name)
     {
-        if (Items.TryGetValue(name, out TypeData? region))
-            return region;
+        if (Items.TryGetValue(name, out TypeData? data))
+            return data;
         else
             return default;
     }
