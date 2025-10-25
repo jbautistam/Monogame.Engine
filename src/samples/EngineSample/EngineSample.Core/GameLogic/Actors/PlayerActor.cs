@@ -72,11 +72,11 @@ public class PlayerActor : AbstractActor
 
 			// Crea una pistola
 			builder.WithPistol("Gun", "laser", string.Empty, 0);
-			builder.WithGranade("Granade", "laser", string.Empty, "explosion", string.Empty, "explosion-animation", 0);
+			builder.WithGranade("Grenade", "laser", string.Empty, "explosion", string.Empty, "explosion-animation", 0);
 			// Añade el arma
 			_shooter.Weapons.AddRange(builder.Build());
 			// Selecciona el arma
-			_shooter.EquipWeapon("Granade");
+			_shooter.EquipWeapon("Gun");
 	}
 
 	/// <summary>
@@ -169,6 +169,16 @@ public class PlayerActor : AbstractActor
 					address = new Vector2(-1, 0);
 				// Dispara el arma
 				_shooter.Shoot(Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
+		}
+		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootGrenadeAction))
+		{
+			Vector2 address = new(1, 0);
+
+				// Cambia la dirección en la que se dispara
+				if (Moving == MoveMode.RightToLeft)
+					address = new Vector2(-1, 0);
+				// Dispara el arma
+				_shooter.Shoot("Grenade", Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
 		}
 	}
 

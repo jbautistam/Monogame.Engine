@@ -28,7 +28,7 @@ public class ShooterComponent(AbstractActor owner) : AbstractComponent(owner, fa
     /// </summary>
 	public void Shoot(Vector2 position, float rotation, int physicsLayer)
     {
-        CreateProjectile(position, new Vector2((float) Math.Cos(rotation), (float) Math.Sin(rotation)), rotation, physicsLayer);
+        Shoot(position, new Vector2((float) Math.Cos(rotation), (float) Math.Sin(rotation)), rotation, physicsLayer);
     }
 
     /// <summary>
@@ -36,17 +36,38 @@ public class ShooterComponent(AbstractActor owner) : AbstractComponent(owner, fa
     /// </summary>
 	public void Shoot(Vector2 position, Vector2 direction, float rotation, int physicsLayer)
     {
-        CreateProjectile(position, direction, rotation, physicsLayer);
+        if (CurrentWeapon is not null)
+            CreateProjectile(CurrentWeapon, position, direction, rotation, physicsLayer);
+    }
+
+    /// <summary>
+    ///     Dispara un proyectil teniendo en cuenta la posición y la rotación
+    /// </summary>
+	public void Shoot(string weaponName, Vector2 position, float rotation, int physicsLayer)
+    {
+        Shoot(weaponName, position, new Vector2((float) Math.Cos(rotation), (float) Math.Sin(rotation)), rotation, physicsLayer);
+    }
+
+    /// <summary>
+    ///     Dispara un proyectil teniendo en cuenta la posición y la dirección
+    /// </summary>
+	public void Shoot(string weaponName, Vector2 position, Vector2 direction, float rotation, int physicsLayer)
+    {
+        Weapon? weapon = Weapons.FirstOrDefault(item => item.Name.Equals(weaponName, StringComparison.CurrentCultureIgnoreCase));
+
+            // Dispara el arma
+            if (weapon is not null)
+                CreateProjectile(weapon, position, direction, rotation, physicsLayer);
     }
 
     /// <summary>
     ///     Crea un proyectile
     /// </summary>
-    private void CreateProjectile(Vector2 position, Vector2 direction, float rotation, int physicsLayer)
+    private void CreateProjectile(Weapon weapon, Vector2 position, Vector2 direction, float rotation, int physicsLayer)
     {
         if (Owner.Layer is Scenes.Layers.Games.AbstractGameLayer gameLayer)
-            if (CurrentWeapon is not null && CurrentWeapon.CanShoot())
-                foreach (Weapon.ShootProperties shoot in CurrentWeapon.Shoot(position, rotation))
+            if (weapon.CanShoot())
+                foreach (Weapon.ShootProperties shoot in weapon.Shoot(position, rotation))
                     gameLayer.ProjectileManager.Create(shoot.Projectile, shoot.Position, direction, shoot.Rotation, physicsLayer);
     }
 

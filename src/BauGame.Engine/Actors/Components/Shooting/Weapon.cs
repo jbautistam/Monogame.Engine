@@ -12,9 +12,6 @@ public class Weapon(string name)
     // Variables privadas    
     private float _reloadTimer, _timeSinceLastShot;
 
-    // Propiedades del arma
-    public string Name { get; set; } = name;
-
     /// <summary>
     ///     Actualiza los datos del arma
     /// </summary>
@@ -171,6 +168,10 @@ public class Weapon(string name)
     /// </summary>
     public required Projectiles.ProjectileProperties ProjectileProperties { get; init; }
 
+    /// <summary>
+    ///     Nombre del arma
+    /// </summary>
+    public string Name { get; set; } = name;
 
     /// <summary>
     ///     Disparos por segundo
