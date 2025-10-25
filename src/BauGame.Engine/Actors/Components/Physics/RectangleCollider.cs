@@ -30,11 +30,13 @@ public class RectangleCollider(CollisionComponent collision, RectangleF? relativ
     /// </summary>
     public RectangleF GetBounds()
     {
-        RectangleF world = Collision.Owner.Transform.WorldBounds;
+        RectangleF world = Collision.Owner.Transform.BoundsCentered;
+        float scaledWidth = world.Width * Collision.Owner.Renderer.Scale.X;
+        float scaledHeight = world.Height * Collision.Owner.Renderer.Scale.Y;
 
             if (Relative is null)
-                return new RectangleF(world.X - 0.5f * world.Width, world.Y - 0.5f * world.Width,
-                                      world.Width, world.Height);
+                return new RectangleF(world.X - 0.5f * scaledWidth, world.Y - 0.5f * scaledHeight,
+                                      scaledWidth, scaledHeight);
             else
                 return world + Relative;
     }

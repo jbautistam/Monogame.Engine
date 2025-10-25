@@ -26,7 +26,7 @@ public class PhysicLayersRelation
 	/// </summary>
 	public bool IsColliding(int first, int second)
 	{
-		if (Layers.Count == 0 || first == second) // ... si no hay ninguna se considera que todas las capas colisionan y una capa colisiona consigo misma
+		if (Layers.Count == 0) // ... si no hay ninguna se considera que todas las capas colisionan
 			return true;
 		else
 		{

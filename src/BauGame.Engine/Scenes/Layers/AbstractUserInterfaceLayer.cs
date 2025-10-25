@@ -10,6 +10,14 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 public abstract class AbstractUserInterfaceLayer(AbstractScene scene, string name, int sortOrder) : AbstractLayer(scene, name, LayerType.UserInterface, sortOrder)
 {
 	/// <summary>
+	///		Actualiza las capas de la física
+	/// </summary>
+	protected override void UpdatePhysicsLayer(Managers.GameContext gameContext)
+	{
+		// ... en este caso no hace nada
+	}
+
+	/// <summary>
 	///		Actualiza el interface de usuario de la capa
 	/// </summary>
 	protected override void UpdateLayer(Managers.GameContext gameContext)

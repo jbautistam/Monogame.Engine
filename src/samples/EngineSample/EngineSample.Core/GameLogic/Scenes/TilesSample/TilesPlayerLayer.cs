@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes;
+﻿using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 using EngineSample.Core.GameLogic.Actors;
@@ -28,7 +27,7 @@ public class TilesPlayerLayer(AbstractScene scene, string name, int sortOrder) :
 		PlayerActor player = new(this, TilesScene.PhysicsPlayerLayer);
 
 			// Posiciona al jugador
-			player.Transform.WorldBounds.MoveTo(100, 75);
+			player.Transform.Bounds.MoveTo(100, 75);
 			// Añade el jugador a la capa
 			Actors.Add(player);
 	}
@@ -38,10 +37,10 @@ public class TilesPlayerLayer(AbstractScene scene, string name, int sortOrder) :
 	/// </summary>
 	private void CreateEnemies()
 	{	
-		EnemyActor enemy = new(this, TilesScene.PhysicsPlayerLayer);
+		EnemyActor enemy = new(this, TilesScene.PhysicsNpcLayer);
 
 			// Posiciona el enemigo
-			enemy.Transform.WorldBounds.MoveTo(0f, 200f);
+			enemy.Transform.Bounds.MoveTo(0f, 200f);
 			// Añade el jugador
 			Actors.Add(enemy);
 	}

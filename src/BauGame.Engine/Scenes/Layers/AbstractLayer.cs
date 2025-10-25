@@ -42,17 +42,20 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
     /// </summary>
     public void Update(Managers.GameContext gameContext)
     {
+        // Actualiza las físicas de la capa
+        UpdatePhysicsLayer(gameContext);
+        // Actualiza las físicas de los actores (antes de actualizar los actores)
+        Actors.UpdatePhysics(gameContext);
         // Actualiza la capa
         UpdateLayer(gameContext);
-        // Actualiza las físicas de los actores (antes de actualizar los actores)
-        foreach (AbstractActor actor in Actors)
-            if (actor.Enabled)
-                actor.UpdatePhisics(gameContext);
         // Actualiza los actores
-        foreach (AbstractActor actor in Actors) 
-            if (actor.Enabled) 
-                actor.Update(gameContext);
+        Actors.Update(gameContext);
     }
+
+    /// <summary>
+    ///     Actualiza la capa
+    /// </summary>
+    protected abstract void UpdatePhysicsLayer(Managers.GameContext gameContext);
 
     /// <summary>
     ///     Actualiza la capa
@@ -126,5 +129,5 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
     /// <summary>
     ///     Actores asociados a la capa
     /// </summary>
-    public List<AbstractActor> Actors { get; } = [];
+    public ActorsList Actors { get; } = [];
 }

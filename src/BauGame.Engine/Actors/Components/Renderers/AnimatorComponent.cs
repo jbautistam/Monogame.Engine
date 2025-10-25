@@ -12,9 +12,9 @@ internal class AnimatorComponent
 	private float _elapsed;
 	private Animation? _actualAnimation;
 	private int _frameIndex, _lastIndex;
-	private bool _loop;
 	private Animation.AnimationFrame? _frame;
 	private TextureRegion? _lastRegion;
+	private bool _isPlaying;
 
 	/// <summary>
 	///		Cambia la animación actual
@@ -28,8 +28,8 @@ internal class AnimatorComponent
 			// Marca los datos de inicio
 			_frameIndex = 0;
 			_elapsed = 0;
-			_loop = loop;
 			_lastRegion = null;
+			Loop = loop;
 			// Indica que se ha asignado
 			return true;
 		}
@@ -61,11 +61,15 @@ internal class AnimatorComponent
 					// Pasa al inicio
 					if (_frameIndex == _actualAnimation.Frames.Count)
 					{
-						// Cambia el índice
-						_frameIndex = 0;
 						// Si no se reproduce en loop, se detiene
-						if (!_loop)
+						if (!Loop)
+						{
+							_frameIndex = _actualAnimation.Frames.Count - 1;
 							IsPlaying = false;
+							HasEndLoop = true;
+						}
+						else // si estamos en loop pasamos al primer frame
+							_frameIndex = 0;
 					}
 					// Cambia el frame
 					_frame = _actualAnimation.GetFrame(_frameIndex);
@@ -114,5 +118,24 @@ internal class AnimatorComponent
 	/// <summary>
 	///		Indica si se está ejecutando la animación
 	/// </summary>
-	public bool IsPlaying { get; set; }
+	public bool IsPlaying 
+	{ 
+		get { return _isPlaying; }
+		set 
+		{
+			_isPlaying = value;
+			if (_isPlaying)
+				HasEndLoop = false;
+		}
+	}
+
+	/// <summary>
+	///		Indica si se está animando en bucle
+	/// </summary>
+	public bool Loop { get; set; }
+
+	/// <summary>
+	///		Indica si ha terminado el bucle de animación
+	/// </summary>
+	public bool HasEndLoop { get; private set; }
 }

@@ -21,8 +21,8 @@ public class ShowCharacterAction : AbstractCharacterAction
 			// Cambia la definición del personaje
 			actor.SetDefinition(DefinitionId);
 			// Cambia los estados del actor
-			actor.Transform.WorldBounds.X = tweenPosition.Value.X;
-			actor.Transform.WorldBounds.Y = tweenPosition.Value.Y;
+			actor.Transform.Bounds.X = tweenPosition.Value.X;
+			actor.Transform.Bounds.Y = tweenPosition.Value.Y;
 			actor.Opacity = tweenOpacity.Value;
 			// Devuelve el valor que indica si ha terminado la acción
 			return tweenPosition.IsComplete && tweenOpacity.IsComplete;

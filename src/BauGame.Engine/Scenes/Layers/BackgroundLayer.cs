@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.Libraries.BauGame.Engine.Managers;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
 /// <summary>
 ///		Layer de fondo
@@ -12,6 +14,14 @@ public class BackgroundLayer(AbstractScene scene, string name, int sortOrder) : 
 	{
 		foreach (Backgrounds.AbstractBackground background in BackgroundLayers)
 			background.Start();
+	}
+
+	/// <summary>
+	///		Actualiza las capas de la física
+	/// </summary>
+	protected override void UpdatePhysicsLayer(GameContext gameContext)
+	{
+		// ... en este caso no hace nada
 	}
 
 	/// <summary>

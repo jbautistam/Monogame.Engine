@@ -56,10 +56,7 @@ public class RectangleF(float x, float y, float width, float height)
     /// <summary>
     ///     Comprueba si el rectángulo colisiona con otro
     /// </summary>
-    public bool Intersects(RectangleF other)
-    {
-        return Left < other.Right && Right > other.Left && Top < other.Bottom && Bottom > other.Top;
-    }
+    public bool Intersects(RectangleF other) => Left < other.Right && Right > other.Left && Top < other.Bottom && Bottom > other.Top;
 
     /// <summary>
     ///     Limita las posiciones del rectángulo a los límites

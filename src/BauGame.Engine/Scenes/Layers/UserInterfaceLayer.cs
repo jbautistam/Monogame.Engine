@@ -13,6 +13,14 @@ public class UserInterfaceLayer(AbstractScene scene, string name, int sortOrder)
 	}
 
 	/// <summary>
+	///		Actualiza las capas de la física
+	/// </summary>
+	protected override void UpdatePhysicsLayer(Managers.GameContext gameContext)
+	{
+		// ... en este caso no hace nada
+	}
+
+	/// <summary>
 	///		Actualiza el interface de usuario de la capa
 	/// </summary>
 	protected override void UpdateUserInterface(Managers.GameContext gameContext)

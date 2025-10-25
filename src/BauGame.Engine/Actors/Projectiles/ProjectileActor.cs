@@ -1,4 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
+using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
+using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
@@ -6,8 +8,20 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
 /// <summary>
 ///     Clase con los datos de un proyectil
 /// </summary>
-public class ProjectileActor(AbstractLayer layer, int zOrder) : AbstractActor(layer, zOrder)
+public class ProjectileActor : AbstractActor
 {
+    // Variables privadas
+    private CollisionComponent _collision;
+
+    public ProjectileActor(AbstractLayer layer, int zOrder, int physicsLayer) : base(layer, zOrder)
+    {
+		// Inicializa el componente de la colisión
+		_collision = new(this, physicsLayer);
+		_collision.Colliders.Add(new RectangleCollider(_collision, null));
+		// Añade los componentes creados a la lista
+		Components.Add(_collision);
+    }
+
 /*
     // Nuevas propiedades para explosiones
     public bool ExplodesOnImpact { get; set; }
@@ -36,10 +50,10 @@ public class ProjectileActor(AbstractLayer layer, int zOrder) : AbstractActor(la
     /// <summary>
     ///     Crea un proyectil
     /// </summary>
-	public void Shoot(ProjectileProperties properties, Vector2 position, float rotation)
+	public void Shoot(ProjectileProperties properties, Vector2 position, Vector2 velocity, float rotation, int physicsLayer)
     {
         // Inicializa los datos de posición
-        Transform.WorldBounds = new Models.RectangleF(position.X, position.Y, 0, 0);
+        Transform.Bounds = new Models.RectangleF(position.X, position.Y, 0, 0);
         Transform.Rotation = rotation;
         // Inicializa los datos de dibujo
         Renderer.Texture = properties.Texture;
@@ -48,7 +62,9 @@ public class ProjectileActor(AbstractLayer layer, int zOrder) : AbstractActor(la
         Properties = properties;
         CurrentDistance = 0f;
         // Calcula la velocidad
-        Velocity = new Vector2((float) Math.Cos(rotation), (float) Math.Sin(rotation)) * properties.Speed;
+        Velocity = velocity;
+        // Cambia la capa física
+        _collision.PhysicLayerId = physicsLayer;
         // Indica que está activo
         Enabled = true;
     }
@@ -60,16 +76,52 @@ public class ProjectileActor(AbstractLayer layer, int zOrder) : AbstractActor(la
     {
         if (Enabled && Properties is not null)
         {
-            Vector2 previousPosition = Transform.WorldBounds.TopLeft;
+            if (CheckCollision(gameContext))
+                RemoveProjectile();
+            else
+            {
+                Vector2 previousPosition = Transform.Bounds.TopLeft;
         
-                // Actualizar posición
-                Transform.WorldBounds.Translate(Velocity * gameContext.DeltaTime);
-                // Calcula la distancia recorrida en este frame
-                CurrentDistance += Vector2.Distance(previousPosition, Transform.WorldBounds.TopLeft);
-                // Comprueba si se superó la distancia máxima
-                if (CurrentDistance >= Properties.MaxDistance)
-                    Enabled = false;
+                    // Actualizar posición
+                    Transform.Bounds.Translate(Velocity * gameContext.DeltaTime);
+                    // Calcula la distancia recorrida en este frame
+                    CurrentDistance += Vector2.Distance(previousPosition, Transform.Bounds.TopLeft);
+                    // Comprueba si se superó la distancia máxima
+                    if (CurrentDistance >= Properties.MaxDistance)
+                        RemoveProjectile();
+            }
         }
+    }
+
+    /// <summary>
+    ///     Comprueba las colisiones
+    /// </summary>
+    private bool CheckCollision(Managers.GameContext gameContext)
+    {
+        List<AbstractCollider> colliders = Layer.Scene.PhysicsManager.CollisionSpatialGrid.GetPotentialColliders(this);
+
+            // Comprueba los elementos con los que colisiones
+            if (Properties is not null)
+                foreach (AbstractCollider collider in colliders)
+                {
+                    HealthComponent? health = collider.Collision.Owner.Components.GetComponent<HealthComponent>();
+
+                        if (health is not null)
+                            health.ApplyDamage(Properties.Damage);
+                }
+            // Devuelve el valor que indica si se ha colisionado
+            return colliders.Count > 0;
+    }
+
+    /// <summary>
+    ///     Elimina el proyectil
+    /// </summary>
+    private void RemoveProjectile()
+    {
+        // Quita el proyectil de la capa de colisiones
+        _collision.End();
+        // Desactiva el proyectil
+        Enabled = false;
     }
 
 /*

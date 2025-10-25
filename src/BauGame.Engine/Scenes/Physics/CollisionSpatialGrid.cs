@@ -76,7 +76,7 @@ public class CollisionSpatialGrid(PhysicsManager physicsManager, int cellSize)
                                                     AbstractCollider? collider = GetCollisionCollider(actor, other);
 
                                                         // Si ha encontrado una colisión
-                                                        if (collider is not null && !result.Contains(collider))
+                                                        if (collider is not null && collider.Enabled && !result.Contains(collider))
                                                             result.Add(collider);
                                                 }
                                 }
@@ -98,9 +98,10 @@ public class CollisionSpatialGrid(PhysicsManager physicsManager, int cellSize)
             if (actorCollision is not null && otherCollision is not null && actorCollision.Enabled && otherCollision.Enabled)
                 if (PhysicsManager.LayersRelations.IsColliding(actorCollision.PhysicLayerId, otherCollision.PhysicLayerId))
                     foreach (AbstractCollider actorCollider in actorCollision.Colliders)
-                        foreach (AbstractCollider otherCollider in otherCollision.Colliders)
-                            if (actorCollider.IsColliding(otherCollider))
-                                return otherCollider;
+                        if (actorCollider.Enabled)
+                            foreach (AbstractCollider otherCollider in otherCollision.Colliders)
+                                if (otherCollider.Enabled && actorCollider.IsColliding(otherCollider))
+                                    return otherCollider;
             // Si ha llegado hasta aquí es porque no había ninguna colisión
             return null;
     }
@@ -110,8 +111,8 @@ public class CollisionSpatialGrid(PhysicsManager physicsManager, int cellSize)
     /// </summary>
     private (Point minCell, Point maxCell) GetGridPositions(Actors.Components.Transforms.TransformComponent transform)
     {
-        Point minCell = GetGridPosition(new Vector2(transform.WorldBounds.X, transform.WorldBounds.Y));
-        Point maxCell = GetGridPosition(new Vector2(transform.WorldBounds.Right, transform.WorldBounds.Bottom));
+        Point minCell = GetGridPosition(new Vector2(transform.Bounds.X, transform.Bounds.Y));
+        Point maxCell = GetGridPosition(new Vector2(transform.Bounds.Right, transform.Bounds.Bottom));
         bool mustSwap = false;
 
             // Comprueba si se tienen que cambiar los puntos
@@ -147,7 +148,7 @@ public class CollisionSpatialGrid(PhysicsManager physicsManager, int cellSize)
                 {
                     Point cellKey = new(x, y);
 
-                        if (_grid.TryGetValue(cellKey, out List<AbstractActor>? others))
+                        if (_grid.TryGetValue(cellKey, out List<AbstractActor>? others) && others.Count > 0)
                             others?.Remove(actor);
                 }
     }

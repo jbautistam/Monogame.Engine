@@ -17,7 +17,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     public void Shoot(string texture, string region, Vector2 position, float radius, int damage, float duration = 0.5f)
     {
         // Actualiza los datos de posición
-        Transform.WorldBounds = new Models.RectangleF(position.X, position.Y, radius, radius);
+        Transform.Bounds = new Models.RectangleF(position.X, position.Y, radius, radius);
         // Actualiza los datos de dibujo
         Renderer.Texture = texture;
         Renderer.Region = region;
@@ -69,14 +69,14 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     /// <summary>
     ///     Verifica si una posición está dentro del radio de explosión
     /// </summary>
-    public bool IsInRange(Vector2 targetPosition) => Vector2.Distance(Transform.WorldBounds.TopLeft, targetPosition) <= Radius;
+    public bool IsInRange(Vector2 targetPosition) => Vector2.Distance(Transform.Bounds.TopLeft, targetPosition) <= Radius;
 
     /// <summary>
     ///     Calcular daño basado en distancia (daño decreciente)
     /// </summary>
     public int GetDamageAtPosition(Vector2 targetPosition)
     {
-        float distance = Vector2.Distance(Transform.WorldBounds.TopLeft, targetPosition);
+        float distance = Vector2.Distance(Transform.Bounds.TopLeft, targetPosition);
 
             if (distance > Radius) 
                 return 0;
@@ -94,7 +94,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     {
         if (!AppliesForce || ForceStrength <= 0) return Vector2.Zero;
 
-        Vector2 direction = targetPosition - Transform.WorldBounds.TopLeft;
+        Vector2 direction = targetPosition - Transform.Bounds.TopLeft;
         float distance = direction.Length();
         
         if (distance > Radius || distance == 0) return Vector2.Zero;

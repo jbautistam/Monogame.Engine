@@ -1,5 +1,5 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 
@@ -50,9 +50,18 @@ public class CollisionComponent(AbstractActor owner, int physicLayerId) : Abstra
 	}
 
 	/// <summary>
+	///		Desactiva las colisiones
+	/// </summary>
+	public void ToggleEnabled(bool enabled)
+	{
+		foreach (AbstractCollider collider in Colliders)
+			collider.Enabled = enabled;
+	}
+
+	/// <summary>
 	///		Id de la capa de física
 	/// </summary>
-	public int PhysicLayerId { get; } = physicLayerId;
+	public int PhysicLayerId { get; set; } = physicLayerId;
 
     /// <summary>
     ///     Elementos que pueden colisionar

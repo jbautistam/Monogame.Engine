@@ -15,7 +15,7 @@ public class TransformComponent(AbstractActor owner)
 	{
 		return new TransformComponent(Owner)
 						{
-							WorldBounds = WorldBounds.Clone(),
+							Bounds = Bounds.Clone(),
 							Rotation = Rotation
 						};
 	}
@@ -30,7 +30,7 @@ public class TransformComponent(AbstractActor owner)
         else if (left is null || right is null) 
             return false;
         else
-            return left.WorldBounds == right.WorldBounds && left.Rotation == right.Rotation;
+            return left.Bounds == right.Bounds && left.Rotation == right.Rotation;
     }
 
     /// <summary>
@@ -58,12 +58,27 @@ public class TransformComponent(AbstractActor owner)
     /// <summary>
     ///     Sobrescribe el método GetHashCode
     /// </summary>
-    public override int GetHashCode() => HashCode.Combine(WorldBounds.X, WorldBounds.Y, WorldBounds.Width, WorldBounds.Height, Rotation);
+    public override int GetHashCode() => HashCode.Combine(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height, Rotation);
 
     /// <summary>
     ///     Sobrescribe el método ToString
     /// </summary>
-    public override string ToString() => $"{nameof(TransformComponent)} (WorldBouds = {WorldBounds}, Rotation = {Rotation})";
+    public override string ToString() => $"{nameof(TransformComponent)} (WorldBouds = {Bounds}, Rotation = {Rotation})";
+
+    /// <summary>
+    ///     Limita la posición a las coordenadas del mundo
+    /// </summary>
+	public void Clamp(Rectangle worldBounds)
+	{
+	    if (Bounds.X < worldBounds.X)
+            Bounds.X = worldBounds.X;
+        if (Bounds.Y < worldBounds.Y)
+            Bounds.Y = worldBounds.Y;
+        if (Bounds.X + Bounds.Width > worldBounds.Width)
+            Bounds.X = worldBounds.Width - Bounds.Width;
+        if (Bounds.Y + Bounds.Height > worldBounds.Height)
+            Bounds.Y = worldBounds.Height - Bounds.Height;
+	}
 
 	/// <summary>
 	///		Actor al que se asocia la transformación
@@ -71,14 +86,19 @@ public class TransformComponent(AbstractActor owner)
 	public AbstractActor Owner { get; } = owner;
 
 	/// <summary>
+	///		Rectángulo con la posición centrada en el mundo
+	/// </summary>
+	public RectangleF BoundsCentered => new(Bounds.X + 0.5f * Bounds.Width, Bounds.Y + 0.5f * Bounds.Height, Bounds.Width, Bounds.Height);
+
+	/// <summary>
 	///		Rectángulo con la posición en el mundo
 	/// </summary>
-	public RectangleF WorldBounds { get; set; } = new(0, 0, 0, 0);
+	public RectangleF Bounds { get; set; } = new(0, 0, 0, 0);
 
 	/// <summary>
 	///		Centro del elemento
 	/// </summary>
-	public Vector2 Center => new(0.5f * WorldBounds.Width, 0.5f * WorldBounds.Height);
+	public Vector2 Center => new(0.5f * Bounds.Width, 0.5f * Bounds.Height);
 
 	/// <summary>
 	///		Rotación
@@ -88,5 +108,5 @@ public class TransformComponent(AbstractActor owner)
 	/// <summary>
 	///		Indica si la transformación es correcta
 	/// </summary>
-	public bool IsValid => WorldBounds.Width != 0 && WorldBounds.Height != 0;
+	public bool IsValid => Bounds.Width != 0 && Bounds.Height != 0;
 }

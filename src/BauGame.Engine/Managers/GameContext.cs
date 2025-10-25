@@ -52,9 +52,14 @@ public class GameContext
     }
 
     /// <summary>
-    ///     Datos del GameTime normal
+    ///     Obtiene el tiempo total
     /// </summary>
-    public GameTime GameTime { get; private set; } = default!;
+	public TimeSpan GetTotalTime(TimeSpan timeSpan) => GameTime.TotalGameTime.Add(timeSpan);
+
+	/// <summary>
+	///     Datos del GameTime normal
+	/// </summary>
+	public GameTime GameTime { get; private set; } = default!;
 
     /// <summary>
     ///     Tiempo desde el último Update (escalado por <see cref="TimeScale"/>)

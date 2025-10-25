@@ -16,6 +16,12 @@ namespace EngineSample.Core.GameLogic.Actors;
 /// </summary>
 public class PlayerActor : AbstractActor
 {
+	// Enumerados públicos
+	public enum MoveMode
+	{
+		LeftToRight,
+		RightToLeft
+	}
 	// Variables privadas
 	private Vector2 _speed = new();
 	private HealthComponent _health;
@@ -25,6 +31,8 @@ public class PlayerActor : AbstractActor
 	{
 		CollisionComponent collision = new(this, physicsLayer);
 
+			// Guarda la capa de físicas (para que sea más rápido de localizar)
+			PhysicsLayer = physicsLayer;
 			// Inicializa la colisión
 			collision.Colliders.Add(new RectangleCollider(collision, null));
 			// Inicializa el componente de salud
@@ -81,10 +89,16 @@ public class PlayerActor : AbstractActor
 
 				// Calcula la salud del jugador
 				ComputeHealth(colliders);
-				// Mueve al jugador
-				Move(gameContext);
-				// Dispara
-				Shoot(gameContext);
+				// Si acaba de morir, cambia la animación
+				if (_health.IsDead)
+					Renderer.StartAnimation("player-die", "player-die-animation", false);
+				else
+				{
+					// Mueve al jugador
+					Move(gameContext);
+					// Dispara
+					Shoot(gameContext);
+				}
 		}
 	}
 
@@ -94,7 +108,7 @@ public class PlayerActor : AbstractActor
 	private void ComputeHealth(List<AbstractCollider> colliders)
 	{
 		foreach (AbstractCollider collider in colliders)
-			if (collider.Collision.Owner is EnemyActor)
+			if (collider.Collision.Owner.Tags.Contains(Constants.TagEnemy))
 			{
 				HealthComponent? health = Components.GetComponent<HealthComponent>();
 
@@ -120,16 +134,21 @@ public class PlayerActor : AbstractActor
 		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionRight))
 			_speed.X = Velocity;
 		// Coloca el jugador
-		Transform.WorldBounds.Translate(_speed * gameContext.DeltaTime);
+		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
 		// Normaliza la posición
-		Transform.WorldBounds.Clamp(Layer.Scene.WorldBounds);
+		Transform.Bounds.Clamp(Layer.Scene.WorldBounds);
 		// Asigna la animación
 		if (_speed.X == 0 && _speed.Y == 0)
 			Renderer.StartAnimation("player-celebrate", "player-celebrate-animation", false);
 		else
 			Renderer.StartAnimation("player-run", "player-run-animation", true);
+		// Cambia el modo de movimiento
+		if (_speed.X < 0)
+			Moving = MoveMode.RightToLeft;
+		else if (_speed.X > 0)
+			Moving = MoveMode.LeftToRight;
 		// Cambia la orientación del sprite
-		if (_speed.X > 0)
+		if (Moving == MoveMode.LeftToRight)
 			Renderer.SpriteEffects = SpriteEffects.FlipHorizontally;
 		else
 			Renderer.SpriteEffects = SpriteEffects.None;
@@ -140,11 +159,16 @@ public class PlayerActor : AbstractActor
 	/// </summary>
 	private void Shoot(GameContext gameContext)
 	{
-		// Inicializa la velocidad
-		_speed = new Vector2();
-		// Mueve el jugador con el teclado
 		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootAction))
-			_shooter.Shoot();
+		{
+			Vector2 address = new(1, 0);
+
+				// Cambia la dirección en la que se dispara
+				if (Moving == MoveMode.RightToLeft)
+					address = new Vector2(-1, 0);
+				// Dispara el arma
+				_shooter.Shoot(Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
+		}
 	}
 
 	/// <summary>
@@ -162,7 +186,17 @@ public class PlayerActor : AbstractActor
 	}
 
 	/// <summary>
+	///		Forma de movimiento
+	/// </summary>
+	public MoveMode Moving { get; private set; } = MoveMode.LeftToRight;
+
+	/// <summary>
 	///		Velocidad
 	/// </summary>
 	public float Velocity { get; set; } = 100f;
+
+	/// <summary>
+	///		Capa de físicas
+	/// </summary>
+	public int PhysicsLayer { get; }
 }

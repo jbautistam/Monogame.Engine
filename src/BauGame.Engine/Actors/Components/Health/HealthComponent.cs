@@ -22,6 +22,12 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 			// Comprueba si ha perdido una vida
 			if (ActualHealth <= 0)
 				Lives--;
+			// Comprueba si el actor está muerto
+			if (Lives <= 0 && !IsDead)
+			{
+				IsDead = true;
+				JustDead = true;
+			}
 			// Si aún tiene vida
 			if (!IsDead)
 			{
@@ -96,5 +102,10 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 	/// <summary>
 	///		Indica si el jugador ha muerto
 	/// </summary>
-	public bool IsDead => Lives < 0;
+	public bool IsDead { get; private set; }
+
+	/// <summary>
+	///		Indica que el actor acaba de morir
+	/// </summary>
+	public bool JustDead { get; set; }
 }

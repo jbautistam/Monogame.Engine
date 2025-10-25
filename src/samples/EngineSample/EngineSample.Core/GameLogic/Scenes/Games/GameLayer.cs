@@ -37,7 +37,7 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 		PlayerActor player = new(this, GameScene.PhysicsPlayerLayer);
 
 			// Posiciona al jugador
-			player.Transform.WorldBounds.MoveTo(100, 75);
+			player.Transform.Bounds.MoveTo(32, 32);
 			// Añade el jugador a la capa
 			Actors.Add(player);
 	}
@@ -47,10 +47,10 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	/// </summary>
 	private void CreateEnemies()
 	{	
-		EnemyActor enemy = new(this, GameScene.PhysicsPlayerLayer);
+		EnemyActor enemy = new(this, GameScene.PhysicsNpcLayer);
 
 			// Posiciona el enemigo
-			enemy.Transform.WorldBounds.MoveTo(0f, 200f);
+			enemy.Transform.Bounds.MoveTo(0f, 200f);
 			// Añade el jugador
 			Actors.Add(enemy);
 	}

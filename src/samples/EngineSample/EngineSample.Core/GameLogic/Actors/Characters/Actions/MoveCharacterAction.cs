@@ -17,8 +17,8 @@ public class MoveCharacterAction : AbstractCharacterAction
 																			  ActorStartPosition, EndPosition);
 
 			// Cambia la posición del actor
-			actor.Transform.WorldBounds.X = tweenPosition.Value.X;
-			actor.Transform.WorldBounds.Y = tweenPosition.Value.Y;
+			actor.Transform.Bounds.X = tweenPosition.Value.X;
+			actor.Transform.Bounds.Y = tweenPosition.Value.Y;
 			// Devuelve el valor que indica si ha terminado la acción
 			return tweenPosition.IsComplete;
 	}

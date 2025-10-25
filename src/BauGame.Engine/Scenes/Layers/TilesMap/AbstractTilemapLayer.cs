@@ -1,5 +1,4 @@
 ﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.TilesMap;
 
@@ -9,10 +8,19 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.TilesMap;
 public abstract class AbstractTilemapLayer(AbstractScene scene, string name, int physicsLayer, int sortOrder) : AbstractLayer(scene, name, LayerType.Game, sortOrder)
 {
 	/// <summary>
+	///		Actualiza las capas de la física
+	/// </summary>
+	protected override void UpdatePhysicsLayer(Managers.GameContext gameContext)
+	{
+		// ... en este caso no hace nada
+	}
+
+	/// <summary>
 	///		Actualiza los datos de la capa
 	/// </summary>
 	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
+		// ... en este caso no hace nada
 	}
 
 	/// <summary>

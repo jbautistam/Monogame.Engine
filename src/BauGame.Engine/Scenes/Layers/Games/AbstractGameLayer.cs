@@ -28,6 +28,14 @@ public abstract class AbstractGameLayer : AbstractLayer
 	protected abstract void StartGameLayer();
 
 	/// <summary>
+	///		Actualiza las capas de la física
+	/// </summary>
+	protected override void UpdatePhysicsLayer(Managers.GameContext gameContext)
+	{
+		ProjectileManager.UpdatePhysics(gameContext);
+	}
+
+	/// <summary>
 	///		Actualiza la capa (los actores se actualizan por separado)
 	/// </summary>
 	protected override void UpdateLayer(Managers.GameContext gameContext)

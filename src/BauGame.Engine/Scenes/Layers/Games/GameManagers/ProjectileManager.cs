@@ -14,7 +14,7 @@ public class ProjectileManager(AbstractLayer layer)
     /// <summary>
     ///     Crea un proyectil
     /// </summary>
-    public ProjectileActor Create(ProjectileProperties properties, Vector2 position, float rotation)
+    public ProjectileActor Create(ProjectileProperties properties, Vector2 position, Vector2 direction, float rotation, int physicsLayer)
     {
         ProjectileActor? projectile = _projectiles.GetFirstInactive();
         
@@ -22,14 +22,23 @@ public class ProjectileManager(AbstractLayer layer)
             if (projectile is null)
             {
                 // Crea el proyectil
-                projectile = new ProjectileActor(Layer, properties.ZOrder);
+                projectile = new ProjectileActor(Layer, properties.ZOrder, physicsLayer);
                 // Añade el proyectil al pool
                 _projectiles.Add(projectile);
             }
             // Configura el proyectil
-            projectile.Shoot(properties, position, rotation);
+            projectile.Shoot(properties, position, direction * properties.Speed, rotation, physicsLayer);
             // Devuelve el proyectil que se acaba de crear
             return projectile;
+    }
+
+    /// <summary>
+    ///     Actualiza las físicas de los proyectiles
+    /// </summary>
+    public void UpdatePhysics(Managers.GameContext gameContext)
+    {
+        foreach (ProjectileActor projectile in _projectiles.Enumerate())
+            projectile.UpdatePhysics(gameContext);
     }
 
     /// <summary>

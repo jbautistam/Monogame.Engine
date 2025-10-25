@@ -82,9 +82,9 @@ public class RendererComponent(AbstractActor actor)
 
 					// Calcula la posición dependiendo de si las coordenadas son relativas
 					if (ScaleToViewPort)
-						position = camera.WorldToScreenRelative(Actor.Transform.WorldBounds.TopLeft);
+						position = camera.WorldToScreenRelative(Actor.Transform.Bounds.TopLeft);
 					else
-						position = camera.WorldToScreen(Actor.Transform.WorldBounds.TopLeft);
+						position = camera.WorldToScreen(Actor.Transform.BoundsCentered.TopLeft);
 					// Dibuja el actor
 					region.Draw(camera, position, 
 								Actor.Transform.Center, CalculateScale(camera.ScreenViewport, region.Region),
@@ -99,7 +99,7 @@ public class RendererComponent(AbstractActor actor)
 	{
 		if (_textureSprite is null)
 			return null;
-		else if (Animator.IsPlaying)
+		else if (Animator.IsPlaying || Animator.HasEndLoop)
 			return Animator.GetTexture(_textureSprite);
 		else
 			return _textureSprite.GetRegion(region);

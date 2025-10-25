@@ -40,7 +40,7 @@ public class RigidbodyComponent(AbstractActor owner) : AbstractComponent(owner, 
     public override void Update(Managers.GameContext gameContext)
     {
         if (!IsStatic && !IsKinematic)
-            Owner.Transform.WorldBounds += Velocity * gameContext.DeltaTime;
+            Owner.Transform.Bounds += Velocity * gameContext.DeltaTime;
     }
     
     /// <summary>

@@ -23,10 +23,10 @@ public abstract class AbstractActor : Pool.IPoolable
 	/// <summary>
 	///		Actualiza las físicas
 	/// </summary>
-    public void UpdatePhisics(Managers.GameContext gameContext)
+    public void UpdatePhysics(Managers.GameContext gameContext)
     {
 		// Actualiza el tamaño del actor a partir del tamaño de la textura
-		Transform.WorldBounds.Resize(Renderer.GetSize());
+		Transform.Bounds.Resize(Renderer.GetSize());
 		// Actualiza las físicas
 		foreach (Components.AbstractComponent component in Components)
 			component.UpdatePhysics(gameContext);
@@ -119,4 +119,9 @@ public abstract class AbstractActor : Pool.IPoolable
 	///		Componentes
 	/// </summary>
 	public Components.ComponentCollectionModel Components { get; }
+
+	/// <summary>
+	///		Etiquetas asociadas al actor
+	/// </summary>
+	public HashSet<string> Tags { get; } = [];
 }

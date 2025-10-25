@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Actors\Components\IA\BehaviorTrees\**" />
+    <Compile Remove="Actors\Components\IA\FiniteStateMachines\**" />
+    <Compile Remove="Actors\Components\IA\Steering\**" />
     <Compile Remove="Actors\Particles\Nodes\**" />
     <Compile Remove="Audio\**" />
     <Compile Remove="Scenes\Layers\**" />
@@ -16,6 +19,9 @@
     <Compile Remove="Tilemaps\**" />
     <Compile Remove="UI\**" />
     <Compile Remove="Utils\**" />
+    <EmbeddedResource Remove="Actors\Components\IA\BehaviorTrees\**" />
+    <EmbeddedResource Remove="Actors\Components\IA\FiniteStateMachines\**" />
+    <EmbeddedResource Remove="Actors\Components\IA\Steering\**" />
     <EmbeddedResource Remove="Actors\Particles\Nodes\**" />
     <EmbeddedResource Remove="Audio\**" />
     <EmbeddedResource Remove="Scenes\Layers\**" />
@@ -24,6 +30,9 @@
     <EmbeddedResource Remove="Tilemaps\**" />
     <EmbeddedResource Remove="UI\**" />
     <EmbeddedResource Remove="Utils\**" />
+    <None Remove="Actors\Components\IA\BehaviorTrees\**" />
+    <None Remove="Actors\Components\IA\FiniteStateMachines\**" />
+    <None Remove="Actors\Components\IA\Steering\**" />
     <None Remove="Actors\Particles\Nodes\**" />
     <None Remove="Audio\**" />
     <None Remove="Scenes\Layers\**" />
@@ -37,6 +46,7 @@
   <ItemGroup>
     <Compile Remove="Actors\Components\Transforms\RigidBodyComponent.cs" />
     <Compile Remove="Managers\Resources\Loaders\SpriteSheetLoader.cs" />
+    <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
     <Compile Remove="Pool\PoolManager.cs" />
   </ItemGroup>
 
@@ -91,6 +101,10 @@
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Actors\Components\IA\" />
   </ItemGroup>
 
 </Project>

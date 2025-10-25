@@ -31,15 +31,15 @@ public class CircleCollider(CollisionComponent collision, Circle? relative) : Ab
 	/// </summary>
 	public Circle GetReal()
 	{
-        RectangleF bounds = Collision.Owner.Transform.WorldBounds;
+        RectangleF bounds = Collision.Owner.Transform.BoundsCentered;
 
             // Calcula el círculo con respecto al padre
 			if (Relative is null)
-				return new Circle(new Vector2(bounds.X, bounds.Y), 0.5f * bounds.Width);
+				return new Circle(new Vector2(bounds.X, bounds.Y), 0.5f * bounds.Width * Collision.Owner.Renderer.Scale.X);
 			else
 				return new Circle(new Vector2(bounds.X + Relative?.Center.X ?? 0,
 											  bounds.Y + Relative?.Center.Y ?? 0),
-								  Relative?.Radius ?? 0);
+								  (Relative?.Radius ?? 0) * Collision.Owner.Renderer.Scale.X);
 	}
 
 	/// <summary>

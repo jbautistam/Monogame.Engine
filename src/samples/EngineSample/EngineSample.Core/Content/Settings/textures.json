@@ -21,6 +21,12 @@
 			"columns": 11
 		},
 		{
+			"name": "player-die",
+			"asset": "Sprites/Player/Die",
+			"rows": 1,
+			"columns": 12
+		},
+		{
 			"name": "monsterA-die",
 			"asset": "Sprites/MonsterA/Die",
 			"rows": 1,
@@ -182,6 +188,56 @@
 		{
 			"name": "player-celebrate-animation",
 			"texture": "player-celebrate",
+			"frames": [
+				{
+					"name": "0,0",
+					"time": 0.07
+				},
+				{
+					"name": "0,1",
+					"time": 0.07
+				},
+				{
+					"name": "0,2",
+					"time": 0.07
+				},
+				{
+					"name": "0,3",
+					"time": 0.07
+				},
+				{
+					"name": "0,4",
+					"time": 0.07
+				},
+				{
+					"name": "0,5",
+					"time": 0.07
+				},
+				{
+					"name": "0,6",
+					"time": 0.07
+				},
+				{
+					"name": "0,7",
+					"time": 0.07
+				},
+				{
+					"name": "0,8",
+					"time": 0.07
+				},
+				{
+					"name": "0,9",
+					"time": 0.07
+				},
+				{
+					"name": "0,10",
+					"time": 0.07
+				}
+			]
+		},
+		{
+			"name": "player-die-animation",
+			"texture": "player-die",
 			"frames": [
 				{
 					"name": "0,0",

@@ -20,7 +20,7 @@ public abstract class AbstractCharacterAction
 		if (_isFirst)
 		{
 			// Guarda los valores
-			ActorStartPosition = actor.Transform.WorldBounds.TopLeft;
+			ActorStartPosition = actor.Transform.Bounds.TopLeft;
 			ActorStartOpacity = actor.Opacity;
 			// Indica que ya no es la primera vez
 			_isFirst = false;
