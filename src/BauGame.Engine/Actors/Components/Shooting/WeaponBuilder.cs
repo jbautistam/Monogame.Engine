@@ -105,6 +105,38 @@ public class WeaponBuilder
     }
 
     /// <summary>
+    ///     Crea una pistola
+    /// </summary>
+    public WeaponBuilder WithGranade(string name, string texture, string region, string textureExplossion, string regionExplosion, string animationExplosion, int zOrder)
+    {
+        // Crea la pistola
+        WithWeapon(name, false, new Projectiles.ProjectileProperties
+                                            {
+                                                Texture = texture,
+                                                Region = region,
+                                                Speed = 500f,
+                                                MaxDistance = 400f,
+                                                Damage = 25,
+                                                ZOrder = zOrder,
+                                                ShowExplosionWhenEndDistance = true,
+                                                Explosion = new Projectiles.ExplosionProperties()
+                                                                    {
+                                                                        Texture = textureExplossion,
+                                                                        Region = regionExplosion,
+                                                                        Animation = animationExplosion,
+                                                                        ZOrder = zOrder
+                                                                    }
+                                            }
+                  );
+        WithShootOffset(new Vector2(15, 0));
+        WithFireRate(2f);
+        WithMagazines(3, 12);
+        WithReloadTime(1.5f);
+        // Devuelve el generador
+        return this;
+    }
+
+    /// <summary>
     ///     Crea un rifle
     /// </summary>
     public WeaponBuilder WithShotgun(string name, string texture, string region, int zOrder)

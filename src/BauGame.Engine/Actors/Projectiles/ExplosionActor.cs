@@ -50,12 +50,12 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
         {
             // Incrementa el tiempo y calcula el progreso
             _currentTime += gameContext.DeltaTime;
-            //// Cambia la opacidad
-            //Renderer.Opacity = 1f - MathHelper.Clamp(_currentTime / Duration, 0f, 1f);
+            // Cambia la opacidad cuando no hay animación pero sí duración
+            if (Properties is not null && Properties.Duration > 0 && !Properties.HasAnimation)
+                Renderer.Opacity = 1f - MathHelper.Clamp(_currentTime / Properties!.Duration, 0f, 1f);
             // Finaliza la explosión
             if (HasEndDuration() || HasEndAnimation())
             {
-                // _currentTime >= Properties?.Duration || 
                 Enabled = false;
                 Renderer.Opacity = 0;
             }
@@ -65,7 +65,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
         bool HasEndDuration() => Properties?.Duration > 0 && _currentTime > Properties.Duration;
 
         // Comprueba si ha finalizado la explosión por la animación
-        bool HasEndAnimation() => !string.IsNullOrWhiteSpace(Properties?.Animation) && !Renderer.Animator.IsPlaying;
+        bool HasEndAnimation() => (Properties?.HasAnimation ?? false) && !Renderer.Animator.IsPlaying;
 	}
 
     /// <summary>

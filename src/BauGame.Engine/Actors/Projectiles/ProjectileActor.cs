@@ -22,24 +22,6 @@ public class ProjectileActor : AbstractActor
 		Components.Add(_collision);
     }
 
-/*
-    // Nuevas propiedades para explosiones
-    public bool ExplodesOnImpact { get; set; }
-    public float ExplosionRadius { get; set; }
-    public int ExplosionDamage { get; set; }
-    public bool ExplodesOnTimeout { get; set; }
-    
-    // Método para crear explosión
-    public ExplosionComponent CreateExplosion()
-    {
-        if (ExplosionRadius > 0 && ExplosionDamage > 0)
-        {
-            return new ExplosionComponent(Position, ExplosionRadius, ExplosionDamage);
-        }
-        return null;
-    }
-*/
-
     /// <summary>
     ///     Arranca los datos del actor
     /// </summary>
@@ -83,7 +65,7 @@ public class ProjectileActor : AbstractActor
         if (Enabled && Properties is not null)
         {
             if (CheckCollision(gameContext))
-                RemoveProjectile();
+                RemoveProjectile(true);
             else
             {
                 Vector2 previousPosition = Transform.Bounds.TopLeft;
@@ -94,7 +76,7 @@ public class ProjectileActor : AbstractActor
                     CurrentDistance += Vector2.Distance(previousPosition, Transform.Bounds.TopLeft);
                     // Comprueba si se superó la distancia máxima
                     if (CurrentDistance >= Properties.MaxDistance)
-                        RemoveProjectile();
+                        RemoveProjectile(Properties.ShowExplosionWhenEndDistance);
             }
         }
     }
@@ -122,46 +104,16 @@ public class ProjectileActor : AbstractActor
     /// <summary>
     ///     Elimina el proyectil
     /// </summary>
-    private void RemoveProjectile()
+    private void RemoveProjectile(bool createExplosion)
     {
         // Quita el proyectil de la capa de colisiones
         _collision.End();
         // Desactiva el proyectil
         Enabled = false;
+        // Si tiene que crear una explosión, la crea
+        if (createExplosion && Properties?.Explosion is not null && Layer is Scenes.Layers.Games.AbstractGameLayer gameLayer)
+            gameLayer.ExplosionsManager.Create(Properties.Explosion, new Vector2(Transform.Bounds.X, Transform.Bounds.Y - 2 * Transform.Bounds.Height));
     }
-
-/*
-    // proyectil que puede explotar
-    public override void Update(GameTime gameTime)
-    {
-        if (!IsActive) return;
-
-        Vector2 previousPosition = Position;
-        Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-        // Actualizar bounds
-        int size = Bounds.Width;
-        Bounds = new Rectangle((int)Position.X - size/2, (int)Position.Y - size/2, size, size);
-
-        float distanceThisFrame = Vector2.Distance(previousPosition, Position);
-        CurrentDistance += distanceThisFrame;
-
-        // Verificar si se superó la distancia máxima
-        if (CurrentDistance >= MaxDistance)
-        {
-            if (ExplodesOnTimeout)
-            {
-                // Crear explosión al terminar el alcance
-                var explosion = CreateExplosion();
-                if (explosion != null)
-                {
-                    // Aquí se debería notificar al ExplosionManager
-                }
-            }
-            IsActive = false;
-        }
-    }
-*/
 
     /// <summary>
     ///     Dibuja datos adicionales del actor

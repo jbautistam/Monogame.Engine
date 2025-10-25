@@ -29,4 +29,9 @@ public abstract class AbstractProjectileProperties
     ///     Orden de dibujo
     /// </summary>
     public required int ZOrder { get; init; }
+
+    /// <summary>
+    ///     Indica si tiene alguna animación definida
+    /// </summary>
+	public bool HasAnimation => !string.IsNullOrWhiteSpace(Animation);
 }
