@@ -8,6 +8,9 @@ namespace Bau.Libraries.BauGame.Engine.Managers.Services;
 /// </summary>
 public class MonogameServicesManager(Game game)
 {
+    // Eventos públicos
+    public event EventHandler? ViewPortChanged;
+
 	/// <summary>
 	///		Inicializa los servicios
 	/// </summary>
@@ -16,37 +19,29 @@ public class MonogameServicesManager(Game game)
         // Asigna los datos iniciales de gráficos
         GraphicsDeviceManager = new GraphicsDeviceManager(Game);
         Content = Game.Content;
-        // Set the graphics defaults.
-        GraphicsDeviceManager.PreferredBackBufferWidth = engineSettings.ScreenWidth;
-        GraphicsDeviceManager.PreferredBackBufferHeight = engineSettings.ScreenHeight;
+        // Asigna la resolución lógica / virtual
+        GraphicsDeviceManager.PreferredBackBufferWidth = engineSettings.ScreenBufferWidth;
+        GraphicsDeviceManager.PreferredBackBufferHeight = engineSettings.ScreenBufferHeight;
+        // Asigna el modo de ventana
         GraphicsDeviceManager.IsFullScreen = engineSettings.FullScreen;
+        GraphicsDeviceManager.HardwareModeSwitch = engineSettings.HardwareModeSwitch;
+        // Configuración para calidad visual
+        GraphicsDeviceManager.PreferMultiSampling = engineSettings.PreferMultiSampling;
+        GraphicsDeviceManager.SynchronizeWithVerticalRetrace = engineSettings.SynchronizeWithVerticalRetrace;
         // Aplica la configuración gráfica
         GraphicsDeviceManager.ApplyChanges();
         // Set the root directory for content.
         Content.RootDirectory = engineSettings.ContentRoot;
         // Indica si se muestra el cursor del ratón
         Game.IsMouseVisible = engineSettings.IsMouseVisible;
-
-/*
-protected override void Initialize()
-{
-    _camera = new Camera2D(GraphicsDevice.Viewport)
-    {
-        Position = new Vector2(640, 360), // Centrado en mundo 1280x720
-        Zoom = 1f,
-        WorldBounds = new Rectangle(0, 0, 5000, 5000) // Límites del mundo
-    };
-
-    _spriteBatchUI = new SpriteBatch(GraphicsDevice);
-
-    Window.ClientSizeChanged += (s, e) =>
-    {
-        _camera.Resize(GraphicsDevice.Viewport);
-    };
-
-    base.Initialize();
-}
-*/
+        // Configura la ventana de la partida
+        Game.Window.IsBorderless = engineSettings.WindowBorderless;
+        Game.Window.AllowUserResizing = engineSettings.WindowAllowUserResizing;
+        Game.Window.Title = engineSettings.WindowTitle;
+        // Asigna los manejadores de eventos
+        Game.Window.ClientSizeChanged += (sender, args) => ViewPortChanged?.Invoke(this, EventArgs.Empty);
+        // Aplica el cambio sobre el manejador de gráficos
+        GraphicsDeviceManager.ApplyChanges();
 	}
 
     /// <summary>

@@ -18,15 +18,18 @@ public class EngineSampleGame : Game
 							   new Bau.Libraries.BauGame.Engine.Configuration.EngineSettings
 									{
 										FullScreen = false,
-										ScreenWidth = 1_024,
-										ScreenHeight = 800,
+										WindowBorderless = false,
+										ScreenBufferWidth = 1_200,
+										ScreenBufferHeight = 720,
+										ViewPortWidth = 1_200,
+										ViewPortHeight = 720,
 										ContentRoot = "Content",
 										DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight,
 										MainAssembly = System.Reflection.Assembly.GetExecutingAssembly(),
 										ResourceFolder = "EngineSample.Core.Localization.Resources",
-										
 									}
 							  );
+
 		// Inicializa el motor
 		GameEngine.Instance.Initialize();
 	}

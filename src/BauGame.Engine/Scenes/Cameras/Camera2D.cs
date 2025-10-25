@@ -12,25 +12,31 @@ public class Camera2D
     // Variables privadas
     private Viewport _screenViewport;
     private Matrix? _transformMatrix, _inverseMatrix;
-    private Vector2 _position, _origin;
+    private Vector2 _position;
     private float _rotation, _zoom;
 
     public Camera2D(AbstractScene scene, Viewport viewport)
     {
+        // Asigna los objectos
         Scene = scene;
         ScreenViewport = viewport;
         Zoom = 1.0f;
-        Origin = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
+        Origin = new Vector2(0.5f * ScreenViewport.Width, 0.5f * ScreenViewport.Height);
         Position = new Vector2(0, 0);
+        // Inicializa el manejador de eventos de cambio de tamaño de pantalla
+        GameEngine.Instance.MonogameServicesManager.ViewPortChanged += (sender, args) => UpdateViewPort();
     }
 
     /// <summary>
     ///     Actualiza las matrices
     /// </summary>
-    private void Update()
+    private void UpdateMatrices()
     {
         if (_transformMatrix is null)
         {
+            // Actualiza el origen
+            Origin = new Vector2(0.5f * ScreenViewport.Width, 0.5f * ScreenViewport.Height);
+            // Crea la matriz de transformación
             Matrix transform = Matrix.CreateTranslation(new Vector3(-Position, 0)) *
                                Matrix.CreateRotationZ(Rotation) *
                                Matrix.CreateScale(Zoom, Zoom, 1) *
@@ -42,13 +48,50 @@ public class Camera2D
         }
     }
 
+/*
+    public void RecalculateMatrices()
+    {
+        int screenWidth = GraphicsDevice.Viewport.Width;
+        int screenHeight = GraphicsDevice.Viewport.Height;
+
+        // Escalado uniforme SIN bandas negras → ajusta al mínimo que cubra toda la pantalla
+        float scaleX = (float)screenWidth / DesignWidth;
+        float scaleY = (float)screenHeight / DesignHeight;
+        _scaleFactor = Math.Max(scaleX, scaleY); // ¡Math.Max elimina bandas negras!
+
+        // Viewport lógico escalado (puede ser más grande que la pantalla)
+        int scaledWidth = (int)(DesignWidth * _scaleFactor);
+        int scaledHeight = (int)(DesignHeight * _scaleFactor);
+
+        // Matriz para UI/HUD: se dibuja en coordenadas de diseño (1280x720), escalado a pantalla
+        UIScaleMatrix = Matrix.CreateScale(_scaleFactor);
+
+        // Centro del mundo en la cámara
+        Vector2 cameraScreenCenter = new Vector2(screenWidth / 2f, screenHeight / 2f);
+
+        // Matriz de vista del mundo: traslada el mundo para que WorldCameraPosition esté centrado
+        WorldViewMatrix =
+            Matrix.CreateTranslation(new Vector3(-WorldCameraPosition.X, -WorldCameraPosition.Y, 0)) *
+            Matrix.CreateScale(WorldZoom) *
+            Matrix.CreateTranslation(new Vector3(cameraScreenCenter, 0));
+    }
+*/
+
+    /// <summary>
+    ///     Actualiza el viewPort (normalmente por un cambio en el tamaño de la pantalla)
+    /// </summary>
+    private void UpdateViewPort()
+    {
+        ScreenViewport = GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport;
+    }
+
     /// <summary>
     ///     Conversión de coordenadas de pantalla a coordenadas de mundo
     /// </summary>
     public Vector2 ScreenToWorld(Vector2 screenPosition)
     {
         // Actualiza las matrices
-        Update();
+        UpdateMatrices();
         // Transforma el vector (después del update, ya existe la matriz)
         return Vector2.Transform(screenPosition, _inverseMatrix!.Value);
     }
@@ -59,7 +102,7 @@ public class Camera2D
     public Vector2 WorldToScreen(Vector2 worldPosition)
     {
         // Actualiza las matrices
-        Update();
+        UpdateMatrices();
         // Transforma el vector (después del update, ya existe la matriz)
         return Vector2.Transform(worldPosition, _transformMatrix!.Value);
     }
@@ -175,7 +218,7 @@ public class Camera2D
 	public void BeginDrawWorld()
 	{
         // Actualiza las matrices
-        Update();
+        UpdateMatrices();
         // Limpia la pantalla y arranca el dibujo
         SpriteBatchController.Clear();
         SpriteBatchController.BeginDraw(_transformMatrix);
@@ -218,15 +261,7 @@ public class Camera2D
     /// <summary>
     ///     Origen de la cámara
     /// </summary>
-    public Vector2 Origin
-    { 
-        get { return _origin; } 
-        set 
-        { 
-            _origin = value;
-            _transformMatrix = null;
-        }
-    }
+    public Vector2 Origin { get; set; }
 
     /// <summary>
     ///     Rotación de la cámara
@@ -263,7 +298,7 @@ public class Camera2D
         set
         {
             _screenViewport = value;
-            Origin = new Vector2(_screenViewport.Width / 2f, _screenViewport.Height / 2f);
+            Origin = new Vector2(0.5f * _screenViewport.Width, 0.5f * _screenViewport.Height);
             _transformMatrix = null;
         }
     }
