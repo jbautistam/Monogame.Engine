@@ -52,14 +52,20 @@ public class ProjectileActor : AbstractActor
     /// </summary>
 	public void Shoot(ProjectileProperties properties, Vector2 position, Vector2 velocity, float rotation, int physicsLayer)
     {
+        // Actualiza las propiedades
+        Properties = properties;
         // Inicializa los datos de posición
         Transform.Bounds = new Models.RectangleF(position.X, position.Y, 0, 0);
         Transform.Rotation = rotation;
         // Inicializa los datos de dibujo
-        Renderer.Texture = properties.Texture;
-        Renderer.Region = properties.Region;
+        Renderer.Texture = Properties.Texture;
+        Renderer.Region = Properties.Region;
+        if (!string.IsNullOrWhiteSpace(Properties.Animation))
+        {
+            Renderer.Animator.Reset();
+            Renderer.StartAnimation(Renderer.Texture, Properties.Animation, false);
+        }
         // Inicializa el resto de propiedades
-        Properties = properties;
         CurrentDistance = 0f;
         // Calcula la velocidad
         Velocity = velocity;

@@ -14,21 +14,21 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     /// <summary>
     ///     Crea una explosión
     /// </summary>
-    public void Shoot(string texture, string region, Vector2 position, float radius, int damage, float duration = 0.5f)
+    public void Shoot(ExplosionProperties properties, Vector2 position)
     {
+        // Asigna las propiedades
+        Properties = properties;
         // Actualiza los datos de posición
-        Transform.Bounds = new Models.RectangleF(position.X, position.Y, radius, radius);
+        Transform.Bounds = new Models.RectangleF(position.X, position.Y, 0, 0);
         // Actualiza los datos de dibujo
-        Renderer.Texture = texture;
-        Renderer.Region = region;
-        Renderer.Opacity = 1f;
-        // Actualiza las propiedades
-        Radius = radius;
-        Damage = damage;
-        Duration = duration;
-        DamagesOnlyOnCreation = true;
-        AppliesForce = false;
-        ForceStrength = 0f;
+        Renderer.Texture = properties.Texture;
+        Renderer.Region = properties.Region;
+        Renderer.Opacity = 1;
+        if (!string.IsNullOrWhiteSpace(Properties.Animation))
+        {
+            Renderer.Animator.Reset();
+            Renderer.StartAnimation(Renderer.Texture, Properties.Animation, false);
+        }
         // Inicializa las variables y activa la explosión
         _currentTime = 0f;
         Enabled = true;
@@ -50,12 +50,22 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
         {
             // Incrementa el tiempo y calcula el progreso
             _currentTime += gameContext.DeltaTime;
-            // Cambia la opacidad
-            Renderer.Opacity = 1f - MathHelper.Clamp(_currentTime / Duration, 0f, 1f);
+            //// Cambia la opacidad
+            //Renderer.Opacity = 1f - MathHelper.Clamp(_currentTime / Duration, 0f, 1f);
             // Finaliza la explosión
-            if (_currentTime >= Duration)
+            if (HasEndDuration() || HasEndAnimation())
+            {
+                // _currentTime >= Properties?.Duration || 
                 Enabled = false;
+                Renderer.Opacity = 0;
+            }
         }
+
+        // Comprueba si ha finalizado la explosión por la duración
+        bool HasEndDuration() => Properties?.Duration > 0 && _currentTime > Properties.Duration;
+
+        // Comprueba si ha finalizado la explosión por la animación
+        bool HasEndAnimation() => !string.IsNullOrWhiteSpace(Properties?.Animation) && !Renderer.Animator.IsPlaying;
 	}
 
     /// <summary>
@@ -69,22 +79,29 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     /// <summary>
     ///     Verifica si una posición está dentro del radio de explosión
     /// </summary>
-    public bool IsInRange(Vector2 targetPosition) => Vector2.Distance(Transform.Bounds.TopLeft, targetPosition) <= Radius;
+    public bool IsInRange(Vector2 targetPosition) => Vector2.Distance(Transform.Bounds.TopLeft, targetPosition) <= Properties?.Radius;
 
     /// <summary>
     ///     Calcular daño basado en distancia (daño decreciente)
     /// </summary>
     public int GetDamageAtPosition(Vector2 targetPosition)
     {
-        float distance = Vector2.Distance(Transform.Bounds.TopLeft, targetPosition);
+        int damage = 0;
 
-            if (distance > Radius) 
-                return 0;
-            else
+            // Calcula el daño sobre un objetivo
+            if (Properties is not null)
             {
-                float damageMultiplier = 1f - (distance / Radius);
-                return (int) (Damage * damageMultiplier);
+                float distance = Vector2.Distance(Transform.Bounds.TopLeft, targetPosition);
+
+                    if (distance <= Properties.Radius) 
+                    {
+                        float damageMultiplier = 1f - (distance / Properties.Radius);
+
+                        damage = (int) (Properties.Damage * damageMultiplier);
+                    }
             }
+            // Devuelve el daño
+            return damage;
     }
 
     /// <summary>
@@ -92,18 +109,27 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     /// </summary>
     public Vector2 GetForceAtPosition(Vector2 targetPosition)
     {
-        if (!AppliesForce || ForceStrength <= 0) return Vector2.Zero;
+        Vector2 direction = Vector2.Zero;
 
-        Vector2 direction = targetPosition - Transform.Bounds.TopLeft;
-        float distance = direction.Length();
-        
-        if (distance > Radius || distance == 0) return Vector2.Zero;
+            // Calcula la dirección
+            if (Properties is not null && Properties.AppliesForce && Properties.ForceStrength > 0)
+            {
 
-        direction.Normalize();
+                direction = targetPosition - Transform.Bounds.TopLeft;
+                float distance = direction.Length();
         
-        // Fuerza decreciente basada en distancia
-        float forceMultiplier = 1f - (distance / Radius);
-        return direction * ForceStrength * forceMultiplier;
+                if (distance < Properties.Radius && distance != 0)
+                {
+                    float forceMultiplier = 1f - (distance / Properties.Radius);
+
+                        // Normaliza la dirección
+                        direction.Normalize();
+                        // Calcula una fuerza decreciente basada en distancia
+                        direction = direction * Properties.ForceStrength * forceMultiplier;
+                }
+            }
+            // Devuelve la dirección de la fuerza
+            return direction;
     }
 
 	/// <summary>
@@ -115,32 +141,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
 	}
 
     /// <summary>
-    ///     Daño provocado
+    ///     Propiedades 
     /// </summary>
-    public int Damage { get; set; }
-
-    /// <summary>
-    ///     Duración de la explosión
-    /// </summary>
-    public float Duration { get; set; }
-
-    /// <summary>
-    ///     Radio de la explosión
-    /// </summary>
-    public float Radius { get; set; }
-
-    /// <summary>
-    ///     Indica si provoca daños sólo cuando se crea
-    /// </summary>
-    public bool DamagesOnlyOnCreation { get; set; } // Daña en el primer frame o durante toda la explosión
-    
-    /// <summary>
-    ///     Indica si se deben aplicar fuerzas con la explosión
-    /// </summary>
-    public bool AppliesForce { get; set; }
-
-    /// <summary>
-    ///     Fuerza
-    /// </summary>
-    public float ForceStrength { get; set; }
+    public ExplosionProperties? Properties { get; private set; }
 }

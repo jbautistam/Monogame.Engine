@@ -17,6 +17,14 @@ internal class AnimatorComponent
 	private bool _isPlaying;
 
 	/// <summary>
+	///		Reinicia la animación
+	/// </summary>
+	internal void Reset()
+	{
+		_actualAnimation = null;
+	}
+
+	/// <summary>
 	///		Cambia la animación actual
 	/// </summary>
 	internal bool SetAnimation(string animation, bool loop)

@@ -19,4 +19,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BauGame.Engine\BauGame.Engine.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Content\Settings\textures.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Settings\tilesets.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

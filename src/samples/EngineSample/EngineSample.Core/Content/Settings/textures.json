@@ -135,8 +135,43 @@
 		{
 			"name": "Gem",
 			"asset": "Sprites/Gem"
+		},
+		{
+			"name": "explosion",
+			"asset": "images/spaceships/explosion",
+			"rows": 1,
+			"columns": 12
+		},
+		{
+			"name": "laser",
+			"asset": "images/spaceships/laser"
+		},
+		{
+			"name": "mine",
+			"asset": "images/spaceships/mine",
+			"rows": 1,
+			"columns": 8
+		},
+		{
+			"name": "plane",
+			"asset": "images/spaceships/plane",
+			"rows": 2,
+			"columns": 6
+		},
+		{
+			"name": "rocks",
+			"asset": "images/spaceships/rocks"
+		},
+		{
+			"name": "ship",
+			"asset": "images/spaceships/ship",
+			"rows": 1,
+			"columns": 8
+		},
+		{
+			"name": "spacewars",
+			"asset": "images/spaceships/spacewars"
 		}
-
 	],
 	"animations": [
 		{
@@ -434,7 +469,64 @@
 					"time": 0.07
 				}
 			]
+		},
+		{
+			"name": "explosion-animation",
+			"texture": "explosion",
+			"frames": [
+				{
+					"name": "0,0",
+					"time": 0.07
+				},
+				{
+					"name": "0,1",
+					"time": 0.07
+				},
+				{
+					"name": "0,2",
+					"time": 0.07
+				},
+				{
+					"name": "0,3",
+					"time": 0.07
+				},
+				{
+					"name": "0,4",
+					"time": 0.07
+				},
+				{
+					"name": "0,5",
+					"time": 0.07
+				},
+				{
+					"name": "0,6",
+					"time": 0.07
+				},
+				{
+					"name": "0,7",
+					"time": 0.07
+				},
+				{
+					"name": "0,8",
+					"time": 0.07
+				},
+				{
+					"name": "0,9",
+					"time": 0.07
+				},
+				{
+					"name": "0,10",
+					"time": 0.07
+				},
+				{
+					"name": "0,11",
+					"time": 0.07
+				},
+				{
+					"name": "0,12",
+					"time": 0.07
+				}
+			]
 		}
-
 	]
 }

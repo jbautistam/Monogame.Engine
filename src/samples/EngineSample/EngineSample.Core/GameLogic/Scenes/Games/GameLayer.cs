@@ -6,6 +6,7 @@ using Bau.Libraries.BauGame.Engine.Actors.Particles;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 using EngineSample.Core.GameLogic.Actors;
 using EngineSample.Core.GameLogic.Actors.Characters;
+using Bau.Libraries.BauGame.Engine.Actors.Projectiles;
 
 namespace EngineSample.Core.GameLogic.Scenes.Games;
 
@@ -17,6 +18,7 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	// Variables privadas
 	private CharacterManager? _characterManager;
 	private ParticlesSystemActor? _particlesManager;
+	private Random _random = new();
 
 	/// <summary>
 	///		Inicia la capa
@@ -130,6 +132,9 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 		// Emite partículas
 		if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.P))
 			EmitParticles();
+		// Crea una explosión
+		if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.E))
+			CreateExplosion();
 	}
 
 	/// <summary>
@@ -213,9 +218,8 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	{
 		if (_particlesManager is not null)
 		{
-			Random random = new();
-			int type = random.Next(1, 5);
-			Vector2 position = new(random.Next(-200, 200), random.Next(-200, 200));
+			int type = _random.Next(1, 5);
+			Vector2 position = new(_random.Next(0, 200), _random.Next(0, 200));
 
 				// Cambia la posición del emisor
 				_particlesManager.Position = position;
@@ -238,6 +242,23 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 				// Emite las partículas
 				_particlesManager.Emit();
 		}
+	}
+
+	/// <summary>
+	///		Crea una explosión
+	/// </summary>
+	private void CreateExplosion()
+	{
+		ExplosionProperties properties = new()
+											{
+												Texture = "explosion",
+												Region = string.Empty,
+												Animation = "explosion-animation",
+												ZOrder = 4
+											};
+
+			// Crea la explosión
+			ExplosionsManager.Create(properties, new Vector2(_random.Next(0, 200), _random.Next(0, 200)));
 	}
 
 	/// <summary>

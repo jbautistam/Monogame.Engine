@@ -3,18 +3,8 @@
 /// <summary>
 ///     Clase con las propiedades de un proyectil
 /// </summary>
-public class ProjectileProperties
+public class ProjectileProperties : AbstractProjectileProperties
 {
-    /// <summary>
-    ///     Código de la textura
-    /// </summary>
-    public required string Texture { get; init; }
-
-    /// <summary>
-    ///     Región de la textura
-    /// </summary>
-    public required string Region { get; init; }
-
     /// <summary>
     ///     Velocidad
     /// </summary>
@@ -26,12 +16,12 @@ public class ProjectileProperties
     public required float MaxDistance { get; init; }
 
     /// <summary>
-    ///     Daño que causa el proyectil
+    ///     Indica si se debe mostrar la explosión cuando finalice la distancia (aunque no haya colisionado con nada)
     /// </summary>
-    public required int Damage { get; init; }
+    public bool ShowExplosionWhenEndDistance { get; set; }
 
     /// <summary>
-    ///     Orden de dibujo del proyectil
+    ///     Explosión
     /// </summary>
-    public required int ZOrder { get; init; }
+    public ExplosionProperties? Explosion { get; set; }
 }

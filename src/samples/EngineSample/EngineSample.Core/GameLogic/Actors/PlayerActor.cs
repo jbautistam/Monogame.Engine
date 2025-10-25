@@ -71,7 +71,7 @@ public class PlayerActor : AbstractActor
 		WeaponBuilder builder = new();
 
 			// Crea una pistola
-			builder.WithPistol("Gun", "Gem", string.Empty, 0);
+			builder.WithPistol("Gun", "laser", string.Empty, 0);
 			// Añade el arma
 			_shooter.Weapons.AddRange(builder.Build());
 			// Selecciona el arma
