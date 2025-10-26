@@ -2,54 +2,72 @@ using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
 
-public class WalkingState : INPCState
+/// <summary>
+///     Estado de caminar sin rumbo
+/// </summary>
+public class WalkingState(string name, PropertiesState properties) : AbstractState(name, properties)
 {
-    private float walkTimer;
-    private float maxWalkTime;
-    private Vector2 direction;
+    // Variables privadas
+    private float _elapsedTime, _walkingTime, _maxWalkToDirectionTime;
+    private Vector2 _direction;
 
-    public void Enter(NPC npc)
-    {
-        maxWalkTime = Random.Shared.Next(3, 8);
-        walkTimer = 0f;
-        
-        // Dirección aleatoria
-        float angle = MathHelper.ToRadians(Random.Shared.Next(0, 360));
-        direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-        npc.Velocity = direction * npc.Speed;
-        
-        // Puedes reproducir animación de caminar aquí
-    }
+    /// <summary>
+    ///     Arranca el estado
+    /// </summary>
+	protected override void StartState()
+	{
+        // Inicializa el tiempo
+        _elapsedTime = 0;
+        // Arranca la animación
+       StartAnimation(Properties);
+	}
 
-    public void Execute(NPC npc, GameTime gameTime)
-    {
-        walkTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-        // Verificar colisiones y cambiar dirección si es necesario
-        if (npc.WillCollide())
+    /// <summary>
+    ///     Actualiza el estado
+    /// </summary>
+	public override string? Update(Managers.GameContext gameContext)
+	{
+        // Incrementa el tiempo
+        _elapsedTime += gameContext.DeltaTime;
+        _walkingTime += gameContext.DeltaTime;
+        // Mueve hacia una nueva dirección si es necesario
+        ComputeNewDirection();
+        // Si se ha pasado la duración establecida
+        if (Properties.Duration != 0 && _elapsedTime > Properties.Duration)
+            return Properties.NextState;
+        else
         {
-            // Cambiar dirección aleatoria
+            //TODO: aquí debería mover al NPC
+            //npc.Velocity = _direction * npc.Speed;
+            // Devuelve el nombre actual
+            return Name;
+        }
+	}
+
+    /// <summary>
+    ///     Calcula la siguiente dirección
+    /// </summary>
+    private void ComputeNewDirection()
+    {
+        // Si ha superado el tiempo máximo de caminar en una dirección, la cambia
+        if (_walkingTime > _maxWalkToDirectionTime)
+        {
             float angle = MathHelper.ToRadians(Random.Shared.Next(0, 360));
-            direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-            npc.Velocity = direction * npc.Speed;
-        }
 
-        // Si está cerca del jugador, ir a hablar
-        if (npc.IsPlayerNearby())
-        {
-            npc.StateMachine.ChangeState(new TalkingState());
-            return;
-        }
-
-        // Si ha caminado suficiente tiempo, volver a idle
-        if (walkTimer >= maxWalkTime)
-        {
-            npc.StateMachine.ChangeState(new IdleState());
+                // Cambia la dirección
+                _direction = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle));
+                // Crea un nuevo tiempo máximo
+                _maxWalkToDirectionTime = Random.Shared.Next(3, 8);
+                // Inicializa el tiempo que lleva caminando
+                _walkingTime = 0;
         }
     }
 
-    public void Exit(NPC npc)
-    {
-        npc.Velocity = Vector2.Zero;
-    }
+    /// <summary>
+    ///     Finaliza el estado
+    /// </summary>
+	public override void End()
+	{
+        // ... en este caso no hace falta nada
+	}
 }

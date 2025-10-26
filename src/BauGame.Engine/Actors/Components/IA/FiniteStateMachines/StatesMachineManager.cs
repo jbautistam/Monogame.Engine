@@ -3,7 +3,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
 /// <summary>
 ///     Máquina de estados
 /// </summary>
-public class StateMachine(BrainComponent brain)
+public class StatesMachineManager(BrainComponent brain)
 {
     // Vairables privadas
     private AbstractState? _current;
@@ -11,13 +11,16 @@ public class StateMachine(BrainComponent brain)
     /// <summary>
     ///     Arranca un estado
     /// </summary>
-    public void Start(AbstractState newState)
+    public void Start(string? newState)
     {
         // Finaliza el estado actual
         if (_current is not null)
             _current.End();
         // Guarda el estado nuevo
-        _current = newState;
+        if (!string.IsNullOrWhiteSpace(newState))
+            _current = States.FirstOrDefault(item => item.Name.Equals(newState, StringComparison.CurrentCultureIgnoreCase));
+        else
+            _current = null;
         // Entra en el nuevo estado
         if (_current is not null)
             _current.Start(this);
@@ -30,9 +33,9 @@ public class StateMachine(BrainComponent brain)
     {
         if (_current is not null)
         {
-            AbstractState newState = _current.Update(gameContext);
+            string? newState = _current.Update(gameContext);
 
-                if (newState != _current)
+                if (string.IsNullOrWhiteSpace(newState) || !newState.Equals(_current.Name, StringComparison.CurrentCultureIgnoreCase))
                     Start(newState);
         }
     }
@@ -41,4 +44,9 @@ public class StateMachine(BrainComponent brain)
     ///     Componente con los métodos de IA
     /// </summary>
     public BrainComponent Brain { get; } = brain;
+
+    /// <summary>
+    ///     Estados definidos en la máquina
+    /// </summary>
+    public List<AbstractState> States { get; } = [];
 }

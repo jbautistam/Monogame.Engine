@@ -52,7 +52,10 @@
 
   <ItemGroup>
     <Compile Include="Actors\Components\IA\FiniteStateMachines\AbstractState.cs" />
-    <Compile Include="Actors\Components\IA\FiniteStateMachines\StateMachine.cs" />
+    <Compile Include="Actors\Components\IA\FiniteStateMachines\IdleState.cs" />
+    <Compile Include="Actors\Components\IA\FiniteStateMachines\PropertiesState.cs" />
+    <Compile Include="Actors\Components\IA\FiniteStateMachines\StatesMachineManager.cs" />
+    <Compile Include="Actors\Components\IA\FiniteStateMachines\WalkingState.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ExplosionsManager.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ProjectileManager.cs" />
     <Compile Include="Scenes\Audio\AbstractAudioManager.cs" />
