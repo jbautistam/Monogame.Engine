@@ -1,28 +1,44 @@
-using Microsoft.Xna.Framework;
-
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
 
-public class StateMachine
+/// <summary>
+///     Máquina de estados
+/// </summary>
+public class StateMachine(BrainComponent brain)
 {
-    public INPCState CurrentState { get; private set; }
-    public NPC NPC { get; private set; }
+    // Vairables privadas
+    private AbstractState? _current;
 
-    public StateMachine(NPC npc)
+    /// <summary>
+    ///     Arranca un estado
+    /// </summary>
+    public void Start(AbstractState newState)
     {
-        NPC = npc;
+        // Finaliza el estado actual
+        if (_current is not null)
+            _current.End();
+        // Guarda el estado nuevo
+        _current = newState;
+        // Entra en el nuevo estado
+        if (_current is not null)
+            _current.Start(this);
     }
 
-    public void ChangeState(INPCState newState)
+    /// <summary>
+    ///     Actualiza el estado
+    /// </summary>
+    public void Update(Managers.GameContext gameContext)
     {
-        if (CurrentState != null)
-            CurrentState.Exit(NPC);
-            
-        CurrentState = newState;
-        CurrentState.Enter(NPC);
+        if (_current is not null)
+        {
+            AbstractState newState = _current.Update(gameContext);
+
+                if (newState != _current)
+                    Start(newState);
+        }
     }
 
-    public void Update(GameTime gameTime)
-    {
-        CurrentState?.Execute(NPC, gameTime);
-    }
+    /// <summary>
+    ///     Componente con los métodos de IA
+    /// </summary>
+    public BrainComponent Brain { get; } = brain;
 }

@@ -61,4 +61,14 @@ public class ActorsList : List<AbstractActor>
             if (actor.Enabled) 
                 actor.Update(gameContext);
 	}
+
+    /// <summary>
+    ///     Ordena los actores por su orden de presentación
+    /// </summary>
+    public void SortByZOrder()
+    {
+        //TODO: esto no es del todo correcto, puede que dos actores tengan el mismo zOrder y al ordenarlos aparezca uno antes y otro después
+        //TODO: y en el segundo dibujo se ordenen al revés dando lugar a parpadeos en pantalla
+        Sort((first, second) => first.ZOrder.CompareTo(second.ZOrder));
+    }
 }

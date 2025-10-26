@@ -3,14 +3,15 @@
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 
 /// <summary>
-///		Clase abstracta de definición de partidas
+///		Clase abstracta para la capa de juego
 /// </summary>
 public abstract class AbstractGameLayer : AbstractLayer
 {
 	public AbstractGameLayer(AbstractScene scene, string name, int sortOrder) : base(scene, name, LayerType.Game, sortOrder)
 	{
-		ProjectileManager = new GameManagers.ProjectileManager(this);
-		ExplosionsManager = new GameManagers.ExplosionsManager(this);
+		ProjectileManager = new Pools.ProjectileManager(this);
+		ExplosionsManager = new Pools.ExplosionsManager(this);
+		WaypointRoutesManager = new Routes.WaypointRoutesManager(this);
 	}
 
 	/// <summary>
@@ -89,10 +90,15 @@ public abstract class AbstractGameLayer : AbstractLayer
 	/// <summary>
 	///		Manager para proyectiles
 	/// </summary>
-	public GameManagers.ProjectileManager ProjectileManager { get; }
+	public Pools.ProjectileManager ProjectileManager { get; }
 
 	/// <summary>
 	///		Manager para explosioens
 	/// </summary>
-	public GameManagers.ExplosionsManager ExplosionsManager { get; }
+	public Pools.ExplosionsManager ExplosionsManager { get; }
+
+	/// <summary>
+	///		Manager para rutas
+	/// </summary>
+	public Routes.WaypointRoutesManager WaypointRoutesManager { get; }
 }

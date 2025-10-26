@@ -69,6 +69,8 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
 	{
         // Dibuja la capa
         DrawLayer(camera, gameContext);
+        // Ordena los actores
+        Actors.SortByZOrder();
         // Dibuja los actores
         foreach (AbstractActor actor in Actors)
             if (actor.Enabled)

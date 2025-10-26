@@ -51,8 +51,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Scenes\Layers\Games\GameManagers\ExplosionsManager.cs" />
-    <Compile Include="Scenes\Layers\Games\GameManagers\ProjectileManager.cs" />
+    <Compile Include="Actors\Components\IA\FiniteStateMachines\AbstractState.cs" />
+    <Compile Include="Actors\Components\IA\FiniteStateMachines\StateMachine.cs" />
+    <Compile Include="Scenes\Layers\Games\Pools\ExplosionsManager.cs" />
+    <Compile Include="Scenes\Layers\Games\Pools\ProjectileManager.cs" />
     <Compile Include="Scenes\Audio\AbstractAudioManager.cs" />
     <Compile Include="Scenes\Audio\SoundManager.cs" />
     <Compile Include="Scenes\Cameras\Camera2D.cs" />
@@ -65,6 +67,8 @@
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceLabelBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceBuilder.cs" />
     <Compile Include="Scenes\Layers\Games\AbstractGameLayer.cs" />
+    <Compile Include="Scenes\Layers\Games\Routes\WaypointRouteModel.cs" />
+    <Compile Include="Scenes\Layers\Games\Routes\WaypointRoutesManager.cs" />
     <Compile Include="Scenes\Layers\TilesMap\MapDefinition.cs" />
     <Compile Include="Scenes\Layers\TilesMap\AbstractTilemapLayer.cs" />
     <Compile Include="Scenes\Layers\TilesMap\TileDefinition.cs" />
@@ -104,7 +108,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Actors\Components\IA\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>
