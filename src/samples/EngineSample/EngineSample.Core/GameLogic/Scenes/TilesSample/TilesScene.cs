@@ -33,7 +33,6 @@ internal class TilesScene(string name, int level) : AbstractScene(name, new Rect
 		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
 		CreateGameLayers();
-		LayerManager.AddLayer(_hudLayer);
 		// Crea los datos de físicas
 		CreatePhysics();
 		// Arranca las capas

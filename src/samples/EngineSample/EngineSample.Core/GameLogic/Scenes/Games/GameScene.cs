@@ -32,7 +32,6 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 		// Añade la capa
 		LayerManager.AddLayer(new GameLayer(this, SceneName, 1));
 		LayerManager.AddLayer(CreateBackgroundLayer());
-		LayerManager.AddLayer(_hudLayer);
 		// Crea los datos de físicas
 		CreatePhysics();
 		// Arranca las capas

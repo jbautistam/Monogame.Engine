@@ -16,6 +16,11 @@ namespace EngineSample.Core.GameLogic.Actors;
 /// </summary>
 public class PlayerActor : AbstractActor
 {
+	// Constantes privadas
+	private const string SlotPrimary = "Primary";
+	private const string SlotSecondary = "Secondary";
+	private const string WeaponGun = "Gun";
+	private const string WeaponGrenade = "Grenade";
 	// Enumerados públicos
 	public enum MoveMode
 	{
@@ -60,23 +65,28 @@ public class PlayerActor : AbstractActor
 	/// </summary>
 	public override void Start()
 	{
-		CreateGun();
+		CreateWeapons();
 	}
 
 	/// <summary>
-	///		Crea un arma
+	///		Crea las armas
 	/// </summary>
-	private void CreateGun()
+	private void CreateWeapons()
 	{
 		WeaponBuilder builder = new();
 
 			// Crea una pistola
-			builder.WithPistol("Gun", "laser", string.Empty, 0);
-			builder.WithGranade("Grenade", "laser", string.Empty, "explosion", string.Empty, "explosion-animation", 0);
-			// Añade el arma
-			_shooter.Weapons.AddRange(builder.Build());
+			builder.WithPistol(WeaponGun, "laser", string.Empty, 0);
+			// Añade el arma al slot principal
+			_shooter.AddWeapons(SlotPrimary, builder.Build());
+			// Crea una granda para el slot secundario
+			builder = new WeaponBuilder();
+			builder.WithGranade(WeaponGrenade, "laser", string.Empty, "explosion", string.Empty, "explosion-animation", 0);
 			// Selecciona el arma
-			_shooter.EquipWeapon("Gun");
+			_shooter.AddWeapons(SlotSecondary, builder.Build());
+			// Equipas las armas principal y secundaria
+			_shooter.EquipWeapon(SlotPrimary, WeaponGun);
+			_shooter.EquipWeapon(SlotSecondary, WeaponGrenade);
 	}
 
 	/// <summary>
@@ -161,16 +171,12 @@ public class PlayerActor : AbstractActor
 	private void Shoot(GameContext gameContext)
 	{
 		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootAction))
-		{
-			Vector2 address = new(1, 0);
-
-				// Cambia la dirección en la que se dispara
-				if (Moving == MoveMode.RightToLeft)
-					address = new Vector2(-1, 0);
-				// Dispara el arma
-				_shooter.Shoot(Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
-		}
+			Shoot(SlotPrimary);
 		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootGrenadeAction))
+			Shoot(SlotSecondary);
+
+		// Dispara el arma activa en un slot
+		void Shoot(string slot)
 		{
 			Vector2 address = new(1, 0);
 
@@ -178,7 +184,7 @@ public class PlayerActor : AbstractActor
 				if (Moving == MoveMode.RightToLeft)
 					address = new Vector2(-1, 0);
 				// Dispara el arma
-				_shooter.Shoot("Grenade", Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
+				_shooter.Shoot(slot, Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
 		}
 	}
 

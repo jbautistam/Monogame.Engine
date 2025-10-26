@@ -19,10 +19,6 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 		UserInterfaceBuilder builder = new();
 
 			// Añade la etiqueta
-			builder.WithItem(new UserInterfaceLabelBuilder(this, "Este es el texto de la etiqueta", 0.5f, 0.5f, 1, 1)
-									.WithFont("Fonts/Hud")
-									.Build()
-							);
 			builder.WithItem(new UserInterfaceLabelBuilder(this, "Score", 0.01f, 0.01f, 1, 1)
 									.WithFont("Fonts/Hud")
 									.WithColor(Color.Red)
@@ -32,15 +28,6 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 									.WithFont("Fonts/Hud")
 									.WithColor(Color.White)
 									.WithId("lblScore")
-									.Build()
-							);
-			builder.WithItem(new UserInterfaceLabelBuilder(this, "Inferior", 0, 0.95f, 1, 1)
-									.WithFont("Fonts/Hud")
-									.Build()
-							);
-			builder.WithItem(new UserInterfaceLabelBuilder(this, "Derecha", 0.7f, 0.9f, 1, 1)
-									.WithFont("Fonts/Hud")
-									.WithColor(Color.Red)
 									.Build()
 							);
 			// y devuelve la capa creada
