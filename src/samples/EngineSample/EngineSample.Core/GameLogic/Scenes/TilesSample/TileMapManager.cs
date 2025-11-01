@@ -1,6 +1,6 @@
 ﻿using Bau.Libraries.BauGame.Engine;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using EngineSample.Core.GameLogic.Scenes.TilesSample.Loaders.TmxFile;
+using EngineSample.Core.Configuration.Loaders.TmxFile;
 
 namespace EngineSample.Core.GameLogic.Scenes.TilesSample;
 

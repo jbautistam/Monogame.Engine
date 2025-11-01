@@ -2,7 +2,7 @@
 using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
 
-namespace EngineSample.Core.GameLogic.Scenes.TilesSample.Loaders.TmxFile;
+namespace EngineSample.Core.Configuration.Loaders.TmxFile;
 
 /// <summary>
 ///     Repositorio para carga de un archivo TMX

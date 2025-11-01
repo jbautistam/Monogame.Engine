@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Managers.Resources.Loaders.Models;
+﻿namespace EngineSample.Core.Configuration.Loaders.Models;
 
 /// <summary>
 ///		Dto para carga de configuración

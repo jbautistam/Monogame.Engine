@@ -59,7 +59,7 @@ public class EngineSampleGame : Game
 	protected override void LoadContent()
 	{
 		// Inicializa las texturas y animaciones
-		GameEngine.Instance.ResourcesManager.LoadSettings("Content/Settings/textures.json");
+		new Configuration.ConfigurationLoader().LoadTexturesSettings();
 		// Llama al método base
 		base.LoadContent();
 	}

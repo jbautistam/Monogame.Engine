@@ -1,4 +1,4 @@
-﻿namespace EngineSample.Core.GameLogic.Scenes.TilesSample.Loaders.TmxFile;
+﻿namespace EngineSample.Core.Configuration.Loaders.TmxFile;
 
 /// <summary>
 ///     Datos de la capa de un mapa

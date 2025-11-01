@@ -52,7 +52,6 @@
     <Compile Remove="Actors\Components\RigidBodies\chat-Rigidbody Implementation in MonoGame.cs" />
     <Compile Remove="Actors\Components\RigidBodies\KinematicRigidBodyComponent.cs" />
     <Compile Remove="Actors\Components\Transforms\RigidBodyComponent.cs" />
-    <Compile Remove="Managers\Resources\Loaders\SpriteSheetLoader.cs" />
     <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
     <Compile Remove="Pool\PoolManager.cs" />
   </ItemGroup>

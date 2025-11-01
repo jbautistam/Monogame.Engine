@@ -1,4 +1,4 @@
-﻿namespace EngineSample.Core.GameLogic.Scenes.TilesSample.Loaders.TmxFile;
+﻿namespace EngineSample.Core.Configuration.Loaders.TmxFile;
 
 /// <summary>
 ///     Clase para los tilesets asociados a un mapa

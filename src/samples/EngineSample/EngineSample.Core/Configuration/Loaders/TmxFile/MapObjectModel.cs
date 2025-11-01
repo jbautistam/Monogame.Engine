@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace EngineSample.Core.GameLogic.Scenes.TilesSample.Loaders.TmxFile;
+namespace EngineSample.Core.Configuration.Loaders.TmxFile;
 
 /// <summary>
 ///     Objeto asociado a un mapa
