@@ -1,5 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
+﻿using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
+using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
 using Bau.Libraries.BauGame.Engine.Models;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,7 +11,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
 /// <summary>
 ///		Componente para representación de un actor
 /// </summary>
-public class RendererComponent(AbstractActor actor)
+public class RendererComponent(AbstractActor actor) : AbstractComponent(actor, true)
 {
 	// Variables privadas
 	private string? _texture, _region;
@@ -16,17 +19,50 @@ public class RendererComponent(AbstractActor actor)
 	private bool _updated;
 
 	/// <summary>
+	///		Inicia el componente
+	/// </summary>
+	public override void Start()
+	{
+		// ... no hace nada
+	}
+
+	/// <summary>
+	///		Actualiza las físicas
+	/// </summary>
+	public override void UpdatePhysics(GameContext gameContext)
+	{
+		// ... no hace nada, sólo implementa la interface
+	}
+
+	/// <summary>
 	///		Arranca la carga de los datos de la definición
 	/// </summary>
-	public void Update(Managers.GameContext gameContext)
+	public override void Update(GameContext gameContext)
 	{
 		// Actualiza la textura
 		LoadTexture();
 		// Actualiza la animación
-		Animator.Update(gameContext);
+		UpdateAnimator(gameContext);
 		// Actualiza los efectos
 		foreach (Effects.AbstractRendererEffect effect in Effects)
 			effect.Update(gameContext);
+	}
+
+	/// <summary>
+	///		Actualiza el componente de animación
+	/// </summary>
+	private void UpdateAnimator(GameContext gameContext)
+	{
+		// Busca la animación correspondiente dependiendo de las propiedades de animación
+		if (AnimatorBlenderProperties is not null)
+		{
+			AnimationBlenderGroupRuleModel? rule = GameEngine.Instance.ResourcesManager.AnimationManager.AnimationBlender.EvaluateRules(AnimatorBlenderProperties);
+
+				if (rule is not null)
+					StartAnimation(rule.Texture, rule.Animation, rule.Loop);
+		}
+		// Actualiza el animador
+		Animator.Update(gameContext);
 	}
 
 	/// <summary>
@@ -68,11 +104,11 @@ public class RendererComponent(AbstractActor actor)
 	{
 		Animator.IsPlaying = false;
 	}
-    
+
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-    public void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
+    public override void Draw(Camera2D camera, GameContext gameContext)
     {
 		TextureRegion? region = GetRegion(Region);
 
@@ -137,6 +173,14 @@ public class RendererComponent(AbstractActor actor)
 				return new Size(0, 0);
 			else
 				return new Size(region.Region.Width, region.Region.Height);
+	}
+
+	/// <summary>
+	///		Detiene el componente
+	/// </summary>
+	public override void End()
+	{
+		// ... no hace nada, sólo implementa la interface
 	}
 
 	/// <summary>
@@ -215,4 +259,9 @@ public class RendererComponent(AbstractActor actor)
 	///		Componente de animación
 	/// </summary>
 	internal AnimatorComponent Animator { get; } = new();
+
+	/// <summary>
+	///		Propiedades para el mezclador de animaciones
+	/// </summary>
+	public AnimatorBlenderProperties? AnimatorBlenderProperties { get; }
 }

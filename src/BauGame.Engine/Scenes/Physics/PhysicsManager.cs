@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
+﻿using Microsoft.Xna.Framework;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
 
 /// <summary>
 ///		Managers de físicas
@@ -9,6 +11,7 @@ public class PhysicsManager
 	{
 		Scene = scene;
 		CollisionSpatialGrid = new CollisionSpatialGrid(this, 100);
+		RaycastingService = new RaycastingService(this);
 	}
 
 	/// <summary>
@@ -24,6 +27,11 @@ public class PhysicsManager
 	public AbstractScene Scene { get; }
 
 	/// <summary>
+	///		Fuerza de gravedad (en unidades del mundo)
+	/// </summary>
+	public Vector2 WorldGravity { get; set; } = new Vector2(0, 981f);
+
+	/// <summary>
 	///		Grid para colisiones
 	/// </summary>
 	public CollisionSpatialGrid CollisionSpatialGrid { get; }
@@ -32,4 +40,9 @@ public class PhysicsManager
 	///		Relaciones entre las capas físicas
 	/// </summary>
 	public PhysicLayersRelation LayersRelations { get; } = new();
+
+	/// <summary>
+	///		Manager de los métodos de raycasting
+	/// </summary>
+	public RaycastingService RaycastingService { get; }
 }

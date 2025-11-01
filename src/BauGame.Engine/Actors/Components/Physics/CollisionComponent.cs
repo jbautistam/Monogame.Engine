@@ -9,6 +9,14 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 public class CollisionComponent(AbstractActor owner, int physicLayerId) : AbstractComponent(owner, false)
 {
 	/// <summary>
+	///		Inicia el componente
+	/// </summary>
+	public override void Start()
+	{
+		// ... no hace nada
+	}
+
+	/// <summary>
 	///		Actualiza el componente para sus físicas
 	/// </summary>
 	public override void UpdatePhysics(Managers.GameContext gameContext)

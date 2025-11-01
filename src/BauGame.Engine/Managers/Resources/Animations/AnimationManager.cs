@@ -29,4 +29,9 @@ public class AnimationManager(ResourcesManager resourcesManager)
 	///		Animaciones
 	/// </summary>
 	public Base.DictionaryModel<Animation> Animations { get; } = new();
+
+	/// <summary>
+	///		Mezclador de animaciones
+	/// </summary>
+	public AnimationBlender AnimationBlender { get; } = new();
 }

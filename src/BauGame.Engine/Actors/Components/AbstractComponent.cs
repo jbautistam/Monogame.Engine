@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
+﻿
 namespace Bau.Libraries.BauGame.Engine.Actors.Components;
 
 /// <summary>
@@ -7,6 +6,11 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components;
 /// </summary>
 public abstract class AbstractComponent(AbstractActor owner, bool isDrawable)
 {
+	/// <summary>
+	///		Inicializa el componente
+	/// </summary>
+	public abstract void Start();
+
 	/// <summary>
 	///		Actualiza los datos del componente para las físicas (si es necesario)
 	/// </summary>

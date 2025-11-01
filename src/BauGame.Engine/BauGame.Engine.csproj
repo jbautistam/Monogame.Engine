@@ -13,6 +13,7 @@
     <Compile Remove="Actors\Components\IA\Steering\**" />
     <Compile Remove="Actors\Particles\Nodes\**" />
     <Compile Remove="Audio\**" />
+    <Compile Remove="Entities\**" />
     <Compile Remove="Scenes\Layers\**" />
     <Compile Remove="Scenes\Transitions\**" />
     <Compile Remove="Scenes\**" />
@@ -24,6 +25,7 @@
     <EmbeddedResource Remove="Actors\Components\IA\Steering\**" />
     <EmbeddedResource Remove="Actors\Particles\Nodes\**" />
     <EmbeddedResource Remove="Audio\**" />
+    <EmbeddedResource Remove="Entities\**" />
     <EmbeddedResource Remove="Scenes\Layers\**" />
     <EmbeddedResource Remove="Scenes\Transitions\**" />
     <EmbeddedResource Remove="Scenes\**" />
@@ -35,6 +37,7 @@
     <None Remove="Actors\Components\IA\Steering\**" />
     <None Remove="Actors\Particles\Nodes\**" />
     <None Remove="Audio\**" />
+    <None Remove="Entities\**" />
     <None Remove="Scenes\Layers\**" />
     <None Remove="Scenes\Transitions\**" />
     <None Remove="Scenes\**" />
@@ -44,10 +47,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Actors\Components\RigidBodies\AbstractRigidBodyComponent.cs" />
+    <Compile Remove="Actors\Components\RigidBodies\AbstractRigidBodyMoveableComponent.cs" />
+    <Compile Remove="Actors\Components\RigidBodies\chat-Rigidbody Implementation in MonoGame.cs" />
+    <Compile Remove="Actors\Components\RigidBodies\KinematicRigidBodyComponent.cs" />
     <Compile Remove="Actors\Components\Transforms\RigidBodyComponent.cs" />
     <Compile Remove="Managers\Resources\Loaders\SpriteSheetLoader.cs" />
     <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
     <Compile Remove="Pool\PoolManager.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Actors\chat-Rigidbody Implementation in MonoGame.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +67,7 @@
     <Compile Include="Actors\Components\IA\FiniteStateMachines\PropertiesState.cs" />
     <Compile Include="Actors\Components\IA\FiniteStateMachines\StatesMachineManager.cs" />
     <Compile Include="Actors\Components\IA\FiniteStateMachines\WalkingState.cs" />
+    <Compile Include="Scenes\Cameras\CameraTargetsManager.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ExplosionsManager.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ProjectileManager.cs" />
     <Compile Include="Scenes\Audio\AbstractAudioManager.cs" />
@@ -77,6 +89,7 @@
     <Compile Include="Scenes\Layers\TilesMap\TileDefinition.cs" />
     <Compile Include="Scenes\Layers\UserInterfaceLayer.cs" />
     <Compile Include="Scenes\Physics\CollisionSpatialGrid.cs" />
+    <Compile Include="Scenes\Physics\KinematicCollisionModel.cs" />
     <Compile Include="Scenes\Physics\PhysicLayersRelation.cs" />
     <Compile Include="Scenes\Physics\PhysicsManager.cs" />
     <Compile Include="Scenes\Layers\AbstractUserInterfaceLayer.cs" />
@@ -94,6 +107,7 @@
     <Compile Include="Scenes\Layers\UserInterface\UiMenuOption.cs" />
     <Compile Include="Scenes\Layers\UserInterface\UiMenu.cs" />
     <Compile Include="Scenes\Layers\UserInterface\UiPosition.cs" />
+    <Compile Include="Scenes\Physics\RaycastingService.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Scenes\Audio\AudioManager.cs" />
     <Compile Include="Scenes\Audio\MusicManager.cs" />
@@ -108,10 +122,6 @@
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>

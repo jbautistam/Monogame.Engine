@@ -19,7 +19,7 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int zOrder)
     /// <summary>
     ///     Arranca el sistema
     /// </summary>
-	public override void Start()
+	public override void StartActor()
 	{
         _texture = GameEngine.Instance.ResourcesManager.TextureManager.Assets.Get(Texture);
 	}

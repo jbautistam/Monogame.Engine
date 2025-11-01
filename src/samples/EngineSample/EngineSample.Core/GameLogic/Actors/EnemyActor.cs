@@ -45,7 +45,7 @@ public class EnemyActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void Start()
+	public override void StartActor()
 	{
 		_speed = new Vector2(Velocity, 0);
 	}

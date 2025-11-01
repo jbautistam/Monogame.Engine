@@ -37,7 +37,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : Abs
     /// <summary>
     ///     Inicializa el actor
     /// </summary>
-	public override void Start()
+	public override void StartActor()
 	{
 	}
 

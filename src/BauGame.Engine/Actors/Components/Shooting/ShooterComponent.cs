@@ -8,6 +8,14 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Shooting;
 /// </summary>
 public class ShooterComponent(AbstractActor owner) : AbstractComponent(owner, false)
 {
+	/// <summary>
+	///		Inicia el componente
+	/// </summary>
+	public override void Start()
+	{
+		// ... no hace nada
+	}
+
     /// <summary>
     ///     Actualiza las físicas (no hace nada, simplemente implementa la interface)
     /// </summary>

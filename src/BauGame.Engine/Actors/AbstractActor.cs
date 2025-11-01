@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors;
+﻿using Microsoft.Xna.Framework;
+
+namespace Bau.Libraries.BauGame.Engine.Actors;
 
 /// <summary>
 ///		Clase abstracta para la definición de actores
@@ -7,18 +9,33 @@ public abstract class AbstractActor : Pool.IPoolable
 {
 	protected AbstractActor(Scenes.Layers.AbstractLayer layer, int zOrder)
 	{
+		// Inicializa los objetos
 		Layer = layer;
 		ZOrder = zOrder;
 		Transform = new Components.Transforms.TransformComponent(this);
 		PreviuosTransform = new Components.Transforms.TransformComponent(this);
 		Renderer = new Components.Renderers.RendererComponent(this);
 		Components = new Components.ComponentCollectionModel(this);
+		// Añade los componentes a la lista
+		Components.Add(Renderer);
 	}
 
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public abstract void Start();
+	public void Start()
+	{
+		// Inicializa el actor
+		StartActor();
+		// Inicializa los componentes
+		foreach (Components.AbstractComponent component in Components)
+			component.Start();
+	}
+
+	/// <summary>
+	///		Inicializa el actor
+	/// </summary>
+	public abstract void StartActor();
 
 	/// <summary>
 	///		Actualiza las físicas
@@ -33,6 +50,14 @@ public abstract class AbstractActor : Pool.IPoolable
     }
 
 	/// <summary>
+	///		Obtiene los objetos con los que se tiene contacto hasta cierto punto
+	/// </summary>
+	public List<Scenes.Physics.KinematicCollisionModel> Raycast(Vector2 direction, float distance, bool stopAtFirst)
+	{
+		return Layer.Scene.PhysicsManager.RaycastingService.Raycast(this, direction, distance, stopAtFirst);
+	}
+
+	/// <summary>
 	///		Actualiza el actor y sus componentes
 	/// </summary>
     public void Update(Managers.GameContext gameContext)
@@ -42,7 +67,6 @@ public abstract class AbstractActor : Pool.IPoolable
 		// Primero actualiza el actor
 		UpdateActor(gameContext);
 		// y después los componentes
-		Renderer.Update(gameContext);
 		Components.Update(gameContext);
     }
 
@@ -56,8 +80,7 @@ public abstract class AbstractActor : Pool.IPoolable
 	/// </summary>
     public void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
-		// Dibuja la textura y los componentes
-		Renderer.Draw(camera, gameContext);
+		// Dibuja los componentes
 		Components.Draw(camera, gameContext);
 		// Llama al actor para que se dibuje si es necesario
 		DrawActor(camera, gameContext);
@@ -78,6 +101,8 @@ public abstract class AbstractActor : Pool.IPoolable
 		// Detiene los componentes
 		foreach (Components.AbstractComponent component in Components)
 			component.End();
+		// Quita el actor de la lista de objetivos de la cámara
+		Layer.Scene.Camera?.TargetsManager.Remove(this);
 	}
 
 	/// <summary>

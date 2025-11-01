@@ -25,7 +25,7 @@ public class ProjectileActor : AbstractActor
     /// <summary>
     ///     Arranca los datos del actor
     /// </summary>
-    public override void Start()
+    public override void StartActor()
     {
     }
 

@@ -32,6 +32,7 @@ public abstract class AbstractScene
         // Actualiza los datos de la escena
         AudioManager.Update(gameContext);
         PhysicsManager.Update(gameContext);
+        Camera?.Update(gameContext);
         // Actualiza la escena
         return UpdateScene(gameContext);
     }

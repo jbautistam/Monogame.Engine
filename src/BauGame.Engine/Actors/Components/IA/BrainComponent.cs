@@ -9,6 +9,14 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA;
 public class BrainComponent(AbstractActor owner) : AbstractComponent(owner, false)
 {
 	/// <summary>
+	///		Inicia el componente
+	/// </summary>
+	public override void Start()
+	{
+		// ... no hace nada
+	}
+
+	/// <summary>
 	///		Actualiza las físicas
 	/// </summary>
 	public override void UpdatePhysics(GameContext gameContext)

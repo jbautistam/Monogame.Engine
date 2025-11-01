@@ -33,10 +33,10 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActor(l
 	/// <summary>
 	///		Inicializa los personajes
 	/// </summary>
-	public override void Start()
+	public override void StartActor()
 	{
 		foreach (CharacterActor character in Characters.Items.Values)
-			character.Start();
+			character.StartActor();
 	}
 
 	/// <summary>

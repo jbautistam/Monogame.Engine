@@ -18,7 +18,7 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 	{
 		UserInterfaceBuilder builder = new();
 
-			// Añade la etiqueta
+			// Añade la etiqueta de la puntuación
 			builder.WithItem(new UserInterfaceLabelBuilder(this, "Score", 0.01f, 0.01f, 1, 1)
 									.WithFont("Fonts/Hud")
 									.WithColor(Color.Red)
@@ -28,6 +28,18 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 									.WithFont("Fonts/Hud")
 									.WithColor(Color.White)
 									.WithId("lblScore")
+									.Build()
+							);
+			// Añade la etiqueta de la posición
+			builder.WithItem(new UserInterfaceLabelBuilder(this, "Position", 0.7f, 0.01f, 1, 1)
+									.WithFont("Fonts/Hud")
+									.WithColor(Color.Red)
+									.Build()
+							);
+			builder.WithItem(new UserInterfaceLabelBuilder(this, "0", 0.9f, 0.01f, 1, 1)
+									.WithFont("Fonts/Hud")
+									.WithColor(Color.White)
+									.WithId("lblPosition")
 									.Build()
 							);
 			// y devuelve la capa creada
@@ -40,9 +52,12 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 	protected override void UpdateUserInterface(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		UiLabel? lblScore = GetItem<UiLabel>("lblScore");
+		UiLabel? lblPosition = GetItem<UiLabel>("lblPosition");
 
 			// Cambia las etiquetas
 			if (lblScore is not null)
 				lblScore.Text = "1.221";
+			if (lblPosition is not null && Scene.Camera is not null)
+				lblPosition.Text = $"{Scene.Camera.Position.X:0,00},{Scene.Camera.Position.Y:0,00}";
 	}
 }

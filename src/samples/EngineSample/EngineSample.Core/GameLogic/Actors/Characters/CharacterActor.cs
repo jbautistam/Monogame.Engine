@@ -17,7 +17,7 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void Start()
+	public override void StartActor()
 	{
 		// Inicializa los componentes
 		foreach (CharacterActorDefinition definition in Definitions)

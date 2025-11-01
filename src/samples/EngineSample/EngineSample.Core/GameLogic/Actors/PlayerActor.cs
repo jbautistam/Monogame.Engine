@@ -63,7 +63,7 @@ public class PlayerActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void Start()
+	public override void StartActor()
 	{
 		CreateWeapons();
 	}
@@ -110,6 +110,8 @@ public class PlayerActor : AbstractActor
 					// Dispara
 					Shoot(gameContext);
 				}
+				// Añade el actor a la lista de objetivos de la cámara
+				Layer.Scene.Camera?.TargetsManager.Add(this);
 		}
 	}
 

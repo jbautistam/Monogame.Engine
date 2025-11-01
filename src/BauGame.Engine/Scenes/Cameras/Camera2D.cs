@@ -1,4 +1,5 @@
-﻿using Bau.Libraries.BauGame.Engine.Models;
+﻿using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.Libraries.BauGame.Engine.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -197,6 +198,18 @@ public class Camera2D
     }
 
     /// <summary>
+    ///     Actualiza la cámara
+    /// </summary>
+	public void Update(GameContext gameContext)
+	{
+        Vector2? target = TargetsManager.LookAt();
+
+            // Si hay algún objetivo definido, actualiza la posición de la cámara
+		    if (target is not null)
+                Position = Clamp(Vector2.Lerp(Position, target ?? new Vector2(), FollowSpeed));
+	}
+
+    /// <summary>
     ///     Aumenta el Zoom
     /// </summary>
     public void ZoomIn(float deltaZoom)
@@ -240,10 +253,10 @@ public class Camera2D
         SpriteBatchController.End();
     }
 
-    /// <summary>
-    ///     Escena a la que se asocia la cámara
-    /// </summary>
-    public AbstractScene Scene { get; }
+	/// <summary>
+	///     Escena a la que se asocia la cámara
+	/// </summary>
+	public AbstractScene Scene { get; }
 
 	/// <summary>
 	///     Posición de la cámara
@@ -302,6 +315,16 @@ public class Camera2D
             _transformMatrix = null;
         }
     }
+
+    /// <summary>
+    ///     Objetivos donde debe mirar la cámara
+    /// </summary>
+    public CameraTargetsManager TargetsManager { get; } = new();
+
+    /// <summary>
+    ///     Velocidad de seguimiento de la cámara
+    /// </summary>
+    public float FollowSpeed { get; set; } = 0.1f;
 
     /// <summary>
     ///     Controlador de sprites

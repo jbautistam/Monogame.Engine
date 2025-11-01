@@ -8,6 +8,14 @@ public class RigidbodyComponent(AbstractActor owner) : AbstractComponent(owner, 
     // Variables privadas
     private Vector2 _forceAccumulator = Vector2.Zero;
 
+	/// <summary>
+	///		Inicia el componente
+	/// </summary>
+	public override void Start()
+	{
+		// ... no hace nada
+	}
+
     /// <summary>
     ///     Actualiza las físicas
     /// </summary>

@@ -11,6 +11,14 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 	private float _invulnerability = 0;
 
 	/// <summary>
+	///		Inicia el componente
+	/// </summary>
+	public override void Start()
+	{
+		// ... no hace nada
+	}
+
+	/// <summary>
 	///		Aplica el daño
 	/// </summary>
 	public void ApplyDamage(float damage)
