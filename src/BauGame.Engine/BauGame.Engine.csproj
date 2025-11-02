@@ -52,6 +52,26 @@
     <Compile Remove="Actors\Components\RigidBodies\chat-Rigidbody Implementation in MonoGame.cs" />
     <Compile Remove="Actors\Components\RigidBodies\KinematicRigidBodyComponent.cs" />
     <Compile Remove="Actors\Components\Transforms\RigidBodyComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\AvoidanceComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\BounceComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\ColorInterpolationComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\ColorNoiseComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\DistanceLifeComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\DragComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\ExplosionComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\FormationComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\FreezeComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\FrictionComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\GravityComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\PathFollowingComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\PulseComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\RegenerationComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\RotationComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\ScaleInterpolationComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\SpeedLifeComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\TextureAnimationComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\VelocityComponent.cs" />
+    <Compile Remove="Actors\Particles\Behaviors\WindComponent.cs" />
     <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
     <Compile Remove="Pool\PoolManager.cs" />
   </ItemGroup>

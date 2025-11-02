@@ -48,14 +48,12 @@ public class WalkingState(string name, PropertiesState properties) : AbstractSta
     {
         if (_walkingTime > _maxWalkToDirectionTime)
         {
-            float angle = MathHelper.ToRadians(Random.Shared.Next(0, 360));
-
-                // Cambia la dirección
-                _direction = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle));
-                // Crea un nuevo tiempo máximo
-                _maxWalkToDirectionTime = Random.Shared.Next(3, 8);
-                // Inicializa el tiempo que lleva caminando
-                _walkingTime = 0;
+            // Cambia la dirección
+            _direction = Tools.Randomizer.GetRandomDirection();
+            // Crea un nuevo tiempo máximo
+            _maxWalkToDirectionTime = Random.Shared.Next(3, 8);
+            // Inicializa el tiempo que lleva caminando
+            _walkingTime = 0;
         }
     }
 

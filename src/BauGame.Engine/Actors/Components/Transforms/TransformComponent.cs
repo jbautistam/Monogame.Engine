@@ -66,18 +66,18 @@ public class TransformComponent(AbstractActor owner)
     public override string ToString() => $"{nameof(TransformComponent)} (WorldBouds = {Bounds}, Rotation = {Rotation})";
 
     /// <summary>
-    ///     Limita la posición a las coordenadas del mundo
+    ///     Limita la posición a las coordenadas de un rectángulo
     /// </summary>
-	public void Clamp(Rectangle worldBounds)
+	public void Clamp(Rectangle bounds)
 	{
-	    if (Bounds.X < worldBounds.X)
-            Bounds.X = worldBounds.X;
-        if (Bounds.Y < worldBounds.Y)
-            Bounds.Y = worldBounds.Y;
-        if (Bounds.X + Bounds.Width > worldBounds.Width)
-            Bounds.X = worldBounds.Width - Bounds.Width;
-        if (Bounds.Y + Bounds.Height > worldBounds.Height)
-            Bounds.Y = worldBounds.Height - Bounds.Height;
+	    if (Bounds.X < bounds.X)
+            Bounds.X = bounds.X;
+        if (Bounds.Y < bounds.Y)
+            Bounds.Y = bounds.Y;
+        if (Bounds.X + Bounds.Width > bounds.Width)
+            Bounds.X = bounds.Width - Bounds.Width;
+        if (Bounds.Y + Bounds.Height > bounds.Height)
+            Bounds.Y = bounds.Height - Bounds.Height;
 	}
 
 	/// <summary>
