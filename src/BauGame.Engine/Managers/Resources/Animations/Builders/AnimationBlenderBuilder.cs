@@ -19,10 +19,10 @@ public class AnimationBlenderBuilder
 	/// <summary>
 	///		Añade una animación
 	/// </summary>
-	public AnimationBlenderBuilder WithAnimation(string texture, string animation, bool loop)
+	public AnimationBlenderBuilder WithAnimation(string animation, bool loop)
 	{
 		// Añade la animación
-		Groups[Groups.Count - 1].GroupRules.Add(new AnimationBlenderGroupRuleModel(texture, animation, loop));
+		Groups[Groups.Count - 1].GroupRules.Add(new AnimationBlenderGroupRuleModel(animation, loop));
 		// Devuelve el generador
 		return this;
 	}

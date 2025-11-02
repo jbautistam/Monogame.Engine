@@ -59,7 +59,13 @@ public class RendererComponent(AbstractActor actor) : AbstractComponent(actor, t
 			AnimationBlenderGroupRuleModel? rule = GameEngine.Instance.ResourcesManager.AnimationManager.AnimationBlender.EvaluateRules(AnimatorBlenderProperties);
 
 				if (rule is not null)
-					StartAnimation(rule.Texture, rule.Animation, rule.Loop);
+				{
+					Animation? animation = GameEngine.Instance.ResourcesManager.AnimationManager.Animations.Get(rule.Animation);
+
+						// Arranca la animación
+						if (animation is not null)
+							StartAnimation(animation.Texture, rule.Animation, rule.Loop);
+				}
 		}
 		// Actualiza el animador
 		Animator.Update(gameContext);
@@ -263,5 +269,5 @@ public class RendererComponent(AbstractActor actor) : AbstractComponent(actor, t
 	/// <summary>
 	///		Propiedades para el mezclador de animaciones
 	/// </summary>
-	public AnimatorBlenderProperties? AnimatorBlenderProperties { get; }
+	public AnimatorBlenderProperties? AnimatorBlenderProperties { get; set; }
 }

@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
+﻿using Microsoft.Xna.Framework;
+
+namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
 
 /// <summary>
 ///		Clase base para los estados de una máquina de estados
@@ -24,29 +26,22 @@ public abstract class AbstractState(string name, PropertiesState properties)
 	/// <summary>
 	///		Actualiza el estado y devuelve el siguiente
 	/// </summary>
-	public abstract string? Update(Managers.GameContext gameContext);
+	public string? Update(Managers.GameContext gameContext)
+	{
+		string? nextState = null;
+
+			// Inicializa la velocidad
+			Speed = Vector2.Zero;
+			// Actualiza el estado del nodo
+			nextState = UpdateState(gameContext);
+			// Devuelve el siguiente estado
+			return nextState;
+	}
 
 	/// <summary>
-	///		Arranca una animación
+	///		Actualiza el estado del nodo actual
 	/// </summary>
-	protected void StartAnimation(PropertiesState properties)
-	{
-		AbstractActor? owner = StateMachine?.Brain.Owner;
-
-			if (owner is not null)
-			{
-				if (string.IsNullOrWhiteSpace(properties.Animation))
-				{
-					owner.Renderer.Texture = properties.Texture;
-					owner.Renderer.Region = properties.Region;
-				}
-				else
-				{
-					owner.Renderer.Animator.Reset();
-					owner.Renderer.StartAnimation(properties.Texture, properties.Animation, properties.AnimationLoop);
-				}
-			}
-	}
+	protected abstract string? UpdateState(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza el estado
@@ -57,6 +52,11 @@ public abstract class AbstractState(string name, PropertiesState properties)
 	///		Nombre del estado
 	/// </summary>
 	public string Name { get; } = name;
+
+	/// <summary>
+	///		Velocidad actual
+	/// </summary>
+	public Vector2 Speed { get; set; }
 
 	/// <summary>
 	///		Propiedades del estado

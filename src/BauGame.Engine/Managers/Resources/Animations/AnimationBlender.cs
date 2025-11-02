@@ -14,6 +14,14 @@ public class AnimationBlender
 	}
 
 	/// <summary>
+	///		Añade un grupo de reglas de animación
+	/// </summary>
+	public void Add(AnimationBlenderGroupModel group)
+	{
+		GroupRules.Add(group.Group, group);
+	}
+
+	/// <summary>
 	///		Añade una serie de grupos de reglas de animación
 	/// </summary>
 	public void AddRange(List<AnimationBlenderGroupModel> groups)

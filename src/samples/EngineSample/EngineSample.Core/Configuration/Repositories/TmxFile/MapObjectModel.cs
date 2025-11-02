@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace EngineSample.Core.Configuration.Loaders.TmxFile;
+namespace EngineSample.Core.Configuration.Repositories.TmxFile;
 
 /// <summary>
 ///     Objeto asociado a un mapa

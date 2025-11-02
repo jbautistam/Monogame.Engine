@@ -1,4 +1,4 @@
-﻿namespace EngineSample.Core.Configuration.Loaders.TmxFile;
+﻿namespace EngineSample.Core.Configuration.Repositories.TmxFile;
 
 /// <summary>
 ///     Clase para los tilesets asociados a un mapa

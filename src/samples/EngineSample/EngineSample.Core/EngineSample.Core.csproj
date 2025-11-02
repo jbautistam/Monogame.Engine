@@ -6,6 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Configuration\Repositories\Models\**" />
+    <EmbeddedResource Remove="Configuration\Repositories\Models\**" />
+    <None Remove="Configuration\Repositories\Models\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="GameLogic\Scenes\BackgroundLayer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -19,7 +24,7 @@
     <ProjectReference Include="..\..\..\BauGame.Engine\BauGame.Engine.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Content\Settings\textures.json">
+    <None Update="Content\Settings\textures.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\Settings\tilesets.json">

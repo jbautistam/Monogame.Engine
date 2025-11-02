@@ -1,4 +1,4 @@
-﻿namespace EngineSample.Core.Configuration.Loaders.TmxFile;
+﻿namespace EngineSample.Core.Configuration.Repositories.TmxFile;
 
 /// <summary>
 ///     Grupo del objeto

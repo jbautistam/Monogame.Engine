@@ -3,7 +3,7 @@
 /// <summary>
 ///		Regla de animación
 /// </summary>
-public class AnimationBlenderGroupRuleModel(string texture, string animation, bool loop)
+public class AnimationBlenderGroupRuleModel(string animation, bool loop)
 {
 	// Enumerados públicos
 	/// <summary>
@@ -20,7 +20,7 @@ public class AnimationBlenderGroupRuleModel(string texture, string animation, bo
 		/// <summary>Menor o igual que</summary>
 		LessOrEqual,
 		/// <summary>Igual que</summary>
-		Equal,
+		Equals,
 		/// <summary>Distinto que</summary>
 		Distinct
 	}
@@ -47,33 +47,31 @@ public class AnimationBlenderGroupRuleModel(string texture, string animation, bo
 	/// </summary>
 	private bool Evaluate(Rule rule, Actors.Components.Renderers.AnimatorBlenderProperties properties)
 	{
-		float? value = properties.Properties.Get(rule.Property);
+		// Comprueba la propiedad: primero comprueba si existe la propiedad porque los float devolverán 0 si no existe y en algunas condiciones
+		// no debe entrar aunque no se haya definido la propiedad
+		if (properties.Properties.Contains(rule.Property))
+		{
+			float value = properties.Properties.Get(rule.Property);
 
-			// Comprueba la propiedad
-			if (value is not null)
 				switch (rule.Condition)
 				{
-					case ConditionOperator.Equal:
+					case ConditionOperator.Equals:
 						return rule.Value == value;
 					case ConditionOperator.Distinct:
 						return rule.Value != value;
 					case ConditionOperator.Greater:
-						return rule.Value > value;
+						return value > rule.Value;
 					case ConditionOperator.GreaterOrEqual:
-						return rule.Value >= value;
+						return value >= rule.Value;
 					case ConditionOperator.Less:
-						return rule.Value < value;
+						return value < rule.Value;
 					case ConditionOperator.LessOrEqual:
-						return rule.Value <= value;
+						return value <= rule.Value;
 				}
-			// Si ha llegado hasta aquí es porque no se ha encontrado la propiedad en la regla
-			return false;
+		}
+		// Si ha llegado hasta aquí es porque no se ha encontrado la propiedad en la regla
+		return false;
 	}
-
-	/// <summary>
-	///		Textura sobre la que se define la animación
-	/// </summary>
-	public string Texture { get; } = texture;
 
 	/// <summary>
 	///		Clave de la animación que se rige por esta regla

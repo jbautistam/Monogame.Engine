@@ -6,29 +6,19 @@
 public class PropertiesState
 {
 	/// <summary>
-	///		Textura
+	///		Grupo de animaciones
 	/// </summary>
-	public required string Texture { get; init; }
-
-	/// <summary>
-	///		Regió dentro de la textura
-	/// </summary>
-	public required string Region { get; init; }
-
-	/// <summary>
-	///		Animación
-	/// </summary>
-	public string? Animation { get; set; }
-
-	/// <summary>
-	///		Indica si se anima en bucle
-	/// </summary>
-	public bool AnimationLoop { get; set; }
+	public required string BlenderGroup { get; init; }
 
 	/// <summary>
 	///		Duración del estado si tiene un tiempo máximo (0 si es infinito)
 	/// </summary>
 	public float Duration { get; set; }
+
+	/// <summary>
+	///		Velocidad máxima de movimiento
+	/// </summary>
+	public float SpeedMaximum { get; set; } = 1.0f;
 
 	/// <summary>
 	///		Siguiente estado predefinido cuando se acaba la duración

@@ -27,6 +27,7 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	{
 		CreatePlayer();
 		CreateEnemies();
+		CreateFsmEnemies();
 		CreateCharacters();
 		CreateParticles();
 	}
@@ -55,6 +56,27 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 			enemy.Transform.Bounds.MoveTo(0f, 200f);
 			// Añade el jugador
 			Actors.Add(enemy);
+	}
+
+	/// <summary>
+	///		Crea los datos de los enemigos
+	/// </summary>
+	private void CreateFsmEnemies()
+	{	
+		CreateEnemy("monsterB", 300);
+		CreateEnemy("monsterC", 400);
+		CreateEnemy("monsterD", 500);
+
+		// Crea un enemigo
+		void CreateEnemy(string name, float y)
+		{
+			EnemyFsmActor enemy = new(this, name, GameScene.PhysicsNpcLayer);
+
+				// Posiciona el enemigo
+				enemy.Transform.Bounds.MoveTo(0f, y);
+				// Añade el jugador
+				Actors.Add(enemy);
+		}
 	}
 
 	/// <summary>

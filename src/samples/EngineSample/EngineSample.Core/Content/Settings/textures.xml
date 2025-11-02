@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpriteSheets>
+	<Texture Name = "bg-layer-0" Asset = "Backgrounds/Layer0_0" />
+	<Texture Name = "particle" Asset = "sprites/gradient" />
+	<Texture Name = "player-run" Asset = "Sprites/Player/Run" Rows = "1" Columns = "10" />
+	<Texture Name = "player-celebrate" Asset = "Sprites/Player/Celebrate" Rows = "1" Columns = "11" />
+	<Texture Name = "player-die" Asset = "Sprites/Player/Die" Rows = "1" Columns = "12" />
+	<Texture Name = "monsterA-die" Asset = "Sprites/MonsterA/Die" Rows = "1" Columns = "12" />
+	<Texture Name = "monsterA-idle" Asset = "Sprites/MonsterA/Idle" Rows = "1" Columns = "11" />
+	<Texture Name = "monsterA-run" Asset = "sprites/MonsterA/Run" Rows = "1" Columns = "10" />
+	<Texture Name = "monsterB-die" Asset = "Sprites/MonsterB/Die" Rows = "1" Columns = "12" />
+	<Texture Name = "monsterB-idle" Asset = "Sprites/MonsterB/Idle" Rows = "1" Columns = "11" />
+	<Texture Name = "monsterB-run" Asset = "sprites/MonsterB/Run" Rows = "1" Columns = "10" />
+	<Texture Name = "monsterC-die" Asset = "Sprites/MonsterC/Die" Rows = "1" Columns = "12" />
+	<Texture Name = "monsterC-idle" Asset = "Sprites/MonsterC/Idle" Rows = "1" Columns = "11" />
+	<Texture Name = "monsterC-run" Asset = "sprites/MonsterC/Run" Rows = "1" Columns = "10" />
+	<Texture Name = "monsterD-die" Asset = "Sprites/MonsterD/Die" Rows = "1" Columns = "12" />
+	<Texture Name = "monsterD-idle" Asset = "Sprites/MonsterD/Idle" Rows = "1" Columns = "11" />
+	<Texture Name = "monsterD-run" Asset = "sprites/MonsterD/Run" Rows = "1" Columns = "10" />
+	<Texture Name = "james-avatar" Asset = "images/characters/james/avatar" />
+	<Texture Name = "james-default" Asset = "images/characters/james/default" />
+	<Texture Name = "james-sad" Asset = "images/characters/james/sad" />
+	<Texture Name = "james-smile" Asset = "images/characters/james/smile" />
+	<Texture Name = "narrator-avatar" Asset = "images/characters/narrator/avatar" />
+	<Texture Name = "narrator-default" Asset = "images/characters/narrator/default" />
+	<Texture Name = "narrator-sad" Asset = "images/characters/narrator/sad" />
+	<Texture Name = "narrator-smile" Asset = "images/characters/narrator/smile" />
+	<Texture Name = "sylvie-avatar" Asset = "images/characters/sylvie/avatar" />
+	<Texture Name = "sylvie-default" Asset = "images/characters/sylvie/default" />
+	<Texture Name = "sylvie-sad" Asset = "images/characters/sylvie/sad" />
+	<Texture Name = "sylvie-smile" Asset = "images/characters/sylvie/smile" />
+	<Texture Name = "BlockA0" Asset = "Tiles/BlockA0" />
+	<Texture Name = "BlockA1" Asset = "Tiles/BlockA1" />
+	<Texture Name = "BlockA2" Asset = "Tiles/BlockA2" />
+	<Texture Name = "BlockA3" Asset = "Tiles/BlockA3" />
+	<Texture Name = "BlockA4" Asset = "Tiles/BlockA4" />
+	<Texture Name = "BlockA5" Asset = "Tiles/BlockA5" />
+	<Texture Name = "BlockA6" Asset = "Tiles/BlockA6" />
+	<Texture Name = "BlockB0" Asset = "Tiles/BlockB0" />
+	<Texture Name = "BlockB1" Asset = "Tiles/BlockB1" />
+	<Texture Name = "Platform" Asset = "Tiles/Platform" />
+	<Texture Name = "Gem" Asset = "Sprites/Gem" />
+	<Texture Name = "explosion" Asset = "images/spaceships/explosion" Rows = "1" Columns = "12" />
+	<Texture Name = "laser" Asset = "images/spaceships/laser" />
+	<Texture Name = "mine" Asset = "images/spaceships/mine" Rows = "1" Columns = "8" />
+	<Texture Name = "plane" Asset = "images/spaceships/plane" Rows = "2" Columns = "6" />
+	<Texture Name = "rocks" Asset = "images/spaceships/rocks" />
+	<Texture Name = "ship" Asset = "images/spaceships/ship" Rows = "1" Columns = "8" />
+	<Texture Name = "spacewars" Asset = "images/spaceships/spacewars" />
+	<Animation Name = "player-run-animation" Texture = "player-run">
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+	</Animation>
+	<Animation Name = "player-celebrate-animation" Texture = "player-celebrate">
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+	</Animation>
+	<Animation Name = "player-die-animation" Texture = "player-die">
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+	</Animation>
+	<Animation Name = "monsterA-die-animation" Texture = "monsterA-die" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+		<Frame Region = "0,11" Time = "0.07"/>
+	</Animation>
+	<Animation Name = "monsterA-idle-animation" Texture = "monsterA-idle" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+	</Animation>
+	<Animation Name = "monsterA-run-animation" Texture = "monsterA-run" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+	</Animation>
+
+	<Animation Name = "monsterB-die-animation" Texture = "monsterB-die" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+		<Frame Region = "0,11" Time = "0.07"/>
+	</Animation>
+	<Animation Name = "monsterB-idle-animation" Texture = "monsterB-idle" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+	</Animation>
+	<Animation Name = "monsterB-run-animation" Texture = "monsterB-run" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+	</Animation>
+
+
+	<Animation Name = "monsterC-die-animation" Texture = "monsterC-die" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+		<Frame Region = "0,11" Time = "0.07"/>
+	</Animation>
+	<Animation Name = "monsterC-idle-animation" Texture = "monsterC-idle" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+	</Animation>
+	<Animation Name = "monsterC-run-animation" Texture = "monsterC-run" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+	</Animation>
+
+	<Animation Name = "monsterD-die-animation" Texture = "monsterD-die" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+		<Frame Region = "0,11" Time = "0.07"/>
+	</Animation>
+	<Animation Name = "monsterD-idle-animation" Texture = "monsterD-idle" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+	</Animation>
+	<Animation Name = "monsterD-run-animation" Texture = "monsterD-run" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+	</Animation>
+
+
+	<Animation Name = "explosion-animation" Texture = "explosion" >
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+		<Frame Region = "0,11" Time = "0.07" />
+		<Frame Region = "0,12" Time = "0.07" />
+	</Animation>
+	<AnimationGroup Name = "Player">
+		<Animation Name = "player-run-animation" Loop = "true">
+			<Rule Property = "speed" Condition = "Greater" Value = "0"/>
+		</Animation>
+		<Animation Name = "player-celebrate-animation" Loop = "false">
+			<Rule Property = "speed" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "player-die-animation" Loop = "false">
+			<Rule Property = "died" Condition = "Equals" Value = "1"/>
+		</Animation>
+	</AnimationGroup>
+
+	<AnimationGroup Name = "MonsterA">
+		<Animation Name = "monsterA-run-animation" Loop = "true">
+			<Rule Property = "speed" Condition = "Greater" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "monsterA-idle-animation" Loop = "false">
+			<Rule Property = "speed" Condition = "Equals" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "monsterA-die-animation" Loop = "false">
+			<Rule Property = "died" Condition = "Equals" Value = "1"/>
+		</Animation>
+	</AnimationGroup>
+	<AnimationGroup Name = "MonsterB">
+		<Animation Name = "monsterB-run-animation" Loop = "true">
+			<Rule Property = "speed" Condition = "Greater" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "monsterB-idle-animation" Loop = "false">
+			<Rule Property = "speed" Condition = "Equals" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "monsterB-die-animation" Loop = "false">
+			<Rule Property = "died" Condition = "Equals" Value = "1"/>
+		</Animation>
+	</AnimationGroup>
+
+	<AnimationGroup Name = "MonsterC">
+		<Animation Name = "monsterC-run-animation" Loop = "true">
+			<Rule Property = "speed" Condition = "Greater" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "monsterC-idle-animation" Loop = "false">
+			<Rule Property = "speed" Condition = "Equals" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "monsterC-die-animation" Loop = "false">
+			<Rule Property = "died" Condition = "Equals" Value = "1"/>
+		</Animation>
+	</AnimationGroup>
+
+	<AnimationGroup Name = "MonsterD">
+		<Animation Name = "monsterD-run-animation" Loop = "true">
+			<Rule Property = "speed" Condition = "Greater" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "monsterD-idle-animation" Loop = "false">
+			<Rule Property = "speed" Condition = "Equals" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "monsterD-die-animation" Loop = "false">
+			<Rule Property = "died" Condition = "Equals" Value = "1"/>
+		</Animation>
+	</AnimationGroup>
+</SpriteSheets>

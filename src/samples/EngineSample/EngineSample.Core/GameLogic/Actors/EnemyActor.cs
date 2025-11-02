@@ -67,24 +67,16 @@ public class EnemyActor : AbstractActor
 	}
 
 	/// <summary>
-	///		Mueve el enemigo
+	///		Mueve el actor
 	/// </summary>
 	private void Move(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
-		// Mueve el enemigo a la izquierda / derecha
+		// Mueve el actor a la izquierda / derecha
 		if (Transform.Bounds.X < 0)
-		{
-			Transform.Bounds.X = 0;
-			Transform.Bounds.Y = 200;
 			_speed = new Vector2(Velocity, 0);
-		}
 		else if (Transform.Bounds.X > MinimumX)
-		{
-			Transform.Bounds.X = MinimumX;
-			Transform.Bounds.Y = 200;
 			_speed = new Vector2(-1 * Velocity, 0);
-		}
-		// Coloca el jugador
+		// Mueve el actor
 		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
 		// Asigna la animación
 		if (_speed.X == 0 && _speed.Y == 0)

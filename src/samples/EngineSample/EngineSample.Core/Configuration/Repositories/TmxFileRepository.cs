@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
+using EngineSample.Core.Configuration.Repositories.TmxFile;
 
-namespace EngineSample.Core.Configuration.Loaders.TmxFile;
+namespace EngineSample.Core.Configuration.Repositories;
 
 /// <summary>
 ///     Repositorio para carga de un archivo TMX

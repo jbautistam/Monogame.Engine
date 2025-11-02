@@ -37,6 +37,11 @@ public class DictionaryModel<TypeData>
     }
 
     /// <summary>
+    ///     Comprueba si existe una clave
+    /// </summary>
+    public bool Contains(string name) => Items.ContainsKey(name);
+
+    /// <summary>
     ///     Elimina un elemento
     /// </summary>
     public void Remove(string name)

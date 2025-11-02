@@ -15,16 +15,13 @@ public class IdleState(string name, PropertiesState properties) : AbstractState(
     /// </summary>
 	protected override void StartState()
 	{
-        // Inicializa el tiempo
         _elapsedTime = 0;
-        // Arranca la animación
-       StartAnimation(Properties);
 	}
 
     /// <summary>
     ///     Actualiza el estado
     /// </summary>
-	public override string? Update(GameContext gameContext)
+	protected override string? UpdateState(GameContext gameContext)
 	{
         // Incrementa el tiempo
         _elapsedTime += gameContext.DeltaTime;

@@ -16,16 +16,13 @@ public class WalkingState(string name, PropertiesState properties) : AbstractSta
     /// </summary>
 	protected override void StartState()
 	{
-        // Inicializa el tiempo
         _elapsedTime = 0;
-        // Arranca la animación
-       StartAnimation(Properties);
 	}
 
     /// <summary>
     ///     Actualiza el estado
     /// </summary>
-	public override string? Update(Managers.GameContext gameContext)
+	protected override string? UpdateState(Managers.GameContext gameContext)
 	{
         // Incrementa el tiempo
         _elapsedTime += gameContext.DeltaTime;
@@ -37,8 +34,8 @@ public class WalkingState(string name, PropertiesState properties) : AbstractSta
             return Properties.NextState;
         else
         {
-            //TODO: aquí debería mover al NPC
-            //npc.Velocity = _direction * npc.Speed;
+            // Cambia la velocidad
+            Speed = _direction * Properties.SpeedMaximum;
             // Devuelve el nombre actual
             return Name;
         }
@@ -49,7 +46,6 @@ public class WalkingState(string name, PropertiesState properties) : AbstractSta
     /// </summary>
     private void ComputeNewDirection()
     {
-        // Si ha superado el tiempo máximo de caminar en una dirección, la cambia
         if (_walkingTime > _maxWalkToDirectionTime)
         {
             float angle = MathHelper.ToRadians(Random.Shared.Next(0, 360));

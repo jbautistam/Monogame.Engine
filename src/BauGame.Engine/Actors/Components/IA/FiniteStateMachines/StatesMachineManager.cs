@@ -5,25 +5,24 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
 /// </summary>
 public class StatesMachineManager(BrainComponent brain)
 {
-    // Vairables privadas
-    private AbstractState? _current;
-
     /// <summary>
     ///     Arranca un estado
     /// </summary>
     public void Start(string? newState)
     {
         // Finaliza el estado actual
-        if (_current is not null)
-            _current.End();
+        if (Current is not null)
+            Current.End();
         // Guarda el estado nuevo
         if (!string.IsNullOrWhiteSpace(newState))
-            _current = States.FirstOrDefault(item => item.Name.Equals(newState, StringComparison.CurrentCultureIgnoreCase));
+            Current = States.FirstOrDefault(item => item.Name.Equals(newState, StringComparison.CurrentCultureIgnoreCase));
+        else if (States.Count > 0)
+            Current = States[0];
         else
-            _current = null;
+            Current = null;
         // Entra en el nuevo estado
-        if (_current is not null)
-            _current.Start(this);
+        if (Current is not null)
+            Current.Start(this);
     }
 
     /// <summary>
@@ -31,11 +30,11 @@ public class StatesMachineManager(BrainComponent brain)
     /// </summary>
     public void Update(Managers.GameContext gameContext)
     {
-        if (_current is not null)
+        if (Current is not null)
         {
-            string? newState = _current.Update(gameContext);
+            string? newState = Current.Update(gameContext);
 
-                if (string.IsNullOrWhiteSpace(newState) || !newState.Equals(_current.Name, StringComparison.CurrentCultureIgnoreCase))
+                if (string.IsNullOrWhiteSpace(newState) || !newState.Equals(Current.Name, StringComparison.CurrentCultureIgnoreCase))
                     Start(newState);
         }
     }
@@ -49,4 +48,9 @@ public class StatesMachineManager(BrainComponent brain)
     ///     Estados definidos en la máquina
     /// </summary>
     public List<AbstractState> States { get; } = [];
+
+    /// <summary>
+    ///     Estado actual
+    /// </summary>
+    public AbstractState? Current { get; private set; }
 }
