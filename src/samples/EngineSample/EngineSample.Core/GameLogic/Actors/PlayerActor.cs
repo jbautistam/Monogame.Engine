@@ -54,6 +54,8 @@ public class PlayerActor : AbstractActor
 									};
 			// Inicializa el shooter
 			_shooter = new ShooterComponent(this);
+			// Inicializa las propiedades de animación
+			Renderer.AnimatorBlenderProperties = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.AnimatorBlenderProperties("Player");
 			// Añade los componentes creados a la lista
 			Components.Add(collision);
 			Components.Add(_health);
@@ -100,10 +102,8 @@ public class PlayerActor : AbstractActor
 
 				// Calcula la salud del jugador
 				ComputeHealth(colliders);
-				// Si acaba de morir, cambia la animación
-				if (_health.IsDead)
-					Renderer.StartAnimation("player-die", "player-die-animation", false);
-				else
+				// Mueve el actor
+				if (!_health.IsDead)
 				{
 					// Mueve al jugador
 					Move(gameContext);
@@ -113,6 +113,8 @@ public class PlayerActor : AbstractActor
 				// Añade el actor a la lista de objetivos de la cámara
 				Layer.Scene.Camera?.TargetsManager.Add(this);
 		}
+		// Actualiza las propiedades de animación
+		UpdateAnimation(_speed, _health.IsDead);
 	}
 
 	/// <summary>
@@ -128,6 +130,27 @@ public class PlayerActor : AbstractActor
 					if (health is not null)
 						health.ApplyDamage(10f);
 			}
+	}
+
+	/// <summary>
+	///		Actualiza las propiedades de animación
+	/// </summary>
+	private void UpdateAnimation(Vector2 speed, bool isDead)
+	{
+		// Asigna las propiedades
+		if (Renderer.AnimatorBlenderProperties is not null)
+		{
+			if (speed.X != 0 || speed.Y != 0)
+				Renderer.AnimatorBlenderProperties.Add("speed", 1);
+			else
+				Renderer.AnimatorBlenderProperties.Add("speed", 0);
+			Renderer.AnimatorBlenderProperties.Add("died", isDead);
+		}
+		// Cambia la orientación del sprite
+		if (Moving == MoveMode.LeftToRight)
+			Renderer.SpriteEffects = SpriteEffects.FlipHorizontally;
+		else
+			Renderer.SpriteEffects = SpriteEffects.None;
 	}
 
 	/// <summary>
@@ -150,21 +173,16 @@ public class PlayerActor : AbstractActor
 		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
 		// Normaliza la posición
 		Transform.Bounds.Clamp(Layer.Scene.WorldBounds);
-		// Asigna la animación
-		if (_speed.X == 0 && _speed.Y == 0)
-			Renderer.StartAnimation("player-celebrate", "player-celebrate-animation", false);
-		else
-			Renderer.StartAnimation("player-run", "player-run-animation", true);
+		//// Asigna la animación
+		//if (_speed.X == 0 && _speed.Y == 0)
+		//	Renderer.StartAnimation("player-celebrate", "player-celebrate-animation", false);
+		//else
+		//	Renderer.StartAnimation("player-run", "player-run-animation", true);
 		// Cambia el modo de movimiento
 		if (_speed.X < 0)
 			Moving = MoveMode.RightToLeft;
 		else if (_speed.X > 0)
 			Moving = MoveMode.LeftToRight;
-		// Cambia la orientación del sprite
-		if (Moving == MoveMode.LeftToRight)
-			Renderer.SpriteEffects = SpriteEffects.FlipHorizontally;
-		else
-			Renderer.SpriteEffects = SpriteEffects.None;
 	}
 
 	/// <summary>

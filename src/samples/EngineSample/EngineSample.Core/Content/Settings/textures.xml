@@ -262,12 +262,15 @@
 		<Frame Region = "0,11" Time = "0.07" />
 		<Frame Region = "0,12" Time = "0.07" />
 	</Animation>
+
 	<AnimationGroup Name = "Player">
 		<Animation Name = "player-run-animation" Loop = "true">
 			<Rule Property = "speed" Condition = "Greater" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
 		</Animation>
 		<Animation Name = "player-celebrate-animation" Loop = "false">
 			<Rule Property = "speed" Condition = "Equals" Value = "0"/>
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
 		</Animation>
 		<Animation Name = "player-die-animation" Loop = "false">
 			<Rule Property = "died" Condition = "Equals" Value = "1"/>

@@ -101,6 +101,8 @@ public abstract class AbstractActor : Pool.IPoolable
 		// Detiene los componentes
 		foreach (Components.AbstractComponent component in Components)
 			component.End();
+		// Finaliza el trabajo con el actor
+		EndActor();
 		// Quita el actor de la lista de objetivos de la cámara
 		Layer.Scene.Camera?.TargetsManager.Remove(this);
 	}

@@ -1,7 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA;
 
