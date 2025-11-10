@@ -83,9 +83,10 @@
   <ItemGroup>
     <Compile Include="Actors\Components\IA\FiniteStateMachines\AbstractState.cs" />
     <Compile Include="Actors\Components\IA\FiniteStateMachines\IdleState.cs" />
+    <Compile Include="Actors\Components\IA\FiniteStateMachines\PatrollingState.cs" />
     <Compile Include="Actors\Components\IA\FiniteStateMachines\PropertiesState.cs" />
     <Compile Include="Actors\Components\IA\FiniteStateMachines\StatesMachineManager.cs" />
-    <Compile Include="Actors\Components\IA\FiniteStateMachines\WalkingState.cs" />
+    <Compile Include="Actors\Components\IA\FiniteStateMachines\RandomWalkingState.cs" />
     <Compile Include="Scenes\Cameras\CameraTargetsManager.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ExplosionsManager.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ProjectileManager.cs" />

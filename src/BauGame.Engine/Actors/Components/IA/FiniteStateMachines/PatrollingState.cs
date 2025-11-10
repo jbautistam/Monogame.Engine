@@ -1,177 +1,82 @@
 using Microsoft.Xna.Framework;
+using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Routes;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
 
-public class PatrollingState : INPCState
+/// <summary>
+///     Estado que permite patrullar a un actor
+/// </summary>
+public class PatrollingState(string name, PropertiesState properties, WaypointRouteModel route) : AbstractState(name, properties)
 {
-    private enum PatrolSubState
-    {
-        MovingToWaypoint,
-        WaitingAtWaypoint
-    }
+    // Variables privadas
+    private Vector2? _nextWaypoint;
+    private float _elapsed;
 
-    private PatrolSubState currentSubState;
-    private float waitTimer;
-    private float waitDuration;
-    private Vector2 targetPosition;
-    private bool hasReachedWaypoint;
+	/// <summary>
+	///		Inicializa el estado
+	/// </summary>
+	protected override void StartState()
+	{
+		_nextWaypoint = Route.GetNextWaypoint(null, Looping);
+	}
 
-    public void Enter(NPC npc)
-    {
-        currentSubState = PatrolSubState.MovingToWaypoint;
-        hasReachedWaypoint = false;
-        waitTimer = 0f;
-        waitDuration = 0f;
+    /// <summary>
+    ///     Actualiza el estado del nodo
+    /// </summary>
+	protected override string? UpdateState(GameContext gameContext)
+	{
+        string? nextState = Name;
 
-        // Obtener el waypoint actual
-        var currentWaypoint = npc.PatrolRoute?.GetCurrentWaypoint();
-        if (currentWaypoint != null)
-        {
-            targetPosition = currentWaypoint.Position;
-            SetDirectionToTarget(npc, targetPosition);
-        }
-        else
-        {
-            // Si no hay ruta, volver a idle
-            npc.StateMachine.ChangeState(new IdleState());
-        }
-    }
-
-    public void Execute(NPC npc, GameTime gameTime)
-    {
-        // Verificar si el jugador está cerca para cambiar a estado de interacción
-        if (npc.IsPlayerNearby() && npc.CanBeInterrupted)
-        {
-            npc.StateMachine.ChangeState(new TalkingState());
-            return;
-        }
-
-        switch (currentSubState)
-        {
-            case PatrolSubState.MovingToWaypoint:
-                MoveTowardsWaypoint(npc, gameTime);
-                break;
-
-            case PatrolSubState.WaitingAtWaypoint:
-                WaitForDuration(npc, gameTime);
-                break;
-        }
-    }
-
-    public void Exit(NPC npc)
-    {
-        npc.Velocity = Vector2.Zero;
-    }
-
-    private void MoveTowardsWaypoint(NPC npc, GameTime gameTime)
-    {
-        if (npc.PatrolRoute == null) return;
-
-        float distanceToTarget = npc.PatrolRoute.DistanceToCurrentWaypoint(npc.Position);
-
-        // Si está cerca del waypoint
-        if (distanceToTarget < npc.ArrivalDistance)
-        {
-            // Detenerse en el waypoint
-            npc.Position = npc.PatrolRoute.GetCurrentWaypoint().Position;
-            npc.Velocity = Vector2.Zero;
-            hasReachedWaypoint = true;
-
-            // Verificar si hay tiempo de espera en este waypoint
-            float waitTime = npc.PatrolRoute.GetCurrentWaypoint().WaitTime;
-            if (waitTime > 0)
-            {
-                currentSubState = PatrolSubState.WaitingAtWaypoint;
-                waitTimer = 0f;
-                waitDuration = waitTime;
-                
-                // Aquí podrías reproducir animación de espera
-                PlayWaypointAnimation(npc);
-            }
+            // Si no queda ninguna ruta o se ha pasado el tiempo, se pasa al siguiente estado
+            if (Properties.Duration != 0 && _elapsed > Properties.Duration)
+                nextState = Properties.NextState;
+		    else if (_nextWaypoint is null || StateMachine is null)
+                nextState = Properties.NextState;
             else
             {
-                // Ir al siguiente waypoint inmediatamente
-                MoveToNextWaypoint(npc);
+                float distance = Route.DistanceToWaypoint(StateMachine.Brain.Owner.Transform.Center, _nextWaypoint ?? Vector2.Zero);
+
+                    if (distance < ArrivalDistance)
+                        _nextWaypoint = Route.GetNextWaypoint(_nextWaypoint, Looping);
+                    else
+                    {
+                        Vector2 direction = (_nextWaypoint ?? Vector2.Zero) - StateMachine.Brain.Owner.Transform.Center;
+
+                            // Calcula la velocidad
+                            if (direction.Length() > 0)
+                            {
+                                direction.Normalize();
+                                Speed = direction * Properties.SpeedMaximum;
+                            }
+                    }
             }
-        }
-        else
-        {
-            // Continuar moviéndose hacia el waypoint
-            SetDirectionToTarget(npc, targetPosition);
-            npc.Position += npc.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-        }
-    }
+            // Incrementa el tiempo
+            _elapsed += gameContext.DeltaTime;
+            // Devuelve el siguiente estado
+            return nextState;
+	}
 
-    private void WaitForDuration(NPC npc, GameTime gameTime)
-    {
-        waitTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+    /// <summary>
+    ///     Finaliza el estado
+    /// </summary>
+	public override void End()
+	{
+		// ... en esta caso simplemente implementa la interface
+	}
 
-        // Durante la espera, el NPC puede hacer cosas como mirar alrededor
-        LookAround(npc, gameTime);
+    /// <summary>
+    ///     Ruta que sigue el actor
+    /// </summary>
+    public WaypointRouteModel Route { get; } = route;
 
-        if (waitTimer >= waitDuration)
-        {
-            // Terminar espera y moverse al siguiente waypoint
-            currentSubState = PatrolSubState.MovingToWaypoint;
-            MoveToNextWaypoint(npc);
-        }
-    }
+    /// <summary>
+    ///     Distancia mínima a los puntos de ruta
+    /// </summary>
+    public float ArrivalDistance { get; set; } = 0.2f;
 
-    private void MoveToNextWaypoint(NPC npc)
-    {
-        if (npc.PatrolRoute == null) return;
-
-        // Obtener el siguiente waypoint
-        var nextWaypoint = npc.PatrolRoute.GetNextWaypoint();
-        if (nextWaypoint != null)
-        {
-            targetPosition = nextWaypoint.Position;
-            SetDirectionToTarget(npc, targetPosition);
-            
-            // Aquí podrías reproducir animación de movimiento
-            PlayMovementAnimation(npc);
-        }
-    }
-
-    private void SetDirectionToTarget(NPC npc, Vector2 target)
-    {
-        Vector2 direction = target - npc.Position;
-        if (direction.Length() > 0)
-        {
-            direction.Normalize();
-            npc.Velocity = direction * npc.Speed;
-            
-            // Actualizar dirección para animaciones/sprites
-            npc.FacingDirection = direction;
-        }
-        else
-        {
-            npc.Velocity = Vector2.Zero;
-        }
-    }
-
-    private void PlayWaypointAnimation(NPC npc)
-    {
-        // Ejemplo: reproducir animación de espera
-        var currentWaypoint = npc.PatrolRoute?.GetCurrentWaypoint();
-        if (currentWaypoint != null && !string.IsNullOrEmpty(currentWaypoint.Animation))
-        {
-            // npc.AnimationPlayer?.Play(currentWaypoint.Animation);
-        }
-        else
-        {
-            // npc.AnimationPlayer?.Play("idle");
-        }
-    }
-
-    private void PlayMovementAnimation(NPC npc)
-    {
-        // npc.AnimationPlayer?.Play("walk");
-    }
-
-    private void LookAround(NPC npc, GameTime gameTime)
-    {
-        // Animación opcional: hacer que el NPC mire alrededor mientras espera
-        // Por ejemplo, cambiar ligeramente la dirección de mirada
-    }
+    /// <summary>
+    ///     Indica si la ruta se debe seguir en bucle
+    /// </summary>
+    public bool Looping { get; set; }
 }

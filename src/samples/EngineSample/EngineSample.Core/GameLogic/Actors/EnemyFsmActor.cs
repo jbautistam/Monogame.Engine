@@ -74,7 +74,7 @@ public class EnemyFsmActor : AbstractActor
 																			}
 															)
 												);
-		_brain.StatesMachineManager.States.Add(new WalkingState("Walk", new PropertiesState()
+		_brain.StatesMachineManager.States.Add(new RandomWalkingState("Walk", new PropertiesState()
 																			{
 																				BlenderGroup = Name,
 																				Duration = 10,

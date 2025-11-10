@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Routes;
+﻿using Microsoft.Xna.Framework;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Routes;
 
 /// <summary>
 ///		Diccionario de <see cref="WaypointRouteModel"/>
@@ -16,7 +18,7 @@ public class WaypointRoutesManager(AbstractGameLayer layer)
 	/// <summary>
 	///		Obtiene el siguiente punto de una ruta
 	/// </summary>
-	public WaypointRouteModel.Waypoint? GetNextWayPoint(string name, WaypointRouteModel.Waypoint? actual, bool isLooping)
+	public Vector2? GetNextWayPoint(string name, Vector2? actual, bool isLooping)
 	{
 		return Routes.Get(name)?.GetNextWaypoint(actual, isLooping);
 	}
@@ -27,7 +29,7 @@ public class WaypointRoutesManager(AbstractGameLayer layer)
 	public AbstractGameLayer Layer { get; } = layer;
 
 	/// <summary>
-	///		Rutas definicadas
+	///		Rutas definidas
 	/// </summary>
 	private Base.DictionaryModel<WaypointRouteModel> Routes { get; } = new();
 }

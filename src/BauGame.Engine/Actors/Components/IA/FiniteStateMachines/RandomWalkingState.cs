@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
 /// <summary>
 ///     Estado de caminar sin rumbo
 /// </summary>
-public class WalkingState(string name, PropertiesState properties) : AbstractState(name, properties)
+public class RandomWalkingState(string name, PropertiesState properties) : AbstractState(name, properties)
 {
     // Variables privadas
     private float _elapsedTime, _walkingTime, _maxWalkToDirectionTime;

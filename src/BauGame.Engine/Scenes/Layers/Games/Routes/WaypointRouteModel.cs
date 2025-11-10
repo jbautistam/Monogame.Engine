@@ -7,13 +7,10 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Routes;
 /// </summary>
 public class WaypointRouteModel(string name)
 {
-    // Registros públicos
-    public record Waypoint(Vector2 Position, float WaitTime, string? NextState);
-
     /// <summary>
     ///     Obtiene el siguiente <see cref="Waypoint"/>
     /// </summary>
-    public Waypoint? GetNextWaypoint(Waypoint? actual, bool isLooping)
+    public Vector2? GetNextWaypoint(Vector2? actual, bool isLooping)
     {
         int nextIndex = -1;
 
@@ -24,7 +21,7 @@ public class WaypointRouteModel(string name)
                 if (actual is null)
                     nextIndex = 0;
                 else
-                    nextIndex = Waypoints.IndexOf(actual) + 1;
+                    nextIndex = Waypoints.IndexOf(actual ?? Vector2.Zero) + 1;
                 // Obtiene el siguiente índice
                 if (nextIndex >= Waypoints.Count && isLooping)
                     nextIndex = 0;
@@ -39,7 +36,7 @@ public class WaypointRouteModel(string name)
     /// <summary>
     ///     Calcula la distancia a un punto
     /// </summary>
-    public float DistanceToWaypoint(Vector2 position, Waypoint waypoint) => Vector2.Distance(position, waypoint.Position);
+    public float DistanceToWaypoint(Vector2 position, Vector2 waypoint) => Vector2.Distance(position, waypoint);
 
     /// <summary>
     ///     Nombre de la ruta
@@ -49,5 +46,5 @@ public class WaypointRouteModel(string name)
     /// <summary>
     ///     Puntos del recorrido
     /// </summary>
-    public List<Waypoint> Waypoints { get; } = [];
+    public List<Vector2> Waypoints { get; } = [];
 }
