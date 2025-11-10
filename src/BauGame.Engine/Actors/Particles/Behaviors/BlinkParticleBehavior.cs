@@ -1,19 +1,33 @@
 ﻿namespace Bau.Libraries.BauGame.Engine.Actors.Particles.Behaviors;
 
-// Componente de parpadeo
-public class BlinkParticleBehavior(Particle particle) : AbstractParticleBehavior(particle)
+/// <summary>
+///     Comportamiento de parpadeo de una partícula
+/// </summary>
+public class BlinkParticleBehavior : AbstractParticleBehavior
 {
     // Variables privadas
     private float _blinkTimer = 0f;
     private bool _visible = true;
+    private float _startOpacity;
+
+    /// <summary>
+    ///     Clona el comportamiento
+    /// </summary>
+	public override AbstractParticleBehavior Clone()
+	{
+		return new BlinkParticleBehavior()
+                        {
+                            BlinkInterval = BlinkInterval,
+                            BlinkDuration = BlinkDuration
+                        };
+	}
 
     /// <summary>
     ///     Inicializa las propiedades del comportamiento
     /// </summary>
-    public override void Reset()
+    protected override void ResetBehavior()
     {
-        _blinkTimer = 0f;
-        _visible = true;
+        _startOpacity = Particle.Opacity;
     }
 
     /// <summary>
@@ -36,7 +50,9 @@ public class BlinkParticleBehavior(Particle particle) : AbstractParticleBehavior
         }
         // Modifica la transparencia para aumentar el color cuando parpadea
         if (!_visible)
-            particle.Color = particle.Color * 0.3f;
+            Particle.Opacity = 0.3f;
+        else
+            Particle.Opacity = _startOpacity;
     }
 
     /// <summary>

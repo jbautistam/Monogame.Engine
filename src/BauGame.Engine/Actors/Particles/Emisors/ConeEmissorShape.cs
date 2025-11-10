@@ -10,12 +10,12 @@ public class ConeEmissorShape : AbstractEmissorShape
     /// <summary>
     ///     Obtiene la posición de emisión
     /// </summary>
-    public override Vector2 GetEmissionPosition()
+    public override Vector2 GetEmissionPosition(Vector2 systemPosition)
     {
         float randomAngle = (float) (Tools.Randomizer.Random.NextDouble() * Angle) - 0.5f * Angle;
         float length = EdgeOnly ? Length : (float) (Tools.Randomizer.Random.NextDouble() * Length);
         
-            return Position + new Vector2((float) Math.Cos(randomAngle) * length, (float) Math.Sin(randomAngle) * length);
+            return systemPosition + new Vector2((float) Math.Cos(randomAngle) * length, (float) Math.Sin(randomAngle) * length);
     }
 
     /// <summary>

@@ -10,13 +10,13 @@ public class CircleEmissorShape : AbstractEmissorShape
     /// <summary>
     ///     Obtiene la posición de emisión
     /// </summary>
-    public override Vector2 GetEmissionPosition()
+    public override Vector2 GetEmissionPosition(Vector2 systemPosition)
     {
         float angle = (float) (Tools.Randomizer.Random.NextDouble() * Math.PI * 2);
         float radius = EdgeOnly ? Radius : (float) (Tools.Randomizer.Random.NextDouble() * Radius);
 
             // Devuelve el punto de emisión
-            return Position + new Vector2((float) Math.Cos(angle) * radius, (float) Math.Sin(angle) * radius);
+            return systemPosition + new Vector2((float) Math.Cos(angle) * radius, (float) Math.Sin(angle) * radius);
     }
 
     /// <summary>

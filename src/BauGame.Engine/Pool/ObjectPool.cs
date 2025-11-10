@@ -26,6 +26,21 @@ public class ObjectPool<TypeData>(int? maxSize = null) where TypeData : IPoolabl
     public TypeData? GetFirstInactive() => _pool.FirstOrDefault(item => !item.Enabled);
 
     /// <summary>
+    ///     Cuenta los elementos activos
+    /// </summary>
+	public int CountEnabled()
+    {
+        int count = 0;
+
+            // Cuenta los elementos activos
+            foreach (TypeData item in _pool)
+                if (item.Enabled)
+                    count++;
+            // Devuelve el número de elementos activos
+            return count;
+    }
+
+    /// <summary>
     ///     Elimina un elemento
     /// </summary>
     public void Remove(TypeData item)

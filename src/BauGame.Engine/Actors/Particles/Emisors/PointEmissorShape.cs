@@ -10,5 +10,5 @@ public class PointEmissorShape : AbstractEmissorShape
     /// <summary>
     ///     Obtiene la posición de emisión
     /// </summary>
-    public override Vector2 GetEmissionPosition() => Position;
+    public override Vector2 GetEmissionPosition(Vector2 systemPosition) => systemPosition;
 }

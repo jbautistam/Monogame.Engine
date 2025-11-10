@@ -40,6 +40,14 @@ public static class Randomizer
 	}
 
 	/// <summary>
+	///		Obtiene un color aleatorio
+	/// </summary>
+	public static Color GetRandomColor(Color minimum, Color maximum)
+	{
+		return GetRandomColor(minimum.R, maximum.R, minimum.G, maximum.G, minimum.B, maximum.B);
+	}
+
+	/// <summary>
 	///		Objeto para generación de valores aleatorios
 	/// </summary>
 	public static Random Random { get; } = new();

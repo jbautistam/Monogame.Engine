@@ -10,10 +10,5 @@ public abstract class AbstractEmissorShape
     /// <summary>
     ///     Obtiene la posición de emisión
     /// </summary>
-    public abstract Vector2 GetEmissionPosition();
-
-    /// <summary>
-    ///     Posición del emisor
-    /// </summary>
-    public Vector2 Position { get; set; }
+    public abstract Vector2 GetEmissionPosition(Vector2 systemPosition);
 }
