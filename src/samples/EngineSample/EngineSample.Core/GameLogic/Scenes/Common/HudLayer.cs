@@ -3,6 +3,7 @@ using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+using Bau.Libraries.BauGame.Engine.Scenes.Messages;
 
 namespace EngineSample.Core.GameLogic.Scenes.Common;
 
@@ -39,7 +40,13 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 			builder.WithItem(new UserInterfaceLabelBuilder(this, "0", 0.9f, 0.01f, 1, 1)
 									.WithFont("Fonts/Hud")
 									.WithColor(Color.White)
-									.WithId("lblPosition")
+									.WithId("lblCameraPosition")
+									.Build()
+							);
+			builder.WithItem(new UserInterfaceLabelBuilder(this, "0", 0.8f, 0.01f, 1, 1)
+									.WithFont("Fonts/Hud")
+									.WithColor(Color.White)
+									.WithId("lblPlayerPosition")
 									.Build()
 							);
 			// y devuelve la capa creada
@@ -52,12 +59,31 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 	protected override void UpdateUserInterface(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		UiLabel? lblScore = GetItem<UiLabel>("lblScore");
-		UiLabel? lblPosition = GetItem<UiLabel>("lblPosition");
+		UiLabel? lblCameraPosition = GetItem<UiLabel>("lblCameraPosition");
+		UiLabel? lblPlayerPosition = GetItem<UiLabel>("lblPlayerPosition");
 
-			// Cambia las etiquetas
+			// Cambia la etiqueta de puntuación
 			if (lblScore is not null)
-				lblScore.Text = "1.221";
-			if (lblPosition is not null && Scene.Camera is not null)
-				lblPosition.Text = $"{Scene.Camera.Position.X:0,00},{Scene.Camera.Position.Y:0,00}";
+				lblScore.Text = GetMessageText("Score", "0");
+			// Cambia la etiqueta de la posición de cámara
+			if (lblCameraPosition is not null && Scene.Camera is not null)
+				lblCameraPosition.Text = $"{Scene.Camera.Position.X:0,00},{Scene.Camera.Position.Y:0,00}";
+			// Cambia la etiqueta de la posición del jugador
+			if (lblPlayerPosition is not null)
+				lblPlayerPosition.Text = GetMessageText("PlayerPosition", "-");
+	}
+
+	/// <summary>
+	///		Obtiene el texto de un mensaje
+	/// </summary>
+	private string GetMessageText(string type, string defaultValue)
+	{
+		MessageModel? message = ReceivedMessages.Get(type);
+
+			// Devuelve el contenido del mensaje
+			if (message is not null)
+				return message.Message;
+			else
+				return defaultValue;
 	}
 }

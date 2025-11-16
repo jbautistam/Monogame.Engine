@@ -10,4 +10,6 @@ internal class Constants
 	internal const string InputShootGrenadeAction = nameof(InputShootGrenadeAction);
 	// Constantes de etiquetas
 	internal const string TagEnemy = "Enemy";
+	// Constantes de capas
+	internal const string LayerHud = "Hud";
 }

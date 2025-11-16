@@ -27,7 +27,7 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 	protected override void StartScene()
 	{
 		// Guarda el interface de usuario Hud
-		_hudLayer = new Common.HudLayer(this, "Hud", 1);
+		_hudLayer = new Common.HudLayer(this, Constants.LayerHud, 1);
 		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
 		LayerManager.AddLayer(new GameLayer(this, SceneName, 1));

@@ -188,7 +188,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private void ChangeText()
 	{
-		AbstractUserInterfaceLayer? layer = LayerManager.Get<AbstractUserInterfaceLayer>("Hud");
+		AbstractUserInterfaceLayer? layer = LayerManager.Get<AbstractUserInterfaceLayer>(Constants.LayerHud);
 
 			if (layer is not null)
 			{

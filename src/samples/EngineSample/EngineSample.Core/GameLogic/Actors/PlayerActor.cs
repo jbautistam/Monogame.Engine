@@ -8,6 +8,7 @@ using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Actors.Components.Shooting;
+using Bau.Libraries.BauGame.Engine.Scenes.Messages;
 
 namespace EngineSample.Core.GameLogic.Actors;
 
@@ -115,6 +116,8 @@ public class PlayerActor : AbstractActor
 		}
 		// Actualiza las propiedades de animación
 		UpdateAnimation(_speed, _health.IsDead);
+		// Envía los mensajes al Hud
+		SendHudMessages();
 	}
 
 	/// <summary>
@@ -206,6 +209,29 @@ public class PlayerActor : AbstractActor
 				// Dispara el arma
 				_shooter.Shoot(slot, Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
 		}
+	}
+
+	/// <summary>
+	///		Envía los mensajes al hud
+	/// </summary>
+	private void SendHudMessages()
+	{
+		List<MessageModel> messages = [];
+
+			// Crea los mensajes
+			messages.Add(new MessageModel(this, "PlayerPosition")
+								{
+									Message = $"{Transform.Bounds.TopLeft.X:0}-{Transform.Bounds.TopLeft.Y:0}"
+								}
+						);
+			messages.Add(new MessageModel(this, "Score")
+								{
+									Message = "34"
+								}
+						);
+			// Envía los mensajes
+			if (messages.Count > 0)
+				Layer.Scene.LayerManager.SendMessages(Constants.LayerHud, messages);
 	}
 
 	/// <summary>

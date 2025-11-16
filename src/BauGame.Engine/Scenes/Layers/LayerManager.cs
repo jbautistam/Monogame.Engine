@@ -76,6 +76,19 @@ public class LayerManager(AbstractScene scene)
         return Layers.FirstOrDefault(item => item.Name.Equals(layer, StringComparison.CurrentCultureIgnoreCase)) as TypeData;
 	}
 
+    /// <summary>
+    ///     Envía una serie de mensajes a una capa
+    /// </summary>
+    public void SendMessages(string layer, List<Messages.MessageModel> messages)
+    {
+        AbstractLayer? abstractLayer = Get<AbstractLayer>(layer);
+
+            // Añade el mensaje a la capa
+            if (abstractLayer is not null)
+                foreach (Messages.MessageModel message in messages)
+                    abstractLayer.ReceivedMessages.Add(message.Type, message);
+    }
+
 	/// <summary>
 	///     Escena a la que se asocia la capa
 	/// </summary>

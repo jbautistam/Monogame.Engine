@@ -108,6 +108,7 @@
     <Compile Include="Scenes\Layers\TilesMap\AbstractTilemapLayer.cs" />
     <Compile Include="Scenes\Layers\TilesMap\TileDefinition.cs" />
     <Compile Include="Scenes\Layers\UserInterfaceLayer.cs" />
+    <Compile Include="Scenes\Messages\MessageModel.cs" />
     <Compile Include="Scenes\Physics\CollisionSpatialGrid.cs" />
     <Compile Include="Scenes\Physics\KinematicCollisionModel.cs" />
     <Compile Include="Scenes\Physics\PhysicLayersRelation.cs" />
