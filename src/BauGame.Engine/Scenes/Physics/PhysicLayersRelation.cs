@@ -1,5 +1,4 @@
-﻿
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
 
 /// <summary>
 ///		Configuración de las capas de físicas

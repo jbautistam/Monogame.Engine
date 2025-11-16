@@ -29,7 +29,7 @@ public class PhysicsManager
 	/// <summary>
 	///		Fuerza de gravedad (en unidades del mundo)
 	/// </summary>
-	public Vector2 WorldGravity { get; set; } = new Vector2(0, 981f);
+	public Vector2 WorldGravity { get; set; } = new(0, 981f);
 
 	/// <summary>
 	///		Grid para colisiones

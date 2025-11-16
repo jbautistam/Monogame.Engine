@@ -160,7 +160,7 @@ public class RigidBodyComponent(AbstractActor owner, RigidBodyComponent.BodyType
                                         {
                                             Position = Owner.Transform.Bounds.TopLeft,
                                             Normal = contact.Normal,
-                                            Travel = safeMotion.Length(),
+                                            SafeMotion = safeMotion,
                                             Remainder = motion - safeMotion,
                                             Collider = contact.Collider
                                         };
