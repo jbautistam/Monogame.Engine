@@ -11,6 +11,7 @@ public class BrainComponent : AbstractComponent
 	public BrainComponent(AbstractActor owner) : base(owner, false)
 	{
 		StatesMachineManager = new FiniteStateMachines.StatesMachineManager(this);
+		AgentSteeringManager = new Steering.AgentSteeringManager(this);
 	}
 
 	/// <summary>
@@ -114,4 +115,9 @@ public class BrainComponent : AbstractComponent
 	///		Controlador de la máquina de estados
 	/// </summary>
 	public FiniteStateMachines.StatesMachineManager StatesMachineManager { get; }
+
+	/// <summary>
+	///		Controlador para movimientos
+	/// </summary>
+	public Steering.AgentSteeringManager AgentSteeringManager { get; }
 }
