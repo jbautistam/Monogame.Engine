@@ -49,35 +49,6 @@ public class Camera2D
         }
     }
 
-/*
-    public void RecalculateMatrices()
-    {
-        int screenWidth = GraphicsDevice.Viewport.Width;
-        int screenHeight = GraphicsDevice.Viewport.Height;
-
-        // Escalado uniforme SIN bandas negras → ajusta al mínimo que cubra toda la pantalla
-        float scaleX = (float)screenWidth / DesignWidth;
-        float scaleY = (float)screenHeight / DesignHeight;
-        _scaleFactor = Math.Max(scaleX, scaleY); // ¡Math.Max elimina bandas negras!
-
-        // Viewport lógico escalado (puede ser más grande que la pantalla)
-        int scaledWidth = (int)(DesignWidth * _scaleFactor);
-        int scaledHeight = (int)(DesignHeight * _scaleFactor);
-
-        // Matriz para UI/HUD: se dibuja en coordenadas de diseño (1280x720), escalado a pantalla
-        UIScaleMatrix = Matrix.CreateScale(_scaleFactor);
-
-        // Centro del mundo en la cámara
-        Vector2 cameraScreenCenter = new Vector2(screenWidth / 2f, screenHeight / 2f);
-
-        // Matriz de vista del mundo: traslada el mundo para que WorldCameraPosition esté centrado
-        WorldViewMatrix =
-            Matrix.CreateTranslation(new Vector3(-WorldCameraPosition.X, -WorldCameraPosition.Y, 0)) *
-            Matrix.CreateScale(WorldZoom) *
-            Matrix.CreateTranslation(new Vector3(cameraScreenCenter, 0));
-    }
-*/
-
     /// <summary>
     ///     Actualiza el viewPort (normalmente por un cambio en el tamaño de la pantalla)
     /// </summary>
@@ -106,6 +77,17 @@ public class Camera2D
         UpdateMatrices();
         // Transforma el vector (después del update, ya existe la matriz)
         return Vector2.Transform(worldPosition, _transformMatrix!.Value);
+    }
+
+    /// <summary>
+    ///     Convierte coordenadas de mundo a coordenadas de pantalla
+    /// </summary>
+    public Rectangle WorldToScreenRect(RectangleF worldRect)
+    {
+        Vector2 origin = WorldToScreen(worldRect.TopLeft);
+
+            // Devuelve el rectángulo convertido
+            return new Rectangle((int) origin.X, (int) origin.Y, (int) worldRect.Width, (int) worldRect.Height);
     }
 
     /// <summary>
@@ -141,37 +123,9 @@ public class Camera2D
     }
 
     /// <summary>
-    ///     Convierte coordenadas de mundo a coordenadas de pantalla
+    ///     Comprueba si un rectángulo está en la vista
     /// </summary>
-    public Rectangle WorldToScreenRect(RectangleF worldRect)
-    {
-        Vector2 topLeft = WorldToScreen(new Vector2(worldRect.Left, worldRect.Top));
-        Vector2 topRight = WorldToScreen(new Vector2(worldRect.Right, worldRect.Top));
-        Vector2 bottomLeft = WorldToScreen(new Vector2(worldRect.Left, worldRect.Bottom));
-        Vector2 bottomRight = WorldToScreen(new Vector2(worldRect.Right, worldRect.Bottom));
-        float minX = MathHelper.Min(MathHelper.Min(topLeft.X, topRight.X), MathHelper.Min(bottomLeft.X, bottomRight.X));
-        float minY = MathHelper.Min(MathHelper.Min(topLeft.Y, topRight.Y), MathHelper.Min(bottomLeft.Y, bottomRight.Y));
-        float maxX = MathHelper.Max(MathHelper.Max(topLeft.X, topRight.X), MathHelper.Max(bottomLeft.X, bottomRight.X));
-        float maxY = MathHelper.Max(MathHelper.Max(topLeft.Y, topRight.Y), MathHelper.Max(bottomLeft.Y, bottomRight.Y));
-
-            // Devuelve el rectángulo convertido
-            return new Rectangle((int) minX, (int) minY, (int) (maxX - minX), (int) (maxY - minY));
-    }
-
-    /// <summary>
-    ///     Comprueba si un elemento está en la lista
-    /// </summary>
-    public bool IsInView(RectangleF bounds)
-    {
-        // Convertimos esquinas del bounding box a pantalla
-        Vector2 topLeft = WorldToScreen(new Vector2(bounds.Left, bounds.Top));
-        Vector2 bottomRight = WorldToScreen(new Vector2(bounds.Right, bounds.Bottom));
-        Rectangle screenRect = new((int) Math.Min(topLeft.X, bottomRight.X), (int) Math.Min(topLeft.Y, bottomRight.Y),
-                                   (int) Math.Abs(bottomRight.X - topLeft.X), (int) Math.Abs(bottomRight.Y - topLeft.Y));
-
-            // Comprobamos si intersecta con el viewport
-            return screenRect.Intersects(ScreenViewport.Bounds);
-    }
+    public bool IsAtView(RectangleF bounds) => WorldToScreenRect(bounds).Intersects(ScreenViewport.Bounds);
 
     /// <summary>
     ///     Limita un punto a los límites del mundo

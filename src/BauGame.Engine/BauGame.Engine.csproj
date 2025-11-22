@@ -72,6 +72,11 @@
     <Compile Remove="Actors\Particles\Behaviors\TextureAnimationComponent.cs" />
     <Compile Remove="Actors\Particles\Behaviors\VelocityComponent.cs" />
     <Compile Remove="Actors\Particles\Behaviors\WindComponent.cs" />
+    <Compile Remove="Actors\TileMap\AnimatedTile.cs" />
+    <Compile Remove="Actors\TileMap\IsometricTileSet.cs" />
+    <Compile Remove="Actors\TileMap\MapLayerData.cs" />
+    <Compile Remove="Actors\TileMap\TileDefinitionModel.cs" />
+    <Compile Remove="Actors\TileMap\Tilemap.cs" />
     <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
     <Compile Remove="Pool\PoolManager.cs" />
   </ItemGroup>
@@ -116,9 +121,6 @@
     <Compile Include="Scenes\Layers\Games\AbstractGameLayer.cs" />
     <Compile Include="Scenes\Layers\Games\Routes\WaypointRouteModel.cs" />
     <Compile Include="Scenes\Layers\Games\Routes\WaypointRoutesManager.cs" />
-    <Compile Include="Scenes\Layers\TilesMap\MapDefinition.cs" />
-    <Compile Include="Scenes\Layers\TilesMap\AbstractTilemapLayer.cs" />
-    <Compile Include="Scenes\Layers\TilesMap\TileDefinition.cs" />
     <Compile Include="Scenes\Layers\UserInterfaceLayer.cs" />
     <Compile Include="Scenes\Messages\MessageModel.cs" />
     <Compile Include="Scenes\Physics\CollisionSpatialGrid.cs" />

@@ -39,6 +39,7 @@
 	<Texture Name = "BlockB0" Asset = "Tiles/BlockB0" />
 	<Texture Name = "BlockB1" Asset = "Tiles/BlockB1" />
 	<Texture Name = "Platform" Asset = "Tiles/Platform" />
+	<Texture Name = "Exit" Asset = "Tiles/Exit" />
 	<Texture Name = "Gem" Asset = "Sprites/Gem" />
 	<Texture Name = "explosion" Asset = "images/spaceships/explosion" Rows = "1" Columns = "12" />
 	<Texture Name = "laser" Asset = "images/spaceships/laser" />

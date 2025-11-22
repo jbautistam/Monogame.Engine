@@ -28,8 +28,7 @@ public abstract class AbstractActor : Pool.IPoolable
 		// Inicializa el actor
 		StartActor();
 		// Inicializa los componentes
-		foreach (Components.AbstractComponent component in Components)
-			component.Start();
+		Components.Start();
 	}
 
 	/// <summary>
@@ -45,8 +44,7 @@ public abstract class AbstractActor : Pool.IPoolable
 		// Actualiza el tamaño del actor a partir del tamaño de la textura
 		Transform.Bounds.Resize(Renderer.GetSize());
 		// Actualiza las físicas
-		foreach (Components.AbstractComponent component in Components)
-			component.UpdatePhysics(gameContext);
+		Components.UpdatePhysics(gameContext);
     }
 
 	/// <summary>
@@ -99,8 +97,7 @@ public abstract class AbstractActor : Pool.IPoolable
 		// Desactiva el actor
 		Enabled = false;
 		// Detiene los componentes
-		foreach (Components.AbstractComponent component in Components)
-			component.End();
+		Components.End();
 		// Finaliza el trabajo con el actor
 		EndActor();
 		// Quita el actor de la lista de objetivos de la cámara

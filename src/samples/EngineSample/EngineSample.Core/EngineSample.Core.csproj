@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="GameLogic\Scenes\BackgroundLayer.cs" />
+    <Compile Remove="GameLogic\Scenes\TilesSample\TileMapManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Bau.Libraries.LibHelper" Version="1.3.68" />

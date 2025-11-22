@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 
 namespace EngineSample.Core.GameLogic.Scenes.TilesSample;
 
@@ -44,14 +42,21 @@ internal class TilesScene(string name, int level) : AbstractScene(name, new Rect
 	/// </summary>
 	private void CreateGameLayers()
 	{
-		List<AbstractLayer> layers = new TileMapManager(this).CreateTileMapLayers(1);
+		// Añade la capa de fondo tiles
+		LayerManager.AddLayer(CreateTileMapLayer());
+		// Añade la capa del jugador
+		LayerManager.AddLayer(new TilesPlayerLayer(this, SceneName, 1));
 
-			// Añade las capas de mapa
-			foreach (AbstractLayer layer in layers)
-				LayerManager.AddLayer(layer);
-			// Añade la capa del jugador
-			//TODO: esto en realidad debería estar sobre una capa intermedia y haberse creado con el TileMapManager (creo)
-			LayerManager.AddLayer(new TilesPlayerLayer(this, SceneName, 1));
+		// Crea la capa de fondo
+		TileMapLayer CreateTileMapLayer()
+		{
+			TileMapLayer layer = new(this, "TileMap", PhysicsBackgroundLayer, 0);
+
+				// Inicializa la capa (carga el mapa)
+				layer.Initialize();
+				// Devuelve la capa
+				return layer;
+		}
 	}
 
 	/// <summary>

@@ -27,15 +27,14 @@ public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractAct
     /// <summary>
     ///     Actualiza el componente
     /// </summary>
-    protected override void UpdateActor(Managers.GameContext gameContext)
+    protected override void UpdateActor(GameContext gameContext)
     {
+        // Asigna los máximos definidos en la bandada
+        //? No actualiza los agentes porque realmente son componentes dentro de otros actores
         foreach (AgentSteeringManager agent in Agents)
         {
-            // Asigna los máximos definidos en la bandada
             agent.MaxSpeed = MaxSpeed;
             agent.MaxForce = MaxForce;
-            // Actualiza el agente
-            agent.Update(gameContext);
         }
     }
 

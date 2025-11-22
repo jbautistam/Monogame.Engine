@@ -1,32 +1,27 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.TilesMap;
+﻿namespace Bau.Libraries.BauGame.Engine.Actors.TileMap;
 
 /// <summary>
 ///     Definición de un patrón
 /// </summary>
-public class TileDefinition
+public class TileDefinitionModel(
 {
     /// <summary>
     ///     Código del patrón
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; init; }
 
     /// <summary>
     ///     Código de textura
     /// </summary>
-    public string Texture { get; set; } = default!;
+    public required string Texture { get; init; }
 
     /// <summary>
     ///     Región dentro de la textura
     /// </summary>
-    public string Region { get; set; } = default!;
+    public required string Region { get; init; }
 
     /// <summary>
     ///     Código de definición
     /// </summary>
     public string? Animation { get; set; }
-
-    /// <summary>
-    ///     Indica si es un patrón sólido
-    /// </summary>
-    public bool IsSolid { get; set; }
 }

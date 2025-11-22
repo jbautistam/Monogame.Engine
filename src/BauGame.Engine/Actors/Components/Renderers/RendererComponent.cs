@@ -23,7 +23,8 @@ public class RendererComponent(AbstractActor actor) : AbstractComponent(actor, t
 	/// </summary>
 	public override void Start()
 	{
-		// ... no hace nada
+		_updated = true;
+		LoadTexture();
 	}
 
 	/// <summary>
