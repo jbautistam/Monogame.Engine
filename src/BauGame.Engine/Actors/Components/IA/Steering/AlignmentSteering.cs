@@ -16,19 +16,20 @@ public class AlignmentSteering : AbstractSteeringBehavior
         Vector2 steering = Vector2.Zero;
         int count = 0;
 
-            // Calcula el vector contra otros actores
-            foreach (AgentSteeringManager other in agentSteeringManager.Agents)
-                if (other != agentSteeringManager)
-                {
-                    float distance = Vector2.Distance(agentSteeringManager.Position, other.Position);
+            // Calcula el vector de movimiento contra otros actores
+            if (agentSteeringManager.FlockSteeringActor is not null)
+                foreach (AgentSteeringManager other in agentSteeringManager.FlockSteeringActor.Agents)
+                    if (other != agentSteeringManager)
+                    {
+                        float distance = Vector2.Distance(agentSteeringManager.Position, other.Position);
 
-                        // Cambia la velocidad si está en el rango
-                        if (distance > 0 && distance < NeighborRadius)
-                        {
-                            steering += other.Velocity;
-                            count++;
-                        }
-                }
+                            // Cambia la velocidad si está en el rango
+                            if (distance > 0 && distance < NeighborRadius)
+                            {
+                                steering += other.Velocity;
+                                count++;
+                            }
+                    }
             // Si realmente se ha encontrado algún actor
             if (count > 0)
             {

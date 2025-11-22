@@ -16,20 +16,21 @@ public class CohesionSteering : AbstractSteeringBehavior
         int count = 0;
 
             // Calcula la distancia con los agentes cercanos
-            foreach (AgentSteeringManager other in agentSteeringManager.Agents)
-            {
-                if (other != agentSteeringManager)
+            if (agentSteeringManager.FlockSteeringActor is not null)
+                foreach (AgentSteeringManager other in agentSteeringManager.FlockSteeringActor.Agents)
                 {
-                    float distance = Vector2.Distance(agentSteeringManager.Position, other.Position);
+                    if (other != agentSteeringManager)
+                    {
+                        float distance = Vector2.Distance(agentSteeringManager.Position, other.Position);
 
-                        // Si está dentro de la distancia, añade la posición
-                        if (distance > 0 && distance < NeighborRadius)
-                        {
-                            steering += other.Position;
-                            count++;
-                        }
+                            // Si está dentro de la distancia, añade la posición
+                            if (distance > 0 && distance < NeighborRadius)
+                            {
+                                steering += other.Position;
+                                count++;
+                            }
+                    }
                 }
-            }
             // Si realmente tenemos algún vecino
             if (count > 0)
             {

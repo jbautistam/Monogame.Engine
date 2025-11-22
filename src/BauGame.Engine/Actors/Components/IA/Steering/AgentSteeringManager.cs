@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.Steering;
 /// <summary>
 ///     Manager de los componentes de movimiento
 /// </summary>
-public class AgentSteeringManager(BrainComponent brain)
+public class AgentSteeringManager(BrainComponent brain, Actors.Steering.FlockSteeringActor? flockSteeringActor)
 {
     // Datos del comportamiento
     public record Behavior(AbstractSteeringBehavior SteeringBehavior, float Weight);
@@ -32,7 +32,7 @@ public class AgentSteeringManager(BrainComponent brain)
         Vector2 force = Vector2.Zero;
 
             // Calcula las fuerzas
-            foreach (Behavior behavior in Behaviors)
+            foreach (Behavior behavior in GetBehaviors())
                 force += behavior.SteeringBehavior.Calculate(this) * behavior.Weight;
             // Limita la fuerza aplicada
             if (force.Length() > MaxForce)
@@ -49,19 +49,30 @@ public class AgentSteeringManager(BrainComponent brain)
     }
 
     /// <summary>
+    ///     Obtiene la lista de comportamientos a ejecutar dependiendo de si está en una bandada o no
+    /// </summary>
+    private List<Behavior> GetBehaviors()
+    {
+        if (FlockSteeringActor is not null)
+            return FlockSteeringActor.Behaviors;
+        else
+            return Behaviors;
+    }
+
+    /// <summary>
     ///     Componente principal de IA
     /// </summary>
     public BrainComponent Brain { get; } = brain;
 
     /// <summary>
+    ///     Manager de la bandada
+    /// </summary>
+    public Actors.Steering.FlockSteeringActor? FlockSteeringActor { get; } = flockSteeringActor;
+
+    /// <summary>
     ///     Comportamientos definidos
     /// </summary>
     public List<Behavior> Behaviors { get; } = [];
-
-    /// <summary>
-    ///     Agentes que conforman la bandada
-    /// </summary>
-    public List<AgentSteeringManager> Agents { get; } = [];
 
     /// <summary>
     ///     Velocidad actual

@@ -38,21 +38,4 @@ public abstract class AbstractSteeringBehavior
 	{
 		return AddressTo(agentSteeringManager, agentSteeringManager.Position - target, maximumDistance);
 	}
-	/*
-    {
-        Vector2 desired = AgentSteeringManager.Position - target;
-
-			// Si está cerca, no cambia la distancia
-			if (desired.Length() < maximumDistance) 
-				return Vector2.Zero;
-			else
-			{
-				// Normaliza el vector
-				desired = Vector2.Normalize(desired) * AgentSteeringManager.MaxSpeed;
-				// Aplica la velocidad para huir
-				Vector2 steer = desired - agent.Velocity;
-				return steer;
-			}
-    }
-	*/
 }
