@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 /// <summary>
 ///     Fondo fijo
 /// </summary>
-public class BackgroundFixedLayer(string texture, int sortOrder) : AbstractBackground(texture, sortOrder)
+public class FixedBackgroundLayer(string texture, int sortOrder) : AbstractBackgroundLayer(texture, sortOrder)
 {
     /// <summary>
     ///     Actualiza la capa de fondo

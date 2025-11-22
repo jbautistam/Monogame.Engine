@@ -12,8 +12,7 @@ public static class VectorMaths
 	/// </summary>
 	public static Vector2 ClampComponents(this Vector2 vector, float maximum)
 	{
-		return new Vector2(MathHelper.Clamp(vector.X, -maximum, maximum),
-						   MathHelper.Clamp(vector.Y, -maximum, maximum));
+		return new Vector2(MathHelper.Clamp(vector.X, -maximum, maximum), MathHelper.Clamp(vector.Y, -maximum, maximum));
 	}
 
 	/// <summary>

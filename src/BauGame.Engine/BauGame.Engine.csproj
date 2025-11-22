@@ -130,10 +130,10 @@
     <Compile Include="Scenes\Layers\AbstractUserInterfaceLayer.cs" />
     <Compile Include="Scenes\Layers\AbstractLayer.cs" />
     <Compile Include="Scenes\AbstractScene.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\ParallaxBackground.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\FixedBackground.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\ParallaxBackgroundLayer.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\FixedBackgroundLayer.cs" />
     <Compile Include="Scenes\Layers\BackgroundLayer.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\AbstractBackground.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\AbstractBackgroundLayer.cs" />
     <Compile Include="Scenes\Layers\LayerManager.cs" />
     <Compile Include="Scenes\Layers\UserInterface\EventArguments\OptionClickEventArgs.cs" />
     <Compile Include="Scenes\Layers\UserInterface\UiBackground.cs" />

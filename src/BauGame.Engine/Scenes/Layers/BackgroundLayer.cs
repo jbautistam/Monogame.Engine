@@ -12,7 +12,7 @@ public class BackgroundLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// </summary>
 	protected override void StartLayer()
 	{
-		foreach (Backgrounds.AbstractBackground background in BackgroundLayers)
+		foreach (Backgrounds.AbstractBackgroundLayer background in BackgroundLayers)
 			background.Start();
 	}
 
@@ -29,7 +29,7 @@ public class BackgroundLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// </summary>
 	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
-		foreach (Backgrounds.AbstractBackground background in BackgroundLayers)
+		foreach (Backgrounds.AbstractBackgroundLayer background in BackgroundLayers)
 			if (background.Visible)
 				background.UpdateLayer(gameContext);
 	}
@@ -39,7 +39,7 @@ public class BackgroundLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// </summary>
 	protected override void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext)
 	{
-		foreach (Backgrounds.AbstractBackground background in BackgroundLayers)
+		foreach (Backgrounds.AbstractBackgroundLayer background in BackgroundLayers)
 			if (background.Visible)
 				background.DrawLayer(camera, gameContext);
 	}
@@ -49,12 +49,12 @@ public class BackgroundLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// </summary>
 	protected override void EndLayer()
 	{
-		foreach (Backgrounds.AbstractBackground background in BackgroundLayers)
+		foreach (Backgrounds.AbstractBackgroundLayer background in BackgroundLayers)
 			background.End();
 	}
 
 	/// <summary>
 	///		Lista de fondos
 	/// </summary>
-	public List<Backgrounds.AbstractBackground> BackgroundLayers { get; } = [];
+	public List<Backgrounds.AbstractBackgroundLayer> BackgroundLayers { get; } = [];
 }

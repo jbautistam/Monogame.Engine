@@ -40,7 +40,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		BackgroundLayer layer = new(this, "Background", 1);
 
 			// Añade los fondos
-			layer.BackgroundLayers.Add(new BackgroundFixedLayer("bg-layer-0", 1));
+			layer.BackgroundLayers.Add(new FixedBackgroundLayer("bg-layer-0", 1));
 			// Devuelve la capa creada
 			return layer;
 	}

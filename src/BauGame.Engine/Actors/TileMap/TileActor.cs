@@ -39,7 +39,7 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 		if (IsSolid && _collision is null)
 		{
 			// Crea la colisión
-			_collision = new Components.Physics.CollisionComponent(this, map.PhysicsLayer);
+			_collision = new Components.Physics.CollisionComponent(this, Map.PhysicsLayer);
 			_collision.Colliders.Add(new Components.Physics.RectangleCollider(_collision, null));
 			// Añade la colisión a la lista de componentes
 			Components.Add(_collision);

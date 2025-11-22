@@ -56,7 +56,7 @@ internal class GameScene(string name) : AbstractScene(name, new Rectangle(0, 0, 
 		BackgroundLayer layer = new(this, "Background", 1);
 
 			// Añade los fondos
-			layer.BackgroundLayers.Add(new BackgroundFixedLayer("bg-layer-0", 1));
+			layer.BackgroundLayers.Add(new FixedBackgroundLayer("bg-layer-0", 1));
 			// Devuelve la capa creada
 			return layer;
 	}

@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 /// <summary>
 ///		Base de los fondos
 /// </summary>
-public abstract class AbstractBackground(string texture, int sortOrder)
+public abstract class AbstractBackgroundLayer(string texture, int sortOrder)
 {
 	/// <summary>
 	///		Inicia el fondo

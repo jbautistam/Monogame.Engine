@@ -7,7 +7,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 /// <summary>
 ///     Background con movimiento parallax
 /// </summary>
-public class ParallaxBackground(string texture, int sortOrder) : AbstractBackground(texture, sortOrder)
+public class ParallaxBackgroundLayer(string texture, int sortOrder) : AbstractBackgroundLayer(texture, sortOrder)
 {
     /// <summary>
     ///     Actualiza la capa de fondo
