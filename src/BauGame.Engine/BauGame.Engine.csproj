@@ -152,7 +152,6 @@
     <Compile Include="Scenes\Layers\UserInterface\UiLabel.cs" />
     <Compile Include="Scenes\Layers\UserInterface\UiMargin.cs" />
     <Compile Include="Scenes\Layers\UserInterface\UiPanel.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiSize.cs" />
   </ItemGroup>
 
   <ItemGroup>

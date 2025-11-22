@@ -11,8 +11,6 @@ public class UiButton : UiElement
     public event EventHandler? Click;
     public event EventHandler? MouseEnter;
     public event EventHandler? MouseLeave;
-    //public event EventHandler? MouseDown;
-    //public event EventHandler? MouseUp;
     /// <summary>
     ///     Tipo de estado
     /// </summary>

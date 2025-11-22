@@ -27,7 +27,7 @@ public class BackgroundLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// <summary>
 	///		Actualiza la capa
 	/// </summary>
-	protected override void UpdateLayer(Managers.GameContext gameContext)
+	protected override void UpdateLayer(GameContext gameContext)
 	{
 		foreach (Backgrounds.AbstractBackgroundLayer background in BackgroundLayers)
 			if (background.Visible)
@@ -37,7 +37,7 @@ public class BackgroundLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected override void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext)
+	protected override void DrawLayer(Cameras.Camera2D camera, GameContext gameContext)
 	{
 		foreach (Backgrounds.AbstractBackgroundLayer background in BackgroundLayers)
 			if (background.Visible)

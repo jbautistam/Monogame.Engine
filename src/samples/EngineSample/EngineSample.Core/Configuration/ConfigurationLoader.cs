@@ -1,5 +1,4 @@
 ﻿using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
 
 namespace EngineSample.Core.Configuration;
 
