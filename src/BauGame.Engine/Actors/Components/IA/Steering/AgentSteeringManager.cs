@@ -19,10 +19,15 @@ public class AgentSteeringManager(BrainComponent brain, Actors.Steering.FlockSte
         Behaviors.Add(new Behavior(steeringBehavior, weight));
     }
 
-	/// <summary>
-	///		Obtiene la posición
-	/// </summary>
-	public Vector2 Position => Brain.Owner.Transform.Bounds.TopLeft;
+    /// <summary>
+    ///     Elimina un comportamiento
+    /// </summary>
+    public void Remove(AbstractSteeringBehavior steeringBehavior)
+    {
+        for (int index = Behaviors.Count - 1; index >= 0; index--)
+            if (Behaviors[index].SteeringBehavior.Id == steeringBehavior.Id)
+                Behaviors.RemoveAt(index);
+    }
 
     /// <summary>
     ///     Actualiza el componente
@@ -44,8 +49,6 @@ public class AgentSteeringManager(BrainComponent brain, Actors.Steering.FlockSte
             // Limita la velocidad
             if (Velocity.Length() > MaxSpeed)
                 Velocity = Vector2.Normalize(Velocity) * MaxSpeed;
-            // Cambia la posición del actor
-            Brain.Owner.Transform.Bounds.Translate(Velocity * gameContext.DeltaTime);
     }
 
     /// <summary>
@@ -84,10 +87,15 @@ public class AgentSteeringManager(BrainComponent brain, Actors.Steering.FlockSte
     /// </summary>
     public Vector2 Acceleration { get; set; }
 
+	/// <summary>
+	///		Obtiene la posición
+	/// </summary>
+	public Vector2 Position => Brain.Owner.Transform.Bounds.TopLeft;
+
     /// <summary>
     ///     Velocidad máxima
     /// </summary>
-    public float MaxSpeed { get; set; } = 100f;
+    public float MaxSpeed { get; set; } = 200f;
 
     /// <summary>
     ///     Fuerza máxima aplicada

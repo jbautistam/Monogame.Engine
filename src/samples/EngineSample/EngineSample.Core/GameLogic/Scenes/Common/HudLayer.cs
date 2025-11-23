@@ -71,6 +71,8 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 			// Cambia la etiqueta de la posición del jugador
 			if (lblPlayerPosition is not null)
 				lblPlayerPosition.Text = GetMessageText("PlayerPosition", "-");
+			// Marca los mensajes como leidos
+			Scene.MessagesManager.MarkReceived(Name);
 	}
 
 	/// <summary>
@@ -78,7 +80,7 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 	/// </summary>
 	private string GetMessageText(string type, string defaultValue)
 	{
-		MessageModel? message = ReceivedMessages.Get(type);
+		MessageModel? message = Scene.MessagesManager.GetFirstReceived(Name, type);
 
 			// Devuelve el contenido del mensaje
 			if (message is not null)

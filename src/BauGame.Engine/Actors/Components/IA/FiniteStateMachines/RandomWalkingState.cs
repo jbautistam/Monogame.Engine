@@ -10,6 +10,7 @@ public class RandomWalkingState(string name, PropertiesState properties) : Abstr
     // Variables privadas
     private float _elapsedTime, _walkingTime, _maxWalkToDirectionTime;
     private Vector2 _direction;
+    private Steering.MoveToSteering? _steering = null;
 
     /// <summary>
     ///     Arranca el estado
@@ -31,14 +32,15 @@ public class RandomWalkingState(string name, PropertiesState properties) : Abstr
         ComputeNewDirection();
         // Si se ha pasado la duración establecida
         if (Properties.Duration != 0 && _elapsedTime > Properties.Duration)
-            return Properties.NextState;
-        else
         {
-            // Cambia la velocidad
-            Speed = _direction * Properties.SpeedMaximum;
-            // Devuelve el nombre actual
-            return Name;
+            // Elimina el controlador de movimiento
+            if (StateMachine is not null && _steering is not null)
+                StateMachine.Brain.AgentSteeringManager.Remove(_steering);
+            // Pasa al siguiente estado
+            return Properties.NextState;
         }
+        else
+            return Name;
 	}
 
     /// <summary>
@@ -47,9 +49,16 @@ public class RandomWalkingState(string name, PropertiesState properties) : Abstr
     private void ComputeNewDirection()
     {
         if (_walkingTime > _maxWalkToDirectionTime)
-        {
+        {  
+            // Crea el controlador de movimientos y lo añade al manager
+            if (_steering is null)
+            {
+                _steering = new Steering.MoveToSteering();
+                if (StateMachine is not null)
+                    StateMachine.Brain.AgentSteeringManager.Add(_steering, 1);
+            }
             // Cambia la dirección
-            _direction = Tools.Randomizer.GetRandomDirection();
+            _steering.Direction = Tools.Randomizer.GetRandomDirection();
             // Crea un nuevo tiempo máximo
             _maxWalkToDirectionTime = Random.Shared.Next(3, 8);
             // Inicializa el tiempo que lleva caminando

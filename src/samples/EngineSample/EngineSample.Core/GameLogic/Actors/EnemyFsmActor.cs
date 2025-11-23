@@ -83,6 +83,8 @@ public class EnemyFsmActor : AbstractActor
 																			}
 															)
 												);
+		// Asigna el manejador de eventos
+		_brain.IsDead += (sender, args) => TreaActorIsDead();
 		// Arranca la IA (porque se ha configurado después de crearlo)
 		_brain.Start();
 	}
@@ -95,7 +97,7 @@ public class EnemyFsmActor : AbstractActor
 		// Actualiza la inteligencia artificial
 		_brain.Update(gameContext);
 		// Actualiza el blender de animaciones
-		UpdateAnimation(_brain.StatesMachineManager.Current?.Speed ?? Vector2.Zero, _health.JustDead || _health.IsDead);
+		UpdateAnimation(_brain.AgentSteeringManager.Velocity, _health.JustDead || _health.IsDead);
 	}
 
 	/// <summary>
@@ -117,6 +119,20 @@ public class EnemyFsmActor : AbstractActor
 			Renderer.SpriteEffects = SpriteEffects.FlipHorizontally;
 		else
 			Renderer.SpriteEffects = SpriteEffects.None;
+	}
+
+	/// <summary>
+	///		Trata el resto de la muerte del actor
+	/// </summary>
+	private void TreaActorIsDead()
+	{
+		Layer.Scene.MessagesManager.SendMessage(PlayerActor.PlayerName, 
+												new Bau.Libraries.BauGame.Engine.Scenes.Messages.MessageModel(this, Constants.MessageEnemyKilled)
+															{
+																Message = "I'm died",
+																Tag = 90
+															}
+												);
 	}
 
 	/// <summary>

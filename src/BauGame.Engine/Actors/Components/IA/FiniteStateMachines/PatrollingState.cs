@@ -12,6 +12,7 @@ public class PatrollingState(string name, PropertiesState properties, WaypointRo
     // Variables privadas
     private Vector2? _nextWaypoint;
     private float _elapsed;
+    private Steering.ArriveSteering? _steering;
 
 	/// <summary>
 	///		Inicializa el estado
@@ -39,23 +40,32 @@ public class PatrollingState(string name, PropertiesState properties, WaypointRo
 
                     if (distance < ArrivalDistance)
                         _nextWaypoint = Route.GetNextWaypoint(_nextWaypoint, Looping);
-                    else
-                    {
-                        Vector2 direction = (_nextWaypoint ?? Vector2.Zero) - StateMachine.Brain.Owner.Transform.Center;
-
-                            // Calcula la velocidad
-                            if (direction.Length() > 0)
-                            {
-                                direction.Normalize();
-                                Speed = direction * Properties.SpeedMaximum;
-                            }
-                    }
+                    else if (_nextWaypoint is not null)
+                        UpdateSteering(_nextWaypoint ?? Vector2.Zero);
             }
             // Incrementa el tiempo
             _elapsed += gameContext.DeltaTime;
             // Devuelve el siguiente estado
             return nextState;
 	}
+
+    /// <summary>
+    ///     Actualiza el movimiento
+    /// </summary>
+    private void UpdateSteering(Vector2 target)
+    {
+        // Crea el controlador de movimientos y lo añade al manager
+        if (_steering is null)
+        {
+            _steering = new Steering.ArriveSteering();
+            if (StateMachine is not null)
+                StateMachine.Brain.AgentSteeringManager.Add(_steering, 1);
+        }
+        // Cambia la dirección
+        _steering.Target = target;
+        _steering.ArrivalDistance = ArrivalDistance;
+        _steering.SlowingDistance = SlowingDistance;
+    }
 
     /// <summary>
     ///     Finaliza el estado
@@ -74,6 +84,11 @@ public class PatrollingState(string name, PropertiesState properties, WaypointRo
     ///     Distancia mínima a los puntos de ruta
     /// </summary>
     public float ArrivalDistance { get; set; } = 0.2f;
+
+    /// <summary>
+    ///     Distancia a la que empiez a frenar
+    /// </summary>
+    public float SlowingDistance { get; set; } = 1f;
 
     /// <summary>
     ///     Indica si la ruta se debe seguir en bucle

@@ -38,4 +38,9 @@ public abstract class AbstractSteeringBehavior
 	{
 		return AddressTo(agentSteeringManager, agentSteeringManager.Position - target, maximumDistance);
 	}
+
+    /// <summary>
+    ///     Id del comportamiento
+    /// </summary>
+    public Guid Id { get; } = Guid.NewGuid();
 }

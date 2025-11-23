@@ -95,6 +95,7 @@
     <Compile Include="Actors\Components\IA\Steering\AbstractSteeringBehavior.cs" />
     <Compile Include="Actors\Components\IA\Steering\AgentSteeringManager.cs" />
     <Compile Include="Actors\Components\IA\Steering\AlignmentSteering.cs" />
+    <Compile Include="Actors\Components\IA\Steering\MoveToSteering.cs" />
     <Compile Include="Actors\Components\IA\Steering\ArriveSteering.cs" />
     <Compile Include="Actors\Components\IA\Steering\CohesionSteering.cs" />
     <Compile Include="Actors\Components\IA\Steering\EvadeSteering.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Scenes\Layers\Games\Routes\WaypointRoutesManager.cs" />
     <Compile Include="Scenes\Layers\UserInterfaceLayer.cs" />
     <Compile Include="Scenes\Messages\MessageModel.cs" />
+    <Compile Include="Scenes\Messages\MessagesManager.cs" />
     <Compile Include="Scenes\Physics\CollisionSpatialGrid.cs" />
     <Compile Include="Scenes\Physics\KinematicCollisionModel.cs" />
     <Compile Include="Scenes\Physics\PhysicLayersRelation.cs" />

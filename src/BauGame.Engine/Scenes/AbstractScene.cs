@@ -14,6 +14,7 @@ public abstract class AbstractScene
         LayerManager = new Layers.LayerManager(this);
         AudioManager = new Audio.AudioManager(this);
         PhysicsManager = new Physics.PhysicsManager(this);
+        MessagesManager = new Messages.MessagesManager(this);
     }
 
     /// <summary>
@@ -33,6 +34,7 @@ public abstract class AbstractScene
         AudioManager.Update(gameContext);
         PhysicsManager.Update(gameContext);
         Camera?.Update(gameContext);
+        MessagesManager.Update(gameContext);
         // Actualiza la escena
         return UpdateScene(gameContext);
     }
@@ -114,6 +116,11 @@ public abstract class AbstractScene
     ///     Manager de audio
     /// </summary>
     public Audio.AudioManager AudioManager { get; }
+
+    /// <summary>
+    ///     Manager de mensajes
+    /// </summary>
+    public Messages.MessagesManager MessagesManager { get; }
 
     /// <summary>
     ///     Indica si la escena está detenida

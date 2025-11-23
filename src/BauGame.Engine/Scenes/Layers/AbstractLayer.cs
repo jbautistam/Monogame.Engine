@@ -132,9 +132,4 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
     ///     Actores asociados a la capa
     /// </summary>
     public ActorsList Actors { get; } = [];
-
-    /// <summary>
-    ///     Mensajes recibidos en la capa
-    /// </summary>
-    public Base.DictionaryModel<Messages.MessageModel> ReceivedMessages { get; } = new();
 }

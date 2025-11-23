@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
+﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
 
 /// <summary>
 ///		Clase base para los estados de una máquina de estados
@@ -30,8 +28,8 @@ public abstract class AbstractState(string name, PropertiesState properties)
 	{
 		string? nextState = null;
 
-			// Inicializa la velocidad
-			Speed = Vector2.Zero;
+			//// Inicializa la velocidad
+			//Speed = Vector2.Zero;
 			// Actualiza el estado del nodo
 			nextState = UpdateState(gameContext);
 			// Devuelve el siguiente estado
@@ -53,10 +51,10 @@ public abstract class AbstractState(string name, PropertiesState properties)
 	/// </summary>
 	public string Name { get; } = name;
 
-	/// <summary>
-	///		Velocidad actual
-	/// </summary>
-	public Vector2 Speed { get; set; }
+	///// <summary>
+	/////		Velocidad actual
+	///// </summary>
+	//public Vector2 Speed { get; set; }
 
 	/// <summary>
 	///		Propiedades del estado

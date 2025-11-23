@@ -57,10 +57,22 @@ public class EnemyActor : AbstractActor
 	{
 		if (_health.JustDead)
 		{
+			// Desactiva la colisión
 			_collision.ToggleEnabled(false);
+			// Cambia la animación
 			Renderer.StartAnimation("monsterA-die", "monsterA-die-animation", false);
+			// Indica que ya se ha tratado el "justdead"
 			_health.JustDead = false;
+			// Destruye el actor
 			Layer.Actors.Destroy(this, gameContext.GetTotalTime(TimeSpan.FromSeconds(5)));
+			// Manda un mensaje indicando que se ha matado un enemigo
+			Layer.Scene.MessagesManager.SendMessage(PlayerActor.PlayerName, 
+													new Bau.Libraries.BauGame.Engine.Scenes.Messages.MessageModel(this, Constants.MessageEnemyKilled)
+																{
+																	Message = "I'm died",
+																	Tag = 30
+																}
+													);
 		}
 		else if (!_health.IsDead)
 			Move(gameContext);

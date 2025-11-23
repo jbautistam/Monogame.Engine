@@ -17,6 +17,8 @@ namespace EngineSample.Core.GameLogic.Actors;
 /// </summary>
 public class PlayerActor : AbstractActor
 {
+	// Constantes públicas
+	public const string PlayerName = nameof(PlayerName);
 	// Constantes privadas
 	private const string SlotPrimary = "Primary";
 	private const string SlotSecondary = "Secondary";
@@ -32,6 +34,7 @@ public class PlayerActor : AbstractActor
 	private Vector2 _speed = new();
 	private HealthComponent _health;
 	private ShooterComponent _shooter;
+	private int _score;
 
 	public PlayerActor(AbstractLayer layer, int physicsLayer) : base(layer, 0)
 	{
@@ -116,6 +119,8 @@ public class PlayerActor : AbstractActor
 		}
 		// Actualiza las propiedades de animación
 		UpdateAnimation(_speed, _health.IsDead);
+		// Trata los mensajes recibidos
+		TreatReceivedMessages();
 		// Envía los mensajes al Hud
 		SendHudMessages();
 	}
@@ -176,11 +181,6 @@ public class PlayerActor : AbstractActor
 		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
 		// Normaliza la posición
 		Transform.Bounds.Clamp(Layer.Scene.WorldBounds);
-		//// Asigna la animación
-		//if (_speed.X == 0 && _speed.Y == 0)
-		//	Renderer.StartAnimation("player-celebrate", "player-celebrate-animation", false);
-		//else
-		//	Renderer.StartAnimation("player-run", "player-run-animation", true);
 		// Cambia el modo de movimiento
 		if (_speed.X < 0)
 			Moving = MoveMode.RightToLeft;
@@ -212,6 +212,29 @@ public class PlayerActor : AbstractActor
 	}
 
 	/// <summary>
+	///		Trata los mensajes recibidos
+	/// </summary>
+	private void TreatReceivedMessages()
+	{
+		List<MessageModel> messages = Layer.Scene.MessagesManager.GetReceived(PlayerName);
+
+			// Trata los mensajes
+			foreach (MessageModel message in messages)
+				switch (message.Type)
+				{
+					case Constants.MessageEnemyKilled:
+							if (message.Tag is int killScore)
+								_score += killScore;
+							else
+								_score += 10;
+						break;
+				}
+			// Marca los mensajes como recibidos
+			if (messages.Count > 0)
+				Layer.Scene.MessagesManager.MarkReceived(PlayerName, messages);
+	}
+
+	/// <summary>
 	///		Envía los mensajes al hud
 	/// </summary>
 	private void SendHudMessages()
@@ -226,12 +249,12 @@ public class PlayerActor : AbstractActor
 						);
 			messages.Add(new MessageModel(this, "Score")
 								{
-									Message = "34"
+									Message = _score.ToString()
 								}
 						);
 			// Envía los mensajes
 			if (messages.Count > 0)
-				Layer.Scene.LayerManager.SendMessages(Constants.LayerHud, messages);
+				Layer.Scene.MessagesManager.SendMessages(Constants.LayerHud, messages);
 	}
 
 	/// <summary>

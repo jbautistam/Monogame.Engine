@@ -17,7 +17,7 @@ public class ArriveSteering : AbstractSteeringBehavior
         float distance = toTarget.Length();
 
             // Si todavía nos encontramos a la distancia de búsqueda del objetivo
-            if (distance > MinimumDistance)
+            if (distance > ArrivalDistance)
             {
                 Vector2 desired = Vector2.Normalize(toTarget);
 
@@ -41,10 +41,10 @@ public class ArriveSteering : AbstractSteeringBehavior
     /// <summary>
     ///     Distancia mínima para considerar alcanzado el objetivo
     /// </summary>
-    public float MinimumDistance { get; set; } = 100f;
+    public float ArrivalDistance { get; set; } = 100f;
 
     /// <summary>
     ///     Distancia a partir de la que empieza a frenar
     /// </summary>
-    public float SlowingDistance { get; set; } = 100f;
+    public float SlowingDistance { get; set; } = 200f;
 }

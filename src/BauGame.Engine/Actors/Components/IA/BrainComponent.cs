@@ -8,6 +8,11 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA;
 /// </summary>
 public class BrainComponent : AbstractComponent
 {
+	// Eventos públicos
+	public event EventHandler? IsDead;
+	// Variables privadas
+	private Health.HealthComponent? _health;
+
 	public BrainComponent(AbstractActor owner) : base(owner, false)
 	{
 		StatesMachineManager = new FiniteStateMachines.StatesMachineManager(this);
@@ -19,6 +24,7 @@ public class BrainComponent : AbstractComponent
 	/// </summary>
 	public override void Start()
 	{
+		_health = GetHealth();
 		StatesMachineManager.Start(null);
 	}
 
@@ -35,20 +41,27 @@ public class BrainComponent : AbstractComponent
 	/// </summary>
 	public override void Update(GameContext gameContext)
 	{
-		Health.HealthComponent health = GetHealth();
-
-			// Actualiza la máquina de estados
-			StatesMachineManager.Update(gameContext);
+		if (_health is not null)
+		{
 			// Comprueba la salud
-			if (health.JustDead)
+			if (_health.JustDead)
 			{
 				// Elimina el actor
 				KillActor(gameContext);
 				// Indica que no acaba de morir
-				health.JustDead = false;
+				_health.JustDead = false;
+				// Lanza el evento indicando que acaba de morir
+				IsDead?.Invoke(this, EventArgs.Empty);
 			}
-			else if (!health.IsDead)
+			else if (!_health.IsDead)
+			{
+				// Actualiza la máquina de estados y el movimiento
+				StatesMachineManager.Update(gameContext);
+				AgentSteeringManager.Update(gameContext);
+				// Mueve
 				Move(gameContext);
+			}
+		}
 	}
 
 	/// <summary>
@@ -77,7 +90,7 @@ public class BrainComponent : AbstractComponent
 	{
 		if (StatesMachineManager.Current is not null)
 		{
-			Owner.Transform.Bounds.Translate(StatesMachineManager.Current.Speed * gameContext.DeltaTime);
+			Owner.Transform.Bounds.Translate(AgentSteeringManager.Velocity * gameContext.DeltaTime);
 			Owner.Transform.Bounds.Clamp(Owner.Layer.Scene.WorldBounds);
 		}
 	}

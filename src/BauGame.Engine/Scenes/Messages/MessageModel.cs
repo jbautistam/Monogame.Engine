@@ -6,6 +6,11 @@
 public class MessageModel(Actors.AbstractActor sender, string type)
 {
 	/// <summary>
+	///		Id del mensaje
+	/// </summary>
+	public Guid Id { get; } = Guid.NewGuid();
+
+	/// <summary>
 	///		Actor que envía el mensaje
 	/// </summary>
 	public Actors.AbstractActor Sender { get; } = sender;

@@ -12,4 +12,6 @@ internal class Constants
 	internal const string TagEnemy = "Enemy";
 	// Constantes de capas
 	internal const string LayerHud = "Hud";
+	// Constantes de mensajes
+	internal const string MessageEnemyKilled = nameof(MessageEnemyKilled);
 }
