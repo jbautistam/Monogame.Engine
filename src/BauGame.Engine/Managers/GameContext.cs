@@ -17,7 +17,7 @@ public class GameContext
         // Normaliza la escala de tiempo
         if (TimeScale == 0)
             TimeScale = 1;
-        TimeScale = Math.Max(0, TimeScale);
+        TimeScale = Math.Clamp(TimeScale, 0, 1);
         // Actualiza las propiedades (para sólo hacer los cálculos una vez)
         TotalTime = (float) gameTime.TotalGameTime.TotalSeconds;
         UnscaledDeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;

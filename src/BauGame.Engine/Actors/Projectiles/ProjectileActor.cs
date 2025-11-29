@@ -86,7 +86,7 @@ public class ProjectileActor : AbstractActor
     /// </summary>
     private bool CheckCollision(Managers.GameContext gameContext)
     {
-        List<AbstractCollider> colliders = Layer.Scene.PhysicsManager.CollisionSpatialGrid.GetPotentialColliders(this);
+        List<AbstractCollider> colliders = Layer.Scene.PhysicsManager.MapManager.CollisionSpatialGrid.GetPotentialColliders(this);
 
             // Comprueba los elementos con los que colisiones
             if (Properties is not null)

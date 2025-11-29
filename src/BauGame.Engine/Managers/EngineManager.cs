@@ -16,6 +16,7 @@ public class EngineManager
         MonogameServicesManager = new Services.MonogameServicesManager(game);
         ResourcesManager = new Resources.ResourcesManager(this);
         SceneManager = new Scenes.SceneManager();
+        DebugManager = new Debug.DebugManager(this);
     }
 
     /// <summary>
@@ -36,6 +37,8 @@ public class EngineManager
         // Actualiza los datos
 		InputManager.Update(GameContext);
         SceneManager.Update(GameContext);
+        // Actualiza la información de depuración
+        DebugManager.Update(GameContext);
 	}
 
 	/// <summary>
@@ -91,6 +94,11 @@ public class EngineManager
     ///     Manager de escenas
     /// </summary>
     public Scenes.SceneManager SceneManager { get; }
+
+    /// <summary>
+    ///     Manager para depuración
+    /// </summary>
+    public Debug.DebugManager DebugManager { get; }
 
     /// <summary>
     ///     Contexto de la partida

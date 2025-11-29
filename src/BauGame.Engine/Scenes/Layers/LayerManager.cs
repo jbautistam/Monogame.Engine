@@ -49,12 +49,16 @@ public class LayerManager(AbstractScene scene)
         foreach (AbstractLayer layer in Layers)
             if (layer.Enabled && layer.Type != AbstractLayer.LayerType.UserInterface)
                 layer.Draw(camera, gameContext);
+		// Dibuja la capa de log
+        GameEngine.Instance.DebugManager.DrawLogFigures(gameContext, camera);
 		// Comienza el dibujo de la interface de usuario
         camera.BeginDrawUI();
-        // Dibuja las capas de fondo / partida
+        // Dibuja las capas de interface de usuario
         foreach (AbstractLayer layer in Layers)
             if (layer.Enabled && layer.Type == AbstractLayer.LayerType.UserInterface)
                 layer.Draw(camera, gameContext);
+        // Dibuja la capa de log
+        GameEngine.Instance.DebugManager.DrawLogStrings(gameContext, camera);
 		// Finaliza el dibujo
         camera.EndDraw();
     }

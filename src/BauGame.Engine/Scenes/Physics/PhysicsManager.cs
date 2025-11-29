@@ -10,7 +10,7 @@ public class PhysicsManager
 	public PhysicsManager(AbstractScene scene)
 	{
 		Scene = scene;
-		CollisionSpatialGrid = new CollisionSpatialGrid(this, 100);
+		MapManager = new Mapping.MapManager(this);
 		RaycastingService = new RaycastingService(this);
 	}
 
@@ -32,17 +32,17 @@ public class PhysicsManager
 	public Vector2 WorldGravity { get; set; } = new(0, 981f);
 
 	/// <summary>
-	///		Grid para colisiones
+	///		Manager de mapa
 	/// </summary>
-	public CollisionSpatialGrid CollisionSpatialGrid { get; }
-
-	/// <summary>
-	///		Relaciones entre las capas físicas
-	/// </summary>
-	public PhysicLayersRelation LayersRelations { get; } = new();
+	public Mapping.MapManager MapManager { get; }
 
 	/// <summary>
 	///		Manager de los métodos de raycasting
 	/// </summary>
 	public RaycastingService RaycastingService { get; }
+
+	/// <summary>
+	///		Relaciones entre las capas físicas
+	/// </summary>
+	public PhysicLayersRelation LayersRelations { get; } = new();
 }

@@ -102,7 +102,7 @@ public class PlayerActor : AbstractActor
 	{
 		if (!_health.IsDead)
 		{
-			List<AbstractCollider> colliders = Layer.Scene.PhysicsManager.CollisionSpatialGrid.GetPotentialColliders(this);
+			List<AbstractCollider> colliders = Layer.Scene.PhysicsManager.MapManager.CollisionSpatialGrid.GetPotentialColliders(this);
 
 				// Calcula la salud del jugador
 				ComputeHealth(colliders);
@@ -180,7 +180,7 @@ public class PlayerActor : AbstractActor
 		// Coloca el jugador
 		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
 		// Normaliza la posición
-		Transform.Bounds.Clamp(Layer.Scene.WorldBounds);
+		Transform.Bounds.Clamp(Layer.Scene.WorldDefinition.WorldBounds);
 		// Cambia el modo de movimiento
 		if (_speed.X < 0)
 			Moving = MoveMode.RightToLeft;

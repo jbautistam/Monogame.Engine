@@ -2,12 +2,12 @@
 using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
+namespace Bau.Libraries.BauGame.Engine.Scenes.Physics.Mapping;
 
 /// <summary>
 ///     Grid espacial
 /// </summary>
-public class CollisionSpatialGrid(PhysicsManager physicsManager, int cellSize)
+public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
 {
     // Variables privadas
     private Dictionary<Point, List<AbstractActor>> _grid = [];
@@ -96,7 +96,7 @@ public class CollisionSpatialGrid(PhysicsManager physicsManager, int cellSize)
 
             // Comprueba las colisiones
             if (actorCollision is not null && otherCollision is not null && actorCollision.Enabled && otherCollision.Enabled)
-                if (PhysicsManager.LayersRelations.IsColliding(actorCollision.PhysicLayerId, otherCollision.PhysicLayerId))
+                if (MapManager.PhysicsManager.LayersRelations.IsColliding(actorCollision.PhysicLayerId, otherCollision.PhysicLayerId))
                     foreach (AbstractCollider actorCollider in actorCollision.Colliders)
                         if (actorCollider.Enabled)
                             foreach (AbstractCollider otherCollider in otherCollision.Colliders)
@@ -162,9 +162,9 @@ public class CollisionSpatialGrid(PhysicsManager physicsManager, int cellSize)
     }
 
     /// <summary>
-    ///     Manager de físicas
+    ///     Manager del mapa
     /// </summary>
-    public PhysicsManager PhysicsManager { get; } = physicsManager;
+    public MapManager MapManager { get; } = mapManager;
 
     /// <summary>
     ///     Tamaño de la celda

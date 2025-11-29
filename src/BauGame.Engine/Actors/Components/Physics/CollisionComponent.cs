@@ -22,7 +22,7 @@ public class CollisionComponent(AbstractActor owner, int physicLayerId) : Abstra
 	public override void UpdatePhysics(Managers.GameContext gameContext)
 	{
         if (Colliders.Count > 0 && Owner.PreviuosTransform != Owner.Transform)
-            Owner.Layer.Scene.PhysicsManager.CollisionSpatialGrid.Add(Owner);
+            Owner.Layer.Scene.PhysicsManager.MapManager.CollisionSpatialGrid.Add(Owner);
 	}
 
 	/// <summary>
@@ -54,7 +54,7 @@ public class CollisionComponent(AbstractActor owner, int physicLayerId) : Abstra
 	/// </summary>
 	public override void End()
 	{
-		Owner.Layer.Scene.PhysicsManager.CollisionSpatialGrid.Remove(Owner);
+		Owner.Layer.Scene.PhysicsManager.MapManager.CollisionSpatialGrid.Remove(Owner);
 	}
 
 	/// <summary>

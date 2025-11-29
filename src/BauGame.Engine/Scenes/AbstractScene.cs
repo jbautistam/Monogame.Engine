@@ -1,20 +1,19 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Scenes;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes;
 
 /// <summary>
 ///		Clase base para la escena
 /// </summary>
 public abstract class AbstractScene
 {
-    protected AbstractScene(string name, Rectangle? worldBounds)
+    protected AbstractScene(string name, Models.WorldDefinitionModel? worldDefinition)
     {
         Name = name;
-        WorldBounds = worldBounds ?? new Rectangle();
+        WorldDefinition = worldDefinition ?? new Models.WorldDefinitionModel(5_000, 5_000, 10, 10);
         LayerManager = new Layers.LayerManager(this);
         AudioManager = new Audio.AudioManager(this);
         PhysicsManager = new Physics.PhysicsManager(this);
         MessagesManager = new Messages.MessagesManager(this);
+        TimerManager = new Timers.TimerManager(this);
     }
 
     /// <summary>
@@ -98,9 +97,9 @@ public abstract class AbstractScene
     public Cameras.Camera2D? Camera { get; private set; }
 
     /// <summary>
-    ///     Límites del mundo
+    ///     Definición del mundo
     /// </summary>
-    public Rectangle WorldBounds { get; private set; }
+    public Models.WorldDefinitionModel WorldDefinition { get; private set; }
 
     /// <summary>
     ///     Manager de físicas
@@ -121,6 +120,11 @@ public abstract class AbstractScene
     ///     Manager de mensajes
     /// </summary>
     public Messages.MessagesManager MessagesManager { get; }
+
+    /// <summary>
+    ///     Manager para temporizadores
+    /// </summary>
+    public Timers.TimerManager TimerManager { get; }
 
     /// <summary>
     ///     Indica si la escena está detenida

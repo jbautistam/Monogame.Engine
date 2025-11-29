@@ -845,8 +845,8 @@
 /processorParam:TextureFormat=Color
 /build:images/spaceships/spacewars.png
 
-#begin Settings/textures.json
-/copy:Settings/textures.json
+#begin Settings/textures.xml
+/copy:Settings/textures.xml
 
 #begin Settings/tilesets.json
 /copy:Settings/tilesets.json

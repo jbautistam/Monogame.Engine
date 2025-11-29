@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes;
+﻿using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine;
 
@@ -8,7 +7,7 @@ namespace EngineSample.Core.GameLogic.Scenes.TilesSample;
 /// <summary>
 ///		Escena de la partida
 /// </summary>
-internal class TilesScene(string name, int level) : AbstractScene(name, new Rectangle(0, 0, 5_000, 5_000))
+internal class TilesScene(string name, int level) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Models.WorldDefinitionModel(5_000, 5_000, 32, 40))
 {
 	// Constantes públicas
 	public const string SceneName = "Tiles";

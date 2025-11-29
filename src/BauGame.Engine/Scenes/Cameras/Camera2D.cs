@@ -13,7 +13,7 @@ public class Camera2D
     // Variables privadas
     private Viewport _screenViewport;
     private Matrix? _transformMatrix, _inverseMatrix;
-    private Vector2 _position;
+    private Vector2 _position, _desiredPosition;
     private float _rotation, _zoom;
 
     public Camera2D(AbstractScene scene, Viewport viewport)
@@ -22,7 +22,7 @@ public class Camera2D
         Scene = scene;
         ScreenViewport = viewport;
         Zoom = 1.0f;
-        Origin = new Vector2(0.5f * ScreenViewport.Width, 0.5f * ScreenViewport.Height);
+        ViewPortCenter = new Vector2(0.5f * ScreenViewport.Width, 0.5f * ScreenViewport.Height);
         Position = new Vector2(0, 0);
         // Inicializa el manejador de eventos de cambio de tamaño de pantalla
         GameEngine.Instance.MonogameServicesManager.ViewPortChanged += (sender, args) => UpdateViewPort();
@@ -36,14 +36,14 @@ public class Camera2D
         if (_transformMatrix is null)
         {
             // Actualiza el origen
-            Origin = new Vector2(0.5f * ScreenViewport.Width, 0.5f * ScreenViewport.Height);
+            ViewPortCenter = new Vector2(0.5f * ScreenViewport.Width, 0.5f * ScreenViewport.Height);
             // Crea la matriz de transformación
-            Matrix transform = Matrix.CreateTranslation(new Vector3(-Position, 0)) *
+            Matrix transform = Matrix.CreateTranslation(-Position.X, -Position.Y, 0) *
                                Matrix.CreateRotationZ(Rotation) *
                                Matrix.CreateScale(Zoom, Zoom, 1) *
-                               Matrix.CreateTranslation(new Vector3(Origin, 0));
+                               Matrix.CreateTranslation(ViewPortCenter.X, ViewPortCenter.Y, 0);
 
-                // Obtiene las matrices de salida (utiliza una matriz intermedia porque no se puede hacer un Invert de un Matrix?
+                // Obtiene las matrices de salida (utiliza una matriz intermedia porque no se puede hacer un Invert de un Matrix)
                 _transformMatrix = transform;
                 _inverseMatrix = Matrix.Invert(_transformMatrix ?? new Matrix());
         }
@@ -144,8 +144,8 @@ public class Camera2D
         float viewWidth = maxViewRadius * 2;
         float viewHeight = maxViewRadius * 2;
         */
-        float clampedX = MathHelper.Clamp(point.X, Scene.WorldBounds.X + viewWidth, Scene.WorldBounds.Width - viewWidth);
-        float clampedY = MathHelper.Clamp(point.Y, Scene.WorldBounds.Y + viewHeight, Scene.WorldBounds.Height - viewHeight);
+        float clampedX = MathHelper.Clamp(point.X, Scene.WorldDefinition.WorldBounds.X + viewWidth, Scene.WorldDefinition.WorldBounds.Width - viewWidth);
+        float clampedY = MathHelper.Clamp(point.Y, Scene.WorldDefinition.WorldBounds.Y + viewHeight, Scene.WorldDefinition.WorldBounds.Height - viewHeight);
 
             // Devuelve el vector limitado
             return new Vector2(clampedX, clampedY);
@@ -226,9 +226,9 @@ public class Camera2D
     }
 
     /// <summary>
-    ///     Origen de la cámara
+    ///     Centro de la cámara
     /// </summary>
-    public Vector2 Origin { get; set; }
+    public Vector2 ViewPortCenter { get; private set; }
 
     /// <summary>
     ///     Rotación de la cámara
@@ -265,7 +265,7 @@ public class Camera2D
         set
         {
             _screenViewport = value;
-            Origin = new Vector2(0.5f * _screenViewport.Width, 0.5f * _screenViewport.Height);
+            ViewPortCenter = new Vector2(0.5f * _screenViewport.Width, 0.5f * _screenViewport.Height);
             _transformMatrix = null;
         }
     }

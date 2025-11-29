@@ -125,8 +125,10 @@
     <Compile Include="Scenes\Layers\UserInterfaceLayer.cs" />
     <Compile Include="Scenes\Messages\MessageModel.cs" />
     <Compile Include="Scenes\Messages\MessagesManager.cs" />
-    <Compile Include="Scenes\Physics\CollisionSpatialGrid.cs" />
+    <Compile Include="Scenes\Physics\Mapping\CollisionSpatialGrid.cs" />
     <Compile Include="Scenes\Physics\KinematicCollisionModel.cs" />
+    <Compile Include="Scenes\Physics\Mapping\GridMap.cs" />
+    <Compile Include="Scenes\Physics\Mapping\MapManager.cs" />
     <Compile Include="Scenes\Physics\PhysicLayersRelation.cs" />
     <Compile Include="Scenes\Physics\PhysicsManager.cs" />
     <Compile Include="Scenes\Layers\AbstractUserInterfaceLayer.cs" />
@@ -154,10 +156,16 @@
     <Compile Include="Scenes\Layers\UserInterface\UiLabel.cs" />
     <Compile Include="Scenes\Layers\UserInterface\UiMargin.cs" />
     <Compile Include="Scenes\Layers\UserInterface\UiPanel.cs" />
+    <Compile Include="Scenes\Timers\TimerModel.cs" />
+    <Compile Include="Scenes\Timers\TimerManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Scenes\Cameras\New\" />
   </ItemGroup>
 
 </Project>

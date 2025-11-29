@@ -91,7 +91,7 @@ public class BrainComponent : AbstractComponent
 		if (StatesMachineManager.Current is not null)
 		{
 			Owner.Transform.Bounds.Translate(AgentSteeringManager.Velocity * gameContext.DeltaTime);
-			Owner.Transform.Bounds.Clamp(Owner.Layer.Scene.WorldBounds);
+			Owner.Transform.Bounds.Clamp(Owner.Layer.Scene.WorldDefinition.WorldBounds);
 		}
 	}
 
