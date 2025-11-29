@@ -16,7 +16,7 @@ public class EngineManager
         MonogameServicesManager = new Services.MonogameServicesManager(game);
         ResourcesManager = new Resources.ResourcesManager(this);
         SceneManager = new Scenes.SceneManager();
-        DebugManager = new Debug.DebugManager(this);
+        DebugManager = new Debugger.DebugManager(this);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class EngineManager
     /// <summary>
     ///     Manager para depuración
     /// </summary>
-    public Debug.DebugManager DebugManager { get; }
+    public Debugger.DebugManager DebugManager { get; }
 
     /// <summary>
     ///     Contexto de la partida

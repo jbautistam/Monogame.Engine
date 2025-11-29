@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes;
+﻿using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 using Bau.Libraries.BauGame.Engine;

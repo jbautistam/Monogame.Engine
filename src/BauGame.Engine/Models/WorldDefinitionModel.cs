@@ -18,6 +18,11 @@ public struct WorldDefinitionModel(int worldWidth, int worldHeight, int cellWidt
 	//public required Rectangle ViewPort { get; init; }
 
 	/// <summary>
+	///		Zona muerta para el movimiento de cámara
+	/// </summary>
+    public Rectangle DeadZone { get; set; } = new(0, 0, 0, 0);
+
+	/// <summary>
 	///		Ancho de las celdas del mundo
 	/// </summary>
 	public int CellWidth { get; } = cellWidth;

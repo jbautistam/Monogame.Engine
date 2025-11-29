@@ -40,32 +40,20 @@ public class CameraTargetsManager
     /// </summary>
     public Vector2? LookAt()
     {
-        Vector2? target = null;
+        Vector2 desiredTarget = new(0, 0);
+        int count = 0;
 
-            // Busca el objetivo
-            if (_targets.Count == 1)
-                target = _targets[0].Transform.Bounds.TopLeft;
-            else if (_targets.Count > 1)
-            {
-                float minX = float.MaxValue, minY = float.MaxValue;
-                float maxX = float.MinValue, maxY = float.MinValue;
-
-                // Encuentra el rectángulo que contiene a todos los objetivos
-                foreach (Actors.AbstractActor actor in _targets)
-                    if (actor.Enabled)
-                    {
-                        minX = Math.Min(minX, actor.Transform.Bounds.X);
-                        minY = Math.Min(minY, actor.Transform.Bounds.Y);
-                        maxX = Math.Max(maxX, actor.Transform.Bounds.Right);
-                        maxY = Math.Max(maxY, actor.Transform.Bounds.Bottom);
-                    }
-                // El objetivo es el centro del grupo
-                target = new Vector2(0.5f * (minX + maxX), 0.5f * (minY + maxY));
-                // Si no todos los objetivos caben en pantalla no se podrán mostrar todos, se podría variar el zoom
-                //float requiredWidth = maxX - minX;
-                //float requiredHeight = maxY - minY;
-            }
-            // Devuelve el objetivo donde debe mirar la cámara
-            return target;
+            // Añade las coordenadas de los objetivos para obtener la posición donde debe colocarse la cámara
+            foreach (Actors.AbstractActor actor in _targets)
+                if (actor.Enabled)
+                {
+                    desiredTarget += actor.Transform.Bounds.TopLeft;
+                    count++;
+                }
+            // Si hay algún objetivo, el punto deseado está en el medio de todos los objetivos
+            if (count > 0)
+                return desiredTarget /= count;
+            else
+                return null;
     }
 }

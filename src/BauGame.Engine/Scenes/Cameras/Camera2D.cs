@@ -13,7 +13,7 @@ public class Camera2D
     // Variables privadas
     private Viewport _screenViewport;
     private Matrix? _transformMatrix, _inverseMatrix;
-    private Vector2 _position, _desiredPosition;
+    private Vector2 _position, _desiredPosition, _velocity;
     private float _rotation, _zoom;
 
     public Camera2D(AbstractScene scene, Viewport viewport)
@@ -43,7 +43,7 @@ public class Camera2D
                                Matrix.CreateScale(Zoom, Zoom, 1) *
                                Matrix.CreateTranslation(ViewPortCenter.X, ViewPortCenter.Y, 0);
 
-                // Obtiene las matrices de salida (utiliza una matriz intermedia porque no se puede hacer un Invert de un Matrix)
+                // Obtiene las matrices de salida (utiliza una matriz intermedia porque no se puede hacer un Invert de un Matrix?)
                 _transformMatrix = transform;
                 _inverseMatrix = Matrix.Invert(_transformMatrix ?? new Matrix());
         }
@@ -55,6 +55,7 @@ public class Camera2D
     private void UpdateViewPort()
     {
         ScreenViewport = GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport;
+        _transformMatrix = null;
     }
 
     /// <summary>
@@ -95,31 +96,11 @@ public class Camera2D
     /// </summary>
     public Vector2 WorldToScreenRelative(Vector2 relativePosition)
     {
-        Vector2 topLeft = Position - new Vector2(ScreenViewport.Width * 0.5f, ScreenViewport.Height * 0.5f) / Zoom;
-        Vector2 offset = new(relativePosition.X * ScreenViewport.Width / Zoom,
-                             relativePosition.Y * ScreenViewport.Height / Zoom);
+        Vector2 topLeft = Position - ViewPortCenter / Zoom;
+        Vector2 offset = new(relativePosition.X * ScreenViewport.Width / Zoom, relativePosition.Y * ScreenViewport.Height / Zoom);
 
             // Devuelve la posición
             return WorldToScreen(topLeft + offset);
-    }
-
-    /// <summary>
-    ///     Convierte coordenadas de pantalla a coordenadas de mundo
-    /// </summary>
-    public RectangleF ScreenToWorldRect(Rectangle screenRect)
-    {
-        Matrix inverseTransform = _inverseMatrix ?? new Matrix();
-        Vector2 topLeft = Vector2.Transform(new Vector2(screenRect.Left, screenRect.Top), inverseTransform);
-        Vector2 topRight = Vector2.Transform(new Vector2(screenRect.Right, screenRect.Top), inverseTransform);
-        Vector2 bottomLeft = Vector2.Transform(new Vector2(screenRect.Left, screenRect.Bottom), inverseTransform);
-        Vector2 bottomRight = Vector2.Transform(new Vector2(screenRect.Right, screenRect.Bottom), inverseTransform);
-        float minX = MathHelper.Min(MathHelper.Min(topLeft.X, topRight.X), MathHelper.Min(bottomLeft.X, bottomRight.X));
-        float minY = MathHelper.Min(MathHelper.Min(topLeft.Y, topRight.Y), MathHelper.Min(bottomLeft.Y, bottomRight.Y));
-        float maxX = MathHelper.Max(MathHelper.Max(topLeft.X, topRight.X), MathHelper.Max(bottomLeft.X, bottomRight.X));
-        float maxY = MathHelper.Max(MathHelper.Max(topLeft.Y, topRight.Y), MathHelper.Max(bottomLeft.Y, bottomRight.Y));
-
-            // Devuelve el rectángulo convertido
-            return new RectangleF(minX, minY, maxX - minX, maxY - minY);
     }
 
     /// <summary>
@@ -128,27 +109,13 @@ public class Camera2D
     public bool IsAtView(RectangleF bounds) => WorldToScreenRect(bounds).Intersects(ScreenViewport.Bounds);
 
     /// <summary>
-    ///     Limita un punto a los límites del mundo
+    ///     Comprueba si un punto está en la vista
     /// </summary>
-    private Vector2 Clamp(Vector2 point)
+    public bool IsAtView(Vector2 worldPoint)
     {
-        float zoom = Zoom == 0 ? 1 : Zoom;
-        float viewWidth = 0.5f * ScreenViewport.Width / zoom;
-        float viewHeight = 0.5f * ScreenViewport.Height / zoom;
+        Vector2 screen = WorldToScreen(worldPoint);
 
-        // Opción avanzada (con rotación) — descomenta si necesitas soporte para rotación
-        /*
-        float diagonal = (float)Math.Sqrt(ScreenViewport.Width * ScreenViewport.Width +
-                                            ScreenViewport.Height * ScreenViewport.Height);
-        float maxViewRadius = diagonal / (2f * Zoom);
-        float viewWidth = maxViewRadius * 2;
-        float viewHeight = maxViewRadius * 2;
-        */
-        float clampedX = MathHelper.Clamp(point.X, Scene.WorldDefinition.WorldBounds.X + viewWidth, Scene.WorldDefinition.WorldBounds.Width - viewWidth);
-        float clampedY = MathHelper.Clamp(point.Y, Scene.WorldDefinition.WorldBounds.Y + viewHeight, Scene.WorldDefinition.WorldBounds.Height - viewHeight);
-
-            // Devuelve el vector limitado
-            return new Vector2(clampedX, clampedY);
+            return new Rectangle(0, 0, ScreenViewport.Width, ScreenViewport.Height).Contains((int) screen.X, (int) screen.Y);
     }
 
     /// <summary>
@@ -159,9 +126,77 @@ public class Camera2D
         Vector2? target = TargetsManager.LookAt();
 
             // Si hay algún objetivo definido, actualiza la posición de la cámara
-		    if (target is not null)
-                Position = Clamp(Vector2.Lerp(Position, target ?? new Vector2(), FollowSpeed));
+		    if (target is null)
+                _desiredPosition = Position;
+            else if (Scene.WorldDefinition.DeadZone.Width == 0 || Scene.WorldDefinition.DeadZone.Height == 0)
+                _desiredPosition = target.Value;
+            else
+                _desiredPosition = ComputeDeadZone(target.Value, Scene.WorldDefinition.DeadZone);
+            // Ejecuta el clamp de la posición deseada
+            _desiredPosition = Clamp(_desiredPosition);
+            // Mueve hacia la posición deseada
+            Position = MoveTo(_desiredPosition, MathHelper.Clamp(gameContext.DeltaTime, 0f, 0.1f));
+
+            GameEngine.Instance.DebugManager.Log($"Camera Position: {Position.X} / {Position.Y}");
 	}
+
+    /// <summary>
+    ///     Calcula la posición destino teniendo en cuenta la zona muerta definida
+    /// </summary>
+    private Vector2 ComputeDeadZone(Vector2 target, Rectangle deadZone)
+    {
+        Vector2 deadCenter = new(deadZone.Center.X, deadZone.Center.Y);
+        Vector2 offset = WorldToScreen(target) - deadCenter;
+
+            // Calcula el destino
+            if (Math.Abs(offset.X) > deadZone.Width * 0.5f || Math.Abs(offset.Y) > deadZone.Height * 0.5f)
+                return target - ScreenToWorld(deadCenter);
+            else
+                return Position;
+    }
+
+    /// <summary>
+    ///     Limita un punto a los límites del mundo
+    /// </summary>
+    private Vector2 Clamp(Vector2 point)
+    {
+        Vector2 target = new(point.X, point.Y);
+        Vector2 halfView = new(ScreenViewport.Width / (2 * Zoom), ScreenViewport.Height / (2 * Zoom));
+
+            // Normaliza el valor X
+            if (Scene.WorldDefinition.WorldBounds.Width > ScreenViewport.Width / Zoom)
+                target.X = MathHelper.Clamp(target.X, Scene.WorldDefinition.WorldBounds.Left + halfView.X, Scene.WorldDefinition.WorldBounds.Right - halfView.X);
+            else
+                target.X = Scene.WorldDefinition.WorldBounds.Center.X;
+            // Normaliza el valor y
+            if (Scene.WorldDefinition.WorldBounds.Height > ScreenViewport.Height / Zoom)
+                target.Y = MathHelper.Clamp(target.Y, Scene.WorldDefinition.WorldBounds.Top + halfView.Y, Scene.WorldDefinition.WorldBounds.Bottom - halfView.Y);
+            else
+                target.Y = Scene.WorldDefinition.WorldBounds.Center.Y;
+            // Devuelve el punto calculado
+            return target;
+    }
+
+    /// <summary>
+    ///     Interpola el movimiento de la cámara hacia un punto
+    /// </summary>
+    private Vector2 MoveTo(Vector2 target, float normalizedDeltaTime)
+    {
+        Vector2 error = target - Position;
+        Vector2 acceleration = error * FollowAcceleration;
+
+            // Calcula la velocidad en que se debe acercar a la posición deseada
+            _velocity += acceleration * normalizedDeltaTime;
+            _velocity *= MathHelper.Clamp(FollowDamping, 0f, 0.99f);
+            // Si ya ha llegado al punto, devuelve el punto destino y detiene la cámara, si no, aplica la velocidad al punto actual
+            if (error.LengthSquared() < 0.1f && _velocity.LengthSquared() < 0.01f)
+            {
+                _velocity = Vector2.Zero;
+                return target;
+            }
+            else
+                return Position + _velocity * normalizedDeltaTime;
+    }
 
     /// <summary>
     ///     Aumenta el Zoom
@@ -279,6 +314,16 @@ public class Camera2D
     ///     Velocidad de seguimiento de la cámara
     /// </summary>
     public float FollowSpeed { get; set; } = 0.1f;
+
+    /// <summary>
+    ///     Aceleración de seguimiento de la cámara
+    /// </summary>
+    public float FollowAcceleration { get; set; } = 80f;
+
+    /// <summary>
+    ///     Amortiguación a la aceleración de seguimiento de la cámara
+    /// </summary>
+    public float FollowDamping { get; set; } = 0.88f;
 
     /// <summary>
     ///     Controlador de sprites

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Debug;
+namespace Bau.Libraries.BauGame.Engine.Managers.Debugger;
 
 /// <summary>
 ///     Manager para información de depuración
@@ -14,6 +14,7 @@ public class DebugManager(EngineManager manager)
     private float _fps;
     private int _frameCount = 0;
     private float _elapsedTime = 0f;
+    private bool _initialized;
 
     /// <summary>
     ///     Log de un mensaje
@@ -72,6 +73,12 @@ public class DebugManager(EngineManager manager)
     {
         if (Manager.EngineSettings.DebugMode)
         {
+            // Obtiene la fuente
+            if (!_initialized && !string.IsNullOrWhiteSpace(Manager.EngineSettings.DebugFont) && DebugFont is null)
+            {
+                DebugFont = GameEngine.Instance.ResourcesManager.GlobalContentManager.LoadAsset<SpriteFont>(Manager.EngineSettings.DebugFont);
+                _initialized = true;
+            }
             // Incrementa el tiempo y el número de frames
             _elapsedTime += gameContext.DeltaTime;
             _frameCount++;
@@ -102,20 +109,21 @@ public class DebugManager(EngineManager manager)
     {
         if (Manager.EngineSettings.DebugMode && DebugFont is not null)
         {
-            Vector2 position = LogPosition;
+            Vector2 position = camera2D.WorldToScreenRelative(LogPosition);
 
                 // Muestra los mensajes
                 foreach ((string message, Color? color) in _messages)
                 {
-                    camera2D.SpriteBatchController.DrawString(DebugFont, message, position, color ?? DebugColor);
+                    camera2D.SpriteBatchController.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugColor);
                     position.Y += DebugFont.LineSpacing;
                 }
                 // Muestra las estadísticas
-                camera2D.SpriteBatchController.DrawString(DebugFont, $"FPS: {_fps:F1}", position, DebugColor);
+                position = camera2D.WorldToScreenRelative(OverlayPosition);
+                camera2D.SpriteBatchController.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
-                camera2D.SpriteBatchController.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, DebugColor);
+                camera2D.SpriteBatchController.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
-                camera2D.SpriteBatchController.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, DebugColor);
+                camera2D.SpriteBatchController.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
         }
     }
@@ -128,17 +136,17 @@ public class DebugManager(EngineManager manager)
     /// <summary>
     ///     Posición desde la que se muestra el log
     /// </summary>
-    public Vector2 LogPosition { get; set; } = new Vector2(0, 0);
+    public Vector2 LogPosition { get; set; } = new(0, 0);
+
+    /// <summary>
+    ///     Posición desde la que se muestra el log
+    /// </summary>
+    public Vector2 OverlayPosition { get; set; } = new(0.9f, 0.8f);
 
     /// <summary>
     ///     Fuente de depuración
     /// </summary>
-    public SpriteFont? DebugFont { get; set; }
-
-    /// <summary>
-    ///     Color de depuración
-    /// </summary>
-    public Color DebugColor { get; set; } = Color.Magenta;
+    public SpriteFont? DebugFont { get; private set; }
 
     /// <summary>
     ///     Manager principal

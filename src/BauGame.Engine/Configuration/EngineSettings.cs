@@ -23,6 +23,21 @@ public class EngineSettings
     public bool DebugMode { get; set; }
 
     /// <summary>
+    ///     Fuente para los textos de depuración
+    /// </summary>
+    public string? DebugFont { get; set; }
+
+    /// <summary>
+    ///     Color de depuración
+    /// </summary>
+    public Color DebugColor { get; set; } = Color.Magenta;
+
+    /// <summary>
+    ///     Color de las estadísticas
+    /// </summary>
+    public Color DebugOverlayColor { get; set; } = Color.Red;
+
+    /// <summary>
     ///     Directorio raíz del contenido
     /// </summary>
     public required string ContentRoot { get; init; }

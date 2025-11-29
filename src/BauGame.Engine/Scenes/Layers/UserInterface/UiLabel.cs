@@ -38,7 +38,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// </summary>
     protected override void ComputeScreenComponentBounds()
     {
-        if (AutoSize && SpriteFont != null && !string.IsNullOrEmpty(Text))
+        if (AutoSize && SpriteFont is not null && !string.IsNullOrEmpty(Text))
         {
             Vector2 textSize = SpriteFont.MeasureString(Text);
 
