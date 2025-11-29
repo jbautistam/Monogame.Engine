@@ -58,12 +58,27 @@ public class GridMap
     }
 
     /// <summary>
+    ///     Asigna el valor de celda de una posición de mundo
+    /// </summary>
+    public void SetTileFromWorld(float worldX, float worldY, TileType type)
+    {
+        Point point = ToGrid(worldX, worldY);
+
+            SetTile(point.X, point.Y, type);
+    }
+
+    /// <summary>
     ///     Pasa una coordenada de mundo a una coordenada de grid
     /// </summary>
-    public Point ToGrid(Vector2 worldPosition)
+    public Point ToGrid(Vector2 worldPosition) => ToGrid(worldPosition.X, worldPosition.Y);
+
+    /// <summary>
+    ///     Pasa una coordenada de mundo a una coordenada de grid
+    /// </summary>
+    public Point ToGrid(float worldPositionX, float worldPositionY)
     {
-        int x = (int) (worldPosition.X / TileWidth);
-        int y = (int) (worldPosition.Y / TileHeight);
+        int x = (int) (worldPositionX / TileWidth);
+        int y = (int) (worldPositionY / TileHeight);
 
             // Normaliza los valores
             x = Math.Clamp(x, 0, Width - 1);

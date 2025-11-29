@@ -136,8 +136,6 @@ public class Camera2D
             _desiredPosition = Clamp(_desiredPosition);
             // Mueve hacia la posición deseada
             Position = MoveTo(_desiredPosition, MathHelper.Clamp(gameContext.DeltaTime, 0f, 0.1f));
-
-            GameEngine.Instance.DebugManager.Log($"Camera Position: {Position.X} / {Position.Y}");
 	}
 
     /// <summary>

@@ -26,6 +26,9 @@ public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, i
 	{
 		TileActor tile = new(this, tileId, isSolid);
 
+			// Si es una celda sólida, la asigna al mapa
+			if (isSolid)
+				Layer.Scene.PhysicsManager.MapManager.GridMap.SetTileFromWorld(x, y, Scenes.Physics.Mapping.GridMap.TileType.Blocked);
 			// Coloca el actor
 			tile.Transform.Bounds.MoveTo(x, y);
 			// Añade el actor a la colección
