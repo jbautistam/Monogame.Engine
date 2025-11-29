@@ -129,6 +129,11 @@
     <Compile Include="Scenes\Physics\KinematicCollisionModel.cs" />
     <Compile Include="Scenes\Physics\Mapping\GridMap.cs" />
     <Compile Include="Scenes\Physics\Mapping\MapManager.cs" />
+    <Compile Include="Scenes\Physics\Mapping\PathFinding\PathKey.cs" />
+    <Compile Include="Scenes\Physics\Mapping\PathFinding\PathNode.cs" />
+    <Compile Include="Scenes\Physics\Mapping\PathFinding\PathfindingService.cs" />
+    <Compile Include="Scenes\Physics\Mapping\PathFinding\PathCacheEntry.cs" />
+    <Compile Include="Scenes\Physics\Mapping\PathFinding\PathsCache.cs" />
     <Compile Include="Scenes\Physics\PhysicLayersRelation.cs" />
     <Compile Include="Scenes\Physics\PhysicsManager.cs" />
     <Compile Include="Scenes\Layers\AbstractUserInterfaceLayer.cs" />
