@@ -127,7 +127,7 @@ public class RendererComponent(AbstractActor actor) : AbstractComponent(actor, t
 					if (ScaleToViewPort)
 						position = camera.WorldToScreenRelative(Actor.Transform.Bounds.TopLeft);
 					else
-						position = camera.WorldToScreen(Actor.Transform.BoundsCentered.TopLeft);
+						position = Actor.Transform.BoundsCentered.TopLeft; // camera.WorldToScreen(Actor.Transform.BoundsCentered.TopLeft);
 					// Dibuja el actor
 					region.Draw(camera, position, 
 								Actor.Transform.Center, CalculateScale(camera.ScreenViewport, region.Region),

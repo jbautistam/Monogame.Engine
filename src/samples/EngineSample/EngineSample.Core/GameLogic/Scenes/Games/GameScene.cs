@@ -8,7 +8,7 @@ namespace EngineSample.Core.GameLogic.Scenes.Games;
 /// <summary>
 ///		Escena de la partida
 /// </summary>
-internal class GameScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Models.WorldDefinitionModel(5_000, 5_000, 200, 200))
+internal class GameScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Models.WorldDefinitionModel(2_000, 2_000, 200, 200))
 {
 	// Constantes públicas
 	public const string SceneName = "Game";

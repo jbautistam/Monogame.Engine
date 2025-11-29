@@ -86,7 +86,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private UiMenu CreateMainMenu(AbstractUserInterfaceLayer layer)
 	{
-		UserInterfaceMenuBuilder builder = new(layer, 0.1f, 0.1f, 0.5f, 0.5f);
+		UserInterfaceMenuBuilder builder = new(layer, 0.1f, 0.1f, 0.5f, 0.7f);
 
 			// Asigna los elementos al menú
 			builder.WithBackground("Tiles/BlockA4")
@@ -101,6 +101,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 					.WithOption(3, "Music", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption(4, "Effect", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption(5, "Tiles sample", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption(6, "Debug mode", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption(40, "Quit", DefaultFont, 0.2f, 0.4f, 0.6f, 1);
 			// Guarda el menú en una variable
 			_menu = builder.Build();
@@ -137,6 +138,9 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 						break;
 					case 5:
 							nextScene = GetNewScene(TilesSample.TilesScene.SceneName);
+						break;
+					case 6:
+							GameEngine.Instance.EngineSettings.DebugMode = !GameEngine.Instance.EngineSettings.DebugMode;
 						break;
 					case 40:
 							GameEngine.Instance.Exit();

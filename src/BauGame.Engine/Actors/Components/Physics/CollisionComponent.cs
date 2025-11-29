@@ -37,16 +37,17 @@ public class CollisionComponent(AbstractActor owner, int physicLayerId) : Abstra
 	/// </summary>
 	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
 	{
-		foreach (AbstractCollider collider in Colliders)
-			switch (collider)
-			{
-				case RectangleCollider rectangle:
-						camera.SpriteBatchController.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.White, 2);
-					break;
-				case CircleCollider circle:
-						camera.SpriteBatchController.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.Red, 2);
-					break;
-			}
+		if (GameEngine.Instance.EngineSettings.DebugMode)
+			foreach (AbstractCollider collider in Colliders)
+				switch (collider)
+				{
+					case RectangleCollider rectangle:
+							camera.SpriteBatchController.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.White, 2);
+						break;
+					case CircleCollider circle:
+							camera.SpriteBatchController.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.Red, 2);
+						break;
+				}
 	}
 
 	/// <summary>

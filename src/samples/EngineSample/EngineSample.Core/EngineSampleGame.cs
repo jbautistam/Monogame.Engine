@@ -42,7 +42,7 @@ public class EngineSampleGame : Game
 		// Inicializa el juego
 		base.Initialize();
 		// Indica que está en modo de depuración
-		GameEngine.Instance.EngineSettings.DebugMode = true;
+		GameEngine.Instance.EngineSettings.DebugMode = false;
 		GameEngine.Instance.EngineSettings.DebugFont = "Fonts/Hud";
 		GameEngine.Instance.EngineSettings.DebugColor = Color.White;
 		// Añade las escenas
