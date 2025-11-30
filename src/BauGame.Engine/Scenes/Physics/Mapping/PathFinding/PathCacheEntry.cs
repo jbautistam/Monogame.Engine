@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Physics.Mapping.PathFinding;
 /// <summary>
 ///     Entrada de una ruta en la caché
 /// </summary>
-public class PathCacheEntry(List<Point> points, int currentFrame)
+public class PathCacheEntry(List<Vector2> positions, int currentFrame)
 {
     /// <summary>
     ///     Indica que se ha tocado el elemento de la caché
@@ -19,7 +19,7 @@ public class PathCacheEntry(List<Point> points, int currentFrame)
     /// <summary>
     ///     Puntos de la ruta
     /// </summary>
-    public List<Point> GridPath { get; } = points;
+    public List<Vector2> Positions { get; } = positions;
 
     /// <summary>
     ///     Frame del último acceso

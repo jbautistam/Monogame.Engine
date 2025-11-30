@@ -112,8 +112,8 @@ public class GridMap
         List<Vector2> worldPath = [];
             
             // Añade los puntos convertidos
-            foreach (var p in points)
-                worldPath.Add(ToWorld(p));
+            foreach (Point point in points)
+                worldPath.Add(ToWorld(point));
             // Devuelve los puntos
             return worldPath;
     }
@@ -134,9 +134,58 @@ public class GridMap
     public bool IsWalkable(int x, int y) => GetTile(x, y) != TileType.Blocked;
 
     /// <summary>
-    ///     Ancho de las celdas
+    ///     Comprueba si hay una línea de visión abierta entre dos puntos
     /// </summary>
-    public int TileWidth;
+    public bool HasLineOfSight(Point from, Point to)
+    {
+        int x0 = from.X, y0 = from.Y;
+        int x1 = to.X, y1 = to.Y;
+        int dx = Math.Abs(x1 - x0);
+        int dy = Math.Abs(y1 - y0);
+        int sx = x0 < x1 ? 1 : -1;
+        int sy = y0 < y1 ? 1 : -1;
+        int error = dx - dy;
+        bool finished = false;
+        bool blocked = false;
+
+            // Intenta dibujar una recta entre los dos puntos
+            while (!finished && !blocked)
+            {
+                if (!IsWalkable(x0, y0))
+                    blocked = true;
+                else if (x0 == x1 && y0 == y1)
+                    finished = true;
+                else
+                {
+                    int errorDuplicate = 2 * error;
+
+                        // Corrige el error del desplazamiento Y
+                        if (errorDuplicate > -dy)
+                        {
+                            error -= dy;
+                            x0 += sx;
+                        }
+                        // Corrige el error del desplazamiento X
+                        if (errorDuplicate < dx)
+                        {
+                            error += dx;
+                            y0 += sy;
+                        }
+                }
+            }
+            // Devuelve el valor que indica si hay una línea de visión
+            return !blocked && finished;
+    }
+
+    /// <summary>
+    ///     Obtiene el coste de movimiento a una posición
+    /// </summary>
+	public int MoveCost(Point position) => (int) GetTile(position.X, position.Y);
+
+	/// <summary>
+	///     Ancho de las celdas
+	/// </summary>
+	public int TileWidth;
 
     /// <summary>
     ///     Alto de las celdas del grid

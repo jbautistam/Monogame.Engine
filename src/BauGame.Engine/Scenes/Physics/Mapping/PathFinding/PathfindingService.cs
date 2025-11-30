@@ -8,205 +8,189 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Physics.Mapping.PathFinding;
 public class PathfindingService
 {
     // Coste de movimientos
-    private (int dx, int dy, int moveCost)[] Directions8 =
+    private (int dx, int dy, int moveCost)[] Directions =
                             {
-                                (0, -1, 1), (1, -1, 14), (1, 0, 1), (1, 1, 14),
-                                (0, 1, 1), (-1, 1, 14), (-1, 0, 1), (-1, -1, 14)
+                                (0, -1, 10), (1, -1, 14), (1, 0, 10), (1, 1, 14),
+                                (0, 1, 10), (-1, 1, 14), (-1, 0, 10), (-1, -1, 14)
                             };
     // Variables privadas
-    private PathNode[ , ] _nodes;
     private GridMap _gridMap;
 
     public PathfindingService(PathsCache pathsCache)
     {
         PathsCache = pathsCache;
         _gridMap = pathsCache.MapManager.GridMap;
-        RebuildGraph();
     }
 
-    private void RebuildGraph()
+    /// <summary>
+    ///     Busca una ruta entre dos puntos
+    /// </summary>
+    public List<Vector2> FindPath(Point startGrid, Point targetGrid)
     {
-        _nodes = new PathNode[_gridMap.Width, _gridMap.Height];
-        for (int x = 0; x < _gridMap.Width; x++)
+        // Si realmente es posible encontrar una ruta entre los puntos
+        if (_gridMap.IsWalkable(startGrid) && _gridMap.IsWalkable(targetGrid))
         {
-            for (int y = 0; y < _gridMap.Height; y++)
-            {
-                Point pos = new(x, y);
-                Vector2 worldPos = _gridMap.ToWorld(pos);
-                _nodes[x, y] = new PathNode(_gridMap.GetTile(x, y), worldPos, pos);
-            }
-        }
-    }
+            PathNode start = new(startGrid);
+            PathNode target = new(targetGrid);
+            PriorityQueue<PathNode, int> openSet = new();
+            HashSet<PathNode> closedSet = [];
+            Dictionary<Point, PathNode> neighbors = [];
 
-    private int GetHeuristicInt(PathNode a, PathNode b)
-    {
-        int dx = Math.Abs(a.GridPos.X - b.GridPos.X);
-        int dy = Math.Abs(a.GridPos.Y - b.GridPos.Y);
-        return dx > dy 
-            ? 14 * dy + 10 * (dx - dy) 
-            : 14 * dx + 10 * (dy - dx);
-    }
-
-    public List<Vector2> FindPath(Vector2 startWorld, Vector2 endWorld)
-    {
-        Point startGrid = _gridMap.ToGrid(startWorld);
-        Point targetGrid = _gridMap.ToGrid(endWorld);
-
-        PathNode start = _nodes[startGrid.X, startGrid.Y];
-        PathNode target = _nodes[targetGrid.X, targetGrid.Y];
-
-        if (!start.Walkable || !target.Walkable)
-            return null;
-
-        foreach (var node in _nodes)
-        {
-            node.GCost = int.MaxValue;
-            node.Parent = null;
-        }
-
-        PriorityQueue<PathNode, int> openSet = new();
-        HashSet<PathNode> closedSet = [];
-
-        start.GCost = 0;
-        start.HCost = GetHeuristicInt(start, target);
-        openSet.Enqueue(start, start.FCost);
-
-        while (openSet.Count > 0)
-        {
-            PathNode current = openSet.Dequeue();
-
-            if (current == target)
-                return ReconstructAndSmoothPath(start, target);
-
-            closedSet.Add(current);
-
-            foreach ((int dx, int dy, int moveCost) dir in Directions8)
-            {
-                int nx = current.GridPos.X + dir.dx;
-                int ny = current.GridPos.Y + dir.dy;
-
-                bool inBounds = nx >= 0 && nx < _gridMap.Width && ny >= 0 && ny < _gridMap.Height;
-                if (inBounds)
+                // Inicializa el nodo inicial
+                start.GCost = 0;
+                start.HCost = GetMovementCost(start, target);
+                // Encola el nodo inicial
+                openSet.Enqueue(start, start.HCost);
+                // Mientras quede algún nodo por buscar
+                while (openSet.Count > 0)
                 {
-                    PathNode neighbor = _nodes[nx, ny];
-                    bool isWalkable = neighbor.Walkable;
-                    bool notClosed = !closedSet.Contains(neighbor);
+                    PathNode current = openSet.Dequeue();
 
-                    if (isWalkable && notClosed)
-                    {
-                        int moveCostFactor = dir.moveCost == 1 ? 10 : 14;
-                        int tentativeG = current.GCost + neighbor.MoveCost * moveCostFactor;
-
-                        if (tentativeG < neighbor.GCost)
+                        // Si hemos llegado al final, devolvemos la ruta suavizada
+                        if (current == target)
+                            return Smooth(GetRawPath(start, target));
+                        else
                         {
-                            neighbor.Parent = current;
-                            neighbor.GCost = tentativeG;
-                            neighbor.HCost = GetHeuristicInt(neighbor, target);
+                            // Añadimos el nodo actual a la lista de nodos visitados
+                            closedSet.Add(current);
+                            // Buscamos el nodo vecino en todas las direcciones
+                            foreach ((int dx, int dy, int moveCost) dir in Directions)
+                            {
+                                Point neighborPosition = new(current.Position.X + dir.dx, current.Position.Y + dir.dy);
 
-                            bool alreadyInOpen = openSet.UnorderedItems.Any(i => i.Element == neighbor);
-                            if (!alreadyInOpen)
-                                openSet.Enqueue(neighbor, neighbor.FCost);
-                        }
+                                    // Si realmente podemos llegar a ese punto
+                                    if (_gridMap.IsWalkable(neighborPosition))
+                                    {
+                                        PathNode neighbor = GetNeighbor(neighbors, neighborPosition);
+
+                                            // Si no hemos pasado ya por ese punto
+                                            if (!closedSet.Contains(neighbor))
+                                            {
+                                                int tentativeG = current.GCost + _gridMap.MoveCost(neighbor.Position) * dir.moveCost;
+
+                                                    // Si el coste es menor que el coste que teníamos hasta ahora
+                                                    if (tentativeG < neighbor.GCost)
+                                                    {
+                                                        // Ajustamos los datos del nodo
+                                                        neighbor.Parent = current;
+                                                        neighbor.GCost = tentativeG;
+                                                        neighbor.HCost = GetMovementCost(neighbor, target);
+                                                        // Si no lo teníamos ya en la lista de nodos a visitar, lo encolamos
+                                                        if (!openSet.UnorderedItems.Any(item => item.Element == neighbor))
+                                                            openSet.Enqueue(neighbor, neighbor.HCost);
+                                                    }
+                                            }
+                                    }
+                         }
                     }
                 }
-            }
         }
-
-        return null;
+        // Si ha llegado hasta aquí es porque no hay una ruta válida
+        return [];
     }
 
-    private List<Vector2> ReconstructAndSmoothPath(PathNode start, PathNode target)
+    /// <summary>
+    ///     Obtiene / crea un nodo del diccionario en un punto
+    /// </summary>
+	private PathNode GetNeighbor(Dictionary<Point, PathNode> neighbors, Point point)
+	{
+		if (neighbors.TryGetValue(point, out PathNode? neighbor))
+            return neighbor;
+        else
+        {
+            PathNode node = new(point);
+
+                // Añade el nodo al diccionario
+                neighbors.Add(point, node);
+                // Devuelve el nodo
+                return node;
+        }
+	}
+
+	/// <summary>
+	///     Obtiene el peso de movimiento de un nodo a otro
+	/// </summary>
+	private int GetMovementCost(PathNode from, PathNode to)
+    {
+        int dx = Math.Abs(from.Position.X - to.Position.X);
+        int dy = Math.Abs(from.Position.Y - to.Position.Y);
+
+            if (dx > dy)
+                return 14 * dy + 10 * (dx - dy);
+            else
+                return 14 * dx + 10 * (dy - dx);
+    }
+
+    /// <summary>
+    ///     Suaviza una ruta
+    /// </summary>
+    private List<Vector2> Smooth(List<PathNode> rawPath)
+    {
+        List<Vector2> smoothed = [];
+
+            // Obtiene la lista de puntos
+            if (rawPath.Count <= 2)
+                foreach (PathNode node in rawPath)
+                    smoothed.Add(_gridMap.ToWorld(node.Position));
+            else
+            {
+                int start = 0;
+                int pathCount = rawPath.Count;
+
+                    // Añade el primer punto
+                    smoothed.Add(_gridMap.ToWorld(rawPath[0].Position));
+                    // Recorre los puntos a partir del inicial
+                    while (start < pathCount - 1)
+                    {
+                        int end = pathCount - 1;
+                        bool jumpMade = false;
+
+                            // Comprueba si hay un punto al que se pueda saltar fácilmente desde el inicio
+                            while (end > start + 1 && !jumpMade)
+                            {
+                                if (_gridMap.HasLineOfSight(rawPath[start].Position, rawPath[end].Position))
+                                {
+                                    smoothed.Add(_gridMap.ToWorld(rawPath[end].Position));
+                                    start = end;
+                                    jumpMade = true;
+                                }
+                                else
+                                    end--;
+                            }
+                            // Si se ha saltado, se añade el nuevo punto y se salta
+                            if (!jumpMade)
+                            {
+                                smoothed.Add(_gridMap.ToWorld(rawPath[start + 1].Position));
+                                start++;
+                            }
+                    }
+            }
+            // Devuelve la lista suavizada
+            return smoothed;
+    }
+
+    /// <summary>
+    ///     Obtiene una lista de nodos a partir del grafo de nodos creados
+    /// </summary>
+    private List<PathNode> GetRawPath(PathNode start, PathNode target)
     {
         List<PathNode> rawPath = [ target ];
         PathNode current = target;
 
-        while (current.Parent is not null)
-        {
-            current = current.Parent;
-            rawPath.Add(current);
-        }
-        rawPath.Reverse();
-
-        if (rawPath.Count <= 2)
-            return rawPath.Select(n => n.WorldPosition).ToList();
-
-        List<Vector2> smoothed = [ rawPath[0].WorldPosition ];
-        int i = 0;
-        int pathCount = rawPath.Count;
-
-        while (i < pathCount - 1)
-        {
-            int j = pathCount - 1;
-            bool jumpMade = false;
-
-            while (j > i + 1 && !jumpMade)
+            // Crea la lista
+            while (current.Parent is not null)
             {
-                if (HasLineOfSight(rawPath[i], rawPath[j]))
-                {
-                    smoothed.Add(rawPath[j].WorldPosition);
-                    i = j;
-                    jumpMade = true;
-                }
-                else
-                    j--;
+                current = current.Parent;
+                rawPath.Add(current);
             }
-
-            if (!jumpMade)
-            {
-                smoothed.Add(rawPath[i + 1].WorldPosition);
-                i++;
-            }
-        }
-
-        return smoothed;
+            // Da la vuelta a la lista
+            rawPath.Reverse();
+            // Devuelve la lista creada
+            return rawPath;
     }
 
     /// <summary>
-    ///     Comprueba si hay una línea de visión abierta entre dos nodos
-    /// </summary>
-    private bool HasLineOfSight(PathNode from, PathNode to)
-    {
-        int x0 = from.GridPos.X, y0 = from.GridPos.Y;
-        int x1 = to.GridPos.X, y1 = to.GridPos.Y;
-        int dx = Math.Abs(x1 - x0);
-        int dy = Math.Abs(y1 - y0);
-        int sx = x0 < x1 ? 1 : -1;
-        int sy = y0 < y1 ? 1 : -1;
-        int error = dx - dy;
-        bool finished = false;
-        bool blocked = false;
-
-            // Intenta dibujar una recta entre los dos puntos
-            while (!finished && !blocked)
-            {
-                if (!_gridMap.IsWalkable(x0, y0))
-                    blocked = true;
-                else if (x0 == x1 && y0 == y1)
-                    finished = true;
-                else
-                {
-                    int errorDuplicate = 2 * error;
-
-                        // Corrige el error del desplazamiento Y
-                        if (errorDuplicate > -dy)
-                        {
-                            error -= dy;
-                            x0 += sx;
-                        }
-                        // Corrige el error del desplazamiento X
-                        if (errorDuplicate < dx)
-                        {
-                            error += dx;
-                            y0 += sy;
-                        }
-                }
-            }
-            // Devuelve el valor que indica si hay una línea de visión
-            return !blocked && finished;
-    }
-
-    /// <summary>
-    ///     Caché de routas
+    ///     Caché de rutas
     /// </summary>
     public PathsCache PathsCache { get; }
 }

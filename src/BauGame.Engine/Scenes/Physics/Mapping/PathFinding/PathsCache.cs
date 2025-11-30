@@ -53,81 +53,74 @@ public class PathsCache
     }
 
     /// <summary>
+    ///     Obtiene una ruta
+    /// </summary>
+    public List<Vector2> Get(Vector2 startWorld, Vector2 endWorld)
+    {
+        Point startGrid = MapManager.GridMap.ToGrid(startWorld);
+        Point endGrid = MapManager.GridMap.ToGrid(endWorld);
+        List<Vector2> result = [];
+        bool isReversed = false;
+
+            // Si estamos en el mismo punto, sólo hay una ruta válida, si no es así, obtenemos la ruta
+            if (startGrid == endGrid)
+                result = [ MapManager.GridMap.ToWorld(startGrid) ];
+            else
+            {
+                PathKey key = new(startGrid, endGrid);
+
+                    // Indica si se tiene que dar la vuelta al resultado
+                    isReversed = startGrid == key.End;
+                    // Obtiene la lista de la caché
+                    result = GetFromCache(key);
+                    // Si no hay nada en la lista, se obtiene la ruta del servicio de creación de rutas
+                    if (result.Count == 0)
+                        result = PathfindingService.FindPath(startGrid, endGrid);
+                    // Se añade la ruta a la caché
+                    if (result.Count > 0)
+                        _cache[key] = new PathCacheEntry(result, _currentFrame);
+            }
+            // Se devuelve la ruta (invertida si es necesario
+            if (isReversed)
+                return result.AsEnumerable().Reverse().ToList();
+            else
+                return result;
+    }
+
+    /// <summary>
+    ///     Obtiene una ruta de la caché
+    /// </summary>
+    private List<Vector2> GetFromCache(PathKey key)
+    {
+        // Busca el elemento en la caché
+        if (_cache.TryGetValue(key, out PathCacheEntry? entry))
+        {
+            // Si sigue siendo una ruta válida, devuelve la ruta
+            if (IsRouteStillValid(entry.Positions))
+            {
+                // Indica que en este frame, se ha obtenido el dato de la caché
+                entry.Touch(_currentFrame);
+                // Devuelve la ruta de caché
+                return entry.Positions;
+            }
+            else
+                _cache.Remove(key);
+        }
+        // Si no había ningún elemento en la caché, devuelve una lista vacía
+        return new List<Vector2>();
+    }
+
+    /// <summary>
     ///     Comprueba si una ruta sigue siendo válida (porque el mapa puede variar)
     /// </summary>
-    private bool IsRouteStillValid(List<Point> gridPath)
+    private bool IsRouteStillValid(List<Vector2> gridPath)
     {
         // Recorre los puntos comprobando que se pueda seguir pasando sobre ella
-        foreach (Point point in gridPath)
+        foreach (Vector2 point in gridPath)
             if (!MapManager.GridMap.IsWalkable(point))
                 return false;
         // Si ha llegado hasta aquí es porque no se puede utilizar la ruta
         return true;
-    }
-
-    public List<Vector2> GetOrCreatePath(Vector2 startWorld, Vector2 endWorld)
-    {
-        Point startGrid = MapManager.GridMap.ToGrid(startWorld);
-        Point endGrid = MapManager.GridMap.ToGrid(endWorld);
-
-        if (startGrid == endGrid)
-            return new List<Vector2> { MapManager.GridMap.ToWorld(startGrid) };
-
-        var key = new PathKey(startGrid, endGrid);
-        bool isReversed = startGrid == key.End;
-
-        if (_cache.TryGetValue(key, out var entry))
-        {
-            if (IsRouteStillValid(entry.GridPath))
-            {
-                entry.Touch(_currentFrame);
-                var worldPath = MapManager.GridMap.ToWorld(entry.GridPath);
-                return isReversed ? worldPath.AsEnumerable().Reverse().ToList() : worldPath;
-            }
-            else
-            {
-                _cache.Remove(key);
-            }
-        }
-
-        var subrouteGrid = ExtractSubrouteGrid(startGrid, endGrid);
-        if (subrouteGrid != null && IsRouteStillValid(subrouteGrid))
-        {
-            return MapManager.GridMap.ToWorld(subrouteGrid);
-        }
-
-        var fullPathWorld = PathfindingService.FindPath(startWorld, endWorld);
-        if (fullPathWorld == null) return null;
-
-        var fullPathGrid = fullPathWorld.Select(wp => MapManager.GridMap.ToGrid(wp)).ToList();
-        var newEntry = new PathCacheEntry(fullPathGrid, _currentFrame);
-        _cache[key] = newEntry;
-
-        return isReversed 
-            ? fullPathWorld.AsEnumerable().Reverse().ToList()
-            : new List<Vector2>(fullPathWorld);
-    }
-
-    private List<Point> ExtractSubrouteGrid(Point start, Point end)
-    {
-        foreach (var entry in _cache.Values)
-        {
-            var path = entry.GridPath;
-            int startIdx = path.IndexOf(start);
-            int endIdx = path.IndexOf(end);
-
-            if (startIdx >= 0 && endIdx > startIdx)
-                return path.GetRange(startIdx, endIdx - startIdx + 1);
-
-            if (endIdx >= 0 && startIdx > endIdx)
-            {
-				List<Point> sub = path.GetRange(endIdx, startIdx - endIdx + 1);
-                sub.Reverse();
-                return sub;
-            }
-        }
-
-        return null;
     }
 
     /// <summary>
