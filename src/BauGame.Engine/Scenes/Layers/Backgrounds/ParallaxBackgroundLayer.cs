@@ -7,7 +7,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 /// <summary>
 ///     Background con movimiento parallax
 /// </summary>
-public class ParallaxBackgroundLayer(string texture, int sortOrder) : AbstractBackgroundLayer(texture, sortOrder)
+public class ParallaxBackgroundLayer(string texture, int sortOrder, float speedMultiplier) : AbstractBackgroundLayer(texture, sortOrder)
 {
     /// <summary>
     ///     Actualiza la capa de fondo
@@ -58,5 +58,5 @@ public class ParallaxBackgroundLayer(string texture, int sortOrder) : AbstractBa
     /// <summary>
     ///     Multiplicador para la velocidad del movimiento
     /// </summary>
-    public float SpeedMultiplier { get; set; } = 0.5f;
+    public float SpeedMultiplier { get; set; } = speedMultiplier;
 }

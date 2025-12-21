@@ -13,7 +13,7 @@ public class RigidBodyComponent(AbstractActor owner, RigidBodyComponent.BodyType
     /// </summary>
     public enum BodyType
     {
-        /// <summary>Sin movimiento, no responde a las fíasicas</summary>
+        /// <summary>Sin movimiento, no responde a las físicas</summary>
         Static,
         /// <summary>El movimiento lo controla el código. Ignora las fuerzas</summary>
         Kinematic,
@@ -40,9 +40,8 @@ public class RigidBodyComponent(AbstractActor owner, RigidBodyComponent.BodyType
         // Sólo en los cuerpos que no sean estáticos
         if (Type == BodyType.Dynamic)
         {
-            // Aplicar gravedad
             Vector2 totalForce = _accumulatedForce + Owner.Layer.Scene.PhysicsManager.WorldGravity * GravityScale * Mass;
-            Vector2 acceleration = totalForce * InverseMass; // F = ma → a = F / m
+            Vector2 acceleration = totalForce * GetInverseMass(); // F = ma → a = F / m
 
                 // Actualiza la velocidad con la aceleración
                 Velocity += acceleration * gameContext.DeltaTime;
@@ -91,13 +90,24 @@ public class RigidBodyComponent(AbstractActor owner, RigidBodyComponent.BodyType
     public void AddImpulse(Vector2 impulse)
     {
         if (Type != BodyType.Static)
-            Velocity += impulse * InverseMass;
+            Velocity += impulse * GetInverseMass();
     }
 
     /// <summary>
-    ///     Mueve el cuerpo deslizándolo y comprobando las colisiones
+    ///     Obtiene la inversa de la masa
     /// </summary>
-    public void MoveAndSlide(Managers.GameContext gameContext, Vector2 velocity, int slides = 4)
+	private float GetInverseMass()
+	{
+        if (Mass <= 0)
+            return 0f;
+        else
+            return 1f / Mass;
+	}
+
+	/// <summary>
+	///     Mueve el cuerpo deslizándolo y comprobando las colisiones
+	/// </summary>
+	public void MoveAndSlide(Managers.GameContext gameContext, Vector2 velocity, int slides = 4)
     {
         Vector2 motion = velocity * gameContext.DeltaTime;
         int slideCount = 0;
@@ -176,16 +186,35 @@ public class RigidBodyComponent(AbstractActor owner, RigidBodyComponent.BodyType
     /// </summary>
     public BodyType Type { get; } = type;
 
-    // --- Propiedades físicas ---
+    /// <summary>
+    ///     Velocidad
+    /// </summary>
     public Vector2 Velocity { get; set; }
-    public float Mass { get; set; } = 1f;
-    public float InverseMass => Mass <= 0 ? 0f : 1f / Mass;
 
-    // --- Parámetros de simulación ---
+    /// <summary>
+    ///     Masa
+    /// </summary>
+    public float Mass { get; set; } = 1f;
+
+    /// <summary>
+    ///     Escala que se aplica para el cálculo de gravedad
+    /// </summary>
     public Vector2 GravityScale { get; set; } = Vector2.One;
-    public float LinearDamping { get; set; } = 0.1f; // Amortiguación del aire
+
+    /// <summary>
+    ///     Amortiguación del aire
+    /// </summary>
+    public float LinearDamping { get; set; } = 0.1f;
+
+    /// <summary>
+    ///     Fricción
+    /// </summary>
     public float Friction { get; set; } = 0.2f;
-    public float Bounce { get; set; } = 0f; // Coeficiente de restitución
+
+    /// <summary>
+    ///     Coeficiente de rebote
+    /// </summary>
+    public float Bounce { get; set; } = 0f;
 
     /// <summary>
     ///     Indica si el cuerpo está sobre el suelo

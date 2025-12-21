@@ -53,37 +53,3 @@ public class TimerManager(AbstractScene scene)
     /// </summary>
     public AbstractScene Scene { get; } = scene;
 }
-/*
-## ✅ Ejemplos de uso
-
-### Ejemplo 1: Delay simple
-```csharp
-TimerManager.InvokeAfter(2f, () => UIManager.ShowMessage("¡Listo!"));
-```
-
-### Ejemplo 2: Cooldown de habilidad
-```csharp
-private Timer _dashCooldown;
-
-void Start()
-{
-    _dashCooldown = TimerManager.Create(1.0f, null, repeat: false);
-}
-
-void Update()
-{
-    if (InputManager.IsPressed("Dash") && !_dashCooldown.IsRunning)
-    {
-        Dash();
-        _dashCooldown.Reset();
-        _dashCooldown.Start();
-    }
-}
-```
-
-### Ejemplo 3: Slow motion
-```csharp
-// Activar slow motion al hacer daño
-TimeManager.SetTimeScale(0.3f);
-TimerManager.InvokeAfter(0.5f, () => TimeManager.SetTimeScale(1f));
-*/

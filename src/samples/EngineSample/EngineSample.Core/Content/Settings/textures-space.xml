@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpriteSheets>
+	<!-- Spaceships backgrounds -->
+	<Texture Name = "bg-space-01" Asset = "images/Backgrounds/bg-space-01" />
+	<Texture Name = "bg-space-02" Asset = "images/Backgrounds/bg-space-02" />
+	<Texture Name = "bg-space-03" Asset = "images/Backgrounds/bg-space-03" />
+	<Texture Name = "bg-space-04" Asset = "images/Backgrounds/bg-space-04" />
+	<!-- Spaceships backgrounds parallax -->
+	<Texture Name = "parallax-01" Asset = "images/Backgrounds/parallax/parallax-01" />
+	<Texture Name = "parallax-02" Asset = "images/Backgrounds/parallax/parallax-02" />
+	<!-- Spaceships imágenes -->
+	<Texture Name = "mine" Asset = "images/spaceships/mine" Rows = "1" Columns = "8" />
+	<Texture Name = "plane" Asset = "images/spaceships/plane" Rows = "2" Columns = "6" />
+	<Texture Name = "rocks" Asset = "images/spaceships/rocks" />
+	<Texture Name = "ship" Asset = "images/spaceships/ship" Rows = "1" Columns = "8" />
+	<Texture Name = "spacewars" Asset = "images/spaceships/spacewars" />
+	<!-- Objects -->
+	<Texture Name = "meteors" Asset = "images/spaceships/objects/meteors">
+		<Region Name="meteor_01" Left ="0" Top ="0" Width="300" Height="300" />
+		<Region Name="meteor_02" Left ="602" Top ="0" Width="300" Height="266" />
+		<Region Name="meteor_03" Left ="0" Top ="301" Width="300" Height="300" />
+		<Region Name="meteor_04" Left ="602" Top ="737" Width="300" Height="137" />
+		<Region Name="meteor_05" Left ="602" Top ="267" Width="300" Height="262" />
+		<Region Name="meteor_06" Left ="301" Top ="602" Width="300" Height="288" />
+		<Region Name="meteor_07" Left ="301" Top ="0" Width="300" Height="300" />
+		<Region Name="meteor_08" Left ="301" Top ="301" Width="300" Height="300" />
+		<Region Name="meteor_09" Left ="602" Top ="530" Width="300" Height="206" />
+		<Region Name="meteor_10" Left ="0" Top ="602" Width="300" Height="300" />
+	</Texture>
+
+	<Texture Name = "bonus" Asset = "images/spaceships/objects/bonus">
+		<Region Name="Armor_Bonus" Left ="0" Top ="0" Width="300" Height="300" />
+		<Region Name="Barrier_Bonus" Left ="0" Top ="301" Width="300" Height="300" />
+		<Region Name="Damage_Bonus" Left ="301" Top ="0" Width="300" Height="300" />
+		<Region Name="Enemy_Destroy_Bonus" Left ="301" Top ="301" Width="300" Height="300" />
+		<Region Name="Enemy_Speed_Debuff" Left ="0" Top ="602" Width="300" Height="300" />
+		<Region Name="Hero_Movement_Debuff" Left ="301" Top ="602" Width="300" Height="300" />
+		<Region Name="Hero_Speed_Debuff" Left ="602" Top ="0" Width="300" Height="300" />
+		<Region Name="HP_Bonus" Left ="602" Top ="301" Width="300" Height="300" />
+		<Region Name="Magnet_Bonus" Left ="602" Top ="602" Width="300" Height="300" />
+		<Region Name="Rockets_Bonus" Left ="0" Top ="903" Width="300" Height="300" />
+	</Texture>
+
+	<Texture Name = "bombs" Asset = "images/SpaceShips/weapons/bombs">
+		<Region Name="Bomb_2_Idle_002" Left ="4055" Top ="0" Width="341" Height="250" />
+		<Region Name="Bomb_2_Idle_003" Left ="4055" Top ="251" Width="341" Height="250" />
+		<Region Name="Bomb_2_Idle_004" Left ="4055" Top ="502" Width="341" Height="250" />
+		<Region Name="Bomb_2_Idle_005" Left ="4055" Top ="753" Width="341" Height="250" />
+		<Region Name="Bomb_2_Idle_006" Left ="4055" Top ="1004" Width="341" Height="250" />
+		<Region Name="Bomb_2_Idle_007" Left ="4055" Top ="1255" Width="341" Height="250" />
+		<Region Name="Bomb_2_Idle_008" Left ="4055" Top ="1506" Width="341" Height="250" />
+		<Region Name="Bomb_2_Idle_009" Left ="4055" Top ="1757" Width="341" Height="250" />
+		<Region Name="Bomb_3_Explosion_000" Left ="0" Top ="0" Width="810" Height="810" />
+		<Region Name="Bomb_3_Explosion_001" Left ="0" Top ="811" Width="810" Height="810" />
+		<Region Name="Bomb_3_Explosion_002" Left ="811" Top ="0" Width="810" Height="810" />
+		<Region Name="Bomb_3_Explosion_003" Left ="811" Top ="811" Width="810" Height="810" />
+		<Region Name="Bomb_3_Explosion_004" Left ="0" Top ="1622" Width="810" Height="810" />
+		<Region Name="Bomb_3_Explosion_005" Left ="811" Top ="1622" Width="810" Height="810" />
+		<Region Name="Bomb_3_Explosion_006" Left ="1622" Top ="0" Width="810" Height="810" />
+		<Region Name="Bomb_3_Explosion_007" Left ="1622" Top ="811" Width="810" Height="810" />
+		<Region Name="Bomb_3_Explosion_008" Left ="1622" Top ="1622" Width="810" Height="810" />
+		<Region Name="Bomb_3_Idle_000" Left ="1622" Top ="4055" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_001" Left ="1622" Top ="4356" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_002" Left ="2073" Top ="4356" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_003" Left ="2524" Top ="4356" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_004" Left ="2975" Top ="4356" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_005" Left ="3426" Top ="4356" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_006" Left ="2073" Top ="4055" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_007" Left ="2524" Top ="4055" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_008" Left ="2975" Top ="4055" Width="450" Height="300" />
+		<Region Name="Bomb_3_Idle_009" Left ="3426" Top ="4055" Width="450" Height="300" />
+		<Region Name="Bomb_1_Explosion_000" Left ="0" Top ="2433" Width="810" Height="810" />
+		<Region Name="Bomb_1_Explosion_001" Left ="811" Top ="2433" Width="810" Height="810" />
+		<Region Name="Bomb_1_Explosion_002" Left ="1622" Top ="2433" Width="810" Height="810" />
+		<Region Name="Bomb_1_Explosion_003" Left ="2433" Top ="0" Width="810" Height="810" />
+		<Region Name="Bomb_1_Explosion_004" Left ="2433" Top ="811" Width="810" Height="810" />
+		<Region Name="Bomb_1_Explosion_005" Left ="2433" Top ="1622" Width="810" Height="810" />
+		<Region Name="Bomb_1_Explosion_006" Left ="2433" Top ="2433" Width="810" Height="810" />
+		<Region Name="Bomb_1_Explosion_007" Left ="0" Top ="3244" Width="810" Height="810" />
+		<Region Name="Bomb_1_Explosion_008" Left ="811" Top ="3244" Width="810" Height="810" />
+		<Region Name="Bomb_1_Idle_000" Left ="4055" Top ="2510" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_001" Left ="4055" Top ="2812" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_002" Left ="4055" Top ="3114" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_003" Left ="4055" Top ="3416" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_004" Left ="4055" Top ="3718" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_005" Left ="4055" Top ="4020" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_006" Left ="4055" Top ="4322" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_007" Left ="4207" Top ="4322" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_008" Left ="4207" Top ="4020" Width="151" Height="301" />
+		<Region Name="Bomb_1_Idle_009" Left ="4207" Top ="3718" Width="151" Height="301" />
+		<Region Name="Bomb_2_Explosion_000" Left ="1622" Top ="3244" Width="810" Height="810" />
+		<Region Name="Bomb_2_Explosion_001" Left ="2433" Top ="3244" Width="810" Height="810" />
+		<Region Name="Bomb_2_Explosion_002" Left ="3244" Top ="0" Width="810" Height="810" />
+		<Region Name="Bomb_2_Explosion_003" Left ="3244" Top ="811" Width="810" Height="810" />
+		<Region Name="Bomb_2_Explosion_004" Left ="3244" Top ="1622" Width="810" Height="810" />
+		<Region Name="Bomb_2_Explosion_005" Left ="3244" Top ="2433" Width="810" Height="810" />
+		<Region Name="Bomb_2_Explosion_006" Left ="3244" Top ="3244" Width="810" Height="810" />
+		<Region Name="Bomb_2_Explosion_007" Left ="0" Top ="4055" Width="810" Height="810" />
+		<Region Name="Bomb_2_Explosion_008" Left ="811" Top ="4055" Width="810" Height="810" />
+		<Region Name="Bomb_2_Idle_000" Left ="4055" Top ="2008" Width="341" Height="250" />
+		<Region Name="Bomb_2_Idle_001" Left ="4055" Top ="2259" Width="341" Height="250" />
+	</Texture>
+
+	<Texture Name = "bonus" Asset = "images/spaceships/weapons/missiles">
+		<Region Name="Missile_2_Flying_002" Left ="4055" Top ="2072" Width="138" Height="517" />
+		<Region Name="Missile_2_Flying_004" Left ="4055" Top ="2590" Width="138" Height="517" />
+		<Region Name="Missile_2_Flying_003" Left ="4055" Top ="3108" Width="138" Height="517" />
+		<Region Name="Missile_2_Flying_005" Left ="4055" Top ="3626" Width="138" Height="517" />
+		<Region Name="Missile_2_Flying_006" Left ="4055" Top ="4144" Width="138" Height="517" />
+		<Region Name="Missile_2_Flying_007" Left ="4197" Top ="0" Width="138" Height="517" />
+		<Region Name="Missile_2_Flying_008" Left ="4197" Top ="518" Width="138" Height="517" />
+		<Region Name="Missile_2_Flying_009" Left ="4197" Top ="1036" Width="138" Height="517" />
+		<Region Name="Missile_3_Explosion_000" Left ="0" Top ="0" Width="810" Height="810" />
+		<Region Name="Missile_3_Explosion_001" Left ="0" Top ="811" Width="810" Height="810" />
+		<Region Name="Missile_3_Explosion_002" Left ="811" Top ="0" Width="810" Height="810" />
+		<Region Name="Missile_3_Explosion_003" Left ="811" Top ="811" Width="810" Height="810" />
+		<Region Name="Missile_3_Explosion_004" Left ="0" Top ="1622" Width="810" Height="810" />
+		<Region Name="Missile_3_Explosion_005" Left ="811" Top ="1622" Width="810" Height="810" />
+		<Region Name="Missile_3_Explosion_006" Left ="1622" Top ="0" Width="810" Height="810" />
+		<Region Name="Missile_3_Explosion_007" Left ="1622" Top ="811" Width="810" Height="810" />
+		<Region Name="Missile_3_Explosion_008" Left ="1622" Top ="1622" Width="810" Height="810" />
+		<Region Name="Missile_3_Flying_000" Left ="1622" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_001" Left ="1769" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_002" Left ="1916" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_003" Left ="2063" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_004" Left ="2210" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_005" Left ="2357" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_006" Left ="2504" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_007" Left ="2651" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_008" Left ="2798" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_3_Flying_009" Left ="2945" Top ="4055" Width="146" Height="517" />
+		<Region Name="Missile_1_Explosion_000" Left ="0" Top ="2433" Width="810" Height="810" />
+		<Region Name="Missile_1_Explosion_001" Left ="811" Top ="2433" Width="810" Height="810" />
+		<Region Name="Missile_1_Explosion_002" Left ="1622" Top ="2433" Width="810" Height="810" />
+		<Region Name="Missile_1_Explosion_003" Left ="2433" Top ="0" Width="810" Height="810" />
+		<Region Name="Missile_1_Explosion_004" Left ="2433" Top ="811" Width="810" Height="810" />
+		<Region Name="Missile_1_Explosion_005" Left ="2433" Top ="1622" Width="810" Height="810" />
+		<Region Name="Missile_1_Explosion_006" Left ="2433" Top ="2433" Width="810" Height="810" />
+		<Region Name="Missile_1_Explosion_007" Left ="0" Top ="3244" Width="810" Height="810" />
+		<Region Name="Missile_1_Explosion_008" Left ="811" Top ="3244" Width="810" Height="810" />
+		<Region Name="Missile_1_Flying_000" Left ="3092" Top ="4055" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_001" Left ="3234" Top ="4055" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_002" Left ="3376" Top ="4055" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_003" Left ="3518" Top ="4055" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_004" Left ="3660" Top ="4055" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_005" Left ="3802" Top ="4055" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_006" Left ="4055" Top ="0" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_007" Left ="4055" Top ="518" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_008" Left ="4055" Top ="1036" Width="141" Height="517" />
+		<Region Name="Missile_1_Flying_009" Left ="4055" Top ="1554" Width="141" Height="517" />
+		<Region Name="Missile_2_Explosion_000" Left ="1622" Top ="3244" Width="810" Height="810" />
+		<Region Name="Missile_2_Explosion_001" Left ="2433" Top ="3244" Width="810" Height="810" />
+		<Region Name="Missile_2_Explosion_002" Left ="3244" Top ="0" Width="810" Height="810" />
+		<Region Name="Missile_2_Explosion_003" Left ="3244" Top ="811" Width="810" Height="810" />
+		<Region Name="Missile_2_Explosion_004" Left ="3244" Top ="1622" Width="810" Height="810" />
+		<Region Name="Missile_2_Explosion_005" Left ="3244" Top ="2433" Width="810" Height="810" />
+		<Region Name="Missile_2_Explosion_006" Left ="3244" Top ="3244" Width="810" Height="810" />
+		<Region Name="Missile_2_Explosion_007" Left ="0" Top ="4055" Width="810" Height="810" />
+		<Region Name="Missile_2_Explosion_008" Left ="811" Top ="4055" Width="810" Height="810" />
+		<Region Name="Missile_2_Flying_000" Left ="4197" Top ="1554" Width="138" Height="517" />
+		<Region Name="Missile_2_Flying_001" Left ="4197" Top ="2072" Width="138" Height="517" />
+	</Texture>
+
+	<!-- Animaciones del jugador -->
+	<Animation Name = "space-player-run-animation" Texture = "plane">
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "1,0" Time = "0.07" />
+		<Frame Region = "1,1" Time = "0.07" />
+		<Frame Region = "1,2" Time = "0.07" />
+		<Frame Region = "1,3" Time = "0.07" />
+		<Frame Region = "1,4" Time = "0.07" />
+		<Frame Region = "1,5" Time = "0.07" />
+	</Animation>
+
+	<!-- Space Player -->
+	<AnimationGroup Name = "SpacePlayer">
+		<Animation Name = "space-player-run-animation" Loop = "true">
+			<Rule Property = "died" Condition = "Equals" Value = "0"/>
+		</Animation>
+		<Animation Name = "explosion-animation" Loop = "false">
+			<Rule Property = "died" Condition = "Equals" Value = "1"/>
+		</Animation>
+	</AnimationGroup>
+</SpriteSheets>

@@ -22,7 +22,7 @@ public class ExplosionsManager(AbstractLayer layer)
             if (explosion is null)
             {
                 // Crea la explosión
-                explosion = new ExplosionActor(Layer, properties.ZOrder);
+                explosion = new ExplosionActor(Layer);
                 // Añade la explosión al pool
                 _explossions.Add(explosion);
             }

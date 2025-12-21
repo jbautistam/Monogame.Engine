@@ -49,6 +49,8 @@ public class EngineSampleGame : Game
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.MainMenu.MainMenuScene(GameLogic.Scenes.MainMenu.MainMenuScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Games.GameScene(GameLogic.Scenes.Games.GameScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.TilesSample.TilesScene(GameLogic.Scenes.TilesSample.TilesScene.SceneName, 1));
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Space.SpaceShipsScene(GameLogic.Scenes.Space.SpaceShipsScene.SceneName));
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.GraphicNovel.GraphicNovelScene(GameLogic.Scenes.GraphicNovel.GraphicNovelScene.SceneName));
 		// Prepara la escena
 		GameEngine.Instance.SceneManager.ChangeScene("MainMenu");
 		// Prepara los mapeos

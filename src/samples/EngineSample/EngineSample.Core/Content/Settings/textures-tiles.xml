@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpriteSheets>
+	<!-- Tiles -->
+	<Texture Name = "BlockA0" Asset = "Tiles/BlockA0" />
+	<Texture Name = "BlockA1" Asset = "Tiles/BlockA1" />
+	<Texture Name = "BlockA2" Asset = "Tiles/BlockA2" />
+	<Texture Name = "BlockA3" Asset = "Tiles/BlockA3" />
+	<Texture Name = "BlockA4" Asset = "Tiles/BlockA4" />
+	<Texture Name = "BlockA5" Asset = "Tiles/BlockA5" />
+	<Texture Name = "BlockA6" Asset = "Tiles/BlockA6" />
+	<Texture Name = "BlockB0" Asset = "Tiles/BlockB0" />
+	<Texture Name = "BlockB1" Asset = "Tiles/BlockB1" />
+	<Texture Name = "Platform" Asset = "Tiles/Platform" />
+	<Texture Name = "Exit" Asset = "Tiles/Exit" />
+</SpriteSheets>

@@ -19,9 +19,22 @@ public static class Randomizer
 	}
 
 	/// <summary>
+	///		Obtiene una posición aleatoria sobre una posición
+	/// </summary>
+	public static Vector2 GetRandomOffset(Vector2 position, float radius)
+	{
+		return new Vector2(position.X + GetRandom(0, radius), position.Y + GetRandom(0, radius));
+	}
+
+	/// <summary>
 	///		Obtiene un valor float entre dos valores
 	/// </summary>
 	public static float GetRandom(float minimum, float maximum) => (float) (Random.NextDouble() * (maximum - minimum) + minimum);
+
+	/// <summary>
+	///		Obtiene un valor aleatorio entero entre dos valores
+	/// </summary>
+	public static int GetRandom(int minimum, int maximum) => (int) (Random.NextDouble() * (maximum - minimum) + minimum);
 
 	/// <summary>
 	///		Obtiene un color aleatorio

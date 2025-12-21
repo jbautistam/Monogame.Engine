@@ -13,7 +13,7 @@ public class ProjectileActor : AbstractActor
     // Variables privadas
     private CollisionComponent _collision;
 
-    public ProjectileActor(AbstractLayer layer, int zOrder, int physicsLayer) : base(layer, zOrder)
+    public ProjectileActor(AbstractLayer layer, int zOrder, int physicsLayer) : base(layer, null)
     {
 		// Inicializa el componente de la colisión
 		_collision = new(this, physicsLayer);

@@ -10,12 +10,7 @@ public struct WorldDefinitionModel(int worldWidth, int worldHeight, int cellWidt
 	/// <summary>
 	///		Coordenadas del mundo
 	/// </summary>
-	public Rectangle WorldBounds { get; } = new Rectangle(0, 0, worldWidth, worldHeight);
-
-	///// <summary>
-	/////		ViewPort de la cámara
-	///// </summary>
-	//public required Rectangle ViewPort { get; init; }
+	public Rectangle WorldBounds { get; } = new(0, 0, worldWidth, worldHeight);
 
 	/// <summary>
 	///		Zona muerta para el movimiento de cámara

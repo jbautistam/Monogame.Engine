@@ -8,7 +8,16 @@ namespace Bau.Libraries.BauGame.Engine.Actors;
 public class ActorsList : List<AbstractActor>
 {
 	// Variables privadas
+    private List<AbstractActor> _actorsToAdd = [];
 	private List<(AbstractActor Actor, TimeSpan TimeToDestroy)> _actorsToRemove = [];
+
+    /// <summary>
+    ///     Añade un actor a la capa pero fuera del bucle de Update para evitar los errores de "colección modificada"
+    /// </summary>
+	public void AddNext(AbstractActor actor)
+	{
+        _actorsToAdd.Add(actor);
+	}
 
     /// <summary>
     ///     Elimina un actor de la capa
@@ -23,7 +32,9 @@ public class ActorsList : List<AbstractActor>
     /// </summary>
 	public void UpdatePhysics(GameContext gameContext)
 	{
-        // Elimina los actores antigous
+        // Añade los actores nuevos
+        AddNewActors();
+        // Elimina los actores antiguos
         RemoveOld(gameContext);
         // Actualiza las físicas de los actores
         foreach (AbstractActor actor in this)
@@ -32,30 +43,55 @@ public class ActorsList : List<AbstractActor>
 	}
 
     /// <summary>
+    ///     Añade los nuevos actores
+    /// </summary>
+    private void AddNewActors()
+    {
+        for (int index = _actorsToAdd.Count - 1; index >= 0; index--)
+        {
+            // Añade el actor
+            Add(_actorsToAdd[index]);
+            // Arranca el actor
+            _actorsToAdd[index].StartActor();
+            // Elimina el actor de la lista
+            _actorsToAdd.RemoveAt(index);
+        }
+    }
+
+    /// <summary>
     ///     Elimina los actores pendientes
     /// </summary>
 	private void RemoveOld(GameContext gameContext)
 	{
-        if (_actorsToRemove.Count > 0)
-        {
-            // Elimina los actores pendientes
-            for (int index = _actorsToRemove.Count - 1; index >= 0; index--)
-                if (gameContext.GameTime.TotalGameTime > _actorsToRemove[index].TimeToDestroy)
-                {
-                    // Detiene la actualización del actor
-                    _actorsToRemove[index].Actor.End();
-                    // Elimina el actor de la lista
-                    Remove(_actorsToRemove[index].Actor);
-                    // Elimina este actor de la lista
-                    _actorsToRemove.RemoveAt(index);
-                }
-        }
+        for (int index = _actorsToRemove.Count - 1; index >= 0; index--)
+            if (gameContext.GameTime.TotalGameTime > _actorsToRemove[index].TimeToDestroy)
+            {
+                // Detiene la actualización del actor
+                _actorsToRemove[index].Actor.End();
+                // Elimina el actor de la lista
+                Remove(_actorsToRemove[index].Actor.Id);
+                // Elimina este actor de la lista
+                _actorsToRemove.RemoveAt(index);
+            }
 	}
 
     /// <summary>
-    ///     Actualiza los datos de los <see cref="AbstractActor"/> de la lista
+    ///     Elimina un actor por su Id
     /// </summary>
-    public void Update(GameContext gameContext)
+	private void Remove(string id)
+	{
+		AbstractActor? actor = this.FirstOrDefault(item => item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase));
+
+            if (actor is not null)
+                Remove(actor);
+            else
+                System.Diagnostics.Debug.WriteLine("Not found");
+	}
+
+	/// <summary>
+	///     Actualiza los datos de los <see cref="AbstractActor"/> de la lista
+	/// </summary>
+	public void Update(GameContext gameContext)
 	{
         foreach (AbstractActor actor in this) 
             if (actor.Enabled) 
@@ -67,8 +103,11 @@ public class ActorsList : List<AbstractActor>
     /// </summary>
     public void SortByZOrder()
     {
-        //TODO: esto no es del todo correcto, puede que dos actores tengan el mismo zOrder y al ordenarlos aparezca uno antes y otro después
-        //TODO: y en el segundo dibujo se ordenen al revés dando lugar a parpadeos en pantalla
+        // Asigna los ZOrder explícitos
+        for (int index = 0; index < Count; index++)
+            if (this[index].RequestedZOrder is null)
+                this[index].ZOrder = index;
+        // Ordena los actores por su orden
         Sort((first, second) => first.ZOrder.CompareTo(second.ZOrder));
     }
 }

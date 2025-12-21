@@ -8,7 +8,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 /// <summary>
 ///     Manager de un sistema de partículas
 /// </summary>
-public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int zOrder) : AbstractActor(layer, zOrder)
+public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder = null) : AbstractActor(layer, zOrder)
 {
     // Constantes privadas
     private const float TailDensity = 5f;

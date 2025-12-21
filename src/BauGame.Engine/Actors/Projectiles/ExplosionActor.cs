@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
 /// <summary>
 ///     Actor para presentación de explosiones
 /// </summary>
-public class ExplosionActor(Scenes.Layers.AbstractLayer layer, int zOrder) : AbstractActor(layer, zOrder)
+public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(layer, null)
 {
     // Variables privadas
     private float _currentTime;

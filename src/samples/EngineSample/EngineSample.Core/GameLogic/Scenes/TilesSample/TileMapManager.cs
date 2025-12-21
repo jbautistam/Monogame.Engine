@@ -20,9 +20,7 @@ internal class TileMapManager(TilesScene scene)
 
 			// Crea las capas del mapa
 			if (map is not null)
-			{
 				layers.Add(Create("TileMap", TilesScene.PhysicsBackgroundLayer, 1));
-			}
 			// Devuelve las capas
 			return layers;
 	}

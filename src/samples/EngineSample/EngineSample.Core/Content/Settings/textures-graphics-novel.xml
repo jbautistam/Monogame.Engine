@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpriteSheets>
+	<Texture Name = "james-avatar" Asset = "images/characters/james/avatar" />
+	<Texture Name = "james-default" Asset = "images/characters/james/default" />
+	<Texture Name = "james-sad" Asset = "images/characters/james/sad" />
+	<Texture Name = "james-smile" Asset = "images/characters/james/smile" />
+	<Texture Name = "narrator-avatar" Asset = "images/characters/narrator/avatar" />
+	<Texture Name = "narrator-default" Asset = "images/characters/narrator/default" />
+	<Texture Name = "narrator-sad" Asset = "images/characters/narrator/sad" />
+	<Texture Name = "narrator-smile" Asset = "images/characters/narrator/smile" />
+	<Texture Name = "sylvie-avatar" Asset = "images/characters/sylvie/avatar" />
+	<Texture Name = "sylvie-default" Asset = "images/characters/sylvie/default" />
+	<Texture Name = "sylvie-sad" Asset = "images/characters/sylvie/sad" />
+	<Texture Name = "sylvie-smile" Asset = "images/characters/sylvie/smile" />
+</SpriteSheets>

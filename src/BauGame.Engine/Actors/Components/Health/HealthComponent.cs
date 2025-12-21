@@ -49,6 +49,15 @@ public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, fal
 	}
 
 	/// <summary>
+	///		Marca el componente como eliminado sin comprobaciones
+	/// </summary>
+	public void MarkAsDead()
+	{
+		IsDead = true;
+		JustDead = false;
+	}
+
+	/// <summary>
 	///		Actualiza las físicas
 	/// </summary>
 	public override void UpdatePhysics(Managers.GameContext gameContext) {}

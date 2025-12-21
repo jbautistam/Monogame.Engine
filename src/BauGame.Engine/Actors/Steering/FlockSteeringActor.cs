@@ -7,7 +7,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Steering;
 /// <summary>
 ///     Manager para los componentes de movimiento de una bandada
 /// </summary>
-public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(layer, 0)
+public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(layer, null)
 {
     /// <summary>
     ///     Añade un comportamiento a la lista

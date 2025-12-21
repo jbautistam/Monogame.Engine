@@ -30,7 +30,7 @@ public class RectangleEmissorShape : AbstractEmissorShape
     }
 
     /// <summary>
-    ///     Tamaño del rectángulo de emsor
+    ///     Tamaño del rectángulo de emisor
     /// </summary>
     public Vector2 Size { get; set; } = new(100, 100);
 

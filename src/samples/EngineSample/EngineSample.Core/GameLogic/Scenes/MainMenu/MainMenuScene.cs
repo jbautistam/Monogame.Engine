@@ -17,6 +17,19 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	public const string SceneName = "MainMenu";
 	// Constantes privadas
 	private const string DefaultFont = "Fonts/Hud";
+	// Enumerados privadas
+	private enum MenuOption
+	{
+		Play,
+		TilesSample,
+		SpaceShips,
+		GraphicNovel,
+		UpdateText,
+		Music,
+		Effect,
+		DebugMode,
+		Quit = 40
+	}
 	// Variables privadas
 	private UiMenu? _menu;
 
@@ -96,13 +109,15 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 					.WithSelectedBackground("Tiles/BlockA0")
 					.WithUnselectedBackground("Tiles/BlockA3")
 					.WithHoverBackground("Tiles/BlockB0")
-					.WithOption(1, "Play", DefaultFont, 0.2f, 0, 0.6f, 1)
-					.WithOption(2, "Update text", DefaultFont, 0.2f, 0.2f, 0.6f, 1)
-					.WithOption(3, "Music", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption(4, "Effect", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption(5, "Tiles sample", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption(6, "Debug mode", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption(40, "Quit", DefaultFont, 0.2f, 0.4f, 0.6f, 1);
+					.WithOption((int) MenuOption.Play, "Play", DefaultFont, 0.2f, 0, 0.6f, 1)
+					.WithOption((int) MenuOption.SpaceShips, "SpaceShips", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.TilesSample, "Tiles sample", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.GraphicNovel, "Graphic novel", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.UpdateText, "Update text", DefaultFont, 0.2f, 0.2f, 0.6f, 1)
+					.WithOption((int) MenuOption.Music, "Music", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Effect, "Effect", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.DebugMode, "Debug mode", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Quit, "Quit", DefaultFont, 0.2f, 0.4f, 0.6f, 1);
 			// Guarda el menú en una variable
 			_menu = builder.Build();
 			return _menu;
@@ -122,27 +137,33 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 				GameEngine.Instance.Exit();
 			// Devuelve la nueva escena
 			if (_menu is not null)
-				switch (_menu.GetAndResetClickOption())
+				switch ((MenuOption?) _menu.GetAndResetClickOption())
 				{
-					case 1:
+					case MenuOption.Play:
 							nextScene = GetNewScene(Games.GameScene.SceneName);
 						break;
-					case 2:
-							ChangeText();
-						break;
-					case 3:
-							PlaySong();
-						break;
-					case 4:
-							PlayEffect();
-						break;
-					case 5:
+					case MenuOption.TilesSample:
 							nextScene = GetNewScene(TilesSample.TilesScene.SceneName);
 						break;
-					case 6:
+					case MenuOption.SpaceShips:
+							nextScene = GetNewScene(Space.SpaceShipsScene.SceneName);
+						break;
+					case MenuOption.GraphicNovel:
+							nextScene = GetNewScene(GraphicNovel.GraphicNovelScene.SceneName);
+						break;
+					case MenuOption.UpdateText:
+							ChangeText();
+						break;
+					case MenuOption.Music:
+							PlaySong();
+						break;
+					case MenuOption.Effect:
+							PlayEffect();
+						break;
+					case MenuOption.DebugMode:
 							GameEngine.Instance.EngineSettings.DebugMode = !GameEngine.Instance.EngineSettings.DebugMode;
 						break;
-					case 40:
+					case MenuOption.Quit:
 							GameEngine.Instance.Exit();
 						break;
 				}

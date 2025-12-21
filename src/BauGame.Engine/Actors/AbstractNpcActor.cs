@@ -7,7 +7,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors;
 /// </summary>
 public abstract class AbstractNpcActor : AbstractActor
 {
-	public AbstractNpcActor(Scenes.Layers.AbstractLayer layer, int zOrder) : base(layer, zOrder)
+	public AbstractNpcActor(Scenes.Layers.AbstractLayer layer, int? zOrder) : base(layer, zOrder)
 	{
 		Brain = new Components.IA.BrainComponent(this);
 	}

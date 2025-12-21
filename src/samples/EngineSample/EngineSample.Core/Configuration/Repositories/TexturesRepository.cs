@@ -2,6 +2,7 @@
 using Bau.Libraries.LibMarkupLanguage;
 using Bau.Libraries.BauGame.Engine.Managers.Resources;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
+using Microsoft.Xna.Framework;
 
 namespace EngineSample.Core.Configuration.Repositories;
 
@@ -27,6 +28,10 @@ internal class TexturesRepository
 	private const string TagProperty = "Property";
 	private const string TagCondition = "Condition";
 	private const string TagValue = "Value";
+	private const string TagLeft = "Left";
+	private const string TagTop = "Top";
+	private const string TagWidth = "Width";
+	private const string TagHeight = "Height";
 
 	/// <summary>
 	///		Carga texturas y animaciones de un texto XML
@@ -62,9 +67,21 @@ internal class TexturesRepository
 		string asset = rootML.Attributes[TagAsset].Value.TrimIgnoreNull();
 		int? rows = rootML.Attributes[TagRows].Value.GetInt();
 		int? columns = rootML.Attributes[TagColumns].Value.GetInt();
+		List<(string name, Rectangle region)> regions = [];
 
+			// Carga las regiones
+			foreach (MLNode nodeML in rootML.Nodes)
+				if (nodeML.Name == TagRegion)
+					regions.Add((nodeML.Attributes[TagName].Value.TrimIgnoreNull(),
+								 new Rectangle(nodeML.Attributes[TagLeft].Value.GetInt(0),
+											   nodeML.Attributes[TagTop].Value.GetInt(0),	
+											   nodeML.Attributes[TagWidth].Value.GetInt(0),
+											   nodeML.Attributes[TagHeight].Value.GetInt(0))
+							    ));
 			// Crea la textura adecuada
-			if (rows is not null && columns is not null)
+			if (regions.Count != 0)
+				texturesManager.Create(name, asset, regions);
+			else if (rows is not null && columns is not null)
 				texturesManager.Create(name, asset, rows ?? 0, columns ?? 0);
 			else
 				texturesManager.Create(name, asset);

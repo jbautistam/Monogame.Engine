@@ -15,9 +15,12 @@
     <Compile Remove="GameLogic\Scenes\TilesSample\TileMapManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Content\Settings\textures.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Bau.Libraries.LibHelper" Version="1.3.68" />
     <PackageReference Include="Bau.Libraries.LibMarkup" Version="1.3.6" />
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.*">
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4.1">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
@@ -25,7 +28,19 @@
     <ProjectReference Include="..\..\..\BauGame.Engine\BauGame.Engine.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Content\Settings\textures.xml">
+    <None Update="Content\Settings\textures-tiles.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Settings\textures-common.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Settings\textures-sample.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Settings\textures-graphics-novel.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Settings\textures-space.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\Settings\tilesets.json">

@@ -7,11 +7,12 @@ namespace Bau.Libraries.BauGame.Engine.Actors;
 /// </summary>
 public abstract class AbstractActor : Pool.IPoolable
 {
-	protected AbstractActor(Scenes.Layers.AbstractLayer layer, int zOrder)
+	protected AbstractActor(Scenes.Layers.AbstractLayer layer, int? zOrder)
 	{
 		// Inicializa los objetos
 		Layer = layer;
-		ZOrder = zOrder;
+		RequestedZOrder = zOrder;
+		ZOrder = zOrder ?? 0;
 		Transform = new Components.Transforms.TransformComponent(this);
 		PreviuosTransform = new Components.Transforms.TransformComponent(this);
 		Renderer = new Components.Renderers.RendererComponent(this);
@@ -115,7 +116,17 @@ public abstract class AbstractActor : Pool.IPoolable
 	public Scenes.Layers.AbstractLayer Layer { get; }
 
 	/// <summary>
-	///		Orden de dibujo
+	///		Id del elemento
+	/// </summary>
+	public string Id { get; } = Guid.NewGuid().ToString();
+
+	/// <summary>
+	///		Orden de dibujo solicitado
+	/// </summary>
+	public int? RequestedZOrder { get; }
+
+	/// <summary>
+	///		Orden de dibujo solicitado
 	/// </summary>
 	public int ZOrder { get; set; }
 

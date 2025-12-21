@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 /// <summary>
 ///     Actor con un manager de un sistema de partículas
 /// </summary>
-public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int zOrder) : AbstractActor(layer, zOrder)
+public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? zOrder = null) : AbstractActor(layer, zOrder)
 {
     // Variables privadas
     private float _elapsedTime;
