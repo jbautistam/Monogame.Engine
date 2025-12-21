@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Bau.Libraries.BauGame.Engine.Actors.Particles.Emisors;
+using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Spawners;
 
@@ -13,17 +14,54 @@ public class SpawnerActorBuilder
     }
 
     /// <summary>
-    ///     Añade un generador
+    ///     Añade un generador de tipo punto
     /// </summary>
-    public SpawnerActorBuilder WithSpawner(float x, float y, float radius, float triggerTime) => WithSpawner(new Vector2(x, y), radius, triggerTime);
+    public SpawnerActorBuilder WithPointSpawner(float x, float y, float width, float height, bool edgeOnly, float triggerTime)
+    {
+        return WithSpawner(new Vector2(x, y), new PointEmissorShape(), triggerTime);
+    }
+
+    /// <summary>
+    ///     Añade un generador de tipo círculo
+    /// </summary>
+    public SpawnerActorBuilder WithCircleSpawner(float x, float y, float radius, bool edgeOnly, float triggerTime)
+    {
+        return WithSpawner(new Vector2(x, y), new CircleEmissorShape()
+                                                        {
+                                                            Radius = radius,
+                                                            EdgeOnly = edgeOnly
+                                                        }, 
+                           triggerTime);
+    }
+
+    /// <summary>
+    ///     Añade un generador de tipo rectángulo
+    /// </summary>
+    public SpawnerActorBuilder WithRectangleSpawner(float x, float y, float width, float height, bool edgeOnly, float triggerTime)
+    {
+        return WithSpawner(new Vector2(x, y), new RectangleEmissorShape()
+                                                        {
+                                                            Size = new Vector2(width, height),
+                                                            EdgeOnly = edgeOnly
+                                                        }, 
+                           triggerTime);
+    }
 
     /// <summary>
     ///     Añade un generador
     /// </summary>
-    public SpawnerActorBuilder WithSpawner(Vector2 position, float radius, float triggerTime)
+    public SpawnerActorBuilder WithSpawner(float x, float y, AbstractEmissorShape emissor, float triggerTime)
+    {
+        return WithSpawner(new Vector2(x, y), emissor, triggerTime);
+    }
+
+    /// <summary>
+    ///     Añade un generador
+    /// </summary>
+    public SpawnerActorBuilder WithSpawner(Vector2 position, AbstractEmissorShape emissor, float triggerTime)
     {
         // Añade el generador
-        Spawner.AddSpawner(position, radius, triggerTime);
+        Spawner.AddSpawner(position, emissor, triggerTime);
         // Devuelve el generador para que se siga configurando
         return this;
     }

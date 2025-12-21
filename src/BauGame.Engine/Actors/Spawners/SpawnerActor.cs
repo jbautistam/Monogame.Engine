@@ -19,14 +19,9 @@ public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(lay
     /// <summary>
     ///     Añade un generador
     /// </summary>
-    public SpawnerWaveModel AddSpawner(float x, float y, float radius, float triggerTime) => AddSpawner(new Vector2(x, y), radius, triggerTime);
-
-    /// <summary>
-    ///     Añade un generador
-    /// </summary>
-    public SpawnerWaveModel AddSpawner(Vector2 position, float radius, float triggerTime)
+    public SpawnerWaveModel AddSpawner(Vector2 position, Particles.Emisors.AbstractEmissorShape emissor, float triggerTime)
     {
-        SpawnerWaveModel spawnerWave = new(position, radius, triggerTime);
+        SpawnerWaveModel spawnerWave = new(position, emissor, triggerTime);
 
             // Añade el generador
             SpawnerWaves.Add(spawnerWave);

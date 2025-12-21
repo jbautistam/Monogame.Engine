@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Spawners;
 /// <summary>
 ///     Ola de enemigos a lanzar
 /// </summary>
-public class SpawnerWaveModel(Vector2 offset, float radius, float triggerTime)
+public class SpawnerWaveModel(Vector2 position, Particles.Emisors.AbstractEmissorShape emissor, float triggerTime)
 {
     // Registros públicos
     public record FactoryParameters(string Name, Vector2 Position, Vector2 Direction);
@@ -39,20 +39,20 @@ public class SpawnerWaveModel(Vector2 offset, float radius, float triggerTime)
     {
         // Lanza los elementos de la ola
         foreach ((string name, Action<FactoryParameters> action) in ActorFactories)
-            action(new FactoryParameters(name, Tools.Randomizer.GetRandomOffset(Offset, Radius), Tools.Randomizer.GetRandomDirection()));
+            action(new FactoryParameters(name, emissor.GetEmissionPosition(Position), Tools.Randomizer.GetRandomDirection()));
         // Indica que ya se ha lanzado
         _elapsed = 0;
     }
 
     /// <summary>
-    ///     Posición inicial del lanzamiento
+    ///     Posición
     /// </summary>
-    public Vector2 Offset { get; } = offset;
+    public Vector2 Position { get; } = position;
 
     /// <summary>
-    ///     Radio de lanzamiento de la ola
+    ///     Emisor para lanzamiento
     /// </summary>
-    public float Radius { get; } = radius;
+    public Particles.Emisors.AbstractEmissorShape emissor { get; } = emissor;
 
     /// <summary>
     ///     Tiempo de lanzamiento

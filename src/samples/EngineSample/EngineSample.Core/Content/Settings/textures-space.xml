@@ -16,16 +16,16 @@
 	<Texture Name = "spacewars" Asset = "images/spaceships/spacewars" />
 	<!-- Objects -->
 	<Texture Name = "meteors" Asset = "images/spaceships/objects/meteors">
-		<Region Name="meteor_01" Left ="0" Top ="0" Width="300" Height="300" />
-		<Region Name="meteor_02" Left ="602" Top ="0" Width="300" Height="266" />
-		<Region Name="meteor_03" Left ="0" Top ="301" Width="300" Height="300" />
-		<Region Name="meteor_04" Left ="602" Top ="737" Width="300" Height="137" />
-		<Region Name="meteor_05" Left ="602" Top ="267" Width="300" Height="262" />
-		<Region Name="meteor_06" Left ="301" Top ="602" Width="300" Height="288" />
-		<Region Name="meteor_07" Left ="301" Top ="0" Width="300" Height="300" />
-		<Region Name="meteor_08" Left ="301" Top ="301" Width="300" Height="300" />
-		<Region Name="meteor_09" Left ="602" Top ="530" Width="300" Height="206" />
-		<Region Name="meteor_10" Left ="0" Top ="602" Width="300" Height="300" />
+		<Region Name="Meteor_01" Left ="0" Top ="0" Width="75" Height="75" />
+		<Region Name="Meteor_02" Left ="76" Top ="152" Width="75" Height="67" />
+		<Region Name="Meteor_03" Left ="0" Top ="76" Width="75" Height="75" />
+		<Region Name="Meteor_04" Left ="152" Top ="187" Width="75" Height="34" />
+		<Region Name="Meteor_05" Left ="152" Top ="0" Width="75" Height="66" />
+		<Region Name="Meteor_06" Left ="0" Top ="152" Width="75" Height="72" />
+		<Region Name="Meteor_07" Left ="76" Top ="0" Width="75" Height="75" />
+		<Region Name="Meteor_08" Left ="76" Top ="76" Width="75" Height="75" />
+		<Region Name="Meteor_09" Left ="152" Top ="134" Width="75" Height="52" />
+		<Region Name="Meteor_10" Left ="152" Top ="67" Width="66" Height="66" />
 	</Texture>
 
 	<Texture Name = "bonus" Asset = "images/spaceships/objects/bonus">

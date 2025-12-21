@@ -48,7 +48,7 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 			builder
 					//.WithSpawner(-20, -20, 50, 5)
 					//	.WithWave("enemy", CreateEnemySpaceShip)
-					.WithSpawner(-100, -100, 200, 5)
+					.WithCircleSpawner(0, 0, MathF.Max(Scene.WorldDefinition.WorldBounds.Width, Scene.WorldDefinition.WorldBounds.Height), true, 1)
 						.WithWave("meteors", CreateEnemySpaceShip);
 			// Añade el spawner a la capa
 			Actors.Add(builder.Build());
@@ -76,7 +76,7 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 						// Asigna la posición y la dirección
 						meteor.Transform.Bounds.MoveTo(parameters.Position);
 						meteor.Direction = parameters.Position.DirectionTo(Scene.WorldDefinition.WorldBounds.Center.X, Scene.WorldDefinition.WorldBounds.Center.Y);
-						meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.1f, 0.5f);
+						meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 						// Añade el meteoro al buffer de la pantalla
 						Actors.AddNext(meteor);
 				break;
