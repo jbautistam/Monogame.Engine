@@ -12,6 +12,7 @@ public class ResourcesManager
 		TextureManager = new TextureManager(this);
 		GlobalContentManager = new ContentDisposableManager(this);
 		AnimationManager = new Animations.AnimationManager(this);
+		a
 	}
 
 	/// <summary>
