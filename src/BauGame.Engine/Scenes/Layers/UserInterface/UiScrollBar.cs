@@ -1,8 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+
+public class UiScrollBar(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+{
+}
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
-namespace Bau.Monogame.Engine.Domain.UI;
 
 public class Scrollbar : UIElement
 {

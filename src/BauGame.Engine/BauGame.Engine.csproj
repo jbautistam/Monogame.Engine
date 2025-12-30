@@ -77,12 +77,15 @@
     <Compile Remove="Actors\TileMap\MapLayerData.cs" />
     <Compile Remove="Actors\TileMap\TileDefinitionModel.cs" />
     <Compile Remove="Actors\TileMap\Tilemap.cs" />
+    <Compile Remove="Base\SortedListModel.cs" />
     <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
     <Compile Remove="Pool\PoolManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Actors\chat-Rigidbody Implementation in MonoGame.txt" />
+    <None Remove="Actors\Components\IA\chat-Actor IA Componentes_MonoGame.txt" />
+    <None Remove="Actors\Components\IA\chat-Introducción a GOAP en MonoGame.txt" />
   </ItemGroup>
 
   <ItemGroup>

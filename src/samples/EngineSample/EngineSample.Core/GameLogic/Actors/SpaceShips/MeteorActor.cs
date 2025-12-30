@@ -4,6 +4,7 @@ using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
+using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 
 namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 
@@ -12,20 +13,39 @@ namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 /// </summary>
 public class MeteorActor : AbstractActor
 {
+	// Enumerados públicos
+	public enum MeteorSize
+	{
+		Big,
+		Medium,
+		Small
+	}
 	// Variables privadas
 	private HealthComponent _health;
 	private CollisionComponent _collision;
 
-	public MeteorActor(AbstractLayer layer, string name, string texture, string region, int physicsPlayerLayer) : base(layer, null)
+	public MeteorActor(AbstractLayer layer, string name, MeteorSize size, string texture, string region, int physicsPlayerLayer) : base(layer, null)
 	{
 		// Inicializa las propiedades
 		Name = name;
+		Size = size;
+		Texture = texture; // ... almacena la textura para cuando se lancen meteoros hijo al destruir este
+		Region = region;
 		// Configura el renderer
 		Renderer.Texture = texture;
 		Renderer.Region = region;
+		switch (size)
+		{
+			case MeteorSize.Medium:
+					Renderer.Scale = new Vector2(0.6f, 0.6f);
+				break;
+			case MeteorSize.Small:
+					Renderer.Scale = new Vector2(0.35f, 0.35f);
+				break;
+		}
 		// Configura las colisiones
 		_collision = new(this, physicsPlayerLayer);
-		_collision.Colliders.Add(new RectangleCollider(_collision, null));
+		_collision.Colliders.Add(new CircleCollider(_collision, null));
 		// Inicializa el componente de salud
 		_health = new HealthComponent(this)
 								{
@@ -91,20 +111,66 @@ public class MeteorActor : AbstractActor
 		if (killedByPlayer)
 		{
 			// Añade una explosión
-			Renderer.StartAnimation("explosion", "explosion-animation", false);
+			if (Layer is AbstractGameLayer gameLayer)
+				gameLayer.ExplosionsManager.Create(new Bau.Libraries.BauGame.Engine.Actors.Projectiles.ExplosionProperties()
+																{
+																	Texture = "explosion",
+																	Region = "default",
+																	Animation = "explosion-animation",
+																	ZOrder = ZOrder
+																},
+												   Transform.Bounds.TopLeft);
+			// Renderer.StartAnimation("explosion", "explosion-animation", false);
 			// Envía el mensaje de fin para añadir la puntuación
 			Layer.Scene.MessagesManager.SendMessage(PlayerActor.PlayerName, 
 													new Bau.Libraries.BauGame.Engine.Scenes.Messages.MessageModel(this, Constants.MessageEnemyKilled)
 																{
 																	Message = "Meteor eliminated",
-																	Tag = 20
+																	Tag = GetScore()
 																}
 													);
+			// Genera los meteoros hijo
+			for (int index = 0; index < 2; index++)
+				switch (Size)
+				{
+					case MeteorSize.Big:
+							SpawnMeteor(MeteorSize.Medium);
+						break;
+					case MeteorSize.Medium:
+							SpawnMeteor(MeteorSize.Small);
+						break;
+				}
 		}
 		// Destruye el actor (cuando ya haya terminado la animación)
-		Layer.Actors.Destroy(this, gameContext.GetTotalTime(TimeSpan.FromSeconds(1)));
+		Layer.Actors.Destroy(this, gameContext.GetTotalTime(TimeSpan.FromMilliseconds(1)));
 		// Marca el actor como eliminado
 		_health.MarkAsDead();
+
+		// Obtiene la puntuación dependiendo del tamaño
+		int GetScore()
+		{
+			return Size switch
+					{
+						MeteorSize.Big => 20,
+						MeteorSize.Small => 30,
+						_ => 40
+					};
+		}
+	}
+
+	/// <summary>
+	///		Crea meteoros cuando se destruye este
+	/// </summary>
+	private void SpawnMeteor(MeteorSize size)
+	{
+		MeteorActor meteor = new(Layer, "meteor", size, Texture, Region, _collision.PhysicLayerId);
+
+			// Asigna la posición y la dirección
+			meteor.Transform.Bounds.MoveTo(Transform.Bounds.TopLeft);
+			meteor.Direction = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandomDirection();
+			meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
+			// Añade el meteoro al buffer de la pantalla
+			Layer.Actors.AddNext(meteor);
 	}
 
 	/// <summary>
@@ -125,6 +191,21 @@ public class MeteorActor : AbstractActor
 	///		Nombre del actor
 	/// </summary>
 	public string Name { get; }
+
+	/// <summary>
+	///		Tamaño del meteoro
+	/// </summary>
+	public MeteorSize Size { get; }
+
+	/// <summary>
+	///		Textura: en realidad, no se utiliza en el renderer si no al crear meteoros hijo cuando este explota
+	/// </summary>
+	public string Texture { get; }
+
+	/// <summary>
+	///		Región: en realidad, no se utiliza en el renderer si no al crear meteoros hijo cuando este explota
+	/// </summary>
+	public string Region { get; }
 
 	/// <summary>
 	///		Dirección de movimiento

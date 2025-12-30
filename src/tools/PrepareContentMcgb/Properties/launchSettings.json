@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PrepareContentMcgb": {
+      "commandName": "Project",
+      "commandLineArgs": "-folder C:\\Users\\jose.bautista\\Downloads\\SourceCode\\Monogame.Engine-main\\src\\samples\\EngineSample\\EngineSample.Core\\Content\\ -file EngineSample-generated.mgcb"
+    }
+  }
+}

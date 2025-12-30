@@ -62,24 +62,51 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 		switch (parameters.Name)
 		{
 			case "enemy":
-					SpaceEnemyFsmActor enemy = new(this, "monsterA", SpaceShipsScene.PhysicsNpcLayer);
-
-						// Asigna la posición
-						enemy.Transform.Bounds.MoveTo(parameters.Position);
-						// Añade el enemigo al buffer de la pantalla
-						Actors.AddNext(enemy);
+					SpawnEnemyFsm(parameters);
 				break;
 			case "meteors":
-					int random = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 11);
-					MeteorActor meteor = new(this, "meteor", "meteors", $"meteor_{random:00}", SpaceShipsScene.PhysicsNpcLayer);
-
-						// Asigna la posición y la dirección
-						meteor.Transform.Bounds.MoveTo(parameters.Position);
-						meteor.Direction = parameters.Position.DirectionTo(Scene.WorldDefinition.WorldBounds.Center.X, Scene.WorldDefinition.WorldBounds.Center.Y);
-						meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
-						// Añade el meteoro al buffer de la pantalla
-						Actors.AddNext(meteor);
+					SpawnMeteor(parameters);
 				break;
+		}
+	}
+
+	/// <summary>
+	///		Genera un enemigo que utiliza FSM
+	/// </summary>
+	private void SpawnEnemyFsm(SpawnerWaveModel.FactoryParameters parameters)
+	{
+		SpaceEnemyFsmActor enemy = new(this, "monsterA", SpaceShipsScene.PhysicsNpcLayer);
+
+			// Asigna la posición
+			enemy.Transform.Bounds.MoveTo(parameters.Position);
+			// Añade el enemigo al buffer de la pantalla
+			Actors.AddNext(enemy);
+	}
+
+	/// <summary>
+	///		Crea un meteoro
+	/// </summary>
+	private void SpawnMeteor(SpawnerWaveModel.FactoryParameters parameters)
+	{
+		int random = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 11);
+		MeteorActor meteor = new(this, "meteor", GetMeteorSize(), "meteors", $"meteor_{random:00}", SpaceShipsScene.PhysicsNpcLayer);
+
+			// Asigna la posición y la dirección
+			meteor.Transform.Bounds.MoveTo(parameters.Position);
+			meteor.Direction = parameters.Position.DirectionTo(Scene.WorldDefinition.WorldBounds.Center.X, Scene.WorldDefinition.WorldBounds.Center.Y);
+			meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
+			// Añade el meteoro al buffer de la pantalla
+			Actors.AddNext(meteor);
+
+		// Obtiene el tamaño del meteoro
+		MeteorActor.MeteorSize GetMeteorSize()
+		{
+			return Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 10) switch
+						{
+							> 7 => MeteorActor.MeteorSize.Big,
+							> 3 => MeteorActor.MeteorSize.Medium,
+							_ => MeteorActor.MeteorSize.Small
+						};
 		}
 	}
 

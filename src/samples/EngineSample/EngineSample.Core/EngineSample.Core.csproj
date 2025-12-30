@@ -11,6 +11,7 @@
     <None Remove="Configuration\Repositories\Models\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="GameLogic\Actors\SpaceShips\Rotation.cs" />
     <Compile Remove="GameLogic\Scenes\BackgroundLayer.cs" />
     <Compile Remove="GameLogic\Scenes\TilesSample\TileMapManager.cs" />
   </ItemGroup>

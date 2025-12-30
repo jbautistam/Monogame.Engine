@@ -1,0 +1,830 @@
+### USER
+Eres un programador especializado en monogame. Estás programando un actor que utiliza ia. Qué componentes tiene que tener 
+
+### ASSISTANT
+¡Excelente pregunta! En el contexto de un motor como **MonoGame** (que es un framework de bajo nivel para juegos en C#), si estás implementando un **actor con inteligencia artificial (IA)**, necesitas estructurar tu código de forma modular y escalable. Aunque MonoGame no impone una arquitectura específica, es común seguir patrones como **Component-Based Architecture**, **Entity-Component-System (ECS)** o simplemente **Object-Oriented Design**.
+
+Aquí te detallo los **componentes clave** que debería tener un **actor con IA** en MonoGame:
+
+---
+
+### 1. **TransformComponent** (o similar)
+- **Propósito**: Representa la posición, rotación y escala del actor en el mundo.
+- **Campos típicos**:
+  ```csharp
+  public Vector2 Position;
+  public float Rotation;
+  public Vector2 Scale;
+  ```
+
+---
+
+### 2. **SpriteComponent** (o RenderComponent)
+- **Propósito**: Maneja la representación visual del actor.
+- **Campos típicos**:
+  ```csharp
+  public Texture2D Texture;
+  public Rectangle SourceRect; // Para spritesheets
+  public Color Tint;
+  ```
+
+---
+
+### 3. **PhysicsComponent** (opcional, pero común)
+- **Propósito**: Gestiona la física básica (velocidad, aceleración, colisiones).
+- **Campos típicos**:
+  ```csharp
+  public Vector2 Velocity;
+  public Vector2 Acceleration;
+  public float MaxSpeed;
+  public float Friction;
+  public Rectangle Bounds; // o hitbox
+  ```
+
+---
+
+### 4. **AIComponent** (¡el núcleo de tu pregunta!)
+- **Propósito**: Contiene la lógica de toma de decisiones del actor.
+- **Subcomponentes o estrategias comunes**:
+  - **State Machine** (muy común): `Idle`, `Patrol`, `Chase`, `Attack`, etc.
+  - **Behavior Tree** (más avanzado): para lógica compleja y modular.
+  - **Utility AI** o **Goal-Oriented Action Planning (GOAP)**: para IA más sofisticada.
+
+- **Campos/métodos típicos**:
+  ```csharp
+  public IBehavior CurrentBehavior;
+  public void Update(GameTime gameTime, WorldState worldState);
+  ```
+
+---
+
+### 5. **SensorComponent** (opcional pero útil para IA)
+- **Propósito**: Permite al actor "percibir" su entorno (jugador cercano, obstáculos, etc.).
+- **Ejemplos**:
+  - Radio de visión (`float SightRadius`)
+  - Lista de objetivos detectados
+  - Raycasting o círculos de detección
+
+---
+
+### 6. **WorldState / Blackboard** (compartido)
+- **Propósito**: Almacena información global o contextual que la IA necesita (posición del jugador, estado del mundo, etc.).
+- Puede ser un objeto compartido entre todos los actores con IA.
+- **Ejemplo**:
+  ```csharp
+  public class Blackboard
+  {
+      public Vector2 PlayerPosition;
+      public bool IsPlayerVisible;
+      public List<Enemy> NearbyEnemies;
+  }
+  ```
+
+---
+
+### 7. **Actor / Entity Class**
+- **Propósito**: Clase contenedora que agrupa los componentes.
+- **Ejemplo básico**:
+  ```csharp
+  public class Actor
+  {
+      public TransformComponent Transform { get; set; }
+      public SpriteComponent Sprite { get; set; }
+      public PhysicsComponent Physics { get; set; }
+      public AIComponent AI { get; set; }
+      
+      public void Update(GameTime gameTime, Blackboard worldState)
+      {
+          AI.Update(gameTime, worldState);
+          Physics.Update(gameTime);
+          // etc.
+      }
+
+      public void Draw(SpriteBatch spriteBatch)
+      {
+          spriteBatch.Draw(Sprite.Texture, Transform.Position, Sprite.SourceRect, Sprite.Tint, ...);
+      }
+  }
+  ```
+
+---
+
+### Bonus: Consideraciones adicionales
+
+- **Separación de responsabilidades**: La IA no debe dibujar ni manejar física directamente; delega a sus componentes.
+- **Rendimiento**: Evita cálculos costosos en `Update` (como pathfinding en cada frame). Usa caché o actualizaciones por intervalos.
+- **Pathfinding**: Si tu IA necesita moverse inteligentemente, integra una librería como **A* Pathfinding** (puedes usar implementaciones ligeras como [A* Pathfinding Project](https://github.com/prime31/Nez) o escribir tu propia versión simple).
+
+---
+
+### Ejemplo de flujo de IA simple
+
+1. **Update del juego** llama a `actor.Update(...)`
+2. El `AIComponent` consulta el `Blackboard` (¿ve al jugador?)
+3. Decide cambiar de estado: `Patrol → Chase`
+4. El nuevo estado actualiza la `Physics.Velocity` hacia el jugador
+5. El `PhysicsComponent` mueve al actor
+6. El `SpriteComponent` lo dibuja en la nueva posición
+
+---
+
+¿Quieres que te dé un ejemplo funcional en código C# con MonoGame de un enemigo que persigue al jugador usando estos componentes?
+
+### USER
+Qué es goap
+
+### ASSISTANT
+**GOAP** (Goal-Oriented Action Planning) es un sistema de **inteligencia artificial** utilizado en videojuegos para que los agentes (como enemigos, NPCs, etc.) tomen decisiones **autónomas y dinámicas** basadas en **metas** y **acciones disponibles**, en lugar de seguir secuencias predefinidas o máquinas de estado rígidas.
+
+Fue popularizado por el juego **F.E.A.R.** (2005), donde los enemigos podían coordinarse, buscar cobertura, lanzar granadas o flanquear al jugador de forma aparentemente inteligente.
+
+---
+
+### 🎯 Idea central de GOAP
+
+> **"Dado un objetivo (goal), ¿qué secuencia de acciones me lleva desde mi estado actual al estado deseado?"**
+
+En lugar de decir *"si el jugador está cerca, ataca"*, GOAP permite que el agente **planifique** cómo alcanzar un objetivo como *"matar al jugador"*, considerando qué **acciones puede realizar** y qué **condiciones necesita cumplir** para hacerlas.
+
+---
+
+### 🔑 Conceptos clave
+
+#### 1. **Estado del mundo (World State)**
+- Representa el entorno desde la perspectiva del agente.
+- Ejemplo:  
+  ```csharp
+  { "hasWeapon": true, "isInCover": false, "enemyVisible": true, "health": 30 }
+  ```
+
+#### 2. **Meta (Goal)**
+- Un estado deseado que el agente quiere lograr.
+- Ejemplo:  
+  ```csharp
+  Goal: { "enemyDead": true }
+  ```
+
+#### 3. **Acciones (Actions)**
+- Cada acción tiene:
+  - **Precondiciones**: qué debe ser cierto para ejecutarla.
+  - **Efectos**: qué cambia en el estado del mundo al ejecutarla.
+  - **Costo**: (opcional) para elegir planes más eficientes.
+
+**Ejemplo de acción: "Recoger arma"**
+```csharp
+Preconditions: { "hasWeapon": false, "weaponNearby": true }
+Effects:       { "hasWeapon": true }
+Cost:          1
+```
+
+**Ejemplo de acción: "Disparar"**
+```csharp
+Preconditions: { "hasWeapon": true, "enemyVisible": true }
+Effects:       { "enemyDead": true }
+Cost:          2
+```
+
+#### 4. **Planificador (Planner)**
+- Usa un algoritmo (como **A\***) para encontrar la **secuencia óptima de acciones** que transforme el estado actual en el estado meta.
+- Si no hay plan posible, el agente puede elegir otra meta o quedarse inactivo.
+
+---
+
+### 🔄 Flujo típico de GOAP en un frame
+
+1. El agente define una o más **metas** posibles (ej: "sobrevivir", "atacar", "huir").
+2. Para cada meta, el **planificador** intenta encontrar un plan.
+3. Se elige la meta con el **mejor plan** (menor costo, mayor prioridad, etc.).
+4. El agente **ejecuta la primera acción del plan**.
+5. En el siguiente frame, reevalúa: ¿sigue siendo válido el plan? ¿cambió el mundo?
+
+---
+
+### ✅ Ventajas de GOAP
+
+- **Flexibilidad**: Los agentes reaccionan a situaciones imprevistas.
+- **Emergencia**: Comportamientos complejos surgen de reglas simples.
+- **Reutilización**: Las mismas acciones pueden usarse para distintas metas.
+- **Mantenibilidad**: Añadir nuevas acciones no rompe la lógica existente.
+
+---
+
+### ❌ Desventajas
+
+- **Más complejo** que una máquina de estados simple.
+- **Costo computacional**: Planificar en cada frame puede ser pesado (aunque se puede optimizar con caché o planificación perezosa).
+- **Diseño cuidadoso**: Las precondiciones y efectos deben estar bien definidos.
+
+---
+
+### 🎮 Ejemplo en un juego
+
+Imagina un enemigo que:
+- No tiene arma → **recoge un arma**.
+- Ve al jugador pero está lejos → **se acerca**.
+- Está herido → **huye a buscar salud**.
+- Tiene arma y ve al jugador → **dispara**.
+
+Con GOAP, **no necesitas codificar todos los "ifs"**. Solo defines:
+- Metas: `{ "killPlayer": true }`, `{ "health > 50": true }`
+- Acciones: `RecogerArma`, `MoverseA`, `Disparar`, `BuscarBotiquín`
+- El planificador hace el resto.
+
+---
+
+### 🛠 ¿Se puede usar en MonoGame?
+
+¡Absolutamente! GOAP es **independiente del motor**. Puedes implementarlo en C# dentro de tu `AIComponent`. Hay librerías ligeras o puedes escribir tu propio planificador (el algoritmo es relativamente sencillo para juegos pequeños/medianos).
+
+Ejemplo de repositorio útil:  
+- [GoapSharp](https://github.com/sploreg/goap) (implementación en C#)
+
+---
+
+¿Te gustaría que te muestre un ejemplo mínimo de GOAP en C# para usar en MonoGame?
+
+### USER
+Dame un ejemplo 
+
+### ASSISTANT
+¡Claro! Aquí tienes un **ejemplo mínimo y funcional de GOAP en C#**, diseñado para integrarse fácilmente en un proyecto de **MonoGame**. Este ejemplo simula a un **enemigo que quiere matar al jugador**, pero solo puede hacerlo si tiene un arma. Si no la tiene, primero debe recogerla.
+
+El código está simplificado para claridad, pero es suficiente para que veas cómo funciona el planificador.
+
+---
+
+### 🧠 1. Representación del estado del mundo
+
+```csharp
+// Representa el estado del mundo como un diccionario de claves/valores booleanos o enteros
+public class WorldState
+{
+    private Dictionary<string, object> _state = new Dictionary<string, object>();
+
+    public void Set(string key, object value) => _state[key] = value;
+    public T Get<T>(string key, T defaultValue = default(T))
+    {
+        return _state.TryGetValue(key, out object value) ? (T)value : defaultValue;
+    }
+
+    public WorldState Clone()
+    {
+        var clone = new WorldState();
+        foreach (var kvp in _state)
+            clone._state[kvp.Key] = kvp.Value;
+        return clone;
+    }
+
+    public bool Matches(WorldState goal)
+    {
+        foreach (var kvp in goal._state)
+        {
+            if (!Equals(Get<object>(kvp.Key), kvp.Value))
+                return false;
+        }
+        return true;
+    }
+}
+```
+
+---
+
+### ⚙️ 2. Clase base para acciones
+
+```csharp
+public abstract class GoapAction
+{
+    public string Name;
+    public WorldState Preconditions = new WorldState();
+    public WorldState Effects = new WorldState();
+    public int Cost = 1;
+
+    // ¿Puede esta acción ejecutarse en el estado actual?
+    public bool CheckProceduralPreconditions(WorldState state)
+    {
+        // Aquí puedes añadir lógica dinámica (ej: ¿el arma está cerca?)
+        return true;
+    }
+
+    // Ejecuta la acción (mover, disparar, etc.)
+    public abstract void Perform();
+}
+```
+
+---
+
+### 🔫 3. Acciones concretas
+
+```csharp
+public class PickupWeapon : GoapAction
+{
+    public PickupWeapon()
+    {
+        Name = "PickupWeapon";
+        Preconditions.Set("hasWeapon", false);
+        Preconditions.Set("weaponNearby", true);
+        Effects.Set("hasWeapon", true);
+        Cost = 1;
+    }
+
+    public override void Perform()
+    {
+        Console.WriteLine("Recogiendo arma...");
+        // En MonoGame: mover al actor hacia el arma, reproducir animación, etc.
+    }
+}
+
+public class ShootPlayer : GoapAction
+{
+    public ShootPlayer()
+    {
+        Name = "ShootPlayer";
+        Preconditions.Set("hasWeapon", true);
+        Preconditions.Set("playerVisible", true);
+        Effects.Set("playerDead", true);
+        Cost = 2;
+    }
+
+    public override void Perform()
+    {
+        Console.WriteLine("¡Disparando al jugador!");
+        // En MonoGame: reproducir sonido, daño, etc.
+    }
+}
+```
+
+---
+
+### 🧭 4. Planificador (usando búsqueda A* simple)
+
+```csharp
+public class GoapPlanner
+{
+    private List<GoapAction> _actions;
+
+    public GoapPlanner(List<GoapAction> actions)
+    {
+        _actions = actions;
+    }
+
+    public List<GoapAction> Plan(WorldState currentState, WorldState goal)
+    {
+        var open = new PriorityQueue<(WorldState state, List<GoapAction> plan, int cost), int>();
+        var closed = new HashSet<string>();
+
+        open.Enqueue((currentState, new List<GoapAction>(), 0), 0);
+
+        while (open.Count > 0)
+        {
+            var (state, plan, totalCost) = open.Dequeue();
+
+            if (state.Matches(goal))
+                return plan;
+
+            string stateKey = string.Join(",", state._state.OrderBy(kvp => kvp.Key).Select(kvp => $"{kvp.Key}:{kvp.Value}"));
+            if (closed.Contains(stateKey)) continue;
+            closed.Add(stateKey);
+
+            foreach (var action in _actions)
+            {
+                // Verifica precondiciones estáticas y dinámicas
+                if (!state.Matches(action.Preconditions)) continue;
+                if (!action.CheckProceduralPreconditions(state)) continue;
+
+                var newState = state.Clone();
+                foreach (var effect in action.Effects._state)
+                    newState.Set(effect.Key, effect.Value);
+
+                var newPlan = new List<GoapAction>(plan) { action };
+                int newCost = totalCost + action.Cost;
+
+                open.Enqueue((newState, newPlan, newCost), newCost);
+            }
+        }
+
+        return null; // No se encontró plan
+    }
+}
+```
+
+> 💡 **Nota**: `PriorityQueue<T, TPriority>` está disponible en .NET 6+. Si usas una versión anterior, puedes implementar una cola simple o usar una lista ordenada.
+
+---
+
+### 🎮 5. Uso en tu actor (MonoGame)
+
+```csharp
+public class EnemyAI
+{
+    private WorldState _worldState = new WorldState();
+    private List<GoapAction> _actions;
+    private List<GoapAction> _currentPlan;
+    private int _currentActionIndex = 0;
+
+    public EnemyAI()
+    {
+        _actions = new List<GoapAction>
+        {
+            new PickupWeapon(),
+            new ShootPlayer()
+        };
+
+        // Estado inicial del enemigo
+        _worldState.Set("hasWeapon", false);
+        _worldState.Set("weaponNearby", true);   // Supongamos que hay un arma cerca
+        _worldState.Set("playerVisible", true);
+        _worldState.Set("playerDead", false);
+    }
+
+    public void Update()
+    {
+        // Meta: matar al jugador
+        var goal = new WorldState();
+        goal.Set("playerDead", true);
+
+        // Si no hay plan o ya terminó, replanificar
+        if (_currentPlan == null || _currentActionIndex >= _currentPlan.Count)
+        {
+            var planner = new GoapPlanner(_actions);
+            _currentPlan = planner.Plan(_worldState, goal);
+
+            if (_currentPlan == null)
+            {
+                Console.WriteLine("No se puede alcanzar la meta.");
+                return;
+            }
+
+            _currentActionIndex = 0;
+            Console.WriteLine("Nuevo plan: " + string.Join(" → ", _currentPlan.Select(a => a.Name)));
+        }
+
+        // Ejecutar la acción actual
+        var action = _currentPlan[_currentActionIndex];
+        action.Perform();
+
+        // Aplicar efectos al estado del mundo
+        foreach (var effect in action.Effects._state)
+            _worldState.Set(effect.Key, effect.Value);
+
+        _currentActionIndex++;
+    }
+}
+```
+
+---
+
+### ▶️ Salida esperada al llamar `Update()`:
+
+```
+Nuevo plan: PickupWeapon → ShootPlayer
+Recogiendo arma...
+¡Disparando al jugador!
+```
+
+---
+
+### 📌 Integración en MonoGame
+
+- Coloca este código dentro de tu `AIComponent` o `Enemy` class.
+- En `Enemy.Update(GameTime)`, llama a `enemyAI.Update()`.
+- Usa `WorldState` para reflejar el estado real del juego (posición del jugador, armas en el suelo, etc.).
+- En `CheckProceduralPreconditions`, puedes acceder a datos del mundo real (ej: `Vector2.Distance(enemyPos, weaponPos) < 50`).
+
+---
+
+¿Quieres que convierta este ejemplo en un **proyecto MonoGame funcional** con sprites y movimiento básico?
+
+### USER
+Qué componentes tiene que tener el blackboard
+
+### ASSISTANT
+¡Buena pregunta! El **Blackboard** («pizarra» en español) es un patrón de diseño muy usado en sistemas de IA de videojuegos —especialmente con **máquinas de estado**, **árboles de comportamiento** o **GOAP**— para **compartir información** entre componentes de IA sin acoplarlos fuertemente.
+
+En el contexto de **MonoGame** y un actor con IA, el **Blackboard no es un componente del actor**, sino un **objeto compartido** (a menudo uno por actor, o uno global) que actúa como **almacén central de datos relevantes para la toma de decisiones**.
+
+---
+
+### 🎯 Propósito del Blackboard
+
+Permitir que:
+- Los **sensores** escriban información percibida (ej: "jugador visible").
+- Las **acciones o estados de IA** lean esa información para decidir qué hacer.
+- La **lógica de IA** sea **modular y reutilizable**.
+
+---
+
+## ✅ Componentes típicos que debería contener un Blackboard
+
+No tiene "componentes" en el sentido de clases separadas, sino **campos o claves de datos** que representan el **estado percibido del mundo** desde la perspectiva del agente.
+
+Aquí te muestro una estructura práctica para un **Blackboard por actor** (instancia única por enemigo/NPC):
+
+```csharp
+public class Blackboard
+{
+    // === Información sobre el jugador (objetivo principal) ===
+    public Vector2? PlayerPosition;        // null si no se conoce
+    public bool IsPlayerVisible;
+    public float DistanceToPlayer;
+    public bool IsPlayerAlive = true;
+
+    // === Estado del propio actor ===
+    public Vector2 SelfPosition;
+    public float Health;
+    public bool HasWeapon;
+    public bool IsInCover;
+    public bool IsAlerted; // ¿Está en estado de combate?
+
+    // === Información del entorno ===
+    public Vector2? NearestWeaponPosition;
+    public Vector2? NearestCoverPosition;
+    public Vector2? NearestHealthPack;
+    public List<Enemy> NearbyEnemies; // útil para coordinación
+
+    // === Metas o intenciones (opcional, útil en GOAP/Behavior Trees) ===
+    public string CurrentGoal; // ej: "SeekWeapon", "Attack", "Flee"
+    public Vector2? TargetDestination; // hacia dónde moverse
+
+    // === Temporizadores o cooldowns ===
+    public float TimeSinceLastSeenPlayer;
+    public float TimeSinceLastShot;
+
+    // === Métodos auxiliares (opcionales) ===
+    public void ClearPlayerInfo()
+    {
+        PlayerPosition = null;
+        IsPlayerVisible = false;
+        DistanceToPlayer = float.MaxValue;
+    }
+
+    public void UpdatePlayerInfo(Vector2 playerPos, bool isVisible, float distance)
+    {
+        PlayerPosition = playerPos;
+        IsPlayerVisible = isVisible;
+        DistanceToPlayer = distance;
+        if (isVisible)
+            TimeSinceLastSeenPlayer = 0f;
+    }
+}
+```
+
+---
+
+### 🔁 ¿Quién escribe y quién lee?
+
+| Componente               | Acción sobre el Blackboard                     |
+|--------------------------|-----------------------------------------------|
+| **SensorComponent**      | **Escribe**: detecta al jugador, armas, etc.  |
+| **AIComponent**          | **Lee**: decide qué hacer según los datos     |
+| **Action/State/Behavior**| **Lee/Escribe**: puede actualizar metas o destinos |
+| **Physics/Navigation**   | **Escribe**: actualiza `SelfPosition`         |
+
+---
+
+### 📌 Buenas prácticas
+
+1. **Uno por actor**: Cada enemigo tiene su propio `Blackboard`, porque perciben el mundo de forma distinta.
+2. **No sobrecargar**: Solo incluye datos que la IA realmente use.
+3. **Evitar lógica**: El Blackboard **solo almacena datos**, no toma decisiones.
+4. **Usar tipos seguros**: En vez de `Dictionary<string, object>`, prefiere campos tipados (como arriba) para evitar errores y mejorar rendimiento.
+5. **Actualizar en Update**: El `SensorComponent` debe actualizar el Blackboard cada frame (o con frecuencia razonable).
+
+---
+
+### 🔄 Ejemplo de uso en una acción de GOAP
+
+```csharp
+public class ShootPlayer : GoapAction
+{
+    private Blackboard _blackboard;
+
+    public ShootPlayer(Blackboard bb)
+    {
+        _blackboard = bb;
+        Preconditions.Set("hasWeapon", true);
+        Preconditions.Set("playerVisible", true);
+    }
+
+    public override bool CheckProceduralPreconditions(WorldState state)
+    {
+        // Sincroniza el estado del mundo con el blackboard
+        state.Set("hasWeapon", _blackboard.HasWeapon);
+        state.Set("playerVisible", _blackboard.IsPlayerVisible);
+        return _blackboard.HasWeapon && _blackboard.IsPlayerVisible;
+    }
+
+    public override void Perform()
+    {
+        // Usa _blackboard.PlayerPosition para apuntar
+        Console.WriteLine($"Disparando a {_blackboard.PlayerPosition}");
+    }
+}
+```
+
+---
+
+### 🧩 Alternativa: Blackboard genérico (menos recomendado en C#)
+
+Algunos motores usan un diccionario:
+
+```csharp
+public class GenericBlackboard
+{
+    private Dictionary<string, object> _data = new();
+
+    public void Set<T>(string key, T value) => _data[key] = value;
+    public T Get<T>(string key, T defaultValue = default) => 
+        _data.TryGetValue(key, out var obj) ? (T)obj : defaultValue;
+}
+```
+
+✅ **Ventaja**: muy flexible.  
+❌ **Desventaja**: pierdes tipado, rendimiento y legibilidad.
+
+**En C# y MonoGame, se prefiere la versión con campos explícitos** (la primera).
+
+---
+
+¿Quieres que te muestre cómo conectar este `Blackboard` con un `SensorComponent` que detecta al jugador usando colisiones o raycasting en MonoGame?
+
+### USER
+Cómo se puede tener un blackboard compartido para todos los agentes. Cuáles son los componentes interesantes 
+
+### ASSISTANT
+¡Excelente pregunta! Un **Blackboard compartido** (global) es una herramienta poderosa cuando tienes **múltiples agentes de IA** que necesitan **coordinarse**, compartir conocimiento del mundo o reaccionar a eventos globales (como la muerte del jugador, una alarma, etc.).
+
+Sin embargo, **no reemplaza al Blackboard individual**: lo ideal es usar **ambos**:
+- **Blackboard global**: información que **todos** los agentes deben conocer.
+- **Blackboard local (por agente)**: percepción y estado **personal** (posición, salud, etc.).
+
+---
+
+## 🌐 ¿Cuándo usar un Blackboard compartido?
+
+- Agentes que se **comunican** (ej: un enemigo ve al jugador y avisa a los demás).
+- Sistemas de **alerta global** (alarma activada → todos entran en modo de búsqueda).
+- Eventos **globales**: jugador muerto, misión completada, refuerzos llegando.
+- Evitar que cada agente escanee el mundo completo (optimización).
+
+---
+
+## 🔑 Componentes interesantes en un Blackboard **compartido**
+
+Aquí tienes los **campos más útiles** que podrías incluir en un `GlobalBlackboard`:
+
+```csharp
+public class GlobalBlackboard
+{
+    // === Estado del jugador (fuente de verdad global) ===
+    public Vector2 PlayerPosition;
+    public bool IsPlayerAlive = true;
+    public bool IsPlayerStealthy; // ¿Está agachado/silencioso?
+    public float PlayerLastKnownPositionTime; // cuándo fue vista por última vez
+
+    // === Eventos globales ===
+    public bool AlarmTriggered = false;
+    public float AlarmTime; // cuándo se activó
+    public string CurrentMissionState = "Patrol"; // "Combat", "Search", "Evacuate"
+
+    // === Recursos globales ===
+    public List<Vector2> ActiveWeaponPickups;   // armas aún no recogidas
+    public List<Vector2> ActiveHealthPickups;
+    public List<Vector2> CoverPoints; // puntos de cobertura predefinidos
+
+    // === Comunicación entre agentes ===
+    public Vector2? LastPlayerSighting; // última posición reportada del jugador
+    public Agent Reporter; // quién lo vio (opcional)
+    public float TimeSincePlayerSeen = float.MaxValue;
+
+    // === Estado del mundo ===
+    public bool LightsOn = true;
+    public bool DoorsLocked = false;
+    public WeatherType CurrentWeather = WeatherType.Clear;
+
+    // === Métodos de utilidad ===
+    public void ReportPlayerSighting(Vector2 position, Agent reporter)
+    {
+        LastPlayerSighting = position;
+        Reporter = reporter;
+        TimeSincePlayerSeen = 0f;
+        AlarmTriggered = true; // opcional: activar alarma al ver al jugador
+    }
+
+    public void TriggerAlarm()
+    {
+        AlarmTriggered = true;
+        AlarmTime = (float)Game1.GameTimer.TotalSeconds; // o gameTime.TotalGameTime
+    }
+}
+```
+
+> 💡 **Nota**: `Agent` puede ser una referencia a tu clase `Enemy` o una interfaz como `IAgent`.
+
+---
+
+## 🔄 Cómo usarlo junto con Blackboards locales
+
+Cada agente tiene:
+
+```csharp
+public class Enemy
+{
+    public Blackboard LocalBB;        // su percepción personal
+    public GlobalBlackboard GlobalBB; // referencia compartida
+
+    public void Update(GameTime gameTime)
+    {
+        // 1. Sensores actualizan LocalBB (visión, audición, etc.)
+        _sensor.Update(this, LocalBB, GlobalBB);
+
+        // 2. IA decide usando AMBOS blackboards
+        _ai.Update(LocalBB, GlobalBB, gameTime);
+
+        // 3. Si este enemigo ve al jugador, reporta al global
+        if (LocalBB.IsPlayerVisible && GlobalBB.LastPlayerSighting != LocalBB.PlayerPosition)
+        {
+            GlobalBB.ReportPlayerSighting(LocalBB.PlayerPosition.Value, this);
+        }
+    }
+}
+```
+
+---
+
+## 🧠 Ejemplo de coordinación con Blackboard global
+
+**Escenario**:  
+- Enemigo A ve al jugador → actualiza `GlobalBB.LastPlayerSighting`.  
+- Enemigo B **no ve al jugador**, pero nota que `GlobalBB.AlarmTriggered == true` y `TimeSincePlayerSeen < 10f`.  
+- Enemigo B entra en estado **"Search"** y se dirige a `LastPlayerSighting`.
+
+Esto crea **comportamiento emergente de grupo** sin programar reglas explícitas de comunicación.
+
+---
+
+## ⚠️ Precauciones al usar un Blackboard global
+
+1. **No sobreescribir percepción local**:  
+   Un agente **no debe asumir que ve lo que dice el global**.  
+   → Usa el global para **influenciar decisiones**, no para reemplazar sensores.
+
+2. **Evitar "omnisciencia"**:  
+   Si todos saben *exactamente* dónde está el jugador en todo momento, pierdes realismo.  
+   → Considera **degradar la información** (ej: ruido en la posición reportada).
+
+3. **Sincronización**:  
+   Si usas multihilo (raro en MonoGame), protege el acceso con `lock`.  
+   Pero en la mayoría de juegos en MonoGame, todo corre en el hilo principal → no hay problema.
+
+4. **Rendimiento**:  
+   Acceder a un objeto compartido es rápido, pero **no guardes datos innecesarios**.
+
+---
+
+## 🏗️ Implementación en MonoGame
+
+Puedes hacer que `GlobalBlackboard` sea un **singleton** o pasarlo como dependencia:
+
+### Opción 1: Singleton (simple, pero acoplado)
+
+```csharp
+public static class Blackboards
+{
+    public static GlobalBlackboard Global = new GlobalBlackboard();
+}
+```
+
+Uso:
+```csharp
+Blackboards.Global.TriggerAlarm();
+```
+
+### Opción 2: Inyección de dependencia (más limpia)
+
+En tu `Game1`:
+```csharp
+public GlobalBlackboard GlobalBB { get; private set; }
+
+protected override void Initialize()
+{
+    GlobalBB = new GlobalBlackboard();
+    var enemy = new Enemy(GlobalBB);
+    // ...
+}
+```
+
+---
+
+## ✅ Resumen: ¿Qué poner en el Blackboard global?
+
+| Categoría              | Ejemplos de datos útiles |
+|------------------------|--------------------------|
+| **Jugador**            | Posición, estado (vivo/muerto), último avistamiento |
+| **Eventos**            | Alarma activada, misión fallida, refuerzos llegando |
+| **Recursos del mundo** | Armas/objetos no recogidos, puntos de cobertura |
+| **Comunicación**       | Última posición reportada del jugador, quién la reportó |
+| **Estado del entorno** | Luces, puertas, clima, tiempo de juego |
+
+---
+
+¿Te gustaría un ejemplo completo en MonoGame donde **dos enemigos comparten un Blackboard global** y uno alerta al otro cuando ve al jugador?

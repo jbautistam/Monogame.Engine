@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
 
 /// <summary>
 ///     Componente del interface de usuario para un panel

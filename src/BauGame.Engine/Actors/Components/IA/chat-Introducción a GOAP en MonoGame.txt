@@ -1,0 +1,323 @@
+### USER
+Eres un programador especializado en monogame. Qué es goap 
+
+### ASSISTANT
+¡Buena pregunta! **GOAP** (Goal-Oriented Action Planning) es un sistema de **planificación de comportamiento** ampliamente utilizado en juegos (y también en IA más general) para dotar a los agentes (como enemigos, NPCs, etc.) de la capacidad de tomar decisiones inteligentes y dinámicas en función de sus **metas** y del **estado del entorno**.
+
+---
+
+### 🧠 ¿Qué es GOAP?
+
+**GOAP** es un paradigma de **IA basada en objetivos** que permite a un agente:
+- Evaluar qué **acciones** puede realizar en su entorno,
+- Comprender cómo esas acciones **cambian el estado del mundo**,
+- Y **planificar una secuencia de acciones** que lo lleven desde su **estado actual** hasta un **estado deseado** (su meta).
+
+A diferencia de los sistemas de comportamiento más simples como **máquinas de estado finito (FSM)** o **árboles de comportamiento**, GOAP **no requiere predefinir cada transición posible**. En su lugar, el agente **resuelve "en tiempo real" qué hacer** según las condiciones actuales.
+
+---
+
+### 🔧 Componentes clave de GOAP
+
+1. **Mundo/Estado del entorno**:  
+   Representado generalmente como un conjunto de **hechos** (por ejemplo, `TieneArma = true`, `EnemigoVisible = false`, `Hambre = 50`).
+
+2. **Metas (Goals)**:  
+   Estados deseados que el agente quiere lograr (por ejemplo, `EstáSaciado = true`, `EnemigoMuerto = true`).
+
+3. **Acciones (Actions)**:  
+   Cada acción tiene:
+   - **Precondiciones**: qué debe ser cierto para ejecutarla.
+   - **Efectos**: cómo cambia el estado del mundo tras ejecutarla.
+   - **Costo**: opcional, para ponderar qué planes son "mejores".
+
+4. **Planificador (Planner)**:  
+   Usa un algoritmo (como A*, BFS, o planificación hacia atrás) para encontrar la secuencia óptima de acciones que lleve del estado actual al estado de la meta.
+
+---
+
+### 🎮 Ejemplo en un juego
+
+Supón un NPC que tiene hambre y quiere comer.
+
+- **Estado actual**: `{Hambre = 80, TieneComida = false, CercaDeTienda = true}`
+- **Meta**: `{Hambre = 20}` (estar saciado)
+
+Acciones disponibles:
+- **Comprar comida**:  
+  Precondiciones: `{CercaDeTienda = true, TieneDinero = true}`  
+  Efectos: `{TieneComida = true}`
+- **Comer**:  
+  Precondiciones: `{TieneComida = true}`  
+  Efectos: `{Hambre = 20, TieneComida = false}`
+
+El planificador podría generar el plan: **Comprar comida → Comer**.
+
+---
+
+### 💡 ¿Por qué usar GOAP en MonoGame?
+
+MonoGame es un framework de bajo nivel, por lo que **no incluye IA integrada**. Pero eso lo hace ideal para implementar sistemas como GOAP, ya que tienes control total sobre la lógica.
+
+GOAP da a tus NPCs:
+- **Flexibilidad**: responden dinámicamente a cambios.
+- **Realismo**: parecen "pensar" en lugar de seguir scripts rígidos.
+- **Escalabilidad**: añadir nuevas acciones no requiere reescribir todo.
+
+---
+
+### 🛠️ Implementación básica en C# (MonoGame)
+
+Aunque no hay una librería estándar de GOAP para MonoGame, puedes implementarla desde cero o usar librerías como:
+- [Goap](https://github.com/sploreg/goap) de Sploreg (ligera y en C#)
+- Adaptar implementaciones de repositorios de GitHub
+
+Una estructura básica:
+
+```csharp
+public class WorldState
+{
+    public Dictionary<string, object> Facts = new();
+}
+
+public abstract class GoapAction
+{
+    public Dictionary<string, object> Preconditions = new();
+    public Dictionary<string, object> Effects = new();
+    public float Cost = 1f;
+
+    public abstract bool CheckProceduralPrecondition(GameEntity agent);
+    public abstract bool Perform(GameEntity agent);
+}
+
+public class GoapPlanner
+{
+    public Queue<GoapAction> Plan(GameEntity agent, WorldState currentState, WorldState goal);
+}
+```
+
+---
+
+¿Quieres que te ayude a implementar un sistema GOAP básico en un proyecto de MonoGame? 🎮
+
+### USER
+Qué componentes tiene que tener el sistema 
+
+### ASSISTANT
+¡Excelente! Si estás implementando un sistema **GOAP (Goal-Oriented Action Planning)** en **MonoGame** (o en cualquier motor en C#), necesitas una arquitectura clara y modular. A continuación te detallo los **componentes esenciales** que debe tener un sistema GOAP funcional, con un enfoque práctico para integrarlo en un juego hecho con MonoGame.
+
+---
+
+## 🧱 Componentes esenciales de un sistema GOAP
+
+### 1. **WorldState**  
+Representa el estado actual del mundo desde la perspectiva del agente (NPC).  
+- Suele ser un **diccionario de claves-valor** (o un conjunto de hechos booleanos/numéricos).
+- Debe poder **copiarse** (clonarse) para la planificación sin afectar el estado real.
+
+```csharp
+public class WorldState
+{
+    private Dictionary<string, object> _facts = new();
+
+    public void Set(string key, object value) => _facts[key] = value;
+    public T Get<T>(string key, T defaultValue = default) => 
+        _facts.TryGetValue(key, out var obj) ? (T)obj : defaultValue;
+
+    public WorldState Clone()
+    {
+        var clone = new WorldState();
+        foreach (var kvp in _facts)
+            clone._facts[kvp.Key] = kvp.Value;
+        return clone;
+    }
+
+    public bool Matches(WorldState other) { /* compara si este estado satisface las condiciones de otro */ }
+}
+```
+
+---
+
+### 2. **GoapGoal**  
+Define un **objetivo** que el agente quiere lograr.  
+- Contiene un **WorldState deseado** (la meta).
+- Puede tener una **prioridad** o **peso** para elegir entre múltiples metas.
+
+```csharp
+public class GoapGoal
+{
+    public string Name { get; set; }
+    public WorldState TargetState { get; set; }
+    public int Priority { get; set; } // 0 = más importante
+
+    public bool IsFulfilled(WorldState currentState) => 
+        TargetState.IsSubsetOf(currentState);
+}
+```
+
+---
+
+### 3. **GoapAction**  
+Define una acción que el agente puede realizar. Cada acción tiene:
+
+- **Precondiciones**: qué debe ser cierto para ejecutarla.
+- **Efectos**: cómo cambia el mundo al ejecutarla.
+- **Costo** (opcional): para el planificador.
+- **Lógica ejecutable**: el código que se corre en el juego.
+
+```csharp
+public abstract class GoapAction
+{
+    public string Name { get; set; }
+    public WorldState Preconditions { get; } = new();
+    public WorldState Effects { get; } = new();
+    public float Cost { get; set; } = 1f;
+
+    // Evalúa condiciones dinámicas (ej: ¿el enemigo sigue vivo?)
+    public abstract bool CheckProceduralPrecondition(GameEntity agent);
+
+    // Ejecuta la acción en el mundo real
+    public abstract bool Perform(GameEntity agent);
+
+    // ¿Se puede usar esta acción dadas las precondiciones y el estado actual?
+    public bool IsExecutable(WorldState state, GameEntity agent) =>
+        Preconditions.IsSubsetOf(state) && CheckProceduralPrecondition(agent);
+}
+```
+
+> 💡 **Tip**: `GameEntity` es tu clase base para NPCs/agentes en MonoGame (podría ser `Player`, `Enemy`, etc.).
+
+---
+
+### 4. **GoapPlanner**  
+El motor del sistema: encuentra un **plan** (secuencia de acciones) que lleve del estado actual al estado de la meta.
+
+- Usa un algoritmo como **búsqueda A\*** o **búsqueda hacia atrás (backward chaining)**.
+- Trabaja con **copias del estado**, no con el estado real.
+- Retorna una **cola de acciones** o `null` si no hay plan.
+
+```csharp
+public class GoapPlanner
+{
+    public Queue<GoapAction> Plan(
+        WorldState currentState,
+        WorldState goalState,
+        List<GoapAction> availableActions)
+    {
+        // Implementación típica: A* o planificación hacia atrás
+        // Devuelve Queue<GoapAction> o null
+    }
+}
+```
+
+---
+
+### 5. **GoapAgent** (tu NPC/entidad en MonoGame)  
+Es el **agente** que usa el sistema GOAP. Debe tener:
+
+- Un **WorldState actual**.
+- Una lista de **acciones disponibles**.
+- Una lógica para **elegir una meta**.
+- Un **plan activo** (cola de acciones).
+- Un método de **actualización** en el game loop.
+
+```csharp
+public class GoapAgent : GameEntity // o derivado de tu clase base de entidad
+{
+    public WorldState State { get; private set; } = new();
+    public List<GoapAction> Actions { get; private set; } = new();
+    public List<GoapGoal> Goals { get; private set; } = new();
+
+    private Queue<GoapAction> _currentPlan;
+    private GoapAction _currentAction;
+
+    public void Update(GameTime gameTime)
+    {
+        // Si no hay plan o la acción actual falló, re-planificar
+        if (_currentPlan == null || (_currentAction != null && !_currentAction.IsExecutable(State, this)))
+        {
+            Replan();
+        }
+
+        // Ejecutar acción actual
+        if (_currentAction == null && _currentPlan?.Count > 0)
+        {
+            _currentAction = _currentPlan.Dequeue();
+        }
+
+        if (_currentAction != null)
+        {
+            if (!_currentAction.Perform(this))
+            {
+                // Acción falló → limpia y replanifica
+                _currentAction = null;
+                _currentPlan = null;
+            }
+            else if (_currentAction.IsCompleted(this))
+            {
+                _currentAction = null;
+            }
+        }
+    }
+
+    private void Replan()
+    {
+        var goal = ChooseGoal(); // elige la meta más prioritaria no cumplida
+        if (goal == null) return;
+
+        var planner = new GoapPlanner();
+        _currentPlan = planner.Plan(State, goal.TargetState, Actions);
+        _currentAction = null;
+    }
+
+    private GoapGoal ChooseGoal()
+    {
+        return Goals
+            .Where(g => !g.IsFulfilled(State))
+            .OrderBy(g => g.Priority)
+            .FirstOrDefault();
+    }
+}
+```
+
+---
+
+### 6. **(Opcional) Sensor / Percepción**  
+Los agentes deben **actualizar su WorldState** según lo que perciben del mundo:
+- ¿Ve al jugador?
+- ¿Tiene hambre?
+- ¿Hay enemigos cerca?
+
+Esto suele ir en el `Update` del agente o en un sistema separado de “percepción”.
+
+```csharp
+State.Set("PlayerVisible", IsPlayerInSight());
+State.Set("Health", CurrentHealth);
+State.Set("HasWeapon", Inventory.HasWeapon);
+```
+
+---
+
+## 🔄 Flujo general en cada frame
+
+1. **Actualizar estado del mundo** (sensores/percepción).
+2. **¿Meta cumplida o plan roto?** → Replanificar.
+3. **Ejecutar acción actual** del plan.
+4. **Actualizar efectos** de la acción en `WorldState`.
+
+---
+
+## ✅ Resumen: Lista de componentes
+
+| Componente        | Propósito |
+|------------------|----------|
+| `WorldState`     | Representa el estado del mundo (hechos) |
+| `GoapGoal`       | Define una meta deseada |
+| `GoapAction`     | Acción con precondiciones, efectos y lógica ejecutable |
+| `GoapPlanner`    | Encuentra un plan usando IA (A*, etc.) |
+| `GoapAgent`      | Entidad del juego que usa GOAP (NPC) |
+| (Opcional) `Perception System` | Actualiza el `WorldState` del agente |
+
+---
+
+¿Quieres que te dé un **ejemplo funcional en MonoGame** con un NPC que huye, ataca o busca comida usando GOAP? Puedo darte código listo para copiar y pegar.

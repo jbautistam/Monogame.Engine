@@ -11,7 +11,8 @@ public class TextureRegion(string name)
 	/// <summary>
 	///		Dibuja la textura
 	/// </summary>
-	public void Draw(Scenes.Cameras.Camera2D camera, Vector2 position, Vector2 origin, Vector2 scale, SpriteEffects spriteEffect, Color color, float rotation)
+	public void Draw(Scenes.Cameras.Camera2D camera, Vector2 position, Vector2 origin, Vector2 scale, SpriteEffects spriteEffect, 
+					 Color color, float rotation)
 	{
 		camera.SpriteBatchController.Draw(Texture, position, Region, origin, scale, spriteEffect, color, rotation, 1);
 	}

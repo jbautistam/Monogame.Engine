@@ -31,6 +31,18 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 									.WithId("lblScore")
 									.Build()
 							);
+			// Añade la etiqueta del número de vidas
+			builder.WithItem(new UserInterfaceLabelBuilder(this, "Lives", 0.5f, 0.01f, 1, 1)
+									.WithFont("Fonts/Hud")
+									.WithColor(Color.Red)
+									.Build()
+							);
+			builder.WithItem(new UserInterfaceLabelBuilder(this, "0", 0.57f, 0.01f, 1, 1)
+									.WithFont("Fonts/Hud")
+									.WithColor(Color.White)
+									.WithId("lblLives")
+									.Build()
+							);
 			// Añade la etiqueta de la posición
 			builder.WithItem(new UserInterfaceLabelBuilder(this, "Position", 0.7f, 0.01f, 1, 1)
 									.WithFont("Fonts/Hud")
@@ -59,12 +71,17 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 	protected override void UpdateUserInterface(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		UiLabel? lblScore = GetItem<UiLabel>("lblScore");
+		UiLabel? lblLives = GetItem<UiLabel>("lblLives");
 		UiLabel? lblCameraPosition = GetItem<UiLabel>("lblCameraPosition");
 		UiLabel? lblPlayerPosition = GetItem<UiLabel>("lblPlayerPosition");
+
 
 			// Cambia la etiqueta de puntuación
 			if (lblScore is not null)
 				lblScore.Text = GetMessageText("Score", "0");
+			// Cambia la etiqueta de número de vidas
+			if (lblLives is not null)
+				lblLives.Text = GetMessageText("Lives", "0");
 			// Cambia la etiqueta de la posición de cámara
 			if (lblCameraPosition is not null && Scene.Camera is not null)
 				lblCameraPosition.Text = $"{Scene.Camera.Position.X:0,00},{Scene.Camera.Position.Y:0,00}";

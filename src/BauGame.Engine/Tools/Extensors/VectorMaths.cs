@@ -100,7 +100,7 @@ public static class VectorMaths
     /// <summary>
     ///     Obtiene un vector perpendicular
     /// </summary>
-    public static Vector2 Perpendicular(this Vector2 v) => new Vector2(-v.Y, v.X);
+    public static Vector2 Perpendicular(this Vector2 source) => new Vector2(-source.Y, source.X);
 
     /// <summary>
     ///     Obtiene un vector perpendicular por la izquierda

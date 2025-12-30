@@ -1,7 +1,17 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Bau.Monogame.Engine.Domain.UI;
+namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+
+public class UiCheckBox(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+{
+}
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 public class Checkbox : Button
 {

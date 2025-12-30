@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineSample.Core", "src\sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineSample.DesktopGL", "src\samples\EngineSample\EngineSample.DesktopGL\EngineSample.DesktopGL.csproj", "{4A7EFC9F-13D3-8F6B-4891-D303589654C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrepareContentMcgb", "src\tools\PrepareContentMcgb\PrepareContentMcgb.csproj", "{14A509E9-2320-4D59-8236-D8D733BBA08B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4A7EFC9F-13D3-8F6B-4891-D303589654C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A7EFC9F-13D3-8F6B-4891-D303589654C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A7EFC9F-13D3-8F6B-4891-D303589654C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A509E9-2320-4D59-8236-D8D733BBA08B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A509E9-2320-4D59-8236-D8D733BBA08B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A509E9-2320-4D59-8236-D8D733BBA08B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A509E9-2320-4D59-8236-D8D733BBA08B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

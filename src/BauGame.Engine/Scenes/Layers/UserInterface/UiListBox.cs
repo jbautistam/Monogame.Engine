@@ -1,8 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+
+public class UiListBox(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+{
+}
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-
-namespace Bau.Monogame.Engine.Domain.UI;
 
 public interface ISelectable
 {

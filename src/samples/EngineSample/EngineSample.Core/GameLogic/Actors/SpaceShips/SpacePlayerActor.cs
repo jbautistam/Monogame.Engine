@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine;
 using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Actors;
@@ -31,7 +30,6 @@ public class SpacePlayerActor : AbstractActor
 		RightToLeft
 	}
 	// Variables privadas
-	private Vector2 _speed = new();
 	private HealthComponent _health;
 	private ShooterComponent _shooter;
 	private int _score;
@@ -43,7 +41,7 @@ public class SpacePlayerActor : AbstractActor
 			// Guarda la capa de físicas (para que sea más rápido de localizar)
 			PhysicsLayer = physicsLayer;
 			// Inicializa la colisión
-			collision.Colliders.Add(new RectangleCollider(collision, null));
+			collision.Colliders.Add(new CircleCollider(collision, null));
 			// Inicializa el componente de salud
 			_health = new HealthComponent(this)
 									{
@@ -118,7 +116,7 @@ public class SpacePlayerActor : AbstractActor
 				Layer.Scene.Camera?.TargetsManager.Add(this);
 		}
 		// Actualiza las propiedades de animación
-		UpdateAnimation(_speed, _health.IsDead);
+		UpdateAnimation(Velocity, _health.IsDead);
 		// Trata los mensajes recibidos
 		TreatReceivedMessages();
 		// Envía los mensajes al Hud
@@ -145,7 +143,6 @@ public class SpacePlayerActor : AbstractActor
 	/// </summary>
 	private void UpdateAnimation(Vector2 speed, bool isDead)
 	{
-		// Asigna las propiedades
 		if (Renderer.AnimatorBlenderProperties is not null)
 		{
 			if (speed.X != 0 || speed.Y != 0)
@@ -154,11 +151,6 @@ public class SpacePlayerActor : AbstractActor
 				Renderer.AnimatorBlenderProperties.Add("speed", 0);
 			Renderer.AnimatorBlenderProperties.Add("died", isDead);
 		}
-		// Cambia la orientación del sprite
-		if (Moving == MoveMode.LeftToRight)
-			Renderer.SpriteEffects = SpriteEffects.FlipHorizontally;
-		else
-			Renderer.SpriteEffects = SpriteEffects.None;
 	}
 
 	/// <summary>
@@ -166,26 +158,35 @@ public class SpacePlayerActor : AbstractActor
 	/// </summary>
 	private void Move(GameContext gameContext)
 	{
-		// Inicializa la velocidad
-		_speed = new Vector2();
-		// Mueve el jugador con el teclado
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionUp))
-			_speed.Y = -Velocity;
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionDown))
-			_speed.Y = Velocity;
+		// Cambia la rotación
 		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionLeft))
-			_speed.X = -Velocity;
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionRight))
-			_speed.X = Velocity;
+			Transform.Rotation -= RotationSpeed * gameContext.DeltaTime;
+		else if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionRight))
+			Transform.Rotation += RotationSpeed * gameContext.DeltaTime;
+		// Normaliza la rotación para evitar la acumulación
+		Transform.Rotation = MathHelper.WrapAngle(Transform.Rotation); //TODO ... ¿no se podría cambiar el field de la propiedad?
+		// Acelera / decelera (después de rotar)
+		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionUp))
+		{
+            // Acelera en la dirección a la que apunta el jugador
+            Velocity += new Vector2((float) Math.Cos(Transform.Rotation), (float) Math.Sin(Transform.Rotation)) * Acceleration;
+            // Limita la velocidad máxima
+            if (Velocity.Length() > MaximumSpeed)
+                Velocity = Vector2.Normalize(Velocity) * MaximumSpeed;
+		}
+		else if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionDown))
+		{
+            if (Velocity.Length() > Deceleration)
+                Velocity -= Vector2.Normalize(Velocity) * Deceleration;
+            else
+                Velocity = Vector2.Zero; // Detener completamente si es menor que la tasa de deceleración
+		}
+        else // ... aplica la fricción para el frenado
+            Velocity *= Friction;
 		// Coloca el jugador
-		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
+		Transform.Bounds.Translate(Velocity * gameContext.DeltaTime);
 		// Normaliza la posición
 		Transform.Bounds.Clamp(Layer.Scene.WorldDefinition.WorldBounds);
-		// Cambia el modo de movimiento
-		if (_speed.X < 0)
-			Moving = MoveMode.RightToLeft;
-		else if (_speed.X > 0)
-			Moving = MoveMode.LeftToRight;
 	}
 
 	/// <summary>
@@ -195,19 +196,14 @@ public class SpacePlayerActor : AbstractActor
 	{
 		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootAction))
 			Shoot(SlotPrimary);
-		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootGrenadeAction))
+		else if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootGrenadeAction))
 			Shoot(SlotSecondary);
-
-		// Dispara el arma activa en un slot
+			
+		// Lanza el proyectil
 		void Shoot(string slot)
 		{
-			Vector2 address = new(1, 0);
-
-				// Cambia la dirección en la que se dispara
-				if (Moving == MoveMode.RightToLeft)
-					address = new Vector2(-1, 0);
-				// Dispara el arma
-				_shooter.Shoot(slot, Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
+			_shooter.Shoot(slot, Transform.Bounds.TopLeft, 
+						   Transform.Rotation, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
 		}
 	}
 
@@ -252,6 +248,11 @@ public class SpacePlayerActor : AbstractActor
 									Message = _score.ToString()
 								}
 						);
+			messages.Add(new MessageModel(this, "Lives")
+								{
+									Message = Math.Clamp(_health.Lives, 0, _health.Lives).ToString()
+								}
+						);
 			// Envía los mensajes
 			if (messages.Count > 0)
 				Layer.Scene.MessagesManager.SendMessages(Constants.LayerHud, messages);
@@ -272,14 +273,34 @@ public class SpacePlayerActor : AbstractActor
 	}
 
 	/// <summary>
-	///		Forma de movimiento
+	///		Velocidad actual
 	/// </summary>
-	public MoveMode Moving { get; private set; } = MoveMode.LeftToRight;
+	public Vector2 Velocity { get; private set; } = Vector2.Zero;
 
 	/// <summary>
-	///		Velocidad
+	///		Velocidad máxima
 	/// </summary>
-	public float Velocity { get; set; } = 100f;
+	public float MaximumSpeed { get; set; } = 250f;
+
+	/// <summary>
+	///		Aceleración
+	/// </summary>
+	public float Acceleration { get; set; } = 25f;
+
+	/// <summary>
+	///		Deceleración
+	/// </summary>
+	public float Deceleration { get; set; } = 0.3f;
+
+	/// <summary>
+	///		Fricción
+	/// </summary>
+	public float Friction { get; set; } = 0.01f;
+
+	/// <summary>
+	///		Velocidad de rotación
+	/// </summary>
+	public float RotationSpeed { get; set; } = 2.0f;
 
 	/// <summary>
 	///		Capa de físicas
