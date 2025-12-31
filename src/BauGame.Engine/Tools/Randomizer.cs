@@ -37,6 +37,17 @@ public static class Randomizer
 	public static int GetRandom(int minimum, int maximum) => (int) (Random.NextDouble() * (maximum - minimum) + minimum);
 
 	/// <summary>
+	///		Obtiene un valor aleatorio entero para un enumerado
+	/// </summary>
+	public static TypeEnum GetRandom<TypeEnum>() where TypeEnum : struct
+	{
+        Array values = Enum.GetValues(typeof(TypeEnum));
+
+			// Obtiene un valor del array aleatoriamente
+			return (TypeEnum) values.GetValue(Random.Next(values.Length))!;
+	}
+
+	/// <summary>
 	///		Obtiene un color aleatorio
 	/// </summary>
 	public static Color GetRandomColor() => new(Random.Next(256), Random.Next(256), Random.Next(256));

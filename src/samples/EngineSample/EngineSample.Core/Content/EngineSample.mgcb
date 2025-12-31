@@ -402,18 +402,6 @@
 /processorParam:TextureFormat=Color
 /build:images/SpaceShips/laser.png
 
-#begin images/SpaceShips/mine.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:images/SpaceShips/mine.png
-
 #begin images/SpaceShips/plane.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -425,42 +413,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:images/SpaceShips/plane.png
-
-#begin images/SpaceShips/Rocks.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:images/SpaceShips/Rocks.png
-
-#begin images/SpaceShips/ship.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:images/SpaceShips/ship.png
-
-#begin images/SpaceShips/SpaceWars.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:images/SpaceShips/SpaceWars.png
 
 #begin images/SpaceShips/objects/bonus.png
 /importer:TextureImporter
@@ -485,6 +437,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:images/SpaceShips/objects/Meteors.png
+
+#begin images/SpaceShips/ships/enemies.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/SpaceShips/ships/enemies.png
 
 #begin images/SpaceShips/weapons/bombs.png
 /importer:TextureImporter

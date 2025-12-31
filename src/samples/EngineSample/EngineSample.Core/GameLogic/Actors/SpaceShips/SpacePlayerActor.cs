@@ -80,12 +80,12 @@ public class SpacePlayerActor : AbstractActor
 		WeaponBuilder builder = new();
 
 			// Crea una pistola
-			builder.WithPistol(WeaponGun, "laser", string.Empty, 0);
+			builder.WithPistol(WeaponGun, "laser", string.Empty, 0, new Vector2(30, 30));
 			// Añade el arma al slot principal
 			_shooter.AddWeapons(SlotPrimary, builder.Build());
 			// Crea una granada para el slot secundario
 			builder = new WeaponBuilder();
-			builder.WithGranade(WeaponGrenade, "laser", string.Empty, "explosion", string.Empty, "explosion-animation", 0);
+			builder.WithGranade(WeaponGrenade, "laser", string.Empty, "explosion", string.Empty, "explosion-animation", 0, new Vector2(15, 0));
 			// Selecciona el arma
 			_shooter.AddWeapons(SlotSecondary, builder.Build());
 			// Equipas las armas principal y secundaria
@@ -103,7 +103,7 @@ public class SpacePlayerActor : AbstractActor
 			List<AbstractCollider> colliders = Layer.Scene.PhysicsManager.MapManager.CollisionSpatialGrid.GetPotentialColliders(this);
 
 				// Calcula la salud del jugador
-				ComputeHealth(colliders);
+				ComputeHealth(colliders, gameContext);
 				// Mueve el actor
 				if (!_health.IsDead)
 				{
@@ -126,7 +126,7 @@ public class SpacePlayerActor : AbstractActor
 	/// <summary>
 	///		Calcula la salud del jugador
 	/// </summary>
-	private void ComputeHealth(List<AbstractCollider> colliders)
+	private void ComputeHealth(List<AbstractCollider> colliders, GameContext gameContext)
 	{
 		foreach (AbstractCollider collider in colliders)
 			if (collider.Collision.Owner.Tags.Contains(Constants.TagEnemy))
@@ -136,6 +136,18 @@ public class SpacePlayerActor : AbstractActor
 					if (health is not null)
 						health.ApplyDamage(10f);
 			}
+			else if (collider.Collision.Owner.Tags.Contains(Constants.TagPowerUp) && collider.Collision.Owner is PowerUpActor powerUp)
+			{
+				TreatPowerUp(powerUp);
+				powerUp.Destroy(gameContext);
+			}
+	}
+
+	/// <summary>
+	///		Trata el powerup
+	/// </summary>
+	private void TreatPowerUp(PowerUpActor powerUp)
+	{
 	}
 
 	/// <summary>
@@ -177,12 +189,17 @@ public class SpacePlayerActor : AbstractActor
 		else if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionDown))
 		{
             if (Velocity.Length() > Deceleration)
-                Velocity -= Vector2.Normalize(Velocity) * Deceleration;
+                Velocity -= new Vector2((float) Math.Cos(Transform.Rotation), (float) Math.Sin(Transform.Rotation)) * Deceleration;
             else
                 Velocity = Vector2.Zero; // Detener completamente si es menor que la tasa de deceleración
 		}
         else // ... aplica la fricción para el frenado
-            Velocity *= Friction;
+		{
+            if (Velocity.Length() > Friction)
+                Velocity -= new Vector2((float) Math.Cos(Transform.Rotation), (float) Math.Sin(Transform.Rotation)) * Friction;
+            else
+                Velocity = Vector2.Zero; // Detener completamente si es menor que la tasa de fricción
+		}   
 		// Coloca el jugador
 		Transform.Bounds.Translate(Velocity * gameContext.DeltaTime);
 		// Normaliza la posición
@@ -202,8 +219,7 @@ public class SpacePlayerActor : AbstractActor
 		// Lanza el proyectil
 		void Shoot(string slot)
 		{
-			_shooter.Shoot(slot, Transform.Bounds.TopLeft, 
-						   Transform.Rotation, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
+			_shooter.Shoot(slot, Transform.Bounds.TopLeft, Transform.Rotation, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
 		}
 	}
 
@@ -290,12 +306,12 @@ public class SpacePlayerActor : AbstractActor
 	/// <summary>
 	///		Deceleración
 	/// </summary>
-	public float Deceleration { get; set; } = 0.3f;
+	public float Deceleration { get; set; } = 12f;
 
 	/// <summary>
 	///		Fricción
 	/// </summary>
-	public float Friction { get; set; } = 0.01f;
+	public float Friction { get; set; } = 5f;
 
 	/// <summary>
 	///		Velocidad de rotación

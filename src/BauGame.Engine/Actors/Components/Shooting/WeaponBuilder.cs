@@ -83,7 +83,7 @@ public class WeaponBuilder
     /// <summary>
     ///     Crea una pistola
     /// </summary>
-    public WeaponBuilder WithPistol(string name, string texture, string region, int zOrder)
+    public WeaponBuilder WithPistol(string name, string texture, string region, int zOrder, Vector2 shootOffset)
     {
         // Crea la pistola
         WithWeapon(name, false, new Projectiles.ProjectileProperties
@@ -96,7 +96,7 @@ public class WeaponBuilder
                                                 ZOrder = zOrder
                                             }
                   );
-        WithShootOffset(new Vector2(15, 0));
+        WithShootOffset(shootOffset);
         WithFireRate(2f);
         WithMagazines(3, 12);
         WithReloadTime(1.5f);
@@ -105,9 +105,10 @@ public class WeaponBuilder
     }
 
     /// <summary>
-    ///     Crea una pistola
+    ///     Crea una granada
     /// </summary>
-    public WeaponBuilder WithGranade(string name, string texture, string region, string textureExplossion, string regionExplosion, string animationExplosion, int zOrder)
+    public WeaponBuilder WithGranade(string name, string texture, string region, string textureExplossion, string regionExplosion, 
+                                     string animationExplosion, int zOrder, Vector2 shootOffset)
     {
         // Crea la pistola
         WithWeapon(name, false, new Projectiles.ProjectileProperties
@@ -128,7 +129,7 @@ public class WeaponBuilder
                                                                     }
                                             }
                   );
-        WithShootOffset(new Vector2(15, 0));
+        WithShootOffset(shootOffset);
         WithFireRate(2f);
         WithMagazines(3, 12);
         WithReloadTime(1.5f);
@@ -139,7 +140,7 @@ public class WeaponBuilder
     /// <summary>
     ///     Crea un rifle
     /// </summary>
-    public WeaponBuilder WithShotgun(string name, string texture, string region, int zOrder)
+    public WeaponBuilder WithShotgun(string name, string texture, string region, int zOrder, Vector2 shootOffset)
     {
         // Crea el rifle
         WithWeapon(name, false, new Projectiles.ProjectileProperties
@@ -152,7 +153,7 @@ public class WeaponBuilder
                                                 ZOrder = zOrder
                                             }
                   );
-        WithShootOffset(new Vector2(20, 0));
+        WithShootOffset(shootOffset);
         WithFireRate(1f);
         WithMagazines(4, 60);
         WithReloadTime(1.5f);
@@ -162,9 +163,9 @@ public class WeaponBuilder
     }
 
     /// <summary>
-    ///     Crea una ametralladora con dos cañones
+    ///     Crea una ametralladora con varios cañones
     /// </summary>
-    public WeaponBuilder WithMachineGun(string name, string texture, string region, int zOrder)
+    public WeaponBuilder WithMachineGun(string name, string texture, string region, int zOrder, List<Vector2> shootOffsets)
     {
         // Crea la ametralladora
         WithWeapon(name, true, new Projectiles.ProjectileProperties
@@ -177,8 +178,8 @@ public class WeaponBuilder
                                                 ZOrder = zOrder
                                             }
                   );
-        WithShootOffset(new Vector2(25, -2));
-        WithShootOffset(new Vector2(25, 2));
+        foreach (Vector2 shootOffset in shootOffsets)
+            WithShootOffset(shootOffset);
         WithFireRate(8f);
         WithMagazines(3, 100);
         WithReloadTime(1.5f);

@@ -9,7 +9,6 @@ public class RandomWalkingState(string name, PropertiesState properties) : Abstr
 {
     // Variables privadas
     private float _elapsedTime, _walkingTime, _maxWalkToDirectionTime;
-    private Vector2 _direction;
     private Steering.MoveToSteering? _steering = null;
 
     /// <summary>

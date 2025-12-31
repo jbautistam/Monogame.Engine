@@ -28,8 +28,6 @@ public abstract class AbstractState(string name, PropertiesState properties)
 	{
 		string? nextState = null;
 
-			//// Inicializa la velocidad
-			//Speed = Vector2.Zero;
 			// Actualiza el estado del nodo
 			nextState = UpdateState(gameContext);
 			// Devuelve el siguiente estado
@@ -50,11 +48,6 @@ public abstract class AbstractState(string name, PropertiesState properties)
 	///		Nombre del estado
 	/// </summary>
 	public string Name { get; } = name;
-
-	///// <summary>
-	/////		Velocidad actual
-	///// </summary>
-	//public Vector2 Speed { get; set; }
 
 	/// <summary>
 	///		Propiedades del estado

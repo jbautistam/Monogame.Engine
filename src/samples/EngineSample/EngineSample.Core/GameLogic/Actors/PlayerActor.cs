@@ -82,12 +82,12 @@ public class PlayerActor : AbstractActor
 		WeaponBuilder builder = new();
 
 			// Crea una pistola
-			builder.WithPistol(WeaponGun, "laser", string.Empty, 0);
+			builder.WithPistol(WeaponGun, "laser", string.Empty, 0, new Vector2(15, 0));
 			// Añade el arma al slot principal
 			_shooter.AddWeapons(SlotPrimary, builder.Build());
 			// Crea una granda para el slot secundario
 			builder = new WeaponBuilder();
-			builder.WithGranade(WeaponGrenade, "laser", string.Empty, "explosion", string.Empty, "explosion-animation", 0);
+			builder.WithGranade(WeaponGrenade, "laser", string.Empty, "explosion", string.Empty, "explosion-animation", 0, new Vector2(15, 0));
 			// Selecciona el arma
 			_shooter.AddWeapons(SlotSecondary, builder.Build());
 			// Equipas las armas principal y secundaria

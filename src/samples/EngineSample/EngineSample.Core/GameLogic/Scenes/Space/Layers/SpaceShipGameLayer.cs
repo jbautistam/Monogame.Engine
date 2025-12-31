@@ -3,7 +3,6 @@ using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 using Bau.Libraries.BauGame.Engine.Tools.Extensors;
-using EngineSample.Core.GameLogic.Actors;
 using EngineSample.Core.GameLogic.Actors.SpaceShips;
 
 namespace EngineSample.Core.GameLogic.Scenes.Space.Layers;
@@ -20,8 +19,6 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 	{
 		CreatePlayer();
 		CreateSpawner();
-		CreateEnemies();
-		CreateFsmEnemies();
 	}
 
 	/// <summary>
@@ -32,7 +29,9 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 		SpacePlayerActor player = new(this, SpaceShipsScene.PhysicsPlayerLayer);
 
 			// Posiciona al jugador
-			player.Transform.Bounds.MoveTo(32, 32);
+			player.Transform.Bounds.MoveTo(0.5f * Scene.WorldDefinition.WorldBounds.Width, 0.5f * Scene.WorldDefinition.WorldBounds.Height);
+			if (Scene.Camera is not null)
+				Scene.Camera.Position = player.Transform.Bounds.TopLeft;
 			// Añade el jugador a la capa
 			Actors.Add(player);
 	}
@@ -46,10 +45,10 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 
 			// Crea las diferentes olas
 			builder
-					//.WithSpawner(-20, -20, 50, 5)
-					//	.WithWave("enemy", CreateEnemySpaceShip)
 					.WithCircleSpawner(0, 0, MathF.Max(Scene.WorldDefinition.WorldBounds.Width, Scene.WorldDefinition.WorldBounds.Height), true, 1)
-						.WithWave("meteors", CreateEnemySpaceShip);
+						.WithWave("enemy", CreateEnemy)
+					.WithCircleSpawner(0, 0, MathF.Max(Scene.WorldDefinition.WorldBounds.Width, Scene.WorldDefinition.WorldBounds.Height), true, 1)
+						.WithWave("meteors", CreateEnemy);
 			// Añade el spawner a la capa
 			Actors.Add(builder.Build());
 	}
@@ -57,12 +56,12 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 	/// <summary>
 	///		Crea un enemigo
 	/// </summary>
-	private void CreateEnemySpaceShip(SpawnerWaveModel.FactoryParameters parameters)
+	private void CreateEnemy(SpawnerWaveModel.FactoryParameters parameters)
 	{
 		switch (parameters.Name)
 		{
 			case "enemy":
-					SpawnEnemyFsm(parameters);
+					SpawnEnemySpaceShip(parameters);
 				break;
 			case "meteors":
 					SpawnMeteor(parameters);
@@ -71,16 +70,19 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 	}
 
 	/// <summary>
-	///		Genera un enemigo que utiliza FSM
+	///		Crea una nave enemiga
 	/// </summary>
-	private void SpawnEnemyFsm(SpawnerWaveModel.FactoryParameters parameters)
+	private void SpawnEnemySpaceShip(SpawnerWaveModel.FactoryParameters parameters)
 	{
-		SpaceEnemyFsmActor enemy = new(this, "monsterA", SpaceShipsScene.PhysicsNpcLayer);
+		int random = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 11);
+		SpaceShipEnemyActor meteor = new(this, "spaceship");
 
-			// Asigna la posición
-			enemy.Transform.Bounds.MoveTo(parameters.Position);
+			// Asigna la posición y la dirección
+			meteor.Transform.Bounds.MoveTo(parameters.Position);
+			meteor.Direction = parameters.Position.DirectionTo(Scene.WorldDefinition.WorldBounds.Center.X, Scene.WorldDefinition.WorldBounds.Center.Y);
+			meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 			// Añade el enemigo al buffer de la pantalla
-			Actors.AddNext(enemy);
+			Actors.AddNext(meteor);
 	}
 
 	/// <summary>
@@ -107,40 +109,6 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 							> 3 => MeteorActor.MeteorSize.Medium,
 							_ => MeteorActor.MeteorSize.Small
 						};
-		}
-	}
-
-	/// <summary>
-	///		Crea los datos de los enemigos
-	/// </summary>
-	private void CreateEnemies()
-	{	
-		EnemyActor enemy = new(this, SpaceShipsScene.PhysicsNpcLayer);
-
-			// Posiciona el enemigo
-			enemy.Transform.Bounds.MoveTo(0f, 200f);
-			// Añade el enemigo
-			Actors.Add(enemy);
-	}
-
-	/// <summary>
-	///		Crea los datos de los enemigos
-	/// </summary>
-	private void CreateFsmEnemies()
-	{	
-		CreateEnemy("monsterB", 300);
-		CreateEnemy("monsterC", 400);
-		CreateEnemy("monsterD", 500);
-
-		// Crea un enemigo
-		void CreateEnemy(string name, float y)
-		{
-			EnemyFsmActor enemy = new(this, name, SpaceShipsScene.PhysicsNpcLayer);
-
-				// Posiciona el enemigo
-				enemy.Transform.Bounds.MoveTo(0f, y);
-				// Añade el jugador
-				Actors.Add(enemy);
 		}
 	}
 

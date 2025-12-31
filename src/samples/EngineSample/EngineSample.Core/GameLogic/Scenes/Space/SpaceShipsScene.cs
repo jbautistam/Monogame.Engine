@@ -8,7 +8,7 @@ namespace EngineSample.Core.GameLogic.Scenes.Space;
 /// <summary>
 ///		Escena con naves espaciales
 /// </summary>
-internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Models.WorldDefinitionModel(2_000, 2_000, 200, 200))
+internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Models.WorldDefinitionModel(5_000, 5_000, 200, 200))
 {
 	// Constantes públicas
 	public const string SceneName = "SpaceShips";
@@ -16,6 +16,7 @@ internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Librar
 	public const int PhysicsPlayerProjectileLayer = 2;
 	public const int PhysicsNpcLayer = 3;
 	public const int PhysicsNpcProjectileLayer = 4;
+	public const int PhysicsPowerUpLayer = 5;
 
 	// Variables privadas
 	private Common.HudLayer? _hudLayer;
@@ -44,6 +45,7 @@ internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Librar
 	{
 		PhysicsManager.LayersRelations.AddRelation(PhysicsPlayerLayer, PhysicsNpcLayer);
 		PhysicsManager.LayersRelations.AddRelation(PhysicsPlayerLayer, PhysicsNpcProjectileLayer);
+		PhysicsManager.LayersRelations.AddRelation(PhysicsPlayerLayer, PhysicsPowerUpLayer);
 		PhysicsManager.LayersRelations.AddRelation(PhysicsNpcLayer, PhysicsPlayerProjectileLayer);
 	}
 
