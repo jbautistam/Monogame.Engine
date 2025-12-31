@@ -603,6 +603,42 @@
 /processorParam:Quality=Best
 /build:Sounds/PlayerPowerUp.wav
 
+#begin Sounds/effects/game-explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/effects/game-explosion.wav
+
+#begin Sounds/effects/laser-weapon-shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/effects/laser-weapon-shot.wav
+
+#begin Sounds/effects/short-laser-gun-shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/effects/short-laser-gun-shot.wav
+
+#begin Sounds/effects/shot-light-explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/effects/shot-light-explosion.wav
+
+#begin Sounds/effects/war-explosions.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/effects/war-explosions.wav
+
+#begin Sounds/effects/whip-shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/effects/whip-shot.wav
+
 #begin Sprites/backpack.png
 /importer:TextureImporter
 /processor:TextureProcessor

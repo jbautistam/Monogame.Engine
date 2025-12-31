@@ -201,8 +201,16 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private void PlayEffect()
 	{
-		List<string> sounds = [ "sounds/monsterKilled", "sounds/PlayerExitReached", "sounds/PlayerFall", "sounds/PlayerGemCollected",
-								"sounds/PlayerJump", "sounds/PlayerKilled", "sounds/PlayerPowerUp" ];
+		List<string> sounds = [ 
+								//"sounds/monsterKilled", "sounds/PlayerExitReached", "sounds/PlayerFall", "sounds/PlayerGemCollected",
+								//"sounds/PlayerJump", "sounds/PlayerKilled", "sounds/PlayerPowerUp",
+								"sounds/effects/game-explosion",
+								"sounds/effects/laser-weapon-shot",
+								"sounds/effects/short-laser-gun-shot",
+								"sounds/effects/shot-light-explosion",
+								"sounds/effects/war-explosions",
+								"sounds/effects/whip-shot"
+								];
 
 			// Reproduce uno de los sonidos aleatoriamente
 			AudioManager.PlayEffect(sounds[new Random().Next(sounds.Count)]);
