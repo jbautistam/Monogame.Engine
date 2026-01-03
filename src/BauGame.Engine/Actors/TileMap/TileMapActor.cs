@@ -80,7 +80,7 @@ public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, i
 	/// <summary>
 	///		Definiciones de patrones del mapa
 	/// </summary>
-	public Base.DictionaryModel<TileDefinition> TileDefinitions { get; } = new();
+	public Entities.Common.DictionaryModel<TileDefinition> TileDefinitions { get; } = new();
 
 	/// <summary>
 	///		Patrones del mapa

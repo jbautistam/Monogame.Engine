@@ -13,7 +13,6 @@
     <Compile Remove="Actors\Components\IA\Steering\**" />
     <Compile Remove="Actors\Particles\Nodes\**" />
     <Compile Remove="Audio\**" />
-    <Compile Remove="Entities\**" />
     <Compile Remove="Scenes\Layers\**" />
     <Compile Remove="Scenes\Transitions\**" />
     <Compile Remove="Scenes\**" />
@@ -25,7 +24,6 @@
     <EmbeddedResource Remove="Actors\Components\IA\Steering\**" />
     <EmbeddedResource Remove="Actors\Particles\Nodes\**" />
     <EmbeddedResource Remove="Audio\**" />
-    <EmbeddedResource Remove="Entities\**" />
     <EmbeddedResource Remove="Scenes\Layers\**" />
     <EmbeddedResource Remove="Scenes\Transitions\**" />
     <EmbeddedResource Remove="Scenes\**" />
@@ -37,7 +35,6 @@
     <None Remove="Actors\Components\IA\Steering\**" />
     <None Remove="Actors\Particles\Nodes\**" />
     <None Remove="Audio\**" />
-    <None Remove="Entities\**" />
     <None Remove="Scenes\Layers\**" />
     <None Remove="Scenes\Transitions\**" />
     <None Remove="Scenes\**" />
@@ -77,9 +74,11 @@
     <Compile Remove="Actors\TileMap\MapLayerData.cs" />
     <Compile Remove="Actors\TileMap\TileDefinitionModel.cs" />
     <Compile Remove="Actors\TileMap\Tilemap.cs" />
-    <Compile Remove="Base\SortedListModel.cs" />
+    <Compile Remove="Entities\UserInterface\UiCheckBox.cs" />
+    <Compile Remove="Entities\UserInterface\UiListBox.cs" />
+    <Compile Remove="Entities\UserInterface\UiScrollBar.cs" />
     <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
-    <Compile Remove="Pool\PoolManager.cs" />
+    <Compile Remove="Entities\Common\Pools\PoolManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -144,36 +143,18 @@
     <Compile Include="Scenes\AbstractScene.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\ParallaxBackgroundLayer.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\FixedBackgroundLayer.cs" />
-    <Compile Include="Scenes\Layers\BackgroundLayer.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\AbstractBackgroundLayer.cs" />
     <Compile Include="Scenes\Layers\LayerManager.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\EventArguments\OptionClickEventArgs.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiBackground.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiBorder.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiBalloonLabel.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiMenuOption.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiMenu.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiPosition.cs" />
     <Compile Include="Scenes\Physics\RaycastingService.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Scenes\Audio\AudioManager.cs" />
     <Compile Include="Scenes\Audio\MusicManager.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiButton.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiElement.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiImage.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiLabel.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiMargin.cs" />
-    <Compile Include="Scenes\Layers\UserInterface\UiPanel.cs" />
     <Compile Include="Scenes\Timers\TimerModel.cs" />
     <Compile Include="Scenes\Timers\TimerManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Scenes\Cameras\New\" />
   </ItemGroup>
 
 </Project>

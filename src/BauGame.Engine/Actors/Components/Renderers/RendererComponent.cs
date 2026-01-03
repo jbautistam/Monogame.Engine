@@ -1,7 +1,7 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
-using Bau.Libraries.BauGame.Engine.Models;
+using Bau.Libraries.BauGame.Engine.Entities.Common;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -96,12 +96,25 @@ public class RendererComponent(AbstractActor actor) : AbstractComponent(actor, t
 	{
 		if (Animator.SetAnimation(animation, loop))
 		{
-			// Asgina la textura
+			// Asigna la textura
 			Texture = texture;
 			Region = Animator.GetDefaultRegion();
 			// Indica que está animando
 			Animator.IsPlaying = true;
 		}
+	}
+
+	/// <summary>
+	///		Arranca de nuevo una animación
+	/// </summary>
+	public void Reset(string texture, string animation)
+	{
+		// Inicializa la animación
+		Animator.Reset();
+		// Asigna la textura
+		Animator.SetAnimation(animation, false);
+		// Indica que está animando
+		Animator.IsPlaying = true;
 	}
 
 	/// <summary>

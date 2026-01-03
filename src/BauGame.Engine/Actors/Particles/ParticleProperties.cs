@@ -9,7 +9,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 /// <summary>
 ///     Definición de una partícula
 /// </summary>
-public class ParticleProperties : Pool.IPoolable
+public class ParticleProperties : Entities.Common.Pools.IPoolable
 {
     // Variables privadas
     private AbstractTexture? _texture;

@@ -3,14 +3,14 @@
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 
 /// <summary>
-///		Base de los fondos
+///		Base para las capas de fondos
 /// </summary>
-public abstract class AbstractBackgroundLayer(string texture, int sortOrder)
+public abstract class AbstractBackgroundLayer(AbstractScene scene, string name, string texture, int sortOrder) : AbstractLayer(scene, name, LayerType.Background, sortOrder)
 {
 	/// <summary>
 	///		Inicia el fondo
 	/// </summary>
-	public void Start()
+	protected override void StartLayer()
 	{
         Background = GameEngine.Instance.ResourcesManager.TextureManager.Assets.Get(Texture);
 	}
@@ -32,31 +32,11 @@ public abstract class AbstractBackgroundLayer(string texture, int sortOrder)
 		// Si ha llegado hasta aquí es porque no ha encontrado nada
 		return null;
 	}
-
-	/// <summary>
-	///		Actualiza la capa (los actores se actualizan por separado)
-	/// </summary>
-	public abstract void UpdateLayer(Managers.GameContext gameContext);
-
-	/// <summary>
-	///		Dibuja la capa
-	/// </summary>
-	public abstract void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext);
-
-	/// <summary>
-	///		Finaliza la capa
-	/// </summary>
-	public abstract void End();
 	
 	/// <summary>
     ///     Nombre de la textura
     /// </summary>
     public string Texture { get; } = texture;
-
-	/// <summary>
-	///		Orden de dibujo de la capa
-	/// </summary>
-	public int SortOrder { get; set; } = sortOrder;
 
     /// <summary>
 	///		Textura del fondo

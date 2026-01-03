@@ -28,5 +28,5 @@ public class TextureSpriteSheet(TextureManager textureManager, string id, string
 	/// <summary>
 	///     Regiones
 	/// </summary>
-	public Base.DictionaryModel<Rectangle> Regions { get; } = new();
+	public Entities.Common.DictionaryModel<Rectangle> Regions { get; } = new();
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 

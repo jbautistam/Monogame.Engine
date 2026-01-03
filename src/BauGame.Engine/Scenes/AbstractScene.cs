@@ -5,10 +5,10 @@
 /// </summary>
 public abstract class AbstractScene
 {
-    protected AbstractScene(string name, Models.WorldDefinitionModel? worldDefinition)
+    protected AbstractScene(string name, Entities.Common.WorldDefinitionModel? worldDefinition)
     {
         Name = name;
-        WorldDefinition = worldDefinition ?? new Models.WorldDefinitionModel(5_000, 5_000, 10, 10);
+        WorldDefinition = worldDefinition ?? new Entities.Common.WorldDefinitionModel(5_000, 5_000, 10, 10);
         LayerManager = new Layers.LayerManager(this);
         AudioManager = new Audio.AudioManager(this);
         PhysicsManager = new Physics.PhysicsManager(this);
@@ -99,7 +99,7 @@ public abstract class AbstractScene
     /// <summary>
     ///     Definición del mundo
     /// </summary>
-    public Models.WorldDefinitionModel WorldDefinition { get; private set; }
+    public Entities.Common.WorldDefinitionModel WorldDefinition { get; private set; }
 
     /// <summary>
     ///     Manager de físicas

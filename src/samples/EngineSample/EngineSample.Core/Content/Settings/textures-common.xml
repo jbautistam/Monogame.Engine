@@ -2,6 +2,8 @@
 <SpriteSheets>
 	<!-- Fondos -->
 	<Texture Name = "bg-layer-0" Asset = "Backgrounds/Layer0_0" />
+	<Texture Name = "bg-layer-1" Asset = "Backgrounds/Layer0_1" />
+	<Texture Name = "bg-layer-2" Asset = "Backgrounds/Layer1_0" />
 	<!-- Partículas -->
 	<Texture Name = "particle" Asset = "sprites/gradient" />
 	<!-- Explosión -->

@@ -37,7 +37,7 @@ public class ProjectileActor : AbstractActor
         // Actualiza las propiedades
         Properties = properties;
         // Inicializa los datos de posición
-        Transform.Bounds = new Models.RectangleF(position.X, position.Y, 0, 0);
+        Transform.Bounds = new Entities.Common.RectangleF(position.X, position.Y, 0, 0);
         Transform.Rotation = rotation;
         // Inicializa los datos de dibujo
         Renderer.Texture = Properties.Texture;

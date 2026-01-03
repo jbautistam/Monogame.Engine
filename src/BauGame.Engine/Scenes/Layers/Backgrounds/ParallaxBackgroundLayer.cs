@@ -7,19 +7,26 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 /// <summary>
 ///     Background con movimiento parallax
 /// </summary>
-public class ParallaxBackgroundLayer(string texture, int sortOrder, float speedMultiplier) : AbstractBackgroundLayer(texture, sortOrder)
+public class ParallaxBackgroundLayer(AbstractScene scene, string name, string texture, int sortOrder, float speedMultiplier) : AbstractBackgroundLayer(scene, name, texture, sortOrder)
 {
+    /// <summary>
+    ///     Actualiza la capa para físicas
+    /// </summary>
+	protected override void UpdatePhysicsLayer(Managers.GameContext gameContext)
+	{
+	}
+
     /// <summary>
     ///     Actualiza la capa de fondo
     /// </summary>
-	public override void UpdateLayer(Managers.GameContext gameContext)
+	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
 	}
 
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    public override void DrawLayer(Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawLayer(Camera2D camera, Managers.GameContext gameContext)
     {
         TextureRegion? region = GetTextureRegion("background");
 
@@ -51,7 +58,7 @@ public class ParallaxBackgroundLayer(string texture, int sortOrder, float speedM
     /// <summary>
     ///     Finaliza el dibujo del fondo
     /// </summary>
-	public override void End()
+	protected override void EndLayer()
 	{
 	}
 

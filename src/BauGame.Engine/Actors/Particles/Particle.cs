@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 // <summary>
 ///     Definición de una partícula
 /// </summary>
-public class Particle : Pool.IPoolable
+public class Particle : Entities.Common.Pools.IPoolable
 {
     // Variables privadas
     private float _startLifeTime;

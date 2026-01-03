@@ -1,5 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Models;
+using Bau.Libraries.BauGame.Engine.Entities.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

@@ -13,7 +13,7 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
     // Constantes privadas
     private const float TailDensity = 5f;
     // Variables privadas
-    private Pool.ObjectPool<Particle> _particles = new();
+    private Entities.Common.Pools.ObjectPool<Particle> _particles = new();
     private AbstractTexture? _texture;
 
     /// <summary>

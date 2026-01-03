@@ -8,7 +8,7 @@ namespace EngineSample.Core.GameLogic.Scenes.Space;
 /// <summary>
 ///		Escena con naves espaciales
 /// </summary>
-internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Models.WorldDefinitionModel(5_000, 5_000, 200, 200))
+internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Entities.Common.WorldDefinitionModel(5_000, 5_000, 200, 200))
 {
 	// Constantes públicas
 	public const string SceneName = "SpaceShips";
@@ -31,7 +31,10 @@ internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Librar
 		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
 		LayerManager.AddLayer(new Layers.SpaceShipGameLayer(this, SceneName, 1));
-		LayerManager.AddLayer(CreateBackgroundLayer());
+		// Crea las capas con los fondos
+		LayerManager.AddLayer(new FixedBackgroundLayer(this, "fixed-bg", "bg-space-04", 1));
+		LayerManager.AddLayer(new ParallaxBackgroundLayer(this, "parallax-bg-01", "parallax-01", 2, 0.1f));
+		LayerManager.AddLayer(new ParallaxBackgroundLayer(this, "parallax-bg-02", "parallax-02", 3, 0.7f));
 		// Crea los datos de físicas
 		CreatePhysics();
 		// Arranca las capas
@@ -47,21 +50,6 @@ internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Librar
 		PhysicsManager.LayersRelations.AddRelation(PhysicsPlayerLayer, PhysicsNpcProjectileLayer);
 		PhysicsManager.LayersRelations.AddRelation(PhysicsPlayerLayer, PhysicsPowerUpLayer);
 		PhysicsManager.LayersRelations.AddRelation(PhysicsNpcLayer, PhysicsPlayerProjectileLayer);
-	}
-
-	/// <summary>
-	///		Crea la capa con los fondos
-	/// </summary>
-	private BackgroundLayer CreateBackgroundLayer()
-	{
-		BackgroundLayer layer = new(this, "Background", 1);
-
-			// Añade los fondos
-			layer.BackgroundLayers.Add(new FixedBackgroundLayer("bg-space-04", 1));
-			layer.BackgroundLayers.Add(new ParallaxBackgroundLayer("parallax-01", 2, 0.1f));
-			layer.BackgroundLayers.Add(new ParallaxBackgroundLayer("parallax-02", 3, 0.7f));
-			// Devuelve la capa creada
-			return layer;
 	}
 
 	/// <summary>

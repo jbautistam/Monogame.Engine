@@ -378,6 +378,30 @@
 /processorParam:TextureFormat=Color
 /build:images/characters/Sylvie/smile.png
 
+#begin images/SpaceShips/corvete-destroyed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/SpaceShips/corvete-destroyed.png
+
+#begin images/SpaceShips/corvete-move.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/SpaceShips/corvete-move.png
+
 #begin images/SpaceShips/explosion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -426,7 +450,7 @@
 /processorParam:TextureFormat=Color
 /build:images/SpaceShips/objects/bonus.png
 
-#begin images/SpaceShips/objects/Meteors.png
+#begin images/SpaceShips/objects/meteors.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -436,7 +460,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/SpaceShips/objects/Meteors.png
+/build:images/SpaceShips/objects/meteors.png
 
 #begin images/SpaceShips/ships/enemies.png
 /importer:TextureImporter
@@ -494,42 +518,6 @@
 
 #begin Levels/06.txt
 /copy:Levels/06.txt
-
-#begin Overlays/you_died.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Overlays/you_died.png
-
-#begin Overlays/you_lose.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Overlays/you_lose.png
-
-#begin Overlays/you_win.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Overlays/you_win.png
 
 #begin Settings/textures-common.xml
 /copy:Settings/textures-common.xml

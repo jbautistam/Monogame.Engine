@@ -9,7 +9,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Pools;
 public class ProjectileManager(AbstractLayer layer)
 {
     // Variables privadas
-    private Pool.ObjectPool<ProjectileActor> _projectiles = new();
+    private Entities.Common.Pools.ObjectPool<ProjectileActor> _projectiles = new();
 
     /// <summary>
     ///     Crea un proyectil

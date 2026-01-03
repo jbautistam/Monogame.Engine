@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors;
 /// <summary>
 ///		Clase abstracta para la definición de actores
 /// </summary>
-public abstract class AbstractActor : Pool.IPoolable
+public abstract class AbstractActor : Entities.Common.Pools.IPoolable
 {
 	protected AbstractActor(Scenes.Layers.AbstractLayer layer, int? zOrder)
 	{
@@ -79,10 +79,13 @@ public abstract class AbstractActor : Pool.IPoolable
 	/// </summary>
     public void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
-		// Dibuja los componentes
-		Components.Draw(camera, gameContext);
-		// Llama al actor para que se dibuje si es necesario
-		DrawActor(camera, gameContext);
+		if (camera.IsAtView(Transform.Bounds))
+		{
+			// Dibuja los componentes
+			Components.Draw(camera, gameContext);
+			// Llama al actor para que se dibuje si es necesario
+			DrawActor(camera, gameContext);
+		}
     }
 
 	/// <summary>

@@ -1,0 +1,75 @@
+﻿using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.Libraries.BauGame.Engine.Actors;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+
+namespace EngineSample.Core.GameLogic.Scenes.Animations.Actors;
+
+/// <summary>
+///		Actor para animaciones
+/// </summary>
+public class AnimationActor : AbstractActor
+{
+	// Constantes públicas
+	public const string PlayerName = nameof(PlayerName);
+	// Enumerados públicos
+	public enum MoveMode
+	{
+		LeftToRight,
+		RightToLeft
+	}
+
+	public AnimationActor(AbstractLayer layer, string texture, string animation) : base(layer, 0)
+	{
+		Texture = texture;
+		Animation = animation;
+	}
+
+	/// <summary>
+	///		Inicializa el actor
+	/// </summary>
+	public override void StartActor()
+	{
+		Renderer.Texture = Texture;
+		Renderer.StartAnimation(Texture, Animation, false);
+	}
+
+	/// <summary>
+	///		Arranca la animación
+	/// </summary>
+	public void Play()
+	{
+		Renderer.Reset(Texture, Animation);
+	}
+
+	/// <summary>
+	///		Actualiza el actor
+	/// </summary>
+	protected override void UpdateActor(GameContext gameContext)
+	{
+	}
+
+	/// <summary>
+	///		Dibuja el actor
+	/// </summary>
+	protected override void DrawActor(Camera2D camera, GameContext gameContext)
+	{
+	}
+
+	/// <summary>
+	///		Finaliza el trabajo con el actor
+	/// </summary>
+	protected override void EndActor()
+	{
+	}
+
+	/// <summary>
+	///		Textura
+	/// </summary>
+	public string Texture { get; }
+
+	/// <summary>
+	///		Textura
+	/// </summary>
+	public string Animation { get; }
+}

@@ -1,4 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Models;
+﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 

@@ -19,7 +19,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(l
         // Asigna las propiedades
         Properties = properties;
         // Actualiza los datos de posición
-        Transform.Bounds = new Models.RectangleF(position.X, position.Y, 0, 0);
+        Transform.Bounds = new Entities.Common.RectangleF(position.X, position.Y, 0, 0);
         // Actualiza los datos de dibujo
         Renderer.Texture = properties.Texture;
         Renderer.Region = properties.Region;
@@ -97,7 +97,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(l
                     {
                         float damageMultiplier = 1f - (distance / Properties.Radius);
 
-                        damage = (int) (Properties.Damage * damageMultiplier);
+                            damage = (int) (Properties.Damage * damageMultiplier);
                     }
             }
             // Devuelve el daño
@@ -114,7 +114,6 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(l
             // Calcula la dirección
             if (Properties is not null && Properties.AppliesForce && Properties.ForceStrength > 0)
             {
-
                 direction = targetPosition - Transform.Bounds.TopLeft;
                 float distance = direction.Length();
         

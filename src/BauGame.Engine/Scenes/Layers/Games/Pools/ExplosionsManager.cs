@@ -9,7 +9,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Pools;
 public class ExplosionsManager(AbstractLayer layer)
 {
     // Variables privadas
-    private Pool.ObjectPool<ExplosionActor> _explossions = new();
+    private Entities.Common.Pools.ObjectPool<ExplosionActor> _explossions = new();
 
     /// <summary>
     ///     Crea una explosión

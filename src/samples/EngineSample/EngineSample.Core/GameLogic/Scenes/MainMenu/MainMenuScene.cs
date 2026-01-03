@@ -3,7 +3,7 @@ using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 using Bau.Libraries.BauGame.Engine;
 
 namespace EngineSample.Core.GameLogic.Scenes.MainMenu;
@@ -17,6 +17,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	public const string SceneName = "MainMenu";
 	// Constantes privadas
 	private const string DefaultFont = "Fonts/Hud";
+	private const string MenuLayer = "Menu";
 	// Enumerados privadas
 	private enum MenuOption
 	{
@@ -24,6 +25,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		TilesSample,
 		SpaceShips,
 		GraphicNovel,
+		Animations,
 		UpdateText,
 		Music,
 		Effect,
@@ -39,23 +41,10 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	protected override void StartScene()
 	{
 		// Añade la capa
-		LayerManager.AddLayer(CreateBackgroundLayer());
+		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", 1));
 		LayerManager.AddLayer(CreateHudLayer());
 		// Arranca las capas
 		LayerManager.Start();
-	}
-
-	/// <summary>
-	///		Crea la capa con los fondos
-	/// </summary>
-	private BackgroundLayer CreateBackgroundLayer()
-	{
-		BackgroundLayer layer = new(this, "Background", 1);
-
-			// Añade los fondos
-			layer.BackgroundLayers.Add(new FixedBackgroundLayer("bg-layer-0", 1));
-			// Devuelve la capa creada
-			return layer;
 	}
 
 	/// <summary>
@@ -63,7 +52,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private UserInterfaceLayer CreateHudLayer()
 	{
-		UserInterfaceLayer uiLayer = new(this, "Menu", 1);
+		UserInterfaceLayer uiLayer = new(this, MenuLayer, 1);
 		UserInterfaceBuilder builder = new();
 
 			// Añade los componentes del interface de usuario
@@ -113,6 +102,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 					.WithOption((int) MenuOption.SpaceShips, "SpaceShips", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.TilesSample, "Tiles sample", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.GraphicNovel, "Graphic novel", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Animations, "Animations", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.UpdateText, "Update text", DefaultFont, 0.2f, 0.2f, 0.6f, 1)
 					.WithOption((int) MenuOption.Music, "Music", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Effect, "Effect", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
@@ -150,6 +140,9 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 						break;
 					case MenuOption.GraphicNovel:
 							nextScene = GetNewScene(GraphicNovel.GraphicNovelScene.SceneName);
+						break;
+					case MenuOption.Animations:
+							nextScene = GetNewScene(Animations.AnimationsScene.SceneName);
 						break;
 					case MenuOption.UpdateText:
 							ChangeText();
@@ -221,7 +214,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private void ChangeText()
 	{
-		AbstractUserInterfaceLayer? layer = LayerManager.Get<AbstractUserInterfaceLayer>(Constants.LayerHud);
+		AbstractUserInterfaceLayer? layer = LayerManager.Get<AbstractUserInterfaceLayer>(MenuLayer);
 
 			if (layer is not null)
 			{

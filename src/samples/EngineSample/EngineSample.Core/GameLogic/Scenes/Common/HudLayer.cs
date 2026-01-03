@@ -2,7 +2,7 @@
 using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 using Bau.Libraries.BauGame.Engine.Scenes.Messages;
 
 namespace EngineSample.Core.GameLogic.Scenes.Common;

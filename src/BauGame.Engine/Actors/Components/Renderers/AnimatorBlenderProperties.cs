@@ -29,5 +29,5 @@ public class AnimatorBlenderProperties(string group)
 	/// <summary>
 	///		Propiedades del mezclador de animaciones del componente
 	/// </summary>
-	public Base.DictionaryModel<float> Properties { get; } = new();
+	public Entities.Common.DictionaryModel<float> Properties { get; } = new();
 }

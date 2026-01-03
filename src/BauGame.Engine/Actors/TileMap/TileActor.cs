@@ -18,13 +18,26 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 	{
 		TileMapActor.TileDefinition? definition = Map.TileDefinitions.Get(TileDefinitionId.ToString());
 
+			// Añade la textura al renderer
 			if (definition is not null)
 			{
+				// Añade la textura
 				Renderer.Texture = definition.Texture;
 				Renderer.Region = definition.Region;
+				// Añade la animación
 				if (!string.IsNullOrWhiteSpace(definition.Animation))
 					Renderer.Animator.SetAnimation(definition.Animation, true);
+				// Inicializa el renderer
 				Renderer.Start();
+			}
+			// Crea la colisión
+			if (IsSolid && _collision is null)
+			{
+				// Crea la colisión
+				_collision = new Components.Physics.CollisionComponent(this, Map.PhysicsLayer);
+				_collision.Colliders.Add(new Components.Physics.RectangleCollider(_collision, null));
+				// Añade la colisión a la lista de componentes del actor
+				Components.Add(_collision);
 			}
 	}
 
@@ -33,25 +46,7 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 	/// </summary>
 	protected override void UpdateActor(GameContext gameContext)
 	{
-		// Actualiza el tamaño del actor a partir del tamaño de la textura
 		Transform.Bounds.Resize(Renderer.GetSize());
-		// Actualiza el componente de colisión
-		if (IsSolid && _collision is null)
-		{
-			// Crea la colisión
-			_collision = new Components.Physics.CollisionComponent(this, Map.PhysicsLayer);
-			_collision.Colliders.Add(new Components.Physics.RectangleCollider(_collision, null));
-			// Añade la colisión a la lista de componentes
-			Components.Add(_collision);
-		}
-		else if (!IsSolid && _collision is not null)
-		{
-			// Quita la colisión de la capa de físicas
-			_collision.End();
-			// Elimina la colisión
-			Components.Remove(_collision);
-			_collision = null;
-		}
 	}
 
 	/// <summary>
@@ -67,7 +62,14 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 	/// </summary>
 	protected override void EndActor()
 	{
-		// ... por ahora sólo implementa la interface
+		if (!IsSolid && _collision is not null)
+		{
+			// Quita la colisión de la capa de físicas
+			_collision.End();
+			// Elimina la colisión
+			Components.Remove(_collision);
+			_collision = null;
+		}
 	}
 
 	/// <summary>

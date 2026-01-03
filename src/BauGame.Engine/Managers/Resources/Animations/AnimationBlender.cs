@@ -41,5 +41,5 @@ public class AnimationBlender
 	/// <summary>
 	///		Reglas de animación
 	/// </summary>
-	public Base.DictionaryModel<AnimationBlenderGroupModel> GroupRules { get; } = new();
+	public Entities.Common.DictionaryModel<AnimationBlenderGroupModel> GroupRules { get; } = new();
 }

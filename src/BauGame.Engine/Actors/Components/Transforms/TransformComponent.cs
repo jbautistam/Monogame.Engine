@@ -1,4 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Models;
+﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.Transforms;

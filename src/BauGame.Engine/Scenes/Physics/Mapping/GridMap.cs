@@ -21,7 +21,7 @@ public class GridMap
     // Variables privadas
     private TileType[ , ] _tiles;
 
-    public GridMap(Models.WorldDefinitionModel worldDefinition)
+    public GridMap(Entities.Common.WorldDefinitionModel worldDefinition)
     {
         // Asigna las propiedades
         TileWidth = worldDefinition.CellWidth;

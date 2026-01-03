@@ -1,4 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Layers.UserInterface;
+﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 

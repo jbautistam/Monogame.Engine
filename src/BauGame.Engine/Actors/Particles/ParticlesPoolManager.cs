@@ -11,7 +11,7 @@ public class ParticlesPoolManager(Emisors.AbstractEmissorShape emissor, Particle
 {
     // Variables privadas
     private float _elapsedTime, _timeSinceLastEmission;
-    private Pool.ObjectPool<ParticleProperties> _particles = new();
+    private Entities.Common.Pools.ObjectPool<ParticleProperties> _particles = new();
 
     /// <summary>
     ///     Inicializa el manager del pool

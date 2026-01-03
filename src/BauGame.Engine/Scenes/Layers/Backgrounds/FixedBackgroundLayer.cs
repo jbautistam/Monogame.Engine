@@ -6,19 +6,26 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 /// <summary>
 ///     Fondo fijo
 /// </summary>
-public class FixedBackgroundLayer(string texture, int sortOrder) : AbstractBackgroundLayer(texture, sortOrder)
+public class FixedBackgroundLayer(AbstractScene scene, string name, string texture, int sortOrder) : AbstractBackgroundLayer(scene, name, texture, sortOrder)
 {
+    /// <summary>
+    ///     Actualiza la capa para físicas
+    /// </summary>
+	protected override void UpdatePhysicsLayer(Managers.GameContext gameContext)
+	{
+	}
+
     /// <summary>
     ///     Actualiza la capa de fondo
     /// </summary>
-	public override void UpdateLayer(Managers.GameContext gameContext)
+	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
 	}
 
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    public override void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         TextureRegion? region = GetTextureRegion("background");
 
@@ -60,7 +67,7 @@ public class FixedBackgroundLayer(string texture, int sortOrder) : AbstractBackg
     /// <summary>
     ///     Finaliza el dibujo del fondo
     /// </summary>
-	public override void End()
+	protected override void EndLayer()
 	{
 	}
 

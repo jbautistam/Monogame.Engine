@@ -1,9 +1,11 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Clase base para los interfaces de usuario
 /// </summary>
-public abstract class AbstractElementUserInterfaceBuilder<TypeElement> where TypeElement : Layers.UserInterface.UiElement
+public abstract class AbstractElementUserInterfaceBuilder<TypeElement> where TypeElement : UiElement
 {
 	/// <summary>
 	///		Asigna el Id

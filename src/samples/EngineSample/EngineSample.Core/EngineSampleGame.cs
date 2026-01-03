@@ -24,12 +24,9 @@ public class EngineSampleGame : Game
 										ViewPortWidth = 1_200,
 										ViewPortHeight = 720,
 										ContentRoot = "Content",
-										DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight,
-										MainAssembly = System.Reflection.Assembly.GetExecutingAssembly(),
-										ResourceFolder = "EngineSample.Core.Localization.Resources",
+										DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight
 									}
 							  );
-
 		// Inicializa el motor
 		GameEngine.Instance.Initialize();
 	}
@@ -51,6 +48,7 @@ public class EngineSampleGame : Game
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.TilesSample.TilesScene(GameLogic.Scenes.TilesSample.TilesScene.SceneName, 1));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Space.SpaceShipsScene(GameLogic.Scenes.Space.SpaceShipsScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.GraphicNovel.GraphicNovelScene(GameLogic.Scenes.GraphicNovel.GraphicNovelScene.SceneName));
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Animations.AnimationsScene(GameLogic.Scenes.Animations.AnimationsScene.SceneName));
 		// Prepara la escena
 		GameEngine.Instance.SceneManager.ChangeScene("MainMenu");
 		// Prepara los mapeos

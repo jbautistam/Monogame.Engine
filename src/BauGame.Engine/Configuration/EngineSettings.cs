@@ -106,14 +106,4 @@ public class EngineSettings
     ///     Direcciones de pantalla permitidas
     /// </summary>
     public DisplayOrientation DisplayOrientation { get; init; }
-
-    /// <summary>
-    ///     Ensamblado principal
-    /// </summary>
-    public required System.Reflection.Assembly MainAssembly { get; init; }
-
-    /// <summary>
-    ///     Carpeta de recursos
-    /// </summary>
-    public required string ResourceFolder { get; init; }
 }

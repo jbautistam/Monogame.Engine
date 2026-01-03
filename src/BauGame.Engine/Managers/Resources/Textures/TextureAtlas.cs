@@ -70,5 +70,5 @@ public class TextureAtlas(TextureManager textureManager, string id, string asset
     /// <summary>
     ///     Regiones
     /// </summary>
-    public Base.DictionaryModel<TextureRegion> Regions { get; } = new();
+    public Entities.Common.DictionaryModel<TextureRegion> Regions { get; } = new();
 }

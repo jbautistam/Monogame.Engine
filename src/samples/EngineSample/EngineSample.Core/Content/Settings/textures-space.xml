@@ -9,10 +9,10 @@
 	<Texture Name = "parallax-01" Asset = "images/Backgrounds/parallax/parallax-01" />
 	<Texture Name = "parallax-02" Asset = "images/Backgrounds/parallax/parallax-02" />
 	<!-- Spaceships imágenes -->
-	<Texture Name = "mine" Asset = "images/spaceships/mine" Rows = "1" Columns = "8" />
 	<Texture Name = "plane" Asset = "images/spaceships/plane" Rows = "2" Columns = "6" />
-	<Texture Name = "rocks" Asset = "images/spaceships/rocks" />
-	<Texture Name = "ship" Asset = "images/spaceships/ship" Rows = "1" Columns = "8" />
+	<Texture Name = "corvete" Asset = "images/spaceships/corvete-move" Rows = "1" Columns = "6" />
+	<Texture Name = "corvete-destroyed" Asset = "images/spaceships/corvete-destroyed" Rows = "1" Columns = "21" />
+
 	<!-- Naves enemigas -->
 	<Texture Name = "enemies" Asset = "images/spaceships/ships/enemies">
 		<Region Name="Ship 01" Left ="0" Top ="214" Width="85" Height="58" />
@@ -29,6 +29,7 @@
 		<Region Name="Ship 12" Left ="239" Top ="130" Width="84" Height="63" />
 		<Region Name="Ship 13" Left ="0" Top ="0" Width="61" Height="84" />
 	</Texture>
+
 	<!-- Meteoritos -->
 	<Texture Name = "meteors" Asset = "images/spaceships/objects/meteors">
 		<Region Name="Meteor_01" Left ="0" Top ="0" Width="75" Height="75" />
@@ -42,6 +43,7 @@
 		<Region Name="Meteor_09" Left ="152" Top ="134" Width="75" Height="52" />
 		<Region Name="Meteor_10" Left ="152" Top ="67" Width="66" Height="66" />
 	</Texture>
+
 	<!-- Power ups -->
 	<Texture Name = "bonus" Asset = "images/spaceships/objects/bonus">
 		<Region Name="Armor_Bonus" Left ="0" Top ="0" Width="75" Height="75" />
@@ -55,6 +57,7 @@
 		<Region Name="Magnet_Bonus" Left ="152" Top ="152" Width="75" Height="75" />
 		<Region Name="Rockets_Bonus" Left ="0" Top ="228" Width="75" Height="75" />
 	</Texture>
+
 	<!-- Bombas -->
 	<Texture Name = "bombs" Asset = "images/SpaceShips/weapons/bombs">
 		<Region Name="Bomb_1_Idle_000" Left ="978" Top ="1096" Width="38" Height="75" />
@@ -201,4 +204,120 @@
 			<Rule Property = "died" Condition = "Equals" Value = "1"/>
 		</Animation>
 	</AnimationGroup>
+
+	<!-- Animaciones de la bomba 1: iddle -->
+	<Animation Name = "bomb-1-idle" Texture = "bombs" >
+		<Frame Region = "Bomb_1_Idle_000" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_001" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_002" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_003" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_004" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_005" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_006" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_007" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_008" Time = "0.07" />
+		<Frame Region = "Bomb_1_Idle_009" Time = "0.07" />
+	</Animation>
+
+	<!-- Animaciones de la bomba 2: iddle -->
+	<Animation Name = "bomb-2-idle" Texture = "bombs" >
+		<Frame Region = "Bomb_2_Idle_000" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_001" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_002" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_003" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_004" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_005" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_006" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_007" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_008" Time = "0.07" />
+		<Frame Region = "Bomb_2_Idle_009" Time = "0.07" />
+	</Animation>
+
+	<!-- Animaciones de la bomba 3: iddle -->
+	<Animation Name = "bomb-3-idle" Texture = "bombs" >
+		<Frame Region = "Bomb_3_Idle_000" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_001" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_002" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_003" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_004" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_005" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_006" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_007" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_008" Time = "0.07" />
+		<Frame Region = "Bomb_3_Idle_009" Time = "0.07" />
+	</Animation>
+
+	<!-- Animaciones de la bomba 1: explosión -->
+	<Animation Name = "bomb-1-explosion" Texture = "bombs" >
+		<Frame Region = "Bomb_1_Explosion_000" Time = "0.07" />
+		<Frame Region = "Bomb_1_Explosion_001" Time = "0.07" />
+		<Frame Region = "Bomb_1_Explosion_002" Time = "0.07" />
+		<Frame Region = "Bomb_1_Explosion_003" Time = "0.07" />
+		<Frame Region = "Bomb_1_Explosion_004" Time = "0.07" />
+		<Frame Region = "Bomb_1_Explosion_005" Time = "0.07" />
+		<Frame Region = "Bomb_1_Explosion_006" Time = "0.07" />
+		<Frame Region = "Bomb_1_Explosion_007" Time = "0.07" />
+		<Frame Region = "Bomb_1_Explosion_008" Time = "0.07" />
+	</Animation>
+
+	<!-- Animaciones de la bomba 2: explosión -->
+	<Animation Name = "bomb-2-explosion" Texture = "bombs" >
+		<Frame Region = "Bomb_2_Explosion_000" Time = "0.07" />
+		<Frame Region = "Bomb_2_Explosion_001" Time = "0.07" />
+		<Frame Region = "Bomb_2_Explosion_002" Time = "0.07" />
+		<Frame Region = "Bomb_2_Explosion_003" Time = "0.07" />
+		<Frame Region = "Bomb_2_Explosion_004" Time = "0.07" />
+		<Frame Region = "Bomb_2_Explosion_005" Time = "0.07" />
+		<Frame Region = "Bomb_2_Explosion_006" Time = "0.07" />
+		<Frame Region = "Bomb_2_Explosion_007" Time = "0.07" />
+		<Frame Region = "Bomb_2_Explosion_008" Time = "0.07" />
+	</Animation>
+
+	<!-- Animaciones de la bomba 3: explosión -->
+	<Animation Name = "bomb-3-explosion" Texture = "bombs" >
+		<Frame Region = "Bomb_3_Explosion_000" Time = "0.07" />
+		<Frame Region = "Bomb_3_Explosion_001" Time = "0.07" />
+		<Frame Region = "Bomb_3_Explosion_002" Time = "0.07" />
+		<Frame Region = "Bomb_3_Explosion_003" Time = "0.07" />
+		<Frame Region = "Bomb_3_Explosion_004" Time = "0.07" />
+		<Frame Region = "Bomb_3_Explosion_005" Time = "0.07" />
+		<Frame Region = "Bomb_3_Explosion_006" Time = "0.07" />
+		<Frame Region = "Bomb_3_Explosion_007" Time = "0.07" />
+		<Frame Region = "Bomb_3_Explosion_008" Time = "0.07" />
+	</Animation>
+
+	<!-- Animaciones de la nave enemiga corvette - movimiento -->
+	<Animation Name = "corvete-run-animation" Texture = "corvete">
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+	</Animation>
+	<!-- Animaciones de la nave enemiga corvette -->
+	<Animation Name = "corvete-destroy-animation" Texture = "corvete-destroyed">
+		<Frame Region = "0,0" Time = "0.07" />
+		<Frame Region = "0,1" Time = "0.07" />
+		<Frame Region = "0,2" Time = "0.07" />
+		<Frame Region = "0,3" Time = "0.07" />
+		<Frame Region = "0,4" Time = "0.07" />
+		<Frame Region = "0,5" Time = "0.07" />
+		<Frame Region = "0,6" Time = "0.07" />
+		<Frame Region = "0,7" Time = "0.07" />
+		<Frame Region = "0,8" Time = "0.07" />
+		<Frame Region = "0,9" Time = "0.07" />
+		<Frame Region = "0,10" Time = "0.07" />
+		<Frame Region = "0,11" Time = "0.07" />
+		<Frame Region = "0,12" Time = "0.07" />
+		<Frame Region = "0,13" Time = "0.07" />
+		<Frame Region = "0,14" Time = "0.07" />
+		<Frame Region = "0,15" Time = "0.07" />
+		<Frame Region = "0,16" Time = "0.07" />
+		<Frame Region = "0,17" Time = "0.07" />
+		<Frame Region = "0,18" Time = "0.07" />
+		<Frame Region = "0,19" Time = "0.07" />
+		<Frame Region = "0,20" Time = "0.07" />
+	</Animation>
+
 </SpriteSheets>

@@ -15,7 +15,7 @@ public class ObstacleAvoidanceSteering : AbstractSteeringBehavior
         Vector2 force = Vector2.Zero;
 
             // Calcula la separación con los obstáculos
-            foreach (Models.Circle obstacle in Obstacles)
+            foreach (Entities.Common.Circle obstacle in Obstacles)
             {
                 float distance = Vector2.Distance(agentSteeringManager.Position, obstacle.Center);
 
@@ -39,7 +39,7 @@ public class ObstacleAvoidanceSteering : AbstractSteeringBehavior
     /// <summary>
     ///     Puntos que definen los obstáculos
     /// </summary>
-    public List<Models.Circle> Obstacles { get; } = [];
+    public List<Entities.Common.Circle> Obstacles { get; } = [];
 
     /// <summary>
     ///     Distnacia para evitar los obstáculos

@@ -8,7 +8,7 @@ namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel;
 /// <summary>
 ///		Escena de la partida
 /// </summary>
-internal class GraphicNovelScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Models.WorldDefinitionModel(2_000, 2_000, 200, 200))
+internal class GraphicNovelScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Entities.Common.WorldDefinitionModel(2_000, 2_000, 200, 200))
 {
 	// Constantes públicas
 	public const string SceneName = "GraphicNovel";
@@ -30,7 +30,7 @@ internal class GraphicNovelScene(string name) : AbstractScene(name, new Bau.Libr
 		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
 		LayerManager.AddLayer(new GraphicNovelLayer(this, SceneName, 1));
-		LayerManager.AddLayer(CreateBackgroundLayer());
+		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", 1));
 		// Crea los datos de físicas
 		CreatePhysics();
 		// Arranca las capas
@@ -45,19 +45,6 @@ internal class GraphicNovelScene(string name) : AbstractScene(name, new Bau.Libr
 		PhysicsManager.LayersRelations.AddRelation(PhysicsPlayerLayer, PhysicsNpcLayer);
 		PhysicsManager.LayersRelations.AddRelation(PhysicsPlayerLayer, PhysicsNpcProjectileLayer);
 		PhysicsManager.LayersRelations.AddRelation(PhysicsNpcLayer, PhysicsPlayerProjectileLayer);
-	}
-
-	/// <summary>
-	///		Crea la capa con los fondos
-	/// </summary>
-	private BackgroundLayer CreateBackgroundLayer()
-	{
-		BackgroundLayer layer = new(this, "Background", 1);
-
-			// Añade los fondos
-			layer.BackgroundLayers.Add(new FixedBackgroundLayer("bg-layer-0", 1));
-			// Devuelve la capa creada
-			return layer;
 	}
 
 	/// <summary>

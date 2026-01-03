@@ -7,7 +7,7 @@ public class SceneManager
 {
     // Variables privadas
     private AbstractScene? _currentScene;
-    private Base.DictionaryModel<AbstractScene> _scenes = new();
+    private Entities.Common.DictionaryModel<AbstractScene> _scenes = new();
 
     /// <summary>
     ///     Añade una escena

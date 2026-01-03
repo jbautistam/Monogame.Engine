@@ -7,7 +7,7 @@ namespace EngineSample.Core.GameLogic.Scenes.TilesSample;
 /// <summary>
 ///		Escena de la partida
 /// </summary>
-internal class TilesScene(string name, int level) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Models.WorldDefinitionModel(5_000, 5_000, 32, 40))
+internal class TilesScene(string name, int level) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Entities.Common.WorldDefinitionModel(5_000, 5_000, 32, 40))
 {
 	// Constantes públicas
 	public const string SceneName = "Tiles";

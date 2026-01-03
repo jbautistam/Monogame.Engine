@@ -51,5 +51,5 @@ public class TextureManager(ResourcesManager resourcesManager)
 	/// <summary>
 	///		Sprite sheets
 	/// </summary>
-	public Base.DictionaryModel<Textures.AbstractTexture> Assets { get; } = new();
+	public Entities.Common.DictionaryModel<Textures.AbstractTexture> Assets { get; } = new();
 }

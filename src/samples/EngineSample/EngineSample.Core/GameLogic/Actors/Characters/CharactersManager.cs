@@ -70,5 +70,5 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActor(l
 	/// <summary>
 	///		Personajes
 	/// </summary>
-	private Bau.Libraries.BauGame.Engine.Base.DictionaryModel<CharacterActor> Characters { get; } = new();
+	private Bau.Libraries.BauGame.Engine.Entities.Common.DictionaryModel<CharacterActor> Characters { get; } = new();
 }

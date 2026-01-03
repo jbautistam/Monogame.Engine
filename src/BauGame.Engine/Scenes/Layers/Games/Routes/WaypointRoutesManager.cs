@@ -31,5 +31,5 @@ public class WaypointRoutesManager(AbstractGameLayer layer)
 	/// <summary>
 	///		Rutas definidas
 	/// </summary>
-	private Base.DictionaryModel<WaypointRouteModel> Routes { get; } = new();
+	private Entities.Common.DictionaryModel<WaypointRouteModel> Routes { get; } = new();
 }

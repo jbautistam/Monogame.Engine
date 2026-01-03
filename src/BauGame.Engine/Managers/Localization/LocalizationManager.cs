@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Resources;
 
 namespace Bau.Libraries.BauGame.Engine.Managers.Localization;
 
@@ -15,23 +14,23 @@ public class LocalizationManager
     public List<CultureInfo> GetSupportedCultures()
     {
         List<CultureInfo> supportedCultures = [];
-        ResourceManager resourceManager = new(GameEngine.Instance.EngineSettings.ResourceFolder, 
-                                              GameEngine.Instance.EngineSettings.MainAssembly);
-        CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+        //ResourceManager resourceManager = new(GameEngine.Instance.EngineSettings.ResourceFolder, 
+        //                                      GameEngine.Instance.EngineSettings.MainAssembly);
+        //CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-            // Obtiene las culturas
-            foreach (CultureInfo culture in cultures)
-                try
-                {
-                    ResourceSet? resourceSet = resourceManager.GetResourceSet(culture, true, false);
+        //    // Obtiene las culturas
+        //    foreach (CultureInfo culture in cultures)
+        //        try
+        //        {
+        //            ResourceSet? resourceSet = resourceManager.GetResourceSet(culture, true, false);
 
-                        // Añade el conjunto de recursos
-                        if (resourceSet is not null)
-                            supportedCultures.Add(culture);
-                }
-                catch {}
-            // Añade siempre la cultura predeterminada
-            supportedCultures.Add(CultureInfo.InvariantCulture);
+        //                // Añade el conjunto de recursos
+        //                if (resourceSet is not null)
+        //                    supportedCultures.Add(culture);
+        //        }
+        //        catch {}
+        //    // Añade siempre la cultura predeterminada
+        //    supportedCultures.Add(CultureInfo.InvariantCulture);
             // Devuelve las culturas admitidas
             return supportedCultures;
     }

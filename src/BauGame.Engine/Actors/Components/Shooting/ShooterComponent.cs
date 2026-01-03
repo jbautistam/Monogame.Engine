@@ -138,5 +138,5 @@ public class ShooterComponent(AbstractActor owner) : AbstractComponent(owner, fa
 	/// <summary>
 	///     Grupos de armas
 	/// </summary>
-	public Base.DictionaryModel<WeaponSlot> Slots { get; } = new();
+	public Entities.Common.DictionaryModel<WeaponSlot> Slots { get; } = new();
 }

@@ -34,7 +34,7 @@ public class DebugManager(EngineManager manager)
 	/// <summary>
 	///		Añade un rectángulo a la lista de figuras a visualizar para el log
 	/// </summary>
-    public void LogRectangle(string id, Models.RectangleF rectangle, Color? color = null)
+    public void LogRectangle(string id, Entities.Common.RectangleF rectangle, Color? color = null)
     {
 		AddFigure(id, rectangle, color);
     }
@@ -42,7 +42,7 @@ public class DebugManager(EngineManager manager)
 	/// <summary>
 	///		Añade un círculo a la lista de figuras a visualizar para el log
 	/// </summary>
-	public void LogCircle(string id, Models.Circle circle, Color? color = null)
+	public void LogCircle(string id, Entities.Common.Circle circle, Color? color = null)
 	{
 		AddFigure(id, circle, color);
 	}

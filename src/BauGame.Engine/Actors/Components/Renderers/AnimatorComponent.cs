@@ -22,6 +22,7 @@ internal class AnimatorComponent
 	internal void Reset()
 	{
 		_actualAnimation = null;
+		_frameIndex = 0;
 	}
 
 	/// <summary>
