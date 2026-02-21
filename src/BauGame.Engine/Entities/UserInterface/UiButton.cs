@@ -13,22 +13,8 @@ public class UiButton : UiElement
     public event EventHandler? Click;
     public event EventHandler? MouseEnter;
     public event EventHandler? MouseLeave;
-    /// <summary>
-    ///     Tipo de estado
-    /// </summary>
-    public enum ButtonState
-    {
-        /// <summary>Normal</summary>
-        Normal,
-        /// <summary>El cursor sobre el botón</summary>
-        Hover,
-        /// <summary>Presionado</summary>
-        Pressed,
-        /// <summary>Inhabilitado</summary>
-        Disabled,
-        /// <summary>Seleccionado</summary>
-        Selected
-    }
+    // Variables privadas
+    private float _timeFromLastClick;
 
     public UiButton(AbstractUserInterfaceLayer layer, UiPosition position) : base(layer, position)
     {
@@ -38,28 +24,27 @@ public class UiButton : UiElement
     /// <summary>
     ///     Cálculo del layout del elemento
     /// </summary>
-    protected override void ComputeScreenComponentBounds() 
+    protected override void ComputeScreenBoundsSelf() 
     {
-        Label?.ComputeScreenBounds(Position.ScreenPaddedBounds);
-        Background?.ComputeScreenBounds(Position.ScreenBounds);
-        HoverBackground?.ComputeScreenBounds(Position.ScreenBounds);
-        PressedBackground?.ComputeScreenBounds(Position.ScreenBounds);
+        Label?.ComputeScreenBounds(Position.ContentBounds);
     }
 
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(Managers.GameContext gameContext)
+    public override void UpdateSelf(Managers.GameContext gameContext)
     {
         if (Enabled)
         {
             Vector2 mousePosition = GameEngine.Instance.InputManager.MouseManager.MousePosition;
             bool wasHovered = IsHovered;
 
+                // Incrementa el tiempo pasado desde el último click
+                _timeFromLastClick += gameContext.DeltaTime;
                 // Indica que por ahora no está pulsado
                 IsPressed = false;
                 // Comprueba si el ratón está encima del control
-                IsHovered = Position.ScreenBounds.Contains(mousePosition);
+                IsHovered = Position.Bounds.Contains(mousePosition);
                 // Detecta cambios de hover
                 if (IsHovered && !wasHovered)
                     MouseEnter?.Invoke(this, EventArgs.Empty);
@@ -71,15 +56,14 @@ public class UiButton : UiElement
                     // Indica si se ha pulsado el elemento
                     IsPressed = GameEngine.Instance.InputManager.MouseManager.IsPressed(Managers.Input.MouseController.MouseStatus.MouseButton.Left);
                     // Lanza el evento de pulsación
-                    if (IsPressed)
+                    if (IsPressed && _timeFromLastClick > 1f)
+                    {
                         Click?.Invoke(this, EventArgs.Empty);
+                        _timeFromLastClick = 0;
+                    }
                 }
                 // Actualiza los elementos
-                Label?.Update(gameContext);
-                Background?.Update(gameContext);
-                HoverBackground?.Update(gameContext);
-                PressedBackground?.Update(gameContext);
-                SelectedBackground?.Update(gameContext);
+                Label?.UpdateSelf(gameContext);
         }
     }
 
@@ -89,52 +73,15 @@ public class UiButton : UiElement
     public override void Draw(Camera2D camera, Managers.GameContext gameContext)
     {
         // Dibujar textura de fondo si existe
-        GetBackground(State)?.Draw(camera, gameContext);
+        Layer.DrawStyle(camera, Style, State, Position.ContentBounds, gameContext);
         // Dibuja el texto
         Label?.Draw(camera, gameContext);
-
-        // Obtiene el fondo adecuado
-        UiBackground? GetBackground(ButtonState state)
-        {
-	        return State switch
-	            {
-                    ButtonState.Selected => SelectedBackground ?? PressedBackground ?? HoverBackground ?? Background,
-		            ButtonState.Hover => HoverBackground ?? Background,
-		            ButtonState.Pressed => PressedBackground ?? HoverBackground ?? Background,
-		            _ => Background,
-	            };
-	    }
     }
 
     /// <summary>
     ///     Etiqueta
     /// </summary>
     public UiLabel? Label { get; set; }
-
-    /// <summary>
-    ///     Fondo normal
-    /// </summary>
-    public UiBackground? Background { get; set; }
-
-    /// <summary>
-    ///     Fondo desactivado
-    /// </summary>
-    public UiBackground? DisabledBackground { get; set; }
-
-    /// <summary>
-    ///     Fondo cuando el cursor está sobre el botón
-    /// </summary>
-    public UiBackground? HoverBackground { get; set; }
-
-    /// <summary>
-    ///     Fondo cuando se presiona el botón
-    /// </summary>
-    public UiBackground? PressedBackground { get; set; }
-
-    /// <summary>
-    ///     Fondo cuando se selecciona el botón
-    /// </summary>
-    public UiBackground? SelectedBackground { get; set; }
 
     /// <summary>
     ///     Indica si el cursor está sobre el botón
@@ -154,20 +101,20 @@ public class UiButton : UiElement
     /// <summary>
     ///     Estado del botón
     /// </summary>
-    public ButtonState State 
+    public Styles.UiStyle.StyleType State 
     { 
         get
         {
             if (!Enabled)
-                return ButtonState.Disabled;
+                return Styles.UiStyle.StyleType.Disabled;
             else if (IsPressed)
-                return ButtonState.Pressed;
+                return Styles.UiStyle.StyleType.Pressed;
             else if (IsSelected)
-                return ButtonState.Selected;
+                return Styles.UiStyle.StyleType.Selected;
             else if (IsHovered)
-                return ButtonState.Hover;
+                return Styles.UiStyle.StyleType.Hover;
             else
-                return ButtonState.Normal;
+                return Styles.UiStyle.StyleType.Normal;
         }
     }
 }

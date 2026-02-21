@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes;
+﻿using Microsoft.Xna.Framework.Graphics;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes;
 
 /// <summary>
 ///		Clase base para la escena
@@ -10,7 +12,6 @@ public abstract class AbstractScene
         Name = name;
         WorldDefinition = worldDefinition ?? new Entities.Common.WorldDefinitionModel(5_000, 5_000, 10, 10);
         LayerManager = new Layers.LayerManager(this);
-        AudioManager = new Audio.AudioManager(this);
         PhysicsManager = new Physics.PhysicsManager(this);
         MessagesManager = new Messages.MessagesManager(this);
         TimerManager = new Timers.TimerManager(this);
@@ -30,7 +31,6 @@ public abstract class AbstractScene
     public AbstractScene? Update(Managers.GameContext gameContext)
     {   
         // Actualiza los datos de la escena
-        AudioManager.Update(gameContext);
         PhysicsManager.Update(gameContext);
         Camera?.Update(gameContext);
         MessagesManager.Update(gameContext);
@@ -58,10 +58,16 @@ public abstract class AbstractScene
     public void Start()
     {
         // Inicializa la cámara
-        Camera = new Cameras.Camera2D(this, GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport);
+        Camera = new Cameras.Camera2D(this, GetViewPort());
         // Arranca la escena
         StartScene();
     }
+
+    /// <summary>
+    ///     Obtiene el viewport de la escena
+    /// </summary>
+    /// <returns></returns>
+    public Viewport GetViewPort() => GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport;
 
     /// <summary>
     ///     Arranca la escena
@@ -74,7 +80,7 @@ public abstract class AbstractScene
     public void End()
     {
         // Detiene el audio
-        AudioManager.Stop();
+        GameEngine.Instance.AudioManager.Stop();
         // Finaliza las capas
         LayerManager.End();
         // Finaliza la escena
@@ -110,11 +116,6 @@ public abstract class AbstractScene
     ///     Manager de capas de la escena
     /// </summary>
     public Layers.LayerManager LayerManager { get; }
-
-    /// <summary>
-    ///     Manager de audio
-    /// </summary>
-    public Audio.AudioManager AudioManager { get; }
 
     /// <summary>
     ///     Manager de mensajes

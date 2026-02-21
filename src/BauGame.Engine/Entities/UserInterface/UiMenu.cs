@@ -18,14 +18,12 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     /// <summary>
     ///     Cálculo del layout del elemento
     /// </summary>
-    protected override void ComputeScreenComponentBounds() 
+    protected override void ComputeScreenBoundsSelf() 
     {
-        // Calcula los límites de fondo y borde
-        Background?.ComputeScreenBounds(Position.ScreenBounds);
         // Calcula los límites de los elementos hijo
         NormalizeOptionsBounds();
         foreach (UiElement element in Options)
-            element.ComputeScreenBounds(Position.ScreenPaddedBounds);
+            element.ComputeScreenBounds(Position.ContentBounds);
 
         // Normaliza las posiciones de las opciones
         void NormalizeOptionsBounds()
@@ -47,24 +45,31 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(Managers.GameContext gameContext) 
+    public override void UpdateSelf(Managers.GameContext gameContext) 
     {
         // Cambia la opción seleccionada
         TreatInputs();
         TreatMouse();
+        UpdateOptions();
         // Actualiza los elementos
-        Title?.Update(gameContext);
-        HoverBackground?.Update(gameContext);
-        UnselectedBackground?.Update(gameContext);
-        SelectedBackground?.Update(gameContext);
+        Title?.UpdateSelf(gameContext);
         // Calcula los límites de los elementos hijo
         for (int index = 0; index < Options.Count; index++)
             if (Options[index].Visible)
-            {
-                Options[index].Color = GetColor(index);
-                Options[index].Background = GetBackground(index);
-                Options[index].Update(gameContext);
-            }
+                Options[index].UpdateSelf(gameContext);
+    }
+
+    /// <summary>
+    ///     Actualiza las opciones
+    /// </summary>
+    private void UpdateOptions()
+    {
+        for (int index = 0; index < Options.Count; index++)
+        {
+            Options[index].IsPressed = index == _clickedOption;
+            Options[index].IsHovered = index == _hoverOption;
+            Options[index].IsSelected = index == _selectedOption;
+        }
     }
 
     /// <summary>
@@ -127,7 +132,7 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
             _hoverOption = -1;
             // Comprueba si el ratón está encima de una de las opciones
             for (int index = 0; index < Options.Count; index++ )
-                if (_hoverOption == -1 && Options[index].Visible && Options[index].Position.ScreenBounds.Contains(mousePosition))
+                if (_hoverOption == -1 && Options[index].Visible && Options[index].Position.Bounds.Contains(mousePosition))
                     _hoverOption = index;
             // Comprueba si se ha pulsado sobre la opción seleccionada
             if (_hoverOption != -1 && GameEngine.Instance.InputManager.IsAction(Managers.Input.InputMappings.DefaultMouseClickAction))
@@ -141,37 +146,11 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     {
         // Dibuja el título, borde y fondo
         Title?.Draw(camera, gameContext);
-        Background?.Draw(camera, gameContext);
+        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja los elementos hijo
         foreach (UiElement child in Options)
             if (child.Visible)
                 child.Draw(camera, gameContext);
-    }
-
-    /// <summary>
-    ///     Obtiene el color asociado a una opción
-    /// </summary>
-    private Color GetColor(int option)
-    {
-        if (option == _selectedOption)
-            return SelectedColor;
-        else if (option == _hoverOption)
-            return HoverColor;
-        else
-            return UnselectedColor;
-    }
-
-    /// <summary>
-    ///     Obtiene el fondo asociado a una opción
-    /// </summary>
-    private UiBackground? GetBackground(int option)
-    {
-        if (option == _selectedOption && SelectedBackground is not null)
-            return SelectedBackground;
-        else if (option == _hoverOption && HoverBackground is not null)
-            return HoverBackground;
-        else
-            return UnselectedBackground;
     }
 
     /// <summary>
@@ -180,39 +159,9 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     public UiLabel? Title { get; set; }
 
     /// <summary>
-    ///     Fondo
+    ///     Estilo de las opciones
     /// </summary>
-    public UiBackground? Background { get; set; }
-    
-    /// <summary>
-    ///     Color de los elementos no seleccionados
-    /// </summary>
-    public Color UnselectedColor { get; set; } = Color.White;
-
-    /// <summary>
-    ///     Color del elemento seleccionado
-    /// </summary>
-    public Color SelectedColor { get; set; } = Color.Red;
-    
-    /// <summary>
-    ///     Color de los elementos cuando el ratón está sobre el elemento
-    /// </summary>
-    public Color HoverColor { get; set; } = Color.Navy;
-
-    /// <summary>
-    ///     Fondo cuando no está seleccionado
-    /// </summary>
-    public UiBackground? UnselectedBackground { get; set; }
-
-    /// <summary>
-    ///     Fondo
-    /// </summary>
-    public UiBackground? SelectedBackground { get; set; }
-
-    /// <summary>
-    ///     Fondo cuando el ratón está sobre el elemento
-    /// </summary>
-    public UiBackground? HoverBackground { get; set; }
+    public string? StyleOptions { get; set; }
 
     /// <summary>
     ///     Elementos hijo

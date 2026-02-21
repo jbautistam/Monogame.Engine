@@ -5,6 +5,7 @@ using Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 using Bau.Libraries.BauGame.Engine;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
 
 namespace EngineSample.Core.GameLogic.Scenes.MainMenu;
 
@@ -18,7 +19,9 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	// Constantes privadas
 	private const string DefaultFont = "Fonts/Hud";
 	private const string MenuLayer = "Menu";
-	// Enumerados privadas
+	private const string MenuStyle = nameof(MenuStyle);
+	private const string MenuOptionsStyle = nameof(MenuOptionsStyle);
+	// Enumerados privados
 	private enum MenuOption
 	{
 		Play,
@@ -26,9 +29,9 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		SpaceShips,
 		GraphicNovel,
 		Animations,
-		UpdateText,
 		Music,
 		Effect,
+		UserInterface,
 		DebugMode,
 		Quit = 40
 	}
@@ -53,6 +56,48 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	private UserInterfaceLayer CreateHudLayer()
 	{
 		UserInterfaceLayer uiLayer = new(this, MenuLayer, 1);
+
+			// Crea los Estilos
+			CreateStyles(uiLayer);
+			// Crea los componentes
+			CreateComponents(uiLayer);
+			// Devuelve la capa generada
+			return uiLayer;
+	}
+
+	/// <summary>
+	///		Crea los estilos de la capa
+	/// </summary>
+	private void CreateStyles(UserInterfaceLayer uiLayer)
+	{
+		UserInterfaceStylesBuilder builder = new(uiLayer);
+
+			// Estilos del menú
+			builder.WithStyle(MenuStyle, UiStyle.StyleType.Normal)
+									.WithBackground("sprites/gradient")
+									.WithColor(Color.Green);
+			// Estilos de la etiqueta de menú
+			builder.WithStyle(MenuOptionsStyle, UiStyle.StyleType.Normal)
+									.WithBackground("Tiles/BlockA4")
+									.WithColor(Color.Green)
+				   .WithStyle(MenuOptionsStyle, UiStyle.StyleType.Selected)
+									.WithBackground("Tiles/BlockA0")
+									.WithColor(Color.Navy)
+				   .WithStyle(MenuOptionsStyle, UiStyle.StyleType.Hover)
+									.WithBackground("Tiles/BlockB0")
+									.WithColor(Color.White)
+				   .WithStyle(MenuOptionsStyle, UiStyle.StyleType.Disabled)
+									.WithBackground("Tiles/BlockA3")
+									.WithColor(Color.Gray);
+			// Genera los estilos
+			uiLayer.Styles = builder.Build();
+	}
+
+	/// <summary>
+	///		Crea los componentes de la capa
+	/// </summary>
+	private void CreateComponents(UserInterfaceLayer uiLayer)
+	{
 		UserInterfaceBuilder builder = new();
 
 			// Añade los componentes del interface de usuario
@@ -61,26 +106,8 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 									.Build()
 							);
 			builder.WithItem(CreateMainMenu(uiLayer));
-			builder.WithItem(new UserInterfaceBackgroundBuilder(uiLayer, "sprites/gradient", 0.15f, 0.77f, 0.7f, 0.2f)
-									.Build());
-			builder.WithItem(new UserInterfaceBalloonLabelBuilder(uiLayer,
-																	"""
-																	Quiero comprobar cuanto es el ancho de este elemento en la pantalla y para eso tenemos que tener un texto muy largo que se salga de la pantalla
-																	Este es un texto muy largo
-																	que queremos mostrar
-																	en varias líneas y poco
-																	a poco
-																	""",
-																  0.2f, 0.8f, 0.6f, 0.2f)
-									.WithFont(DefaultFont)
-									.WithSpeed(0.05f)
-									.WithId("lblPrompt")
-									.Build()
-							);
 			// Añade los elementos generados a la capa
 			uiLayer.Items.AddRange(builder.Build());
-			// y devuelve la capa creada
-			return uiLayer;
 	}
 
 	/// <summary>
@@ -88,26 +115,21 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private UiMenu CreateMainMenu(AbstractUserInterfaceLayer layer)
 	{
-		UserInterfaceMenuBuilder builder = new(layer, 0.1f, 0.1f, 0.5f, 0.7f);
+		UserInterfaceMenuBuilder builder = new(layer, 0.05f, 0.05f, 0.4f, 0.8f);
 
 			// Asigna los elementos al menú
-			builder.WithBackground("Tiles/BlockA4")
-					.WithUnselectedColor(Color.Green)
-					.WithSelectedColor(Color.Navy)
-					.WithHoverColor(Color.White)
-					.WithSelectedBackground("Tiles/BlockA0")
-					.WithUnselectedBackground("Tiles/BlockA3")
-					.WithHoverBackground("Tiles/BlockB0")
-					.WithOption((int) MenuOption.Play, "Play", DefaultFont, 0.2f, 0, 0.6f, 1)
+			builder.WithOption((int) MenuOption.Play, "Play", DefaultFont, 0.2f, 0, 0.6f, 1)
 					.WithOption((int) MenuOption.SpaceShips, "SpaceShips", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.TilesSample, "Tiles sample", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.GraphicNovel, "Graphic novel", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Animations, "Animations", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.UpdateText, "Update text", DefaultFont, 0.2f, 0.2f, 0.6f, 1)
+					.WithOption((int) MenuOption.UserInterface, "User interface", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Music, "Music", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Effect, "Effect", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.DebugMode, "Debug mode", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Quit, "Quit", DefaultFont, 0.2f, 0.4f, 0.6f, 1);
+					.WithOption((int) MenuOption.Quit, "Quit", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
+					.WithOptionsStyle(MenuOptionsStyle)
+					.WithStyle(MenuStyle);
 			// Guarda el menú en una variable
 			_menu = builder.Build();
 			return _menu;
@@ -144,8 +166,8 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 					case MenuOption.Animations:
 							nextScene = GetNewScene(Animations.AnimationsScene.SceneName);
 						break;
-					case MenuOption.UpdateText:
-							ChangeText();
+					case MenuOption.UserInterface:
+							nextScene = GetNewScene(UserInterfaceTest.UserInterfaceScene.SceneName);
 						break;
 					case MenuOption.Music:
 							PlaySong();
@@ -183,10 +205,16 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// </summary>
 	private void PlaySong()
 	{
-		if (AudioManager.IsPlayingMusic())
-			AudioManager.Stop();
-		else
-			AudioManager.PlaySong("sounds/music");
+		List<string> sounds = [ 
+								"sounds/music/game",
+								"sounds/music/fscm-productions-flowers",
+								"sounds/music/fscm-productions-flowers-loop"
+							  ];
+
+			// Reproduce uno de los sonidos aleatoriamente
+			GameEngine.Instance.AudioManager.PlaySong(sounds[new Random().Next(sounds.Count)], 
+													  Bau.Libraries.BauGame.Engine.Managers.Audio.AudioManager.TransitionType.CrossFade, 
+													  (float) TimeSpan.FromSeconds(5).TotalMilliseconds);
 	}
 
 	/// <summary>
@@ -206,26 +234,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 								];
 
 			// Reproduce uno de los sonidos aleatoriamente
-			AudioManager.PlayEffect(sounds[new Random().Next(sounds.Count)]);
-	}
-
-	/// <summary>
-	///		Cambia el texto del prompt
-	/// </summary>
-	private void ChangeText()
-	{
-		AbstractUserInterfaceLayer? layer = LayerManager.Get<AbstractUserInterfaceLayer>(MenuLayer);
-
-			if (layer is not null)
-			{
-				UiBalloonLabel? lblPrompt = layer.GetItem<UiBalloonLabel>("lblPrompt");
-
-					if (lblPrompt is not null)
-					{
-						lblPrompt.Text = "Pero este es otro texto que se presenta después de todo el resto";
-						lblPrompt.Color = Color.Red;
-					}
-			}
+			GameEngine.Instance.AudioManager.PlayEffect(sounds[new Random().Next(sounds.Count)]);
 	}
 
 	/// <summary>

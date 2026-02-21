@@ -1,16 +1,18 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+﻿using Microsoft.Xna.Framework;
+
+namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 
 /// <summary>
 ///     Datos del margen
 /// </summary>
 public struct UiMargin
 {
-    public UiMargin(float all)
+    public UiMargin(int all)
     {
         Left = Top = Right = Bottom = all;
     }
 
-    public UiMargin(float left, float top, float right, float bottom)
+    public UiMargin(int left, int top, int right, int bottom)
     {
         Left = left;
         Top = top;
@@ -19,22 +21,42 @@ public struct UiMargin
     }
 
     /// <summary>
+    ///     Aplica el margen a un rectángulo
+    /// </summary>
+    public Rectangle Apply(Rectangle bounds)
+    {
+        return new Rectangle(bounds.X + Left, bounds.Y + Top,
+                             Math.Max(0, bounds.Width - Horizontal),
+                             Math.Max(0, bounds.Height - Vertical));
+    }
+
+    /// <summary>
     ///     Margen izquierdo
     /// </summary>
-    public float Left { get; set; }
+    public int Left { get; set; }
 
     /// <summary>
     ///     Margen superior
     /// </summary>
-    public float Top { get; set; }
+    public int Top { get; set; }
 
     /// <summary>
     ///     Margen izquierdo
     /// </summary>
-    public float Right { get; set; }
+    public int Right { get; set; }
 
     /// <summary>
     ///     Margen superior
     /// </summary>
-    public float Bottom { get; set; }
+    public int Bottom { get; set; }
+
+    /// <summary>
+    ///     Espaciado horizontal
+    /// </summary>
+    public int Horizontal => Left + Right;
+
+    /// <summary>
+    ///     Espaciado vertical
+    /// </summary>
+    public int Vertical => Top + Bottom;
 }

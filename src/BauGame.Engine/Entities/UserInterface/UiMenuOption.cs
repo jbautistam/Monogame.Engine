@@ -1,5 +1,5 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,7 +8,7 @@ namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 /// <summary>
 ///     Opción de menú
 /// </summary>
-public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position, int optionId) : UiElement(layer, position)
+public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiElement(menu.Layer, position)
 {
     // Variables privadas
     private bool _isInitialized;
@@ -16,15 +16,14 @@ public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position,
     /// <summary>
     ///     Cálculo del layout del elemento
     /// </summary>
-    protected override void ComputeScreenComponentBounds() 
+    protected override void ComputeScreenBoundsSelf() 
     {
-        //Background?.ComputeScreenBounds(Position.ScreenBounds);
     }
 
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(Managers.GameContext gameContext) 
+    public override void UpdateSelf(Managers.GameContext gameContext) 
     {
         if (!_isInitialized)
         {
@@ -33,8 +32,6 @@ public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position,
                 SpriteFont = Layer.Scene.LoadSceneAsset<SpriteFont>(Font);
             // Indica que ya está inicializado
             _isInitialized = true;
-            // Actualiza el contenido
-            Background?.Update(gameContext);
         }
     }
 
@@ -46,21 +43,43 @@ public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position,
         if (!string.IsNullOrEmpty(Text) && SpriteFont is not null)
         {
             Vector2 textSize = SpriteFont.MeasureString(Text);
-            Vector2 textPosition = new(Position.ScreenPaddedBounds.X + (Position.ScreenPaddedBounds.Width - textSize.X) / 2, 
-                                       Position.ScreenPaddedBounds.Y + (Position.ScreenPaddedBounds.Height - textSize.Y) / 2);
+            Vector2 textPosition = new(Position.ContentBounds.X + (Position.ContentBounds.Width - textSize.X) / 2, 
+                                       Position.ContentBounds.Y + (Position.ContentBounds.Height - textSize.Y) / 2);
+            UiStyle? style = GetStyle();
 
                 // Dibuja la textura de fondo si existe
-                Background?.ComputeScreenBounds(Position.ScreenBounds);
-                Background?.Draw(camera, gameContext);
+                Layer.DrawStyle(camera, Menu.StyleOptions, State, Position.Bounds, gameContext);
                 // Dibuja el texto
-                camera.SpriteBatchController.DrawString(SpriteFont, Text, textPosition, Color * Opacity);
+                camera.SpriteBatchController.DrawString(SpriteFont, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
         }
+    }
+
+    /// <summary>
+    ///     Obtiene el estilo correspondiente a la opción
+    /// </summary>
+    private UiStyle? GetStyle()
+    {
+        string? style = Menu.StyleOptions;
+
+            // Obtiene el estilo del menú si no tiene estilo de las opciones
+            if (string.IsNullOrWhiteSpace(style))
+                style = Menu.Style;
+            // Si hay algún estilo, se obtione el valor
+            if (!string.IsNullOrWhiteSpace(style))
+                return Menu.Layer.Styles.GetStyle(style, State);
+            else
+                return null;
     }
 
     /// <summary>
     ///     Id de opción
     /// </summary>
     public int OptionId { get; } = optionId;
+
+    /// <summary>
+    ///     Menú
+    /// </summary>
+    public UiMenu Menu { get; } = menu;
 
     /// <summary>
     ///     Texto
@@ -78,12 +97,37 @@ public class UiMenuOption(AbstractUserInterfaceLayer layer, UiPosition position,
     private SpriteFont? SpriteFont { get; set; }
 
     /// <summary>
-    ///     Color
+    ///     Indica si el cursor está sobre el botón
     /// </summary>
-    public Color Color { get; set; } = Color.White;
+    public bool IsHovered { get; set; }
 
     /// <summary>
-    ///     Fondo normal
+    ///     Indica si el botón está presionado
     /// </summary>
-    public UiBackground? Background { get; set; }
+    public bool IsPressed { get; set; }
+
+    /// <summary>
+    ///     Indica si está seleccionado
+    /// </summary>
+    public bool IsSelected { get; set; }
+
+    /// <summary>
+    ///     Estado de la opción
+    /// </summary>
+    public UiStyle.StyleType State 
+    { 
+        get
+        {
+            if (!Enabled)
+                return UiStyle.StyleType.Disabled;
+            else if (IsPressed)
+                return UiStyle.StyleType.Pressed;
+            else if (IsSelected)
+                return UiStyle.StyleType.Selected;
+            else if (IsHovered)
+                return UiStyle.StyleType.Hover;
+            else
+                return UiStyle.StyleType.Normal;
+        }
+    }
 }

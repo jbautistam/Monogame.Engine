@@ -15,6 +15,7 @@ public class EngineManager
         LocalizationManager = new Localization.LocalizationManager();
         MonogameServicesManager = new Services.MonogameServicesManager(game);
         ResourcesManager = new Resources.ResourcesManager(this);
+        AudioManager = new Audio.AudioManager(this);
         SceneManager = new Scenes.SceneManager();
         DebugManager = new Debugger.DebugManager(this);
     }
@@ -34,9 +35,10 @@ public class EngineManager
 	{
         // Actualiza el contexto de la partida
         GameContext.Update(gameTime);
-        // Actualiza los datos
+        // Actualiza los managers adicionales
 		InputManager.Update(GameContext);
         SceneManager.Update(GameContext);
+        AudioManager.Update(GameContext);
         // Actualiza la información de depuración
         DebugManager.Update(GameContext);
 	}
@@ -89,6 +91,11 @@ public class EngineManager
     ///     Manager de recursos
     /// </summary>
     public Resources.ResourcesManager ResourcesManager { get; }
+
+    /// <summary>
+    ///     Manager de audio
+    /// </summary>
+    public Audio.AudioManager AudioManager { get; }
 
     /// <summary>
     ///     Manager de escenas

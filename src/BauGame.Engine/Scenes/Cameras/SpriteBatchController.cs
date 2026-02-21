@@ -72,6 +72,16 @@ public class SpriteBatchController
 	}
 
 	/// <summary>
+	///		Dibuja una textura
+	/// </summary>
+	public void Draw(Texture2D texture, Vector2 position, Rectangle? source, Vector2 origin, float scale, SpriteEffects spriteEffect, 
+					 Color color, float rotation, int layerDepth = 0)
+	{
+		if (_spriteBatch is not null)
+			_spriteBatch.Draw(texture, position, source, color, rotation, origin, scale, spriteEffect, layerDepth);
+	}
+
+	/// <summary>
 	///		Dibuja una textura escalada a un rectángulo
 	/// </summary>
 	public void Draw(Texture2D texture, Rectangle destinationRectangle, Color color)
@@ -88,6 +98,15 @@ public class SpriteBatchController
 	{
 		if (_spriteBatch is not null)
 			_spriteBatch.Draw(texture, destination, source, color, rotation, origin, spriteEffect, layerDepth);
+	}
+
+	/// <summary>
+	///		Dibuja una textura
+	/// </summary>
+	public void Draw(Texture2D texture, Rectangle destination, Rectangle source, Color color)
+	{
+		if (_spriteBatch is not null)
+			_spriteBatch.Draw(texture, destination, source, color);
 	}
 
 	/// <summary>

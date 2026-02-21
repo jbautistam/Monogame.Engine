@@ -19,7 +19,7 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
         // Inicializa el tiempo
         _elapsedTime = 0;
         // Arranca los controladores
-        foreach (ParticlesPoolManager poolManager in Spawners)
+        foreach (ParticlesPoolManager poolManager in Pools)
             poolManager.Start(this);
 	}
 
@@ -39,9 +39,9 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
             // Incrementa el tiempo
             _elapsedTime += gameContext.DeltaTime;
             // Actualiza los pools de partículas
-            foreach (ParticlesPoolManager spawnerBehavior in Spawners)
-                if (spawnerBehavior.Enabled)
-                    spawnerBehavior.Update(gameContext);
+            foreach (ParticlesPoolManager pool in Pools)
+                if (pool.Enabled)
+                    pool.Update(gameContext);
         }
 	}
 
@@ -50,7 +50,7 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
     /// </summary>
 	protected override void DrawActor(Camera2D camera, Managers.GameContext gameContext)
     {
-        foreach (ParticlesPoolManager spawnerBehavior in Spawners)
+        foreach (ParticlesPoolManager spawnerBehavior in Pools)
             if (spawnerBehavior.Enabled)
                 spawnerBehavior.Draw(camera, gameContext);
     }
@@ -60,8 +60,8 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
 	/// </summary>
 	protected override void EndActor()
 	{
-        foreach (ParticlesPoolManager spawnerBehavior in Spawners)
-            spawnerBehavior.Enabled = false;
+        foreach (ParticlesPoolManager pool in Pools)
+            pool.Enabled = false;
 	}
 
     /// <summary>
@@ -70,9 +70,9 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
     public required Vector2 Position { get; set; }
 
     /// <summary>
-    ///     Generadores de partículas
+    ///     Pools de partículas
     /// </summary>
-    public List<ParticlesPoolManager> Spawners { get; } = [];
+    public List<ParticlesPoolManager> Pools { get; } = [];
 
     /// <summary>
     ///     Duración (0 para un sistema infinito)

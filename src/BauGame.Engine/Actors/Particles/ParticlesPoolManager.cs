@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Microsoft.Xna.Framework;
+using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 
@@ -96,26 +96,6 @@ public class ParticlesPoolManager(Emisors.AbstractEmissorShape emissor, Particle
     public ParticlesSystemEngineActor? Owner { get; private set; }
 
     /// <summary>
-    ///     Momento de inicio de emisión
-    /// </summary>
-    public float StartEmision { get; set; } = 0;
-
-    /// <summary>
-    ///     Duración (0 si es infinito)
-    /// </summary>
-    public float Duration { get; set; } = 1.0f;
-
-	/// <summary>
-	///     Ratio de emisión
-	/// </summary>
-	public float EmissionRate { get; set; } = 0.5f;
-
-    /// <summary>
-    ///     Número de partículas por emisión
-    /// </summary>
-    public float ParticlesPerEmission { get; set; }
-
-    /// <summary>
     ///     Indica si el emisor está activo
     /// </summary>
     public bool Enabled { get; set; } = true;
@@ -124,6 +104,26 @@ public class ParticlesPoolManager(Emisors.AbstractEmissorShape emissor, Particle
     ///     Indica si se ha detenido la emisión
     /// </summary>
     public bool IsStopped => !Enabled || (Duration > 0 && _elapsedTime > Duration);
+
+    /// <summary>
+    ///     Inicio de la emisión
+    /// </summary>
+    public float StartEmision { get; set; }
+
+    /// <summary>
+    ///     Ratio de emisión
+    /// </summary>
+    public float EmissionRate { get; set; }
+
+    /// <summary>
+    ///     Duración del efecto
+    /// </summary>
+    public float Duration { get; set; }
+
+    /// <summary>
+    ///     Partículas por emisión
+    /// </summary>
+    public int ParticlesPerEmission { get; set; }
 
 	/// <summary>
 	///		Emisor

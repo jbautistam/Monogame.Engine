@@ -110,6 +110,8 @@ string PrepareFile(string folder, string fileName)
 			return PrepareSongMp3File(fileResult) + Environment.NewLine;
 		else if (IsExtension(fileName, "spritefont"))
 			return PrepareSpriteFontFile(fileResult) + Environment.NewLine;
+		//else if (IsExtension(fileName, "fx"))
+		//	return PrepareShader(fileResult) + Environment.NewLine;
 		else
 			return string.Empty;
 }
@@ -191,5 +193,18 @@ string PrepareSpriteFontFile(string fileResult)
 			/processorParam:TextureFormat=Compressed
 			/build:{fileResult}
 
+			""";
+}
+
+// Prepara el contenido de shader
+string PrepareShader(string fileResult)
+{
+	return $"""
+			#begin {fileResult}
+			/importer:EffectImporter
+			/processor:EffectProcessor
+			/processorParam:DebugMode=Auto
+			/build:{fileResult}
+			
 			""";
 }

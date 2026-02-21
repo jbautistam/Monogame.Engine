@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using Bau.Libraries.BauGame.Engine.Actors;
+﻿using Bau.Libraries.BauGame.Engine.Actors;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using EngineSample.Core.GameLogic.Actors.Characters.Actions;
 
@@ -22,10 +20,6 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 		// Inicializa los componentes
 		foreach (CharacterActorDefinition definition in Definitions)
 			definition.Start();
-		//// Crea el componente de animación
-		//_animator = new AnimatorComponent(this); 
-		//// Añade el animador a la lista de componentes
-		//Components.Add(_animator);
 	}
 
 	/// <summary>

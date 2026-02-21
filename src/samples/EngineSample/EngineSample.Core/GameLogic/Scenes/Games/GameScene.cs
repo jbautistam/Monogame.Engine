@@ -1,7 +1,6 @@
 ﻿using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
-using Bau.Libraries.BauGame.Engine;
 
 namespace EngineSample.Core.GameLogic.Scenes.Games;
 
@@ -57,8 +56,8 @@ internal class GameScene(string name) : AbstractScene(name, new Bau.Libraries.Ba
 			// Actualiza los actores y el interface de usuario
 			LayerManager.Update(gameContext);
 			// Sale de la partida si se ha pulsado el botón de Scape o el Back del GamePad
-			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaulQuitAction))
-				nextScene = GameEngine.Instance.SceneManager.GetScene(MainMenu.MainMenuScene.SceneName) ?? this;
+			if (Bau.Libraries.BauGame.Engine.GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaulQuitAction))
+				nextScene = Bau.Libraries.BauGame.Engine.GameEngine.Instance.SceneManager.GetScene(MainMenu.MainMenuScene.SceneName) ?? this;
 			// Devuelve la nueva escena
 			return nextScene;
 	}

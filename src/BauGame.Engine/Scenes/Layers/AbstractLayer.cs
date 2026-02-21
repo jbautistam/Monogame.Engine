@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 /// <summary>
 ///     Clase base para las definiciones de capas
 /// </summary>
-public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLayer.LayerType type, int sortOrder)
+public abstract class AbstractLayer
 {
     /// <summary>
     ///     Tipo de capa
@@ -18,6 +18,17 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
         Game,
         /// <summary>Capa de interface de usuario</summary>
         UserInterface
+    }
+
+    public AbstractLayer(AbstractScene scene, string name, AbstractLayer.LayerType type, int sortOrder)
+    {
+        // Asigna las propiedades
+        Scene = scene;
+        Name = name;
+        Type = type;
+        SortOrder = sortOrder;
+        // Inicializa los objetos
+        Services = new Services.LayerServicesList(this);
     }
 
     /// <summary>
@@ -46,6 +57,8 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
         UpdatePhysicsLayer(gameContext);
         // Actualiza las físicas de los actores (antes de actualizar los actores)
         Actors.UpdatePhysics(gameContext);
+        // Actualiza los servicios
+        Services.Update(gameContext);
         // Actualiza la capa
         UpdateLayer(gameContext);
         // Actualiza los actores
@@ -101,22 +114,22 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
 	/// <summary>
 	///     Escena padre de la capa
 	/// </summary>
-	public AbstractScene Scene { get; } = scene;
+	public AbstractScene Scene { get; }
 
 	/// <summary>
 	///		Nombre de la capa
 	/// </summary>
-	public string Name { get; } = name;
+	public string Name { get; }
 
     /// <summary>
     ///     Tipo de capa
     /// </summary>
-    public LayerType Type { get; } = type;
+    public LayerType Type { get; }
 
     /// <summary>
     ///     Orden de dibujo de la capa
     /// </summary>
-    public int SortOrder { get; } = sortOrder;
+    public int SortOrder { get; }
 
     /// <summary>
     ///     Orden calculado
@@ -132,4 +145,9 @@ public abstract class AbstractLayer(AbstractScene scene, string name, AbstractLa
     ///     Actores asociados a la capa
     /// </summary>
     public ActorsList Actors { get; } = [];
+
+    /// <summary>
+    ///     Servicios de la capa
+    /// </summary>
+    public Services.LayerServicesList Services { get; }
 }

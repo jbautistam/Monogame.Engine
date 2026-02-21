@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
+﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
+
+namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
 
 /// <summary>
 ///		Efecto de cambio de transparrencia
@@ -14,7 +16,7 @@ public class OpacityEffect(RendererComponent renderer, float? duration) : Abstra
 	/// </summary>
 	public override void UpdateEffect(Managers.GameContext gameContext)
 	{
-		Tools.Tween.TweenResult<float> result = Tools.Tween.TweenCalculator.CalculateFloat(_elapsedTime, Time, Start, End, GetEasing());
+		TweenResult<float> result = TweenCalculator.CalculateFloat(_elapsedTime, Time, Start, End, GetEasing());
 
 			// Obtiene la opacidad inicial de la representación
 			if (_rendererOpacity is null)
@@ -34,12 +36,12 @@ public class OpacityEffect(RendererComponent renderer, float? duration) : Abstra
 			}
 
 		// Obtiene la función del tween
-		Tools.Tween.TweenCalculator.EaseType GetEasing()
+		Tools.MathTools.Easing.EasingFunctionsHelper.EasingType GetEasing()
 		{
 			if (Start < End)
-				return Tools.Tween.TweenCalculator.EaseType.ElasticIn;
+				return Tools.MathTools.Easing.EasingFunctionsHelper.EasingType.ElasticIn;
 			else
-				return Tools.Tween.TweenCalculator.EaseType.ElasticOut;
+				return Tools.MathTools.Easing.EasingFunctionsHelper.EasingType.ElasticOut;
 		}
 	}
 

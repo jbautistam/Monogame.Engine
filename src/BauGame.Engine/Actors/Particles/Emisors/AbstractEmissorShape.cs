@@ -3,7 +3,7 @@
 namespace Bau.Libraries.BauGame.Engine.Actors.Particles.Emisors;
 
 /// <summary>
-///		Clase base para los emisores de partículas
+///		Clase base para formas de emisores de partículas
 /// </summary>
 public abstract class AbstractEmissorShape
 {

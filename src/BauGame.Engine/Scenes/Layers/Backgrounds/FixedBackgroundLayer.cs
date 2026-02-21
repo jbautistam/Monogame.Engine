@@ -34,7 +34,7 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
                 float worldScreenWidth = camera.ScreenViewport.Width / camera.Zoom;
                 float worldScreenHeight = camera.ScreenViewport.Height / camera.Zoom;
 
-                    if (!IsTiled)
+                    if (!Tiled)
                     {
                         Vector2 scale = new(worldScreenWidth / region.Texture.Width, worldScreenHeight / region.Texture.Height);
                         Vector2 backgroundPosition = camera.Position - new Vector2(worldScreenWidth / 2f, worldScreenHeight / 2f);
@@ -74,5 +74,5 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
     /// <summary>
     ///     Indica si se debe repetir
     /// </summary>
-    public bool IsTiled { get; set; }
+    public bool Tiled { get; set; }
 }

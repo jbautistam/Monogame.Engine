@@ -28,17 +28,6 @@ public class UserInterfaceLabelBuilder : AbstractElementUserInterfaceBuilder<UiL
 	}
 
 	/// <summary>
-	///		Asigna el color
-	/// </summary>
-	public UserInterfaceLabelBuilder WithColor(Color color)
-	{
-		// Asigna el color
-		Item.Color = color;
-		// Devuelve el generador
-		return this;
-	}
-
-	/// <summary>
 	///		Asigna la alineación
 	/// </summary>
 	public UserInterfaceLabelBuilder WithAlignment(UiLabel.HorizontalAlignmentType horizontalAlignment, UiLabel.VerticalAlignmentType verticalAlignment)

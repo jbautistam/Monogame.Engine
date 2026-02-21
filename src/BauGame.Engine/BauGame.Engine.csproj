@@ -74,17 +74,47 @@
     <Compile Remove="Actors\TileMap\MapLayerData.cs" />
     <Compile Remove="Actors\TileMap\TileDefinitionModel.cs" />
     <Compile Remove="Actors\TileMap\Tilemap.cs" />
+    <Compile Remove="Entities\UserInterface\Backgrounds\GradientBackground.cs" />
+    <Compile Remove="Entities\UserInterface\Borders\MultiColorBorder.cs" />
+    <Compile Remove="Entities\UserInterface\Borders\TexturedBorder.cs" />
+    <Compile Remove="Entities\UserInterface\Borders\TextureHelper.cs" />
+    <Compile Remove="Entities\UserInterface\NewUi\Grid.cs" />
+    <Compile Remove="Entities\UserInterface\NewUi\Label.cs" />
+    <Compile Remove="Entities\UserInterface\NewUi\Panel.cs" />
+    <Compile Remove="Entities\UserInterface\NewUi\RectangleRelative.cs" />
+    <Compile Remove="Entities\UserInterface\NewUi\Spacing.cs" />
+    <Compile Remove="Entities\UserInterface\NewUi\StackPanel.cs" />
+    <Compile Remove="Entities\UserInterface\NewUi\UiComponent.cs" />
+    <Compile Remove="Entities\UserInterface\NewUi\UiContainerComponent.cs" />
+    <Compile Remove="Entities\UserInterface\Popups\Class1.cs" />
+    <Compile Remove="Entities\UserInterface\UiBalloonLabel.cs" />
+    <Compile Remove="Entities\UserInterface\UiBorder.cs" />
     <Compile Remove="Entities\UserInterface\UiCheckBox.cs" />
     <Compile Remove="Entities\UserInterface\UiListBox.cs" />
     <Compile Remove="Entities\UserInterface\UiScrollBar.cs" />
+    <Compile Remove="Managers\Audio\AudioEngine.cs" />
+    <Compile Remove="Managers\Audio\AudioSystems\AmbienceSystem.cs" />
+    <Compile Remove="Managers\Audio\AudioSystems\MusicSystem.cs" />
+    <Compile Remove="Managers\Audio\AudioSystems\SfxSystem.cs" />
+    <Compile Remove="Managers\Audio\AudioSystems\SimpleCurve.cs" />
+    <Compile Remove="Managers\Audio\AudioSystems\VoiceSystem.cs" />
     <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
     <Compile Remove="Entities\Common\Pools\PoolManager.cs" />
+    <Compile Remove="Managers\Audio\AudioCommands.cs" />
+    <Compile Remove="Managers\Audio\AudioSnapshot.cs" />
+    <Compile Remove="Managers\Audio\Class1.cs" />
+    <Compile Remove="Managers\Audio\ScriptInterpreter.cs" />
+    <Compile Remove="Managers\Audio\VNGame.cs" />
+    <Compile Remove="Tools\MathTools\Curves\CompositeCurve.cs" />
+    <Compile Remove="Tools\MathTools\Curves\G1ContinuousBuilder.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Actors\chat-Rigidbody Implementation in MonoGame.txt" />
     <None Remove="Actors\Components\IA\chat-Actor IA Componentes_MonoGame.txt" />
     <None Remove="Actors\Components\IA\chat-Introducción a GOAP en MonoGame.txt" />
+    <None Remove="Entities\UserInterface\NewUi\TextFile1.md" />
+    <None Remove="Tools\MathTools\Interpolation\Noise.md" />
   </ItemGroup>
 
   <ItemGroup>
@@ -107,15 +137,42 @@
     <Compile Include="Actors\Components\IA\Steering\PursueSteering.cs" />
     <Compile Include="Actors\Components\IA\Steering\SeparationSteering.cs" />
     <Compile Include="Actors\Components\IA\Steering\WanderSteering.cs" />
+    <Compile Include="Scenes\CamerasNew\AbstractCameraBase.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\AbstractCameraBehavior.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\BehaviorsList.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\BoundsConstraintBehavior.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\CinematicPathBehavior.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\DollyZoomBehavior.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\FollowBehavior.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\MultiTargetFollowBehavior.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\RecoilBehavior.cs" />
+    <Compile Include="Scenes\CamerasNew\Behaviors\ShakeBehavior.cs" />
+    <Compile Include="Scenes\CamerasNew\CameraDirector.cs" />
+    <Compile Include="Scenes\CamerasNew\CameraState.cs" />
+    <Compile Include="Scenes\CamerasNew\CameraViewport.cs" />
+    <Compile Include="Scenes\CamerasNew\HybridCamera.cs" />
+    <Compile Include="Scenes\CamerasNew\ScreenCamera.cs" />
+    <Compile Include="Scenes\CamerasNew\WorldCamera.cs" />
     <Compile Include="Scenes\Cameras\CameraTargetsManager.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\BackgroundState.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\DynamicBackgroundLayer.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\Effects\AbstractBackgroundEffect.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\Effects\DriftEffect.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\Effects\EffectsList.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\Effects\PulseEffect.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\Effects\ShakeBackgroundEffect.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\Effects\WaveBackgroundEffect.cs" />
+    <Compile Include="Scenes\Layers\Backgrounds\Effects\ZoomEffect.cs" />
+    <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceImageBuilder.cs" />
+    <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceVisuaNovelTextBuilder.cs" />
+    <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceTypeWriterBuilder.cs" />
+    <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceProgressBarBuilder.cs" />
+    <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceStylesBuilder.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ExplosionsManager.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ProjectileManager.cs" />
-    <Compile Include="Scenes\Audio\AbstractAudioManager.cs" />
-    <Compile Include="Scenes\Audio\SoundManager.cs" />
     <Compile Include="Scenes\Cameras\Camera2D.cs" />
     <Compile Include="Scenes\Cameras\SpriteBatchController.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\AbstractElementUserInterfaceBuilder.cs" />
-    <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceBalloonLabelBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceMenuBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceBackgroundBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceButtonBuilder.cs" />
@@ -124,6 +181,9 @@
     <Compile Include="Scenes\Layers\Games\AbstractGameLayer.cs" />
     <Compile Include="Scenes\Layers\Games\Routes\WaypointRouteModel.cs" />
     <Compile Include="Scenes\Layers\Games\Routes\WaypointRoutesManager.cs" />
+    <Compile Include="Scenes\Layers\Services\AbstractLayerService.cs" />
+    <Compile Include="Scenes\Layers\Services\LayerServicesList.cs" />
+    <Compile Include="Scenes\Layers\Services\Particles\ParticleEngineService.cs" />
     <Compile Include="Scenes\Layers\UserInterfaceLayer.cs" />
     <Compile Include="Scenes\Messages\MessageModel.cs" />
     <Compile Include="Scenes\Messages\MessagesManager.cs" />
@@ -146,15 +206,38 @@
     <Compile Include="Scenes\Layers\Backgrounds\AbstractBackgroundLayer.cs" />
     <Compile Include="Scenes\Layers\LayerManager.cs" />
     <Compile Include="Scenes\Physics\RaycastingService.cs" />
+    <Compile Include="Scenes\Rendering\IRenderable.cs" />
+    <Compile Include="Scenes\Rendering\PostProcess\IPostProcessEffect.cs" />
+    <Compile Include="Scenes\Rendering\PostProcess\PostProcessStack.cs" />
+    <Compile Include="Scenes\Rendering\RenderCommand.cs" />
+    <Compile Include="Scenes\Rendering\RenderQueue.cs" />
+    <Compile Include="Scenes\Rendering\TextRenderCommand.cs" />
+    <Compile Include="Scenes\Rendering\TextureRenderCommand.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\AbstractTransitionEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\BarsEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\ChromaticAberrationEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\DirectionalBlurEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\FadeTransitionEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\IrisTransitionEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\NoiseDissolveEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\PageTurnEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\RippleEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\WipeTransitionEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\Effects\ZoomBlurEffect.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\RenderTargetPool.cs" />
+    <Compile Include="Scenes\Rendering\Transitions\TransitionManager.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
-    <Compile Include="Scenes\Audio\AudioManager.cs" />
-    <Compile Include="Scenes\Audio\MusicManager.cs" />
     <Compile Include="Scenes\Timers\TimerModel.cs" />
     <Compile Include="Scenes\Timers\TimerManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\UserInterface\NewUi\" />
+    <Folder Include="Tools\MathTools\Interpolation\" />
   </ItemGroup>
 
 </Project>

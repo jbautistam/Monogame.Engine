@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 
@@ -7,58 +8,55 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 /// </summary>
 public class ParticleSpawnProperties
 {
-	// Registros públicos
-	public record Range<TypeData>(TypeData Minimum, TypeData Maximum);
-
 	/// <summary>
 	///		Rango de tiempo de vida
 	/// </summary>
-	public required Range<float> LifeTime { get; init; }
+	public required RangeStruct<float> LifeTime { get; init; }
 
 	/// <summary>
 	///		Rango de velocidad
 	/// </summary>
-	public required Range<float> Speed { get; init; }
+	public required RangeStruct<float> Speed { get; init; }
 
 	/// <summary>
 	///		Rango de ángulo inicial
 	/// </summary>
-	public required Range<float> Angle { get; init; }
+	public required RangeStruct<float> Angle { get; init; }
 
 	/// <summary>
 	///		Rango de escala
 	/// </summary>
-	public required Range<float> Scale { get; init; }
+	public required RangeStruct<float> Scale { get; init; }
 
 	/// <summary>
 	///		Rango de color
 	/// </summary>
-	public required Range<Color> Color { get; init; }
+	public required RangeStruct<Color> Color { get; init; }
 
 	/// <summary>
 	///		Rango de opacidad
 	/// </summary>
-	public required Range<float> Opacity { get; init; }
+	public required RangeStruct<float> Opacity { get; init; }
 
 	/// <summary>
 	///		Longitud de la cola
 	/// </summary>
-	public required Range<float> TailLength { get; init; }
+	public required RangeStruct<float> TailLength { get; init; }
 
 	/// <summary>
 	///		Densidad de la cola
 	/// </summary>
-	public required Range<float> TailDensity { get; init; }
+	public required RangeStruct<float> TailDensity { get; init; }
 
 	/// <summary>
 	///		Rotación
 	/// </summary>
-	public required Range<float> Rotation { get; init; }
+	public required RangeStruct<float> Rotation { get; init; }
 
 	/// <summary>
 	///		Textura
 	/// </summary>
-	public string? Texture { get; set; }
+	public required string Texture { get; init; }
 
 	/// <summary>
 	///		Región de la textura

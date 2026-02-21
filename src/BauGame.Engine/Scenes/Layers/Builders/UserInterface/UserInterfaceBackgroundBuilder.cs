@@ -1,17 +1,29 @@
 ﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador de fondos
 /// </summary>
-public class UserInterfaceBackgroundBuilder : AbstractElementUserInterfaceBuilder<UiBackground>
+public class UserInterfaceBackgroundBuilder
 {
-	public UserInterfaceBackgroundBuilder(AbstractUserInterfaceLayer layer, string texture, float x, float y, float width, float height)
+	public UserInterfaceBackgroundBuilder(UiStyle style, string texture)
 	{
-		Item = new UiBackground(layer, new UiPosition(x, y, width, height))
+		Background = new UiBackground(style)
 						{
 							Texture = texture
 						};
 	}
+
+	/// <summary>
+	///		Genera el fondo
+	/// </summary>
+	public UiBackground Build() => Background;
+
+	/// <summary>
+	///		Fondo
+	/// </summary>
+	public UiBackground Background { get; }
 }

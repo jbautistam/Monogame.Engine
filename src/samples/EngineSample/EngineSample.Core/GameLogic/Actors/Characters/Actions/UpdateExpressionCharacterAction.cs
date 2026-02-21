@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;
+﻿namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;
 
 /// <summary>
 ///		Acción para cambiar la expresión de un personaje

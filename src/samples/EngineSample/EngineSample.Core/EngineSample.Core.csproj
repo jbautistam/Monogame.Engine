@@ -7,8 +7,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Configuration\Repositories\Models\**" />
+    <Compile Remove="Content\Shaders\**" />
     <EmbeddedResource Remove="Configuration\Repositories\Models\**" />
+    <EmbeddedResource Remove="Content\Shaders\**" />
     <None Remove="Configuration\Repositories\Models\**" />
+    <None Remove="Content\Shaders\**" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="GameLogic\Actors\SpaceShips\Rotation.cs" />

@@ -13,22 +13,23 @@ public class EngineSampleGame : Game
 {
 	public EngineSampleGame()
 	{
-		// Instancia el motor del juego
-		GameEngine.Instantiate(this,
-							   new Bau.Libraries.BauGame.Engine.Configuration.EngineSettings
-									{
-										FullScreen = false,
-										WindowBorderless = false,
-										ScreenBufferWidth = 1_200,
-										ScreenBufferHeight = 720,
-										ViewPortWidth = 1_200,
-										ViewPortHeight = 720,
-										ContentRoot = "Content",
-										DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight
-									}
-							  );
-		// Inicializa el motor
-		GameEngine.Instance.Initialize();
+		Bau.Libraries.BauGame.Engine.Configuration.EngineSettings settings = new()
+																				{
+																					ContentRoot = "Content"
+																				};
+
+			// Configura la pantalla
+			settings.ScreenSettings.FullScreen = false;
+			settings.ScreenSettings.Borderless = false;
+			settings.ScreenSettings.ScreenBufferWidth = 1_200;
+			settings.ScreenSettings.ScreenBufferHeight = 720;
+			settings.ScreenSettings.ViewPortWidth = 1_200;
+			settings.ScreenSettings.ViewPortHeight = 720;
+			settings.ScreenSettings.DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+			// Instancia el motor del juego
+			GameEngine.Instantiate(this, settings);
+			// Inicializa el motor
+			GameEngine.Instance.Initialize();
 	}
 
 	/// <summary>
@@ -49,6 +50,7 @@ public class EngineSampleGame : Game
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Space.SpaceShipsScene(GameLogic.Scenes.Space.SpaceShipsScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.GraphicNovel.GraphicNovelScene(GameLogic.Scenes.GraphicNovel.GraphicNovelScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Animations.AnimationsScene(GameLogic.Scenes.Animations.AnimationsScene.SceneName));
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceTest.UserInterfaceScene(GameLogic.Scenes.UserInterfaceTest.UserInterfaceScene.SceneName));
 		// Prepara la escena
 		GameEngine.Instance.SceneManager.ChangeScene("MainMenu");
 		// Prepara los mapeos

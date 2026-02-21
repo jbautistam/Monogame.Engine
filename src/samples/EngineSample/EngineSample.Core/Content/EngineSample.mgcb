@@ -378,6 +378,18 @@
 /processorParam:TextureFormat=Color
 /build:images/characters/Sylvie/smile.png
 
+#begin images/SpaceShips/bomber-destroyed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/SpaceShips/bomber-destroyed.png
+
 #begin images/SpaceShips/corvete-destroyed.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -413,6 +425,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:images/SpaceShips/explosion.png
+
+#begin images/SpaceShips/fighter-destroyed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/SpaceShips/fighter-destroyed.png
 
 #begin images/SpaceShips/laser.png
 /importer:TextureImporter
@@ -549,12 +573,6 @@
 /processorParam:Quality=Best
 /build:Sounds/MonsterKilled.wav
 
-#begin Sounds/Music.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Sounds/Music.mp3
-
 #begin Sounds/PlayerExitReached.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -626,6 +644,24 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/effects/whip-shot.wav
+
+#begin Sounds/music/fscm-productions-flowers-loop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/music/fscm-productions-flowers-loop.wav
+
+#begin Sounds/music/fscm-productions-flowers.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/music/fscm-productions-flowers.mp3
+
+#begin Sounds/music/game.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/music/game.mp3
 
 #begin Sprites/backpack.png
 /importer:TextureImporter

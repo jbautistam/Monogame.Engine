@@ -9,6 +9,47 @@ namespace Bau.Libraries.BauGame.Engine.Entities.Common;
 public class RectangleF(float x, float y, float width, float height)
 {
     /// <summary>
+    ///     Crea un rectángulo vacío
+    /// </summary>
+    public static RectangleF Empty => new RectangleF(0, 0, 0, 0);
+
+    /// <summary>
+    ///     Crea un rectángulo a partir de puntos
+    /// </summary>
+    public static RectangleF FromPoints(Vector2 topLeft, Vector2 bottomRight)
+    {
+        float minX = Math.Min(topLeft.X, bottomRight.X);
+        float minY = Math.Min(topLeft.Y, bottomRight.Y);
+        float maxX = Math.Max(topLeft.X, bottomRight.X);
+        float maxY = Math.Max(topLeft.Y, bottomRight.Y);
+
+            // Devuelve el rectángulo generado
+            return new RectangleF(minX, minY, maxX - minX, maxY - minY);
+    }
+
+    /// <summary>
+    ///     Crea el rectángulo que intersecta con otro rectángulo
+    /// </summary>
+    public static RectangleF Intersect(RectangleF source, Rectangle target) => Intersect(source, new RectangleF(target.X, target.Y, target.Width, target.Height));
+
+    /// <summary>
+    ///     Crea el rectángulo que intersecta con otro rectángulo
+    /// </summary>
+    public static RectangleF Intersect(RectangleF source, RectangleF target)
+    {
+        float left = Math.Max(source.Left, target.Left);
+        float top = Math.Max(source.Top, target.Top);
+        float right = Math.Min(source.Right, target.Right);
+        float bottom = Math.Min(source.Bottom, target.Bottom);
+
+            // Si realmente tienen una intersección
+            if (right > left && bottom > top)
+                return new RectangleF(left, top, right - left, bottom - top);
+            else
+                return Empty;
+    }
+
+    /// <summary>
     ///     Posiciona el rectángulo
     /// </summary>
 	public void MoveTo(Vector2 position)
@@ -194,4 +235,14 @@ public class RectangleF(float x, float y, float width, float height)
     ///     Posición inferior
     /// </summary>
     public float Bottom => Y + Height;
+
+    /// <summary>
+    ///     Centro del rectángulo
+    /// </summary>
+    public Vector2 Center => new Vector2(X + Width * 0.5f, Y + Height * 0.5f);
+
+    /// <summary>
+    ///     Comprueba si el rectángulo está vacío (no tiene tamaño)
+    /// </summary>
+    public bool IsEmpty => Width <= 0 || Height <= 0;
 }

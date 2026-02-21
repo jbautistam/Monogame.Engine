@@ -1,4 +1,5 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
@@ -21,15 +22,15 @@ public class ParticleProperties : Entities.Common.Pools.IPoolable
 	{
         // Inicializa las propiedades
 		Position = position;
-        Direction = GetVector(spawnProperties.Angle);
-        Speed = GetValue(spawnProperties.Speed);
-        LifeTime = GetValue(spawnProperties.LifeTime);
-        Color = GetColor(spawnProperties.Color);
-        Scale = GetVector(spawnProperties.Scale);
-        Opacity = GetValue(spawnProperties.Opacity);
-        TailLength = GetValue(spawnProperties.TailLength);
-        TailDensity = GetValue(spawnProperties.TailDensity);
-        Rotation = GetValue(spawnProperties.Rotation);
+        Direction = spawnProperties.Angle.GetVector();
+        Speed = spawnProperties.Speed.GetValue();
+        LifeTime = spawnProperties.LifeTime.GetValue();
+        Color = spawnProperties.Color.GetColor();
+        Scale = spawnProperties.Scale.GetVector();
+        Opacity = spawnProperties.Opacity.GetValue();
+        TailLength = spawnProperties.TailLength.GetValue();
+        TailDensity = spawnProperties.TailDensity.GetValue();
+        Rotation = spawnProperties.Rotation.GetValue();
         Texture = spawnProperties.Texture;
         Region = spawnProperties.Region;
         // Asigna los comportamientos y los inicializa
@@ -91,27 +92,6 @@ public class ParticleProperties : Entities.Common.Pools.IPoolable
                             region.Draw(camera, tailPosition, center, Scale, SpriteEffects.None, Color * alpha, Rotation);
                     }
             }
-    }
-
-    /// <summary>
-    ///     Obtiene un color teniendo en cuenta un rango
-    /// </summary>
-	private Color GetColor(ParticleSpawnProperties.Range<Color> range) => Tools.Randomizer.GetRandomColor(range.Minimum, range.Maximum);
-
-    /// <summary>
-    ///     Obtiene un vector teniendo en cuenta un rango
-    /// </summary>
-	private Vector2 GetVector(ParticleSpawnProperties.Range<float> range) => new(GetValue(range), GetValue(range));
-
-    /// <summary>
-    ///     Obtiene un valor aleatorio de un rango
-    /// </summary>
-    private float GetValue(ParticleSpawnProperties.Range<float> range)
-    {
-        if (range.Minimum == range.Maximum)
-            return range.Minimum;
-        else
-            return Tools.Randomizer.GetRandom(range.Minimum, range.Maximum);
     }
 
 	/// <summary>

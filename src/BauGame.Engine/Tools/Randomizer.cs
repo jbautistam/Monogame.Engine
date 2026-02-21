@@ -21,10 +21,7 @@ public static class Randomizer
 	/// <summary>
 	///		Obtiene una posición aleatoria sobre una posición
 	/// </summary>
-	public static Vector2 GetRandomOffset(Vector2 position, float radius)
-	{
-		return new Vector2(position.X + GetRandom(0, radius), position.Y + GetRandom(0, radius));
-	}
+	public static Vector2 GetRandomOffset(Vector2 position, float radius) => new(position.X + GetRandom(0, radius), position.Y + GetRandom(0, radius));
 
 	/// <summary>
 	///		Obtiene un valor float entre dos valores
@@ -66,10 +63,7 @@ public static class Randomizer
 	/// <summary>
 	///		Obtiene un color aleatorio
 	/// </summary>
-	public static Color GetRandomColor(Color minimum, Color maximum)
-	{
-		return GetRandomColor(minimum.R, maximum.R, minimum.G, maximum.G, minimum.B, maximum.B);
-	}
+	public static Color GetRandomColor(Color minimum, Color maximum) => GetRandomColor(minimum.R, maximum.R, minimum.G, maximum.G, minimum.B, maximum.B);
 
 	/// <summary>
 	///		Objeto para generación de valores aleatorios

@@ -46,25 +46,20 @@ public class UiPosition(float x, float y, float width, float height, bool relati
         Point finalPosition = CalculateAnchoredPosition(dockedBounds, parentBounds);
 
             // Asigna los límites de la pantalla al elemento
-            ScreenBounds = new Rectangle(finalPosition.X + (int) Margin.Left,
-                                         finalPosition.Y + (int) Margin.Top,
-                                         Math.Max(0, dockedBounds.Width - (int) (Margin.Left + Margin.Right)),
-                                         Math.Max(0, dockedBounds.Height - (int) (Margin.Top + Margin.Bottom))
-                                        );
+            Bounds = new Rectangle(finalPosition.X, finalPosition.Y, dockedBounds.Width, dockedBounds.Height);
+            if (Margin is not null)
+                Bounds = (Margin ?? new UiMargin(0)).Apply(Bounds);
             // Asigna los límites internos
-            ScreenPaddedBounds = new Rectangle(ScreenBounds.X + (int) Padding.Left, 
-                                               ScreenBounds.Y + (int) Padding.Top,
-                                               Math.Max(0, ScreenBounds.Width - (int) (Padding.Left + Padding.Right)),
-                                               Math.Max(0, ScreenBounds.Height - (int) (Padding.Top + Padding.Bottom))
-                                               );
+            ContentBounds = new Rectangle(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+            if (Padding is not null)
+                ContentBounds = (Padding ?? new UiMargin(0)).Apply(Bounds);
 
         // Calcula el tamaño
         (int width, int heigh) ComputeSize()
         {
             if (Relative)
                 return ((int) (parentBounds.Width * MathHelper.Clamp(Width, 0, 1)),
-                        (int) (parentBounds.Height * MathHelper.Clamp(Height, 0, 1))
-                       );
+                        (int) (parentBounds.Height * MathHelper.Clamp(Height, 0, 1)));
             else
                 return ((int) Width, (int) Height);
         }
@@ -168,12 +163,12 @@ public class UiPosition(float x, float y, float width, float height, bool relati
 	/// <summary>
 	///		Límites en la pantalla
 	/// </summary>
-	public Rectangle ScreenBounds { get; set; } = new((int) x, (int) y, (int) width, (int) height);
+	public Rectangle Bounds { get; set; } = new((int) x, (int) y, (int) width, (int) height);
 
 	/// <summary>
 	///		Límites del contenido interno en la pantalla
 	/// </summary>
-	public Rectangle ScreenPaddedBounds { get; set; } = new((int) x, (int) y, (int) width, (int) height);
+	public Rectangle ContentBounds { get; set; } = new((int) x, (int) y, (int) width, (int) height);
 
 	/// <summary>
 	///		Indica si la posición es relativa
@@ -183,12 +178,12 @@ public class UiPosition(float x, float y, float width, float height, bool relati
     /// <summary>
     ///     Margen
     /// </summary>
-    public UiMargin Margin { get; set; } = new();
+    public UiMargin? Margin { get; set; }
 
     /// <summary>
-    ///     Margen interno
+    ///     Espaciado interno
     /// </summary>
-    public UiMargin Padding { get; set; } = new();
+    public UiMargin? Padding { get; set; }
 
     /// <summary>
     ///     Dock del elemento

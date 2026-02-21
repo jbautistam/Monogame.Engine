@@ -9,22 +9,34 @@ namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
 {
     /// <summary>
+    ///     Añade un elemento al panel
+    /// </summary>
+    public void Add(UiElement item)
+    {
+        // Asigna el elemento padre
+        item.Parent = this;
+        // Añade el elemento a la lista
+        Children.Add(item);
+    }
+
+    /// <summary>
     ///     Cálculo del layout del elemento
     /// </summary>
-    protected override void ComputeScreenComponentBounds() 
+    protected override void ComputeScreenBoundsSelf() 
     {
-        // Calcula los límites de fondo y borde
-        Border?.ComputeScreenBounds(Position.ScreenBounds);
-        Background?.ComputeScreenBounds(Position.ScreenBounds);
-        // Calcula los límites de los elementos hijo
         foreach (UiElement element in Children)
-            element.ComputeScreenBounds(Position.ScreenPaddedBounds);
+            element.ComputeScreenBounds(Position.ContentBounds);
     }
 
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(Managers.GameContext gameContext) {}
+    public override void UpdateSelf(Managers.GameContext gameContext) 
+    {
+        foreach (UiElement child in Children)
+            if (child.Enabled)
+                child.Update(gameContext);
+    }
 
     /// <summary>
     ///     Dibuja el contenido
@@ -32,26 +44,15 @@ public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     public override void Draw(Camera2D camera, Managers.GameContext gameContext)
     {
         // Dibuja el borde y el fondo
-        Border?.Draw(camera, gameContext);
-        Background?.Draw(camera, gameContext);
+        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja los elementos hijo
         foreach (UiElement child in Children)
             if (child.Visible)
                 child.Draw(camera, gameContext);
     }
-
-    /// <summary>
-    ///     Fondo
-    /// </summary>
-    public UiBackground? Background { get; set; }
-
-    /// <summary>
-    ///     Borde
-    /// </summary>
-    public UiBorder? Border { get; set; }
     
     /// <summary>
     ///     Elementos hijo
     /// </summary>
-    public List<UiElement> Children { get; } = [];
+    private List<UiElement> Children { get; } = [];
 }

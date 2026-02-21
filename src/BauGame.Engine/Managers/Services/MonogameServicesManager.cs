@@ -20,23 +20,23 @@ public class MonogameServicesManager(Game game)
         GraphicsDeviceManager = new GraphicsDeviceManager(Game);
         Content = Game.Content;
         // Asigna la resolución lógica / virtual
-        GraphicsDeviceManager.PreferredBackBufferWidth = engineSettings.ScreenBufferWidth;
-        GraphicsDeviceManager.PreferredBackBufferHeight = engineSettings.ScreenBufferHeight;
+        GraphicsDeviceManager.PreferredBackBufferWidth = engineSettings.ScreenSettings.ScreenBufferWidth;
+        GraphicsDeviceManager.PreferredBackBufferHeight = engineSettings.ScreenSettings.ScreenBufferHeight;
         // Asigna el modo de ventana
-        GraphicsDeviceManager.IsFullScreen = engineSettings.FullScreen;
-        GraphicsDeviceManager.HardwareModeSwitch = engineSettings.HardwareModeSwitch;
+        GraphicsDeviceManager.IsFullScreen = engineSettings.ScreenSettings.FullScreen || engineSettings.ScreenSettings.Borderless;
+        GraphicsDeviceManager.HardwareModeSwitch = !engineSettings.ScreenSettings.Borderless && engineSettings.ScreenSettings.FullScreen;
         // Configuración para calidad visual
-        GraphicsDeviceManager.PreferMultiSampling = engineSettings.PreferMultiSampling;
-        GraphicsDeviceManager.SynchronizeWithVerticalRetrace = engineSettings.SynchronizeWithVerticalRetrace;
+        GraphicsDeviceManager.PreferMultiSampling = engineSettings.ScreenSettings.PreferMultiSampling;
+        GraphicsDeviceManager.SynchronizeWithVerticalRetrace = engineSettings.ScreenSettings.SynchronizeWithVerticalRetrace;
         // Aplica la configuración gráfica
         GraphicsDeviceManager.ApplyChanges();
         // Set the root directory for content.
         Content.RootDirectory = engineSettings.ContentRoot;
         // Indica si se muestra el cursor del ratón
-        Game.IsMouseVisible = engineSettings.IsMouseVisible;
+        Game.IsMouseVisible = engineSettings.ScreenSettings.IsMouseVisible;
         // Configura la ventana de la partida
-        Game.Window.IsBorderless = engineSettings.WindowBorderless;
-        Game.Window.AllowUserResizing = engineSettings.WindowAllowUserResizing;
+        Game.Window.IsBorderless = engineSettings.ScreenSettings.Borderless;
+        Game.Window.AllowUserResizing = engineSettings.ScreenSettings.WindowAllowUserResizing;
         Game.Window.Title = engineSettings.WindowTitle;
         // Asigna los manejadores de eventos
         Game.Window.ClientSizeChanged += (sender, args) => ViewPortChanged?.Invoke(this, EventArgs.Empty);

@@ -38,7 +38,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Cálculo del layout del elemento
     /// </summary>
-    protected override void ComputeScreenComponentBounds()
+    protected override void ComputeScreenBoundsSelf()
     {
         if (AutoSize && SpriteFont is not null && !string.IsNullOrEmpty(Text))
         {
@@ -47,12 +47,10 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                 // Si no está ajustado, se calculan los límites
                 if (Position.Dock == UiPosition.DockType.None)
                 {
-                    Position.ScreenBounds = new Rectangle(Position.ScreenBounds.X, Position.ScreenBounds.Y, (int) textSize.X, (int) textSize.Y);
-                    Position.ScreenPaddedBounds = new Rectangle(Position.ScreenBounds.X + (int) Position.Padding.Left,
-                                                                Position.ScreenBounds.Y + (int) Position.Padding.Top,
-                                                                Math.Max(0, Position.ScreenBounds.Width - (int) (Position.Padding.Left + Position.Padding.Right)),
-                                                                Math.Max(0, Position.ScreenBounds.Height - (int) (Position.Padding.Top + Position.Padding.Bottom))
-                                                               );
+                    Position.Bounds = new Rectangle(Position.Bounds.X, Position.Bounds.Y, (int) textSize.X, (int) textSize.Y);
+                    Position.ContentBounds = new Rectangle(Position.Bounds.X, Position.Bounds.Y, Position.Bounds.Width, Position.Bounds.Height);
+                    if (Position.Padding is not null)
+                        Position.ContentBounds = (Position.Padding ?? new UiMargin(0)).Apply(Position.ContentBounds);
                 }
         }
     }
@@ -60,7 +58,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void Update(Managers.GameContext gameContext) 
+    public override void UpdateSelf(Managers.GameContext gameContext) 
     {
         if (!_isInitialized)
         {
@@ -92,36 +90,37 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     private void DrawSimpleText(Camera2D camera, string text, SpriteFont font)
     {
         Vector2 textSize = font.MeasureString(text);
-        Vector2 textPosition = new(Position.ScreenPaddedBounds.X, Position.ScreenPaddedBounds.Y);
+        Vector2 textPosition = new(Position.ContentBounds.X, Position.ContentBounds.Y);
+        Styles.UiStyle style = Layer.Styles.GetDefault(Style);
 
             // Ajustar alineación horizontal
             switch (HorizontalAlignment)
             {
                 case HorizontalAlignmentType.Left:
-                        textPosition.X = Position.ScreenPaddedBounds.X;
+                        textPosition.X = Position.ContentBounds.X;
                     break;
                 case HorizontalAlignmentType.Right:
-                        textPosition.X = Position.ScreenPaddedBounds.Right - textSize.X;
+                        textPosition.X = Position.ContentBounds.Right - textSize.X;
                     break;
                 case HorizontalAlignmentType.Center:
-                        textPosition.X = Position.ScreenPaddedBounds.X + (Position.ScreenPaddedBounds.Width - textSize.X) / 2;
+                        textPosition.X = Position.ContentBounds.X + (Position.ContentBounds.Width - textSize.X) / 2;
                     break;
             }
             // Ajustar alineación vertical
             switch (VerticalAlignment)
             {
                 case VerticalAlignmentType.Top:
-                        textPosition.Y = Position.ScreenPaddedBounds.Y;
+                        textPosition.Y = Position.ContentBounds.Y;
                     break;
                 case VerticalAlignmentType.Bottom:
-                        textPosition.Y = Position.ScreenPaddedBounds.Bottom - textSize.Y;
+                        textPosition.Y = Position.ContentBounds.Bottom - textSize.Y;
                     break;
                 case VerticalAlignmentType.Center:
-                        textPosition.Y = Position.ScreenPaddedBounds.Y + (Position.ScreenPaddedBounds.Height - textSize.Y) / 2;
+                        textPosition.Y = Position.ContentBounds.Y + (Position.ContentBounds.Height - textSize.Y) / 2;
                     break;
             }
             // Dibuja el texto
-            camera.SpriteBatchController.DrawString(font, text, textPosition, Color * Opacity);
+            camera.SpriteBatchController.DrawString(font, text, textPosition, style.Color * style.Opacity);
     }
 
     /// <summary>
@@ -131,18 +130,19 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     {
         string[] words = text.Split(' ');
         string line = "";
-        float yPosition = Position.ScreenPaddedBounds.Y;
+        float yPosition = Position.ContentBounds.Y;
+        Styles.UiStyle style = Layer.Styles.GetDefault(Style);
 
             foreach (string word in words)
             {
                 string testLine = string.IsNullOrEmpty(line) ? word : line + " " + word;
                 Vector2 textSize = font.MeasureString(testLine);
 
-                    if (textSize.X > Position.ScreenPaddedBounds.Width && !string.IsNullOrEmpty(line))
+                    if (textSize.X > Position.ContentBounds.Width && !string.IsNullOrEmpty(line))
                     {
                         // Dibujar línea actual y empezar nueva
-                        Vector2 linePosition = new(Position.ScreenPaddedBounds.X, yPosition);
-                        camera.SpriteBatchController.DrawString(font, line, linePosition, Color * Opacity);
+                        Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
+                        camera.SpriteBatchController.DrawString(font, line, linePosition, style.Color * style.Opacity);
                         line = word;
                         yPosition += font.LineSpacing * LineSpacing;
                     }
@@ -150,16 +150,15 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                         line = testLine;
 
                     // Verificar límite vertical
-                    if (yPosition > Position.ScreenPaddedBounds.Bottom - font.LineSpacing)
+                    if (yPosition > Position.ContentBounds.Bottom - font.LineSpacing)
                         break;
             }
-
             // Dibuja la última línea
-            if (!string.IsNullOrEmpty(line) && yPosition <= Position.ScreenPaddedBounds.Bottom - font.LineSpacing)
+            if (!string.IsNullOrEmpty(line) && yPosition <= Position.ContentBounds.Bottom - font.LineSpacing)
             {
-                Vector2 linePosition = new(Position.ScreenPaddedBounds.X, yPosition);
+                Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
-                    camera.SpriteBatchController.DrawString(font, line, linePosition, Color * Opacity);
+                    camera.SpriteBatchController.DrawString(font, line, linePosition, style.Color * style.Opacity);
             }
     }
 
@@ -187,11 +186,6 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     ///     Fuente del texto
     /// </summary>
     private SpriteFont? SpriteFont { get; set; }
-
-    /// <summary>
-    ///     Color
-    /// </summary>
-    public Color Color { get; set; } = Color.White;
 
     /// <summary>
     ///     Indica si se deben ajustar los tamaños

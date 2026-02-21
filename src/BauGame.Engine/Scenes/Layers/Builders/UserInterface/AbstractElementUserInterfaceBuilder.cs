@@ -19,6 +19,17 @@ public abstract class AbstractElementUserInterfaceBuilder<TypeElement> where Typ
 	}
 
 	/// <summary>
+	///		Asigna el estilo
+	/// </summary>
+	public AbstractElementUserInterfaceBuilder<TypeElement> WithStyle(string style)
+	{
+		// Asigna el estilo
+		Item.Style = style;
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
 	///		Genera el elemento
 	/// </summary>
 	public TypeElement Build() => Item;
