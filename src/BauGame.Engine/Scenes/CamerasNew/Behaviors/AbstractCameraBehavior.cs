@@ -6,6 +6,11 @@
 public abstract class AbstractCameraBehavior(AbstractCameraBase camera, float duration) : Entities.Common.Collections.ISecureListItem
 {
     /// <summary>
+    ///     Arranca el comportamiento
+    /// </summary>
+    public virtual void Start() {}
+
+    /// <summary>
     ///     Actualiza el comportamiento
     /// </summary>
     public void Update(Managers.GameContext gameContext)
@@ -30,6 +35,11 @@ public abstract class AbstractCameraBehavior(AbstractCameraBase camera, float du
             }
         }
     }
+
+    /// <summary>
+    ///     Finaliza el comportamiento
+    /// </summary>
+    public virtual void End(Managers.GameContext gameContext) {}
 
     /// <summary>
     ///     Actualiza el comportamiento

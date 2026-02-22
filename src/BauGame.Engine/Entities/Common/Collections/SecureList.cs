@@ -5,9 +5,9 @@
 /// </summary>
 public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 {
-	// Eventos públicos
-	public event EventHandler<SecureListEventArgs<TypeData>>? Added;
-	public event EventHandler<SecureListEventArgs<TypeData>>? Removed;
+	//// Eventos públicos
+	//public event EventHandler<SecureListEventArgs<TypeData>>? Added;
+	//public event EventHandler<SecureListEventArgs<TypeData>>? Removed;
 	// Variables privadas
 	private List<TypeData> _itemsToAdd = [];
 	private List<(TypeData Item, TimeSpan TimeToDestroy)> _itemsToRemove = [];
@@ -65,8 +65,8 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 		{
 			// Añade el elemento
 			Items.Add(item);
-			// Lanza el evento que indica que el elemento se ha añadido realmente a la lista segura (para que se pueda inicializar, por ejemplo)
-			Added?.Invoke(this, new SecureListEventArgs<TypeData>(item));
+			// Indica al elemento que se inicialize
+			item.Start();
 		}
 		// Limpia la lista de elementos pendientes
 		_itemsToAdd.Clear();
@@ -80,8 +80,8 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
         for (int index = _itemsToRemove.Count - 1; index >= 0; index--)
             if (gameContext.GameTime.TotalGameTime > _itemsToRemove[index].TimeToDestroy)
             {
-                // Lanza el evento que indica que se ha borrado el elemento
-				Removed?.Invoke(this, new SecureListEventArgs<TypeData>(_itemsToRemove[index].Item));
+                // Indica al elemento que ha acabado su vida
+				_itemsToRemove[index].Item.End(gameContext);
                 // Elimina el elemento de la lista
 				Items.Remove(_itemsToRemove[index].Item);
                 // Elimina el elemento de la lista de elementos a eliminar

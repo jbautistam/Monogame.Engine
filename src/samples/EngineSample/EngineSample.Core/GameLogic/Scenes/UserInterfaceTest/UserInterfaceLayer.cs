@@ -147,8 +147,8 @@ public class UserInterfaceLayer(AbstractScene scene, string name, int sortOrder)
 							);
 			// Añade el cuadro de diálogo que imita la máquina de escribir
 			typeWriter = new UserInterfaceVisuaNovelTextBuilder(this, GetTypeWriterText(0), 0.05f, 0.7f, 0.75f, 0.2f)
-									.WithLeftAvatar("james-avatar", null, false)
-									.WithRightAvatar("sylvie-avatar", null, false)
+									.WithLeftAvatar("james-avatar", null, false, string.Empty)
+									.WithRightAvatar("sylvie-avatar", null, false, string.Empty)
 									.WithFont(DefaultFontName)
 									.WithSpeed(0.05f)
 									.WithTextStyle(TypeWriterStyle)

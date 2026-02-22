@@ -62,10 +62,7 @@ public class HybridCamera : AbstractCameraBase
     /// <summary>
     ///     Calcula el centro de la cámara
     /// </summary>
-    private (float halfWidht, float halfHeight) ComputeCenter()
-    {
-        return (CameraViewport.Width / (2f * PixelsPerUnit), CameraViewport.Height / (2f * PixelsPerUnit));
-    }
+    private (float halfWidht, float halfHeight) ComputeCenter() => (CameraViewport.Width / (2f * PixelsPerUnit), CameraViewport.Height / (2f * PixelsPerUnit));
 
     /// <summary>
     ///     Transforma las coordenadas de mundo a pantalla

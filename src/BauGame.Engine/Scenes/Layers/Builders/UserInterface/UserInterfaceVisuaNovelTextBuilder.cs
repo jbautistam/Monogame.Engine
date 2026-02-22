@@ -66,10 +66,10 @@ public class UserInterfaceVisuaNovelTextBuilder : AbstractElementUserInterfaceBu
 	/// <summary>
 	///		Asigna el avatar izquierdo
 	/// </summary>
-	public UserInterfaceVisuaNovelTextBuilder WithLeftAvatar(string asset, string? region, bool visible)
+	public UserInterfaceVisuaNovelTextBuilder WithLeftAvatar(string asset, string? region, bool visible, string style)
 	{
 		// Asigna el avatar izquierdo
-		Item.LeftAvatar = CreateAvatar(asset, region);
+		Item.LeftAvatar = CreateAvatar(asset, region, style);
 		Item.LeftAvatarVisible = visible;
 		// Devuelve el generador
 		return this;
@@ -78,10 +78,10 @@ public class UserInterfaceVisuaNovelTextBuilder : AbstractElementUserInterfaceBu
 	/// <summary>
 	///		Asigna el avatar derecho
 	/// </summary>
-	public UserInterfaceVisuaNovelTextBuilder WithRightAvatar(string asset, string? region, bool visible)
+	public UserInterfaceVisuaNovelTextBuilder WithRightAvatar(string asset, string? region, bool visible, string style)
 	{
 		// Asigna el avatar derecho
-		Item.RightAvatar = CreateAvatar(asset, region);
+		Item.RightAvatar = CreateAvatar(asset, region, style);
 		Item.RightAvatarVisible = visible;
 		// Devuelve el generador
 		return this;
@@ -90,12 +90,13 @@ public class UserInterfaceVisuaNovelTextBuilder : AbstractElementUserInterfaceBu
 	/// <summary>
 	///		Crea un avatar
 	/// </summary>
-	private UiImage CreateAvatar(string asset, string? region)
+	private UiImage CreateAvatar(string asset, string? region, string style)
 	{
 		UiImage image = new(Item.Layer, new UiPosition(0, 0, 0, 0));
 
-			// Crea la definición del sprite
+			// Crea la definición de la imagen
 			image.Sprite = new Entities.Common.SpriteDefinition(Item.Layer, asset, region);
+			image.Style = style;
 			// Devuelve la imagen
 			return image;
 	}

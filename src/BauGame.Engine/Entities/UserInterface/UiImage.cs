@@ -28,6 +28,9 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// </summary>
     public override void Draw(Camera2D camera, Managers.GameContext gameContext)
     {
+        // Dibuja los componentes del estilo
+        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
+        // Dibuja la imagen
         if (Sprite is not null)
         {
             Rectangle target = Position.ContentBounds;

@@ -6,6 +6,11 @@
 public abstract class AbstractBackgroundEffect(float duration, bool autoRewind) : Entities.Common.Collections.ISecureListItem
 {
     /// <summary>
+    ///     Arranca el efecto
+    /// </summary>
+    public virtual void Start() {}
+
+    /// <summary>
     ///     Actualiza el efecto
     /// </summary>
     public void Update(Managers.GameContext gameContext)
@@ -20,6 +25,11 @@ public abstract class AbstractBackgroundEffect(float duration, bool autoRewind) 
 	///		Actualiza el efecto
 	/// </summary>
 	protected abstract void UpdateEffect(Managers.GameContext gameContext);
+
+    /// <summary>
+    ///     Detiene el efecto
+    /// </summary>
+    public virtual void End(Managers.GameContext gameContext) {}
 
 	/// <summary>
 	///		Id del efecto

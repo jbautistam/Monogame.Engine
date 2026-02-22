@@ -78,14 +78,6 @@
     <Compile Remove="Entities\UserInterface\Borders\MultiColorBorder.cs" />
     <Compile Remove="Entities\UserInterface\Borders\TexturedBorder.cs" />
     <Compile Remove="Entities\UserInterface\Borders\TextureHelper.cs" />
-    <Compile Remove="Entities\UserInterface\NewUi\Grid.cs" />
-    <Compile Remove="Entities\UserInterface\NewUi\Label.cs" />
-    <Compile Remove="Entities\UserInterface\NewUi\Panel.cs" />
-    <Compile Remove="Entities\UserInterface\NewUi\RectangleRelative.cs" />
-    <Compile Remove="Entities\UserInterface\NewUi\Spacing.cs" />
-    <Compile Remove="Entities\UserInterface\NewUi\StackPanel.cs" />
-    <Compile Remove="Entities\UserInterface\NewUi\UiComponent.cs" />
-    <Compile Remove="Entities\UserInterface\NewUi\UiContainerComponent.cs" />
     <Compile Remove="Entities\UserInterface\Popups\Class1.cs" />
     <Compile Remove="Entities\UserInterface\UiBalloonLabel.cs" />
     <Compile Remove="Entities\UserInterface\UiBorder.cs" />
@@ -113,7 +105,6 @@
     <None Remove="Actors\chat-Rigidbody Implementation in MonoGame.txt" />
     <None Remove="Actors\Components\IA\chat-Actor IA Componentes_MonoGame.txt" />
     <None Remove="Actors\Components\IA\chat-Introducción a GOAP en MonoGame.txt" />
-    <None Remove="Entities\UserInterface\NewUi\TextFile1.md" />
     <None Remove="Tools\MathTools\Interpolation\Noise.md" />
   </ItemGroup>
 
@@ -236,7 +227,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\UserInterface\NewUi\" />
     <Folder Include="Tools\MathTools\Interpolation\" />
   </ItemGroup>
 

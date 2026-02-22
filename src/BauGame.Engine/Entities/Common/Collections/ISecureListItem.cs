@@ -6,6 +6,16 @@
 public interface ISecureListItem
 {
 	/// <summary>
+	///		Arranca el elemento cuando se añade a la lista
+	/// </summary>
+	void Start();
+
+	/// <summary>
+	///		Finaliza el elemento cuando se borra de la lista
+	/// </summary>
+	void End(Managers.GameContext gameContext);
+
+	/// <summary>
 	///		Identificador
 	/// </summary>
 	string Id { get; }
