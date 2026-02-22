@@ -114,7 +114,7 @@ public class SpaceShipEnemyActor : AbstractActor
 			SpawnPowerUp();
 		}
 		// Destruye el actor (cuando ya haya terminado la animación)
-		Layer.Actors.Destroy(this, gameContext.GetTotalTime(TimeSpan.FromMilliseconds(1)));
+		Layer.Actors.MarkToDestroy(this, gameContext.GetTotalTime(TimeSpan.FromMilliseconds(1)));
 		// Marca el actor como eliminado
 		_health.MarkAsDead();
 	}
@@ -133,7 +133,7 @@ public class SpaceShipEnemyActor : AbstractActor
 				powerUp.Direction = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandomDirection();
 				powerUp.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 				// Añade el meteoro al buffer de la pantalla
-				Layer.Actors.AddNext(powerUp);
+				Layer.Actors.MarkToDestroy(powerUp, TimeSpan.FromMilliseconds(1));
 		}
 	}
 

@@ -105,7 +105,7 @@ public class BrainComponent : AbstractComponent
 			// Desactiva la colisión
 			collision?.ToggleEnabled(false);
 			// Elimina el actor
-			Owner.Layer.Actors.Destroy(Owner, gameContext.GetTotalTime(TimeSpan.FromSeconds(5)));
+			Owner.Layer.Actors.MarkToDestroy(Owner, gameContext.GetTotalTime(TimeSpan.FromSeconds(5)));
 	}
 
 	/// <summary>

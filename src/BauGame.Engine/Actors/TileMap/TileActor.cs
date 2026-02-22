@@ -60,6 +60,14 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 	/// <summary>
 	///		Finaliza el actor
 	/// </summary>
+	public void End()
+	{
+		EndActor();
+	}
+
+	/// <summary>
+	///		Finaliza el actor
+	/// </summary>
 	protected override void EndActor()
 	{
 		if (!IsSolid && _collision is not null)

@@ -20,12 +20,13 @@ public abstract class AbstractLayer
         UserInterface
     }
 
-    public AbstractLayer(AbstractScene scene, string name, AbstractLayer.LayerType type, int sortOrder)
+    public AbstractLayer(AbstractScene scene, string name, LayerType type, int sortOrder)
     {
         // Asigna las propiedades
         Scene = scene;
         Name = name;
         Type = type;
+        Actors = new(this);
         SortOrder = sortOrder;
         // Inicializa los objetos
         Services = new Services.LayerServicesList(this);
@@ -39,8 +40,7 @@ public abstract class AbstractLayer
         // Arranca la capa
         StartLayer();
         // Arranca los actores
-        foreach (AbstractActor actor in Actors)
-            actor.Start();
+        Actors.Start();
     }
 
     /// <summary>
@@ -85,9 +85,7 @@ public abstract class AbstractLayer
         // Ordena los actores
         Actors.SortByZOrder();
         // Dibuja los actores
-        foreach (AbstractActor actor in Actors)
-            if (actor.Enabled)
-                actor.Draw(camera, gameContext);
+        Actors.Draw(camera, gameContext);
 	}
 
 	/// <summary>
@@ -144,7 +142,7 @@ public abstract class AbstractLayer
     /// <summary>
     ///     Actores asociados a la capa
     /// </summary>
-    public ActorsList Actors { get; } = [];
+    public ActorsList Actors { get; }
 
     /// <summary>
     ///     Servicios de la capa

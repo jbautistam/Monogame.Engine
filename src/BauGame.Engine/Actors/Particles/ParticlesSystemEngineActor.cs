@@ -32,7 +32,7 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
         if (Duration > 0 && _elapsedTime > Duration)
         {
             Enabled = false;
-            Layer.Actors.Destroy(this, TimeSpan.FromSeconds(1));
+            Layer.Actors.MarkToDestroy(this, TimeSpan.FromSeconds(1));
         }
         else
         {

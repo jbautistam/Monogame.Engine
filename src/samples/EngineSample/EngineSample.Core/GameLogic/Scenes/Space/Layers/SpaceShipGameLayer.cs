@@ -82,7 +82,7 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 			meteor.Direction = parameters.Position.DirectionTo(Scene.WorldDefinition.WorldBounds.Center.X, Scene.WorldDefinition.WorldBounds.Center.Y);
 			meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 			// Añade el enemigo al buffer de la pantalla
-			Actors.AddNext(meteor);
+			Actors.Add(meteor);
 	}
 
 	/// <summary>
@@ -98,7 +98,7 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 			meteor.Direction = parameters.Position.DirectionTo(Scene.WorldDefinition.WorldBounds.Center.X, Scene.WorldDefinition.WorldBounds.Center.Y);
 			meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 			// Añade el meteoro al buffer de la pantalla
-			Actors.AddNext(meteor);
+			Actors.Add(meteor);
 
 		// Obtiene el tamaño del meteoro
 		MeteorActor.MeteorSize GetMeteorSize()

@@ -141,7 +141,7 @@ public class MeteorActor : AbstractActor
 				}
 		}
 		// Destruye el actor (cuando ya haya terminado la animación)
-		Layer.Actors.Destroy(this, gameContext.GetTotalTime(TimeSpan.FromMilliseconds(1)));
+		Layer.Actors.MarkToDestroy(this, gameContext.GetTotalTime(TimeSpan.FromMilliseconds(1)));
 		// Marca el actor como eliminado
 		_health.MarkAsDead();
 		// Si está en el tamaño más pequeño, lanza un powerup
@@ -172,7 +172,7 @@ public class MeteorActor : AbstractActor
 			meteor.Direction = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandomDirection();
 			meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 			// Añade el meteoro al buffer de la pantalla
-			Layer.Actors.AddNext(meteor);
+			Layer.Actors.Add(meteor);
 	}
 
 	/// <summary>
@@ -189,7 +189,7 @@ public class MeteorActor : AbstractActor
 				powerUp.Direction = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandomDirection();
 				powerUp.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 				// Añade el meteoro al buffer de la pantalla
-				Layer.Actors.AddNext(powerUp);
+				Layer.Actors.Add(powerUp);
 		}
 	}
 

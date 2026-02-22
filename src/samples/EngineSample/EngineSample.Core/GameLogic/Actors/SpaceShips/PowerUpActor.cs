@@ -116,7 +116,7 @@ public class PowerUpActor : AbstractActor
 		// Desactiva la colisión
 		_collision.ToggleEnabled(false);
 		// Destruye el actor (cuando ya haya terminado la animación)
-		Layer.Actors.Destroy(this, gameContext.GetTotalTime(TimeSpan.FromMilliseconds(1)));
+		Layer.Actors.MarkToDestroy(this, gameContext.GetTotalTime(TimeSpan.FromMilliseconds(1)));
 		// Marca el actor como eliminado
 		_health.MarkAsDead();
 	}

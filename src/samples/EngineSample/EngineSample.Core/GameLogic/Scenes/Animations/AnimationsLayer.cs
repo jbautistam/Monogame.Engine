@@ -107,7 +107,7 @@ public class AnimationsLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// </summary>
 	private void UpdateAnimationsGroup(Vector2 speed, bool isDead)
 	{
-		foreach (AbstractActor actor in Actors)
+		foreach (AbstractActor actor in Actors.Enumerate())
 			if (actor is AnimationBlenderActor blenderActor)
 			{
 				blenderActor.Speed = speed;
@@ -120,7 +120,7 @@ public class AnimationsLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// </summary>
 	private void PlayAnimations()
 	{
-		foreach (AbstractActor actor in Actors)
+		foreach (AbstractActor actor in Actors.Enumerate())
 			if (actor is AnimationActor animationActor)
 				animationActor.Play();
 	}

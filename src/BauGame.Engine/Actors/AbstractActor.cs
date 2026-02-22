@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors;
 /// <summary>
 ///		Clase abstracta para la definición de actores
 /// </summary>
-public abstract class AbstractActor : Entities.Common.Pools.IPoolable
+public abstract class AbstractActor : Entities.Common.Pools.IPoolable, Entities.Common.Collections.ISecureListItem
 {
 	protected AbstractActor(Scenes.Layers.AbstractLayer layer, int? zOrder)
 	{
@@ -96,7 +96,7 @@ public abstract class AbstractActor : Entities.Common.Pools.IPoolable
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	public void End()
+	public void End(Managers.GameContext gameContext)
 	{
 		// Desactiva el actor
 		Enabled = false;

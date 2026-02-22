@@ -64,7 +64,7 @@ public class EnemyActor : AbstractActor
 			// Indica que ya se ha tratado el "justdead"
 			_health.JustDead = false;
 			// Destruye el actor
-			Layer.Actors.Destroy(this, gameContext.GetTotalTime(TimeSpan.FromSeconds(5)));
+			Layer.Actors.MarkToDestroy(this, gameContext.GetTotalTime(TimeSpan.FromSeconds(5)));
 			// Manda un mensaje indicando que se ha matado un enemigo
 			Layer.Scene.MessagesManager.SendMessage(PlayerActor.PlayerName, 
 													new Bau.Libraries.BauGame.Engine.Scenes.Messages.MessageModel(this, Constants.MessageEnemyKilled)

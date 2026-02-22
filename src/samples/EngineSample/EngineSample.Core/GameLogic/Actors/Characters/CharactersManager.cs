@@ -64,7 +64,7 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActor(l
 	protected override void EndActor()
 	{
 		foreach (CharacterActor character in Characters.Items.Values)
-			character.End();
+			character.End(new Bau.Libraries.BauGame.Engine.Managers.GameContext());
 	}
 
 	/// <summary>
