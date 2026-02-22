@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.TileMap;
 /// <summary>
 ///		Actor para definir un mapa de tiles
 /// </summary>
-public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, int zOrder) : AbstractActor(layer, zOrder)
+public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, int zOrder) : AbstractActorDrawable(layer, zOrder)
 {
 	// Registros
 	public record TileDefinition(int Id, string Texture, string Region, string? Animation);
@@ -38,7 +38,7 @@ public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, i
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		foreach (TileActor tile in Tiles)
 			tile.Start();
@@ -66,10 +66,10 @@ public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, i
 	/// <summary>
 	///		Finaliza el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(GameContext gameContext)
 	{
 		foreach (TileActor tile in Tiles)
-			tile.End();
+			tile.End(gameContext);
 	}
 
 	/// <summary>

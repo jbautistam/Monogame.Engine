@@ -30,9 +30,9 @@ public class ActorsList(Scenes.Layers.AbstractLayer layer) : Entities.Common.Col
     /// </summary>
 	public void UpdatePhysics(GameContext gameContext)
 	{
-        foreach (AbstractActor actor in this.Enumerate())
-            if (actor.Enabled)
-                actor.UpdatePhysics(gameContext);
+        foreach (AbstractActor actor in Enumerate())
+            if (actor.Enabled && actor is Interfaces.IActorPhisics actorPhisics)
+                actorPhisics.UpdatePhysics(gameContext);
 	}
 
     /// <summary>
@@ -58,8 +58,8 @@ public class ActorsList(Scenes.Layers.AbstractLayer layer) : Entities.Common.Col
 	public void Draw(Camera2D camera, GameContext gameContext)
 	{
         foreach (AbstractActor actor in Enumerate())
-            if (actor.Enabled)
-                actor.Draw(camera, gameContext);
+            if (actor.Enabled && actor is Interfaces.IActorDrawable actorDrawable)
+                actorDrawable.Draw(camera, gameContext);
 	}
 
     /// <summary>

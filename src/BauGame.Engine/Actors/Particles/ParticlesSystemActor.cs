@@ -8,7 +8,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 /// <summary>
 ///     Manager de un sistema de partículas
 /// </summary>
-public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder = null) : AbstractActor(layer, zOrder)
+public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder = null) : AbstractActorDrawable(layer, zOrder)
 {
     // Constantes privadas
     private const float TailDensity = 5f;
@@ -19,7 +19,7 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
     /// <summary>
     ///     Arranca el sistema
     /// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
         _texture = GameEngine.Instance.ResourcesManager.TextureManager.Assets.Get(Texture);
 	}
@@ -112,7 +112,7 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Managers.GameContext gameContext)
 	{
         _particles.Clear();
 	}

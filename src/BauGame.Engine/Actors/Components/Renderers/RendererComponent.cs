@@ -11,7 +11,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
 /// <summary>
 ///		Componente para representación de un actor
 /// </summary>
-public class RendererComponent(AbstractActor actor) : AbstractComponent(actor, true)
+public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(actor, true)
 {
 	// Variables privadas
 	private string? _texture, _region;
@@ -205,7 +205,7 @@ public class RendererComponent(AbstractActor actor) : AbstractComponent(actor, t
 	/// <summary>
 	///		Actor
 	/// </summary>
-	public AbstractActor Actor { get; } = actor;
+	public AbstractActorDrawable Actor { get; } = actor;
 
 	/// <summary>
 	///		Textura

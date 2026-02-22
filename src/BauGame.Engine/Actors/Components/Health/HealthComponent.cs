@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Health;
 /// <summary>
 ///		Componente de salud
 /// </summary>
-public class HealthComponent(AbstractActor owner) : AbstractComponent(owner, false)
+public class HealthComponent(AbstractActorDrawable owner) : AbstractComponent(owner, false)
 {
 	// Variables privadas
 	private float _invulnerability = 0;

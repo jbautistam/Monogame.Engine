@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
 /// <summary>
 ///     Actor con un manager de un sistema de partículas
 /// </summary>
-public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? zOrder = null) : AbstractActor(layer, zOrder)
+public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? zOrder = null) : AbstractActorDrawable(layer, zOrder)
 {
     // Variables privadas
     private float _elapsedTime;
@@ -14,7 +14,7 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
     /// <summary>
     ///     Arranca el sistema
     /// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
         // Inicializa el tiempo
         _elapsedTime = 0;
@@ -58,7 +58,7 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Managers.GameContext gameContext)
 	{
         foreach (ParticlesPoolManager pool in Pools)
             pool.Enabled = false;

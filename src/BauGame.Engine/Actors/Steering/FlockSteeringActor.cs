@@ -7,7 +7,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Steering;
 /// <summary>
 ///     Manager para los componentes de movimiento de una bandada
 /// </summary>
-public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(layer, null)
+public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDrawable(layer, null)
 {
     /// <summary>
     ///     Añade un comportamiento a la lista
@@ -20,7 +20,7 @@ public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractAct
     /// <summary>
     ///     Inicializa el actor
     /// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 	}
 
@@ -49,7 +49,7 @@ public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractAct
     /// <summary>
     ///     Finaliza el actor
     /// </summary>
-	protected override void EndActor()
+	protected override void EndActor(GameContext gameContext)
 	{
         // ... no hace nada, simplemente implementa la interface
 	}

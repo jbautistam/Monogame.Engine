@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 /// <summary>
 ///		Componente para el manejo de colisiones
 /// </summary>
-public class CollisionComponent(AbstractActor owner, int physicLayerId) : AbstractComponent(owner, false)
+public class CollisionComponent(AbstractActorDrawable owner, int physicLayerId) : AbstractComponent(owner, false)
 {
 	/// <summary>
 	///		Inicia el componente

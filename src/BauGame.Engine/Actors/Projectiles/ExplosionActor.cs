@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
 /// <summary>
 ///     Actor para presentación de explosiones
 /// </summary>
-public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(layer, null)
+public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDrawable(layer, null)
 {
     // Variables privadas
     private float _currentTime;
@@ -37,7 +37,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(l
     /// <summary>
     ///     Inicializa el actor
     /// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 	}
 
@@ -134,7 +134,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(l
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Managers.GameContext gameContext)
 	{
         // ... no hace nada, sólo implementa la interface
 	}

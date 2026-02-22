@@ -7,7 +7,7 @@ namespace EngineSample.Core.GameLogic.Actors.Characters;
 /// <summary>
 ///		Actor del manager de personajes
 /// </summary>
-public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActor(layer, zOrder)
+public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActorDrawable(layer, zOrder)
 {
 	/// <summary>
 	///		Añade un personaje
@@ -33,10 +33,10 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActor(l
 	/// <summary>
 	///		Inicializa los personajes
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		foreach (CharacterActor character in Characters.Items.Values)
-			character.StartActor();
+			character.Start();
 	}
 
 	/// <summary>
@@ -61,7 +61,7 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActor(l
 	/// <summary>
 	///		Finaliza el trabajo con los personajes
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 		foreach (CharacterActor character in Characters.Items.Values)
 			character.End(new Bau.Libraries.BauGame.Engine.Managers.GameContext());

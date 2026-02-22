@@ -11,7 +11,7 @@ namespace EngineSample.Core.GameLogic.Actors;
 /// <summary>
 ///		Actor del enemigo
 /// </summary>
-public class EnemyActor : AbstractActor
+public class EnemyActor : AbstractActorDrawable
 {
 	// Variables privadas
 	private Vector2 _speed = new();
@@ -45,7 +45,7 @@ public class EnemyActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		_speed = new Vector2(Velocity, 0);
 	}
@@ -112,7 +112,7 @@ public class EnemyActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 

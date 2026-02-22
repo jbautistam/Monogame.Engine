@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.TileMap;
 /// <summary>
 ///     Definición de un patrón
 /// </summary>
-public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : AbstractActor(map.Layer, map.ZOrder)
+public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : AbstractActorDrawable(map.Layer, map.ZOrder)
 {
 	// Variables privadas
 	private Components.Physics.CollisionComponent? _collision;
@@ -14,7 +14,7 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		TileMapActor.TileDefinition? definition = Map.TileDefinitions.Get(TileDefinitionId.ToString());
 
@@ -60,15 +60,7 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 	/// <summary>
 	///		Finaliza el actor
 	/// </summary>
-	public void End()
-	{
-		EndActor();
-	}
-
-	/// <summary>
-	///		Finaliza el actor
-	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(GameContext gameContext)
 	{
 		if (!IsSolid && _collision is not null)
 		{

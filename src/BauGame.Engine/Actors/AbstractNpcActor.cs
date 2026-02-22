@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors;
 /// <summary>
 ///		Actor base para la implementación de un NPC
 /// </summary>
-public abstract class AbstractNpcActor : AbstractActor
+public abstract class AbstractNpcActor : AbstractActorDrawable
 {
 	public AbstractNpcActor(Scenes.Layers.AbstractLayer layer, int? zOrder) : base(layer, zOrder)
 	{
@@ -15,7 +15,7 @@ public abstract class AbstractNpcActor : AbstractActor
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected override void UpdateActor(GameContext gameContext)
+	protected override void UpdateSelf(GameContext gameContext)
 	{
 		// Actualiza el componente de IA
 		Brain.Update(gameContext);

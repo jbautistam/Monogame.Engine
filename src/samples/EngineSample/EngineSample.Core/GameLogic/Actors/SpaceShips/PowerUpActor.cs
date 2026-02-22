@@ -10,7 +10,7 @@ namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 /// <summary>
 ///		Bono / Power up
 /// </summary>
-public class PowerUpActor : AbstractActor
+public class PowerUpActor : AbstractActorDrawable
 {
 	// Enumerados públicos
 	/// <summary>
@@ -73,7 +73,7 @@ public class PowerUpActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 	}
 
@@ -131,7 +131,7 @@ public class PowerUpActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 

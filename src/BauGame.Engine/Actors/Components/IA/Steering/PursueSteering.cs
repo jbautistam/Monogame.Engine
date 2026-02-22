@@ -29,7 +29,7 @@ public class PursueSteering : AbstractSteeringBehavior
     /// <summary>
     ///     Actor que se va a perseguir
     /// </summary>
-    public AbstractActor? Actor { get; set; }
+    public AbstractActorDrawable? Actor { get; set; }
 
     /// <summary>
     ///     Distancia mínima para considerar alcanzado el objetivo

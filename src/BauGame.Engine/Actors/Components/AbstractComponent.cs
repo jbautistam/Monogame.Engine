@@ -4,7 +4,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components;
 /// <summary>
 ///		Datos base de un componente
 /// </summary>
-public abstract class AbstractComponent(AbstractActor owner, bool isDrawable)
+public abstract class AbstractComponent(AbstractActorDrawable owner, bool isDrawable)
 {
 	/// <summary>
 	///		Inicializa el componente
@@ -34,7 +34,7 @@ public abstract class AbstractComponent(AbstractActor owner, bool isDrawable)
 	/// <summary>
 	///		Propietario del componente
 	/// </summary>
-	public AbstractActor Owner { get; } = owner;
+	public AbstractActorDrawable Owner { get; } = owner;
 
 	/// <summary>
 	///		Indica si el componente está activo

@@ -8,12 +8,12 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 public class CameraTargetsManager
 {
     // Variables privadas
-    private List<Actors.AbstractActor> _targets = [];
+    private List<Actors.AbstractActorDrawable> _targets = [];
 
     /// <summary>
     ///     Añade un actor a la lista de objetivos
     /// </summary>
-    public void Add(Actors.AbstractActor actor)
+    public void Add(Actors.AbstractActorDrawable actor)
     {
         if (!_targets.Contains(actor))
             _targets.Add(actor);
@@ -22,7 +22,7 @@ public class CameraTargetsManager
     /// <summary>
     ///     Elimina un actor de la lista de objetivos
     /// </summary>
-    public void Remove(Actors.AbstractActor actor)
+    public void Remove(Actors.AbstractActorDrawable actor)
     {
         _targets.Remove(actor);
     }
@@ -44,7 +44,7 @@ public class CameraTargetsManager
         int count = 0;
 
             // Añade las coordenadas de los objetivos para obtener la posición donde debe colocarse la cámara
-            foreach (Actors.AbstractActor actor in _targets)
+            foreach (Actors.AbstractActorDrawable actor in _targets)
                 if (actor.Enabled)
                 {
                     desiredTarget += actor.Transform.Bounds.TopLeft;

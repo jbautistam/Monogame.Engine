@@ -3,7 +3,7 @@
 /// <summary>
 ///		Mensajes enviados entre actores o capas
 /// </summary>
-public class MessageModel(Actors.AbstractActor sender, string type)
+public class MessageModel(Actors.AbstractActorDrawable sender, string type)
 {
 	/// <summary>
 	///		Id del mensaje
@@ -13,7 +13,7 @@ public class MessageModel(Actors.AbstractActor sender, string type)
 	/// <summary>
 	///		Actor que envía el mensaje
 	/// </summary>
-	public Actors.AbstractActor Sender { get; } = sender;
+	public Actors.AbstractActorDrawable Sender { get; } = sender;
 
 	/// <summary>
 	///		Tipo del mensaje

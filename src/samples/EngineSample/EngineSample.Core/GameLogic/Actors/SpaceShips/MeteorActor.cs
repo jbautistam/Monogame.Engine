@@ -11,7 +11,7 @@ namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 /// <summary>
 ///		Meteoro
 /// </summary>
-public class MeteorActor : AbstractActor
+public class MeteorActor : AbstractActorDrawable
 {
 	// Enumerados públicos
 	public enum MeteorSize
@@ -63,7 +63,7 @@ public class MeteorActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 	}
 
@@ -203,7 +203,7 @@ public class MeteorActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 

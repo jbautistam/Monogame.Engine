@@ -7,7 +7,7 @@ namespace EngineSample.Core.GameLogic.Actors.Characters;
 /// <summary>
 ///		Actor de un personaje del cómic
 /// </summary>
-public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActor(manager.Layer, zOrder)
+public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActorDrawable(manager.Layer, zOrder)
 {
 	// Variables privadas
 	private CharacterActorDefinition? _actualDefinition;
@@ -15,7 +15,7 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		// Inicializa los componentes
 		foreach (CharacterActorDefinition definition in Definitions)
@@ -114,7 +114,7 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 

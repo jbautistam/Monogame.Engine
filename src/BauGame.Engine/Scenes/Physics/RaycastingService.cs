@@ -11,7 +11,7 @@ public class RaycastingService(PhysicsManager physicsManager)
 	/// <summary>
 	///		Obtiene las colisiones con un actor sobre una dirección
 	/// </summary>
-	public List<KinematicCollisionModel> Raycast(AbstractActor abstractActor, Vector2 direction, float distance, bool stopAtFirst)
+	public List<KinematicCollisionModel> Raycast(AbstractActorDrawable abstractActor, Vector2 direction, float distance, bool stopAtFirst)
 	{
 		return [];
 	}

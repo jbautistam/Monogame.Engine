@@ -8,7 +8,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
 /// <summary>
 ///     Clase con los datos de un proyectil
 /// </summary>
-public class ProjectileActor : AbstractActor
+public class ProjectileActor : AbstractActorDrawable
 {
     // Variables privadas
     private CollisionComponent _collision;
@@ -25,7 +25,7 @@ public class ProjectileActor : AbstractActor
     /// <summary>
     ///     Arranca los datos del actor
     /// </summary>
-    public override void StartActor()
+    protected override void StartActor()
     {
     }
 
@@ -126,7 +126,7 @@ public class ProjectileActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Managers.GameContext gameContext)
 	{
         // ... no hace nada, sólo implementa la interface
 	}

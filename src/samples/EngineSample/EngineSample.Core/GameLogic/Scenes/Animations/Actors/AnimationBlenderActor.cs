@@ -10,7 +10,7 @@ namespace EngineSample.Core.GameLogic.Scenes.Animations.Actors;
 /// <summary>
 ///		Actor para animaciones
 /// </summary>
-public class AnimationBlenderActor : AbstractActor
+public class AnimationBlenderActor : AbstractActorDrawable
 {
 	// Constantes públicas
 	public const string PlayerName = nameof(PlayerName);
@@ -29,7 +29,7 @@ public class AnimationBlenderActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 	}
 
@@ -78,7 +78,7 @@ public class AnimationBlenderActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(GameContext gameContext)
 	{
 	}
 

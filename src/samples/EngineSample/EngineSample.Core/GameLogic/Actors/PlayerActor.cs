@@ -15,7 +15,7 @@ namespace EngineSample.Core.GameLogic.Actors;
 /// <summary>
 ///		Actor del jugador
 /// </summary>
-public class PlayerActor : AbstractActor
+public class PlayerActor : AbstractActorDrawable
 {
 	// Constantes públicas
 	public const string PlayerName = nameof(PlayerName);
@@ -69,7 +69,7 @@ public class PlayerActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		CreateWeapons();
 	}
@@ -267,7 +267,7 @@ public class PlayerActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 

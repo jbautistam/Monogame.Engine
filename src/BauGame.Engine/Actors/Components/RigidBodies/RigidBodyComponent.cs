@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.RigidBodies;
 /// <summary>
 ///     Componente para manejo de un rigidbody
 /// </summary>
-public class RigidBodyComponent(AbstractActor owner, RigidBodyComponent.BodyType type) : AbstractComponent(owner, false)
+public class RigidBodyComponent(AbstractActorDrawable owner, RigidBodyComponent.BodyType type) : AbstractComponent(owner, false)
 {
     /// <summary>
     ///     Tipo de movimiento asociado al componente

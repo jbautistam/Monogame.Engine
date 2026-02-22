@@ -7,12 +7,12 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Spawners;
 /// <summary>
 ///		Actor utilizado para lanzar elementos
 /// </summary>
-public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(layer, null)
+public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDrawable(layer, null)
 {
 	/// <summary>
 	///		Arranca el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 	}
 
@@ -49,7 +49,7 @@ public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(lay
 	/// <summary>
 	///		Finaliza el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(GameContext gameContext)
 	{
 	}
 

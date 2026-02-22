@@ -14,7 +14,7 @@ namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 /// <summary>
 ///		Actor (nave espacial) del jugador 
 /// </summary>
-public class SpacePlayerActor : AbstractActor
+public class SpacePlayerActor : AbstractActorDrawable
 {
 	// Constantes públicas
 	public const string PlayerName = nameof(PlayerName);
@@ -67,7 +67,7 @@ public class SpacePlayerActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		CreateWeapons();
 	}
@@ -284,7 +284,7 @@ public class SpacePlayerActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(GameContext gameContext)
 	{
 	}
 

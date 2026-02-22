@@ -10,7 +10,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Physics.Mapping;
 public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
 {
     // Variables privadas
-    private Dictionary<Point, List<AbstractActor>> _grid = [];
+    private Dictionary<Point, List<AbstractActorDrawable>> _grid = [];
     
     /// <summary>
     ///     Obtiene una posición del grid a partir de una posición del mundo
@@ -26,7 +26,7 @@ public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
     /// <summary>
     ///     Añade un actor al grid espacial
     /// </summary>
-    public void Add(AbstractActor actor)
+    public void Add(AbstractActorDrawable actor)
     {
         (Point minCell, Point maxCell) = GetGridPositions(actor.Transform);
         
@@ -41,7 +41,7 @@ public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
 
                         // Crea la lista si no existía
                         if (!_grid.ContainsKey(cellKey))
-                            _grid[cellKey] = new List<AbstractActor>();
+                            _grid[cellKey] = new List<AbstractActorDrawable>();
                         // Añade el actor a la posición
                         _grid[cellKey].Add(actor);
                 }
@@ -50,7 +50,7 @@ public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
     /// <summary>
     ///     Obtiene las colisiones potenciales sobre un actor
     /// </summary>
-    public List<AbstractCollider> GetPotentialColliders(AbstractActor actor)
+    public List<AbstractCollider> GetPotentialColliders(AbstractActorDrawable actor)
     {
         List<AbstractCollider> result = [];
 
@@ -69,8 +69,8 @@ public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
                                 {
                                     Point cellKey = new(x, y);
 
-                                        if (_grid.TryGetValue(cellKey, out List<AbstractActor>? others))
-                                            foreach (AbstractActor other in others)
+                                        if (_grid.TryGetValue(cellKey, out List<AbstractActorDrawable>? others))
+                                            foreach (AbstractActorDrawable other in others)
                                                 if (other != actor)
                                                 {
                                                     AbstractCollider? collider = GetCollisionCollider(actor, other);
@@ -89,7 +89,7 @@ public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
     /// <summary>
     ///     Comprueba si están colisionando dos actores
     /// </summary>
-    private AbstractCollider? GetCollisionCollider(AbstractActor actor, AbstractActor other)
+    private AbstractCollider? GetCollisionCollider(AbstractActorDrawable actor, AbstractActorDrawable other)
     {
         CollisionComponent? actorCollision = actor.Components.GetComponent<CollisionComponent>();
         CollisionComponent? otherCollision = other.Components.GetComponent<CollisionComponent>();
@@ -130,7 +130,7 @@ public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
     /// <summary>
     ///     Elimina un actor
     /// </summary>
-    public void Remove(AbstractActor actor)
+    public void Remove(AbstractActorDrawable actor)
     {
         Remove(actor, actor.PreviuosTransform);
         Remove(actor, actor.Transform);
@@ -139,7 +139,7 @@ public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
     /// <summary>
     ///     Elimina un actor en una posición
     /// </summary>
-    private void Remove(AbstractActor actor, Actors.Components.Transforms.TransformComponent transform)
+    private void Remove(AbstractActorDrawable actor, Actors.Components.Transforms.TransformComponent transform)
     {
         (Point minCell, Point maxCell) = GetGridPositions(actor.Transform);
         
@@ -148,7 +148,7 @@ public class CollisionSpatialGrid(MapManager mapManager, int cellSize)
                 {
                     Point cellKey = new(x, y);
 
-                        if (_grid.TryGetValue(cellKey, out List<AbstractActor>? others) && others.Count > 0)
+                        if (_grid.TryGetValue(cellKey, out List<AbstractActorDrawable>? others) && others.Count > 0)
                             others?.Remove(actor);
                 }
     }

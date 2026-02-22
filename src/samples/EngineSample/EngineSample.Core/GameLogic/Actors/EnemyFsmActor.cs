@@ -13,7 +13,7 @@ namespace EngineSample.Core.GameLogic.Actors;
 /// <summary>
 ///		Segundo actor enemigo
 /// </summary>
-public class EnemyFsmActor : AbstractActor
+public class EnemyFsmActor : AbstractActorDrawable
 {
 	// Variables privadas
 	private HealthComponent _health;
@@ -54,7 +54,7 @@ public class EnemyFsmActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		ConfigureFiniteStateMachine();
 	}
@@ -145,7 +145,7 @@ public class EnemyFsmActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
 	}
 

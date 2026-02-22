@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Shooting;
 /// <summary>
 ///     Componente para manejar armas
 /// </summary>
-public class ShooterComponent(AbstractActor owner) : AbstractComponent(owner, false)
+public class ShooterComponent(AbstractActorDrawable owner) : AbstractComponent(owner, false)
 {
 	/// <summary>
 	///		Inicia el componente

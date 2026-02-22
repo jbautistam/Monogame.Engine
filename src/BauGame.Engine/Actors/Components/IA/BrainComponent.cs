@@ -13,7 +13,7 @@ public class BrainComponent : AbstractComponent
 	// Variables privadas
 	private Health.HealthComponent? _health;
 
-	public BrainComponent(AbstractActor owner) : base(owner, false)
+	public BrainComponent(AbstractActorDrawable owner) : base(owner, false)
 	{
 		StatesMachineManager = new FiniteStateMachines.StatesMachineManager(this);
 		AgentSteeringManager = new Steering.AgentSteeringManager(this, null);

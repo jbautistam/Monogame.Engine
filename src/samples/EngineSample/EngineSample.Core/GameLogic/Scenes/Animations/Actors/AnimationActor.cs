@@ -8,7 +8,7 @@ namespace EngineSample.Core.GameLogic.Scenes.Animations.Actors;
 /// <summary>
 ///		Actor para animaciones
 /// </summary>
-public class AnimationActor : AbstractActor
+public class AnimationActor : AbstractActorDrawable
 {
 	// Constantes públicas
 	public const string PlayerName = nameof(PlayerName);
@@ -28,7 +28,7 @@ public class AnimationActor : AbstractActor
 	/// <summary>
 	///		Inicializa el actor
 	/// </summary>
-	public override void StartActor()
+	protected override void StartActor()
 	{
 		Renderer.Texture = Texture;
 		Renderer.StartAnimation(Texture, Animation, false);
@@ -59,7 +59,7 @@ public class AnimationActor : AbstractActor
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor()
+	protected override void EndActor(GameContext gameContext)
 	{
 	}
 

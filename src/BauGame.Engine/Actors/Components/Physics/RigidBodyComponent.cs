@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 
-public class RigidbodyComponent(AbstractActor owner) : AbstractComponent(owner, false)
+public class RigidbodyComponent(AbstractActorDrawable owner) : AbstractComponent(owner, false)
 {
     // Variables privadas
     private Vector2 _forceAccumulator = Vector2.Zero;
