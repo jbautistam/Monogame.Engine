@@ -5,34 +5,24 @@
 /// </summary>
 public abstract class UiDialogPopup(UiPopupManager manager, UiPosition position) : UiAbstractPopup(manager, position, PopupType.Modal)
 {
-    // Variables privadas
-    private UiButton? _cancelButton, _okButton;
+    /// <summary>
+    ///     Trata las pulsaciones sobre los botones
+    /// </summary>
+	protected override void TreatClickSelf(EventArguments.ClickEventArgs args)
+	{
+        if (AcceptButton is not null && args.Component.Id.Equals(AcceptButton.Id, StringComparison.CurrentCultureIgnoreCase))
+            Close(UiPopupManager.PopupResponse.Ok);
+        else if (CancelButton is not null && args.Component.Id.Equals(CancelButton.Id, StringComparison.CurrentCultureIgnoreCase))
+            Close(UiPopupManager.PopupResponse.Cancel);
+	}
 
     /// <summary>
     ///     Botón para aceptar el cuadro de diálogo
     /// </summary>
-    public UiButton? AcceptButton
-    {
-        get { return _okButton; }
-        set
-        {
-            _okButton = value;
-            if (_okButton is not null)
-                _okButton.Click += (sender, args) => Close(UiPopupManager.PopupResponse.Ok);
-        }
-    }
+    public UiButton? AcceptButton { get; set; }
 
     /// <summary>
     ///     Botón para cancelar el cuadro de diálogo
     /// </summary>
-    public UiButton? CancelButton
-    {
-        get { return _cancelButton; }
-        set
-        {
-            _cancelButton = value;
-            if (_cancelButton is not null)
-                _cancelButton.Click += (sender, args) => Close(UiPopupManager.PopupResponse.Cancel);
-        }
-    }
+    public UiButton? CancelButton { get; set; }
 }

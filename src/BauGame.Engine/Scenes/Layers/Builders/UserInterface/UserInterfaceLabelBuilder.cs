@@ -1,5 +1,4 @@
 ﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 

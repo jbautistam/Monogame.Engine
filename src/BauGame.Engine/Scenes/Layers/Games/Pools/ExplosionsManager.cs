@@ -28,6 +28,7 @@ public class ExplosionsManager(AbstractLayer layer)
             }
             // Configura la explosión
             explosion.Shoot(properties, position);
+            explosion.Start();
             // Devuelve la explosión que se acaba de crear
             return explosion;
     }

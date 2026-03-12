@@ -17,19 +17,18 @@ public abstract class UiAbstractPopup : UiElement
     }
     // Eventos públicos    
     public event EventHandler<EventArguments.PopupClosedEventArgs>? Closed;
-    // Variables privadas
-    private UiButton? _closeButton;
     
     protected UiAbstractPopup(UiPopupManager manager, UiPosition position, PopupType type) : base(manager.Layer, position)
     {
         Body = new UiPanel(manager.Layer, position);
         Type = type;
+        Layer.Click += (sender, args) => TreatClick(args);
     }
 
-    /// <summary>
-    ///     Cálculo del layout del elemento
-    /// </summary>
-    protected override void ComputeScreenBoundsSelf()
+	/// <summary>
+	///     Cálculo del layout del elemento
+	/// </summary>
+	protected override void ComputeScreenBoundsSelf()
     {
         //TODO: debería recolocar los elementos
     }
@@ -37,7 +36,7 @@ public abstract class UiAbstractPopup : UiElement
     /// <summary>
     ///     Actualiza el elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext)
+    protected override void UpdateSelf(Managers.GameContext gameContext)
     {
         if (!IsClosed)
         {
@@ -81,6 +80,22 @@ public abstract class UiAbstractPopup : UiElement
     }
 
     /// <summary>
+    ///     Trata las pulsaciones sobre el botón
+    /// </summary>
+	private void TreatClick(EventArguments.ClickEventArgs args)
+	{
+        if (CloseButton is not null && args.Component.Id.Equals(CloseButton.Id, StringComparison.CurrentCultureIgnoreCase))
+            Close(UiPopupManager.PopupResponse.Cancel);
+        else
+            TreatClickSelf(args);
+	}
+
+    /// <summary>
+    ///     Trata las pulsaciones sobre el botón
+    /// </summary>
+    protected abstract void TreatClickSelf(EventArguments.ClickEventArgs args);
+
+    /// <summary>
     ///     Tipo
     /// </summary>
     public PopupType Type { get; }
@@ -108,14 +123,5 @@ public abstract class UiAbstractPopup : UiElement
     /// <summary>
     ///     Botón para cerrar el cuadro de diálogo
     /// </summary>
-    public UiButton? CloseButton
-    {
-        get { return _closeButton; }
-        set
-        {
-            _closeButton = value;
-            if (_closeButton is not null)
-                _closeButton.Click += (sender, args) => Close(UiPopupManager.PopupResponse.Cancel);
-        }
-    }
+    public UiButton? CloseButton { get; set; }
 }

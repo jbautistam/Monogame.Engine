@@ -1,9 +1,9 @@
 ﻿namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.EventArguments;
 
 /// <summary>
-///		Argumentos del evento de click sobre una opción
+///		Argumentos del evento de ejecución de un comando
 /// </summary>
-public class CommandEventArgs(string data) : EventArgs
+public class CommandEventArgs(UiElement component, string data) : EventArgs
 {
 	/// <summary>
 	///		Interpreta el contenido
@@ -76,6 +76,11 @@ public class CommandEventArgs(string data) : EventArgs
 			// Devuelve los parámetros
 			return parameters;
 	}
+
+	/// <summary>
+	///		Componente que lanza el comando
+	/// </summary>
+	public UiElement Component { get; } = component;
 
 	/// <summary>
 	///		Datos del comando

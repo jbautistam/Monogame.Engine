@@ -5,6 +5,7 @@ using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface.EventArguments;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
@@ -13,6 +14,11 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 /// </summary>
 public abstract class AbstractUserInterfaceLayer : AbstractLayer
 {
+    // Eventos públicos
+    public event EventHandler<CommandEventArgs>? CommandExecute;
+    public event EventHandler<ValueChangedEventArgs>? ValueChanged;
+    public event EventHandler<ClickEventArgs>? Click;
+
     // Variables privadas
     private Rectangle _bounds = new();
     private bool _invalidateTransforms = true;
@@ -34,7 +40,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
 	/// <summary>
 	///		Actualiza el interface de usuario de la capa
 	/// </summary>
-	protected override void UpdateLayer(GameContext gameContext)
+	protected override void UpdateSelf(GameContext gameContext)
 	{
         if (Enabled && Scene.Camera is not null)
         {
@@ -67,12 +73,12 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
 	/// <summary>
 	///		Dibuja el interface de usuario sobre la capa
 	/// </summary>
-	protected override void DrawLayer(Camera2D camera, GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
 	{
         if (Enabled)
-            foreach (UiElement element in Items)
-                if (element.Visible)
-                    element.Draw(camera, gameContext);
+            foreach (UiElement item in Items)
+                if (item.Visible)
+                    item.Draw(camera, gameContext);
 	}
 
     /// <summary>
@@ -85,11 +91,44 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
 	}
 
     /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	protected override void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
+	{
+        if (Enabled)
+            foreach (UiElement item in Items)
+                if (item.Visible)
+                    item.PrepareRenderCommands(builder, gameContext);
+	}
+
+    /// <summary>
+    ///     Obtiene los comandos de un componente en la interface de usuario con un estilo
+    /// </summary>
+	public void PrepareStyleRendercommands(Cameras.Rendering.Builders.RenderCommandsBuilder builder, string? style, 
+                                           UiStyle.StyleType type, Rectangle bounds, GameContext gameContext)
+	{
+        if (!string.IsNullOrWhiteSpace(style))
+            Styles.PrepareRenderCommands(builder, style, type, bounds, gameContext);
+	}
+
+    /// <summary>
     ///     Obtiene un elemento del interface de usuario
     /// </summary>
-    public TypeElement? GetItem<TypeElement>(string id) where TypeElement : UiElement
+    public TypeData? GetItem<TypeData>(string id) where TypeData : UiElement
     {
-        return Items.FirstOrDefault(item => item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase)) as TypeElement;
+        // Busca el elemento en la lista o en sus componetes hijo
+        foreach (UiElement item in Items)
+            if (item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase) && item is TypeData converted)
+                return converted;
+            else if (item is Entities.UserInterface.Interfaces.IComponentPanel panel)
+            {
+                TypeData? child = panel.GetItem<TypeData>(id);
+
+                    if (child is not null)
+                        return child;
+            }
+        // Si ha llegado hasta aquí es porque no ha encontrado nada
+        return null;
     }
 
     /// <summary>
@@ -98,6 +137,30 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
 	protected override void EndLayer()
 	{
         Items.Clear();
+	}
+
+    /// <summary>
+    ///     Lanza un evento de ejecución
+    /// </summary>
+	internal void RaiseCommandExecute(CommandEventArgs commandEventArgs)
+	{
+        CommandExecute?.Invoke(this, commandEventArgs);
+	}
+
+    /// <summary>
+    ///     Lanza un evento de pulsación sobre un componente
+    /// </summary>
+	internal void RaiseCommandClick(ClickEventArgs clickEventArgs)
+	{
+		Click?.Invoke(this, clickEventArgs);
+	}
+
+    /// <summary>
+    ///     Lanza un evento de modificación de un valor
+    /// </summary>
+	internal void RaiseValueChanged(ValueChangedEventArgs valueChangedEventArgs)
+	{
+		ValueChanged?.Invoke(this, valueChangedEventArgs);
 	}
 
 	/// <summary>

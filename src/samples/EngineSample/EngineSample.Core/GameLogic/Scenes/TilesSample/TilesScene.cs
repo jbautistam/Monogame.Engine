@@ -27,6 +27,7 @@ internal class TilesScene(string name, int level) : AbstractScene(name, new Bau.
 	{
 		// Guarda el interface de usuario Hud
 		_hudLayer = new Common.HudLayer(this, Constants.LayerHud, 1);
+		LayerManager.Clear();
 		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
 		CreateGameLayers();

@@ -19,6 +19,14 @@ public static class Randomizer
 	}
 
 	/// <summary>
+	///		Obtiene un vector aleatorio
+	/// </summary>
+	internal static Vector2 GetRandomVector(Vector2 min, Vector2 max)
+	{
+		return new Vector2(min.X + (float) (Random.NextDouble() * (max.X - min.X)), min.Y + (float) (Random.NextDouble() * (max.Y - min.Y)));
+	}
+
+	/// <summary>
 	///		Obtiene una posición aleatoria sobre una posición
 	/// </summary>
 	public static Vector2 GetRandomOffset(Vector2 position, float radius) => new(position.X + GetRandom(0, radius), position.Y + GetRandom(0, radius));

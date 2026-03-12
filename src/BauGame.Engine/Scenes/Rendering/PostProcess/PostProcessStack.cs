@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.PostProcess;
 
 public class PostProcessStack
 {
-    private readonly List<IPostProcessEffect> _effects = new List<IPostProcessEffect>();
+    private readonly List<IPostProcessEffect> _effects = [];
     private readonly RenderTargetPool _targetPool;
     private readonly GraphicsDevice _device;
 

@@ -23,7 +23,7 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext) 
+    protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
         if (!_isInitialized)
         {
@@ -48,27 +48,42 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
             UiStyle? style = GetStyle();
 
                 // Dibuja la textura de fondo si existe
-                Layer.DrawStyle(camera, Menu.StyleOptions, State, Position.Bounds, gameContext);
+                Layer.DrawStyle(camera, Style, State, Position.Bounds, gameContext);
                 // Dibuja el texto
                 camera.SpriteBatchController.DrawString(SpriteFont, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
         }
     }
 
     /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        if (!string.IsNullOrEmpty(Text) && SpriteFont is not null)
+        {
+            Vector2 textSize = SpriteFont.MeasureString(Text);
+            Vector2 textPosition = new(Position.ContentBounds.X + (Position.ContentBounds.Width - textSize.X) / 2, 
+                                       Position.ContentBounds.Y + (Position.ContentBounds.Height - textSize.Y) / 2);
+            UiStyle? style = GetStyle();
+
+                // Dibuja la textura de fondo si existe
+                Layer.PrepareStyleRendercommands(builder, Style, State, Position.Bounds, gameContext);
+                // Dibuja el texto
+                builder.WithCommand(SpriteFont, Text)
+                        .WithTransform(textPosition, Vector2.Zero)
+                        .WithColor((style?.Color ?? Color.White) * (style?.Opacity ?? 1));
+        }
+	}
+
+    /// <summary>
     ///     Obtiene el estilo correspondiente a la opción
     /// </summary>
     private UiStyle? GetStyle()
     {
-        string? style = Menu.StyleOptions;
-
-            // Obtiene el estilo del menú si no tiene estilo de las opciones
-            if (string.IsNullOrWhiteSpace(style))
-                style = Menu.Style;
-            // Si hay algún estilo, se obtione el valor
-            if (!string.IsNullOrWhiteSpace(style))
-                return Menu.Layer.Styles.GetStyle(style, State);
-            else
-                return null;
+        if (!string.IsNullOrWhiteSpace(Style))
+            return Menu.Layer.Styles.GetStyle(Style, State);
+        else
+            return null;
     }
 
     /// <summary>

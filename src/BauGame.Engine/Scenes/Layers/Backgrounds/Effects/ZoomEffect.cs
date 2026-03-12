@@ -12,20 +12,20 @@ public class ZoomEffect(float duration, bool autoRewind) : AbstractBackgroundEff
     /// </summary>
     protected override void UpdateEffect(Managers.GameContext gameContext) 
     {
-        float current = MathHelper.Lerp(Start, End, Progress);
+        float current = MathHelper.Lerp(StartZoom, EndZoom, Progress);
 
             // Calcula el zoom
-            if (Start != 0)
-                State.Zoom = current / Start;
+            if (StartZoom != 0)
+                State.Zoom = current / StartZoom;
     }
 
     /// <summary>
-    ///     Inicio del Zoom
+    ///     Zoom inicial
     /// </summary>
-    public float Start { get; init; }
+    public float StartZoom { get; init; }
 
     /// <summary>
-    ///     Fin del Zoom
+    ///     Zoom final
     /// </summary>
-    public float End { get; init; }
+    public float EndZoom { get; init; }
 }

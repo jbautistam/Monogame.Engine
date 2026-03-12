@@ -1,11 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes;
+﻿using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
 
 namespace EngineSample.Core.GameLogic.Scenes.MainMenu;
 
@@ -32,11 +30,13 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		Music,
 		Effect,
 		UserInterface,
+		UserInterfaceGrid,
+		UserInterfaceGallery,
 		DebugMode,
 		Quit = 40
 	}
 	// Variables privadas
-	private UiMenu? _menu;
+	private UiMenu? _menu, _menuDirector;
 
 	/// <summary>
 	///		Arranca la escena
@@ -44,6 +44,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	protected override void StartScene()
 	{
 		// Añade la capa
+		LayerManager.Clear();
 		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", 1));
 		LayerManager.AddLayer(CreateHudLayer());
 		// Arranca las capas
@@ -56,41 +57,14 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	private UserInterfaceLayer CreateHudLayer()
 	{
 		UserInterfaceLayer uiLayer = new(this, MenuLayer, 1);
+		Configuration.ConfigurationLoader loader = new();
 
-			// Crea los Estilos
-			CreateStyles(uiLayer);
+			// Carga los estilos
+			uiLayer.Styles = loader.LoadStyles(uiLayer, "Settings/VisualNovel/Styles.xml");
 			// Crea los componentes
 			CreateComponents(uiLayer);
 			// Devuelve la capa generada
 			return uiLayer;
-	}
-
-	/// <summary>
-	///		Crea los estilos de la capa
-	/// </summary>
-	private void CreateStyles(UserInterfaceLayer uiLayer)
-	{
-		UserInterfaceStylesBuilder builder = new(uiLayer);
-
-			// Estilos del menú
-			builder.WithStyle(MenuStyle, UiStyle.StyleType.Normal)
-									.WithBackground("sprites/gradient")
-									.WithColor(Color.Green);
-			// Estilos de la etiqueta de menú
-			builder.WithStyle(MenuOptionsStyle, UiStyle.StyleType.Normal)
-									.WithBackground("Tiles/BlockA4")
-									.WithColor(Color.Green)
-				   .WithStyle(MenuOptionsStyle, UiStyle.StyleType.Selected)
-									.WithBackground("Tiles/BlockA0")
-									.WithColor(Color.Navy)
-				   .WithStyle(MenuOptionsStyle, UiStyle.StyleType.Hover)
-									.WithBackground("Tiles/BlockB0")
-									.WithColor(Color.White)
-				   .WithStyle(MenuOptionsStyle, UiStyle.StyleType.Disabled)
-									.WithBackground("Tiles/BlockA3")
-									.WithColor(Color.Gray);
-			// Genera los estilos
-			uiLayer.Styles = builder.Build();
 	}
 
 	/// <summary>
@@ -101,11 +75,8 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		UserInterfaceBuilder builder = new();
 
 			// Añade los componentes del interface de usuario
-			builder.WithItem(new UserInterfaceLabelBuilder(uiLayer, "Este es el texto de la etiqueta", 0.5f, 0.5f, 1, 1)
-									.WithFont(DefaultFont)
-									.Build()
-							);
 			builder.WithItem(CreateMainMenu(uiLayer));
+			builder.WithItem(CreateMainDirectorMenu(uiLayer));
 			// Añade los elementos generados a la capa
 			uiLayer.Items.AddRange(builder.Build());
 	}
@@ -118,21 +89,37 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		UserInterfaceMenuBuilder builder = new(layer, 0.05f, 0.05f, 0.4f, 0.8f);
 
 			// Asigna los elementos al menú
-			builder.WithOption((int) MenuOption.Play, "Play", DefaultFont, 0.2f, 0, 0.6f, 1)
-					.WithOption((int) MenuOption.SpaceShips, "SpaceShips", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.TilesSample, "Tiles sample", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.GraphicNovel, "Graphic novel", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Animations, "Animations", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.UserInterface, "User interface", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Music, "Music", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Effect, "Effect", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.DebugMode, "Debug mode", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Quit, "Quit", DefaultFont, 0.2f, 0.4f, 0.6f, 1)
-					.WithOptionsStyle(MenuOptionsStyle)
+			builder.WithOption((int) MenuOption.Play, "Play", DefaultFont, MenuOptionsStyle, 0.2f, 0, 0.6f, 1)
+					.WithOption((int) MenuOption.SpaceShips, "SpaceShips", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.TilesSample, "Tiles sample", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.GraphicNovel, "Graphic novel", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Animations, "Animations", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.UserInterface, "User interface", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.UserInterfaceGrid, "UI Grid", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.UserInterfaceGallery, "Gallery", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Music, "Music", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Effect, "Effect", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.DebugMode, "Debug mode", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Quit, "Quit", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithStyle(MenuStyle);
 			// Guarda el menú en una variable
 			_menu = builder.Build();
 			return _menu;
+	}
+
+	/// <summary>
+	///		Crea el menú principal
+	/// </summary>
+	private UiMenu CreateMainDirectorMenu(AbstractUserInterfaceLayer layer)
+	{
+		UserInterfaceMenuBuilder builder = new(layer, 0.7f, 0.05f, 0.3f, 0.8f);
+
+			// Asigna los elementos al menú
+			builder.WithOption((int) MenuOption.UserInterface, "User interface director", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithStyle(MenuStyle);
+			// Guarda el menú en una variable
+			_menuDirector = builder.Build();
+			return _menuDirector;
 	}
 
 	/// <summary>
@@ -169,6 +156,12 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 					case MenuOption.UserInterface:
 							nextScene = GetNewScene(UserInterfaceTest.UserInterfaceScene.SceneName);
 						break;
+					case MenuOption.UserInterfaceGrid:
+							nextScene = GetNewScene(UserInterfaceGridTest.UserInterfaceGridScene.SceneName);
+						break;
+					case MenuOption.UserInterfaceGallery:
+							nextScene = GetNewScene(UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName);
+						break;
 					case MenuOption.Music:
 							PlaySong();
 						break;
@@ -180,6 +173,14 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 						break;
 					case MenuOption.Quit:
 							GameEngine.Instance.Exit();
+						break;
+				}
+			// Cambia la escena con el menú que utiliza el manager de cámaras
+			if (_menuDirector is not null)
+				switch ((MenuOption?) _menuDirector.GetAndResetClickOption())
+				{
+					case MenuOption.UserInterface:
+							nextScene = GetNewScene(Director.UserInterfaceTest.UserInterfaceScene.SceneName);
 						break;
 				}
 			// Devuelve la nueva escena

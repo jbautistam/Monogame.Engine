@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 /// <summary>
 ///     Componente del interface de usuario para un panel
 /// </summary>
-public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position), Interfaces.IComponentPanel
 {
     /// <summary>
     ///     Añade un elemento al panel
@@ -17,6 +17,26 @@ public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
         item.Parent = this;
         // Añade el elemento a la lista
         Children.Add(item);
+    }
+
+    /// <summary>
+    ///     Obtiene un elemento del interface de usuario
+    /// </summary>
+    public TypeData? GetItem<TypeData>(string id) where TypeData : UiElement
+    {
+        // Busca el elemento en la lista o en sus componetes hijo
+        foreach (UiElement item in Children)
+            if (item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase) && item is TypeData converted)
+                return converted;
+            else if (item is Interfaces.IComponentPanel panel)
+            {
+                TypeData? child = panel.GetItem<TypeData>(id);
+
+                    if (child is not null)
+                        return child;
+            }
+        // Si ha llegado hasta aquí es porque no ha encontrado nada
+        return null;
     }
 
     /// <summary>
@@ -31,7 +51,7 @@ public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext) 
+    protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
         foreach (UiElement child in Children)
             if (child.Enabled)
@@ -50,7 +70,20 @@ public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
             if (child.Visible)
                 child.Draw(camera, gameContext);
     }
-    
+
+    /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        // Prepara los comandos de borde y fondo
+        Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
+        // Dibuja los elementos hijo
+        foreach (UiElement child in Children)
+            if (child.Visible)
+                child.PrepareRenderCommands(builder, gameContext);
+	}
+
     /// <summary>
     ///     Elementos hijo
     /// </summary>

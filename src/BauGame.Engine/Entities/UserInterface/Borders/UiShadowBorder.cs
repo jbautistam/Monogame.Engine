@@ -1,5 +1,6 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
@@ -41,6 +42,17 @@ public class UiShadowBorder(Styles.UiStyle style) : UiAbstractBorder(style)
     }
 
     /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(RenderCommandsBuilder builder, Rectangle bounds, GameContext gameContext)
+	{
+        builder.WithCommand(Thickness, false)
+               .WithTransform(bounds, Vector2.Zero)
+               .WithShadow(Offset, ShadowColor, BlurRadius)
+               .WithColor(Color * Opacity);
+	}
+
+    /// <summary>
     ///     Color de la sombra
     /// </summary>
     public Color ShadowColor { get; set; } = new(0, 0, 0, 128);
@@ -51,7 +63,7 @@ public class UiShadowBorder(Styles.UiStyle style) : UiAbstractBorder(style)
     public Vector2 Offset { get; set; } = new(4, 4);
 
     /// <summary>
-    ///     Radio de blur (no se utilizan shaders, se simula
+    ///     Radio de blur (no se utilizan shaders, se simula)
     /// </summary>
     public int BlurRadius { get; set; } = 4;
 }

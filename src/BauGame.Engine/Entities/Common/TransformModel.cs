@@ -8,14 +8,14 @@ namespace Bau.Libraries.BauGame.Engine.Entities.Common;
 public class TransformModel
 {
     // Variables privadas
-    private Vector2 _position, _scale;
+    private Vector2 _position = Vector2.Zero, _scale = Vector2.One;
     private Vector2? _origin;
     private float _rotation;
 
     /// <summary>
     ///     Posición
     /// </summary>
-    public required Vector2 Position 
+    public Vector2 Position 
     { 
         get { return _position; }
         set
@@ -65,10 +65,7 @@ public class TransformModel
     /// </summary>
     public Vector2 Origin
     { 
-        get 
-        { 
-            return _origin ?? Vector2.Zero; 
-        }
+        get { return _origin ?? Vector2.Zero; }
         set
         {
             if (_origin != value)

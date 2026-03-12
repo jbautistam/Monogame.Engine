@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 /// <summary>
 ///     Clase base para las definiciones de capas
 /// </summary>
-public abstract class AbstractLayer
+public abstract class AbstractLayer : Entities.Common.Collections.ISecureListItem
 {
     /// <summary>
     ///     Tipo de capa
@@ -20,16 +20,17 @@ public abstract class AbstractLayer
         UserInterface
     }
 
-    public AbstractLayer(AbstractScene scene, string name, LayerType type, int sortOrder)
+    public AbstractLayer(AbstractScene scene, string id, LayerType type, int sortOrder)
     {
         // Asigna las propiedades
         Scene = scene;
-        Name = name;
+        Id = id;
         Type = type;
         Actors = new(this);
         SortOrder = sortOrder;
         // Inicializa los objetos
         Services = new Services.LayerServicesList(this);
+        CommandsQueue = new Cameras.Rendering.RenderCommandsQueue();
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public abstract class AbstractLayer
         // Actualiza los servicios
         Services.Update(gameContext);
         // Actualiza la capa
-        UpdateLayer(gameContext);
+        UpdateSelf(gameContext);
         // Actualiza los actores
         Actors.Update(gameContext);
     }
@@ -73,7 +74,7 @@ public abstract class AbstractLayer
     /// <summary>
     ///     Actualiza la capa
     /// </summary>
-    protected abstract void UpdateLayer(Managers.GameContext gameContext);
+    protected abstract void UpdateSelf(Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Dibuja la capa
@@ -81,7 +82,7 @@ public abstract class AbstractLayer
 	public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
 	{
         // Dibuja la capa
-        DrawLayer(camera, gameContext);
+        DrawSelf(camera, gameContext);
         // Ordena los actores
         Actors.SortByZOrder();
         // Dibuja los actores
@@ -91,12 +92,34 @@ public abstract class AbstractLayer
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected abstract void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext);
+	protected abstract void DrawSelf(Cameras.Camera2D camera, Managers.GameContext gameContext);
+
+    /// <summary>
+    ///     Prepara los comandos de representación
+    /// </summary>
+	public void PrepareRenderCommands(Managers.GameContext gameContext)
+	{
+        Cameras.Rendering.Builders.RenderCommandsBuilder builder = new();
+
+            // Ordena los actores
+            Actors.SortByZOrder();
+            // Añade los comandos de los actores
+            Actors.PrepareRenderCommands(builder, gameContext);
+            // Añade los comandos específicos de la capa
+            PrepareRenderCommandsSelf(builder, gameContext);
+            // Añade los comandos a la cola
+            CommandsQueue.AddRange(builder.Build());
+	}
+
+    /// <summary>
+    ///     Prepara los comandos de representación de la capa
+    /// </summary>
+    protected abstract void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext);
 
     /// <summary>
     ///     Finaliza la capa
     /// </summary>
-    public void End()
+    public void End(Managers.GameContext gameContext)
     {
         // Limpia los datos
         Actors.Clear();
@@ -117,7 +140,7 @@ public abstract class AbstractLayer
 	/// <summary>
 	///		Nombre de la capa
 	/// </summary>
-	public string Name { get; }
+	public string Id { get; }
 
     /// <summary>
     ///     Tipo de capa
@@ -148,4 +171,14 @@ public abstract class AbstractLayer
     ///     Servicios de la capa
     /// </summary>
     public Services.LayerServicesList Services { get; }
+    
+    /// <summary>
+    ///     Cola de comandos de dibujo
+    /// </summary>
+    public Cameras.Rendering.RenderCommandsQueue CommandsQueue { get; }
+
+    /// <summary>
+    ///     Cámaras sobre las que se dibuja la capa
+    /// </summary>
+    public List<string> Cameras { get; } = [];
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Bau.Libraries.BauGame.Engine.Managers.Resources;
+﻿namespace Bau.Libraries.BauGame.Engine.Managers.Resources;
 
 /// <summary>
 ///		Manager para la definición de recursos
@@ -10,6 +9,7 @@ public class ResourcesManager
 	{
 		EngineManager = engineManager;
 		TextureManager = new TextureManager(this);
+		TextureConfigurationManager = new TextureConfigurationManager(this);
 		GlobalContentManager = new ContentDisposableManager(this);
 		AnimationManager = new Animations.AnimationManager(this);
 	}
@@ -28,6 +28,11 @@ public class ResourcesManager
 	///		Manager de definiciones de texturas
 	/// </summary>
 	public TextureManager TextureManager { get; }
+
+	/// <summary>
+	///		Manager para las configuraciones de texturas
+	/// </summary>
+	public TextureConfigurationManager TextureConfigurationManager { get; }
 
 	/// <summary>
 	///		Manager para las definiciones de animaciones

@@ -33,7 +33,7 @@ public class DynamicBackgroundLayer(AbstractScene scene, string name, string tex
     /// <summary>
     ///     Actualiza la capa de fondo
     /// </summary>
-	protected override void UpdateLayer(Managers.GameContext gameContext)
+	protected override void UpdateSelf(Managers.GameContext gameContext)
 	{
         // Carga la región de la textura
         if (_region is null)
@@ -46,7 +46,7 @@ public class DynamicBackgroundLayer(AbstractScene scene, string name, string tex
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    protected override void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawSelf(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         if (_region is not null)
         {
@@ -64,6 +64,18 @@ public class DynamicBackgroundLayer(AbstractScene scene, string name, string tex
                                                   state.Rotation);
         }
     }
+
+    /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	protected override void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        builder.WithCommand(Texture, "Background")
+                    .WithTransform(new Rectangle(0, 0, 1, 1), Vector2.Zero)
+                    .WithDrawType(Scenes.Cameras.Rendering.SpriteRenderCommand.DrawType.Normal)
+                    .WithColor(Color)
+                    .WithZIndex(SortOrder);
+	}
 
     /// <summary>
     ///     Calcula el zoom de referencia

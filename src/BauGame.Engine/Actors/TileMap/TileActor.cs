@@ -52,9 +52,17 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
 	{
 		// ... por ahora sólo implementa la interface
+	}
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	protected override void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        // ... en este caso no hace nada
 	}
 
 	/// <summary>

@@ -5,9 +5,6 @@
 /// </summary>
 public class AudioSettings
 {
-    // Eventos públicos
-    public event EventHandler? VolumeChanged;
-
     /// <summary>
     ///     Obtiene el volumen de una categoría
     /// </summary>

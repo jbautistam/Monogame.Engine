@@ -12,7 +12,6 @@ namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
 /// </summary>
 public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
 {
-    // Enumerados públicos
     /// <summary>
     ///     Modo de escritura
     /// </summary>
@@ -43,7 +42,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext) 
+    protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
         // Inicializa el contenido
         if (!_isInitialized)
@@ -75,6 +74,21 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
             // Inicializa el temporizador
             _elapsed = 0;
         }
+        // Comprueba si está escribiendo
+        IsWriting = !IsWritingEnd();
+    }
+
+    /// <summary>
+    ///     Comprueba si tiene algo pendiente de escribir
+    /// </summary>
+    private bool IsWritingEnd()
+    {
+        // Comprueba si alguna sección no ha terminado
+        foreach (TextSectionModel section in _textSections)
+            if (!section.Completed)
+                return false;
+        // Si ha llegado hasta aquí es porque ha terminado de escribir
+        return true;
     }
 
     /// <summary>
@@ -84,7 +98,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     {
         bool mustUpdate = true;
 
-            // Actualiza todas las secciones, no lo hace más después de actualizar la primera que encuentra que no ha temrinado
+            // Actualiza todas las secciones, no lo hace más después de actualizar la primera que encuentra que no ha terminado
             for (int index = 0; index < _textSections.Count; index++)
                 if (!_textSections[index].Completed && mustUpdate)
                 {
@@ -115,7 +129,10 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
                     break;
                 case CommandEvetTypeWriter eventCommand:
                         if (!string.IsNullOrWhiteSpace(eventCommand.Data))
-                            CommandExecute?.Invoke(this, new EventArguments.CommandEventArgs(eventCommand.Data));
+                        {
+                            CommandExecute?.Invoke(this, new EventArguments.CommandEventArgs(this, eventCommand.Data));
+                            Layer.RaiseCommandExecute(new EventArguments.CommandEventArgs(this, eventCommand.Data));
+                        }
                     break;
             }
 	}
@@ -149,7 +166,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
             // Escribe las secciones
             for (int index = 0; index < _textSections.Count && !end; index++)
             {
-                string[] words = _textSections[index].ShowText.Split([ ' ' ], StringSplitOptions.RemoveEmptyEntries);
+                string[] words = _textSections[index].TextToShow.Split([ ' ' ], StringSplitOptions.RemoveEmptyEntries);
 
                     // Cambia color y estilo
                     color = _textSections[index].Color ?? style.Color;
@@ -172,7 +189,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
                             else
                                 x += wordSize.X;
                      }
-                    // Indica si se debe terminar de dibujar
+                    // Comprueba si se debe terminar de dibujar
                     if (!_textSections[index].Completed)
                         end = true;
             }
@@ -195,6 +212,33 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
         // Obtiene las coordenadas para saltar de línea
         (float x, float y) NewLine(float y, SpriteFont font) => (Position.ContentBounds.X, y + font.LineSpacing * LineSpacing);
     }
+
+    /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        Styles.UiStyle style = Layer.Styles.GetDefault(Style);
+        bool end = false;
+        Scenes.Cameras.Rendering.Builders.SpriteFontRenderCommandBuilder fontBuilder;
+
+            // Genera los comandos de estilo
+            Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
+            // Genera el comando de preparación de un renderer de texto
+            fontBuilder = builder.WithCommand(Font, LineSpacing, true)
+                                 .WithTransform(Position.ContentBounds, Vector2.Zero)
+                                 .WithAlignment(UiLabel.HorizontalAlignmentType.Left, UiLabel.VerticalAlignmentType.Top);
+            // Añade los textos
+            for (int index = 0; index < _textSections.Count && !end; index++)
+            {
+                // Añade el texto
+                fontBuilder.WithText(_textSections[index].TextToShow, _textSections[index].Bold, _textSections[index].Italic,
+                                        _textSections[index].Color ?? style.Color);
+                // Comprueba si se debe terminar de añadir textos
+                if (!_textSections[index].Completed)
+                    end = true;
+            }
+	}
 
     /// <summary>
     ///     Texto (al asignarle un valor, arranca de nuevo la generación)
@@ -230,7 +274,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     /// <summary>
     ///     Espaciado de líneas
     /// </summary>
-    public float LineSpacing { get; set; } = 1.2f;
+    public float LineSpacing { get; set; } = 1f;
 
     /// <summary>
     ///     Velocidad para mostrar los caracteres
@@ -241,4 +285,9 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     ///     Modo de escritura
     /// </summary>
     public WriteMode Mode { get; set; } = WriteMode.Characters;
+
+    /// <summary>
+    ///     Indica si está escribiendo
+    /// </summary>
+    public bool IsWriting { get; private set; }
 }

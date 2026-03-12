@@ -225,6 +225,17 @@ public class Camera2D
 	}
 
     /// <summary>
+    ///     Obtiene la <see cref="Matrix"/> necesario para comenzar con el dibujo del mundo
+    /// </summary>
+	public Matrix? GetMatrixDrawWorld()
+	{
+        // Actualiza las matrices
+        UpdateMatrices();
+        // Devuelve la matriz
+        return _transformMatrix;
+	}
+
+    /// <summary>
     ///     Arranca el dibujo de la UI
     /// </summary>
 	public void BeginDrawUI()

@@ -28,6 +28,7 @@ public class ProjectileManager(AbstractLayer layer)
             }
             // Configura el proyectil
             projectile.Shoot(properties, position, direction * properties.Speed, rotation, physicsLayer);
+            projectile.Start();
             // Devuelve el proyectil que se acaba de crear
             return projectile;
     }

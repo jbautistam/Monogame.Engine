@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Microsoft.Xna.Framework;
+using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 
@@ -24,30 +24,11 @@ public class UiProgressBar : UiElement
     // Variables privadas
     private float _currentValue = 0;
     private float _animationTimer;
-    private bool _isAnimating;
-    private bool _isInitialized;
 
     public UiProgressBar(AbstractUserInterfaceLayer layer, UiPosition position) : base(layer, position)
     {
         Position.Padding = new UiMargin(10);
     }
-
-    /// <summary>
-    ///     Inicializa el componente
-    /// </summary>
-    private void Initialize()
-	{
-        if (!_isInitialized)
-        {
-            // Carga las texturas
-            if (!string.IsNullOrWhiteSpace(BackgroundBarTexture))
-                BackgroundBarTexture2D = Layer.Scene.LoadSceneAsset<Texture2D>(BackgroundBarTexture);
-            if (!string.IsNullOrWhiteSpace(Texture))
-                Texture2D = Layer.Scene.LoadSceneAsset<Texture2D>(Texture);
-            // Indica que ya está inicializado
-            _isInitialized = true;
-        }
-	}
 
     /// <summary>
     ///     Cálculo del layout del elemento
@@ -59,10 +40,8 @@ public class UiProgressBar : UiElement
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext)
+    protected override void UpdateSelf(Managers.GameContext gameContext)
     {
-        // Inicializa las texturas
-        Initialize();
         // Normaliza el valor
         Value = Math.Clamp(Value, 0, Maximum);
         // Actualiza los elementos
@@ -79,7 +58,6 @@ public class UiProgressBar : UiElement
                 if (progress >= 1f)
                 {
                     _currentValue = Value;
-                    _isAnimating = false;
                     _animationTimer = 0;
                 }
                 else
@@ -92,12 +70,12 @@ public class UiProgressBar : UiElement
     /// </summary>
     public override void Draw(Camera2D camera, Managers.GameContext gameContext)
     {
-        Rectangle target, backgroundRectangle;
+        Rectangle target;
         float percent = _currentValue / Maximum;
         Styles.UiStyle style = Layer.Styles.GetDefault(Style);
 
             // Dibuja la textura de fondo si existe
-            Background?.Draw(camera, Position.Bounds, gameContext);
+            Background?.Draw(camera, Position.Bounds, Vector2.Zero, 0, Color.White);
             // Calcular rectángulo de relleno según orientación y modo
             switch (Orientation)
             {
@@ -113,40 +91,29 @@ public class UiProgressBar : UiElement
                 break;
             }
             // Calcula un rectángulo ligeramente más pequeño cuando tenemos una textura de fondo de la barra de progreso
-            backgroundRectangle = target;
-            if (BackgroundBarTexture2D is not null)
+            if (Bar is not null)
                 target = new Rectangle(target.X + 2, target.Y + 2, target.Width - 4, target.Height - 4);
-            // Dibuja las texturas
-            if (BackgroundBarTexture2D is not null)
-                camera.SpriteBatchController.Draw(BackgroundBarTexture2D, backgroundRectangle, style.Color * style.Opacity);
-            if (Texture2D is not null)
-                camera.SpriteBatchController.Draw(Texture2D, target, style.Color * style.Opacity);
+            // Dibuja la barra de progreso
+            Bar?.Draw(camera, target, Vector2.Zero, 0, style.Color * style.Opacity);
     }
+
+    /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+		//TODO: aquí debería ir todo
+	}
 
     /// <summary>
     ///     Fondo de todo el control
     /// </summary>
-    public Backgrounds.UiBackground? Background { get; set; }
-
-    /// <summary>
-    ///     Fondo de la barra de progreso
-    /// </summary>
-    public string? BackgroundBarTexture { get; set; }
-
-	/// <summary>
-	///		Textura del fondo de la barra de progreso
-	/// </summary>
-	private Texture2D? BackgroundBarTexture2D { get; set; }
+    public SpriteDefinition? Background { get; set; }
 
     /// <summary>
     ///     Imagen de la barra de progreso
     /// </summary>
-    public string? Texture { get; set; }
-
-	/// <summary>
-	///		Textura de la barra de progreso
-	/// </summary>
-	private Texture2D? Texture2D { get; set; }
+    public SpriteDefinition? Bar { get; set; }
 
     /// <summary>
     ///     Valor máximo

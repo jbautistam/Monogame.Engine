@@ -18,14 +18,14 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
     /// <summary>
     ///     Actualiza la capa de fondo
     /// </summary>
-	protected override void UpdateLayer(Managers.GameContext gameContext)
+	protected override void UpdateSelf(Managers.GameContext gameContext)
 	{
 	}
 
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    protected override void DrawLayer(Cameras.Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawSelf(Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         TextureRegion? region = GetTextureRegion("background");
 
@@ -63,6 +63,18 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
                     }
             }
     }
+
+    /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	protected override void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        builder.WithCommand(Texture, null)
+               .WithTransform(new Rectangle(0, 0, 1, 1), Vector2.Zero)
+               .WithDrawType(Scenes.Cameras.Rendering.SpriteRenderCommand.DrawType.Tiled)
+               .WithColor(Color)
+               .WithZIndex(SortOrder);
+	}
 
     /// <summary>
     ///     Finaliza el dibujo del fondo

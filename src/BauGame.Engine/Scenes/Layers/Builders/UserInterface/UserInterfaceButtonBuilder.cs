@@ -19,6 +19,7 @@ public class UserInterfaceButtonBuilder : AbstractElementUserInterfaceBuilder<Ui
 	{
 		// Asigna la etiqueta
 		Item.Label = label;
+		Item.Label.Parent = Item;
 		// Devuelve el generador
 		return this;
 	}

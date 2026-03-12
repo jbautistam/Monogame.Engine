@@ -18,7 +18,7 @@ internal class TextSectionModel
 			switch (mode)
 			{
 				case UiTypeWriterLabel.WriteMode.Full:
-						ShowText = Text;
+						TextToShow = Text;
 					break;
 				case UiTypeWriterLabel.WriteMode.Characters:
 						AddNextCharacter();
@@ -39,8 +39,8 @@ internal class TextSectionModel
 	/// </summary>
 	private void AddNextCharacter()
 	{
-		if (ShowText.Length < Text.Length)
-			ShowText += Text[ShowText.Length];
+		if (TextToShow.Length < Text.Length)
+			TextToShow += Text[TextToShow.Length];
 	}
 
 	/// <summary>
@@ -51,15 +51,15 @@ internal class TextSectionModel
 		bool end = false;
 
 			// Añade caracteres hasta encontrar un espacio o un salto de línea
-			while (ShowText.Length < Text.Length && !end)
+			while (TextToShow.Length < Text.Length && !end)
 			{
-				char chr = Text[ShowText.Length];
+				char chr = Text[TextToShow.Length];
 
 					// Quita los tabuladores
 					if (chr == '\t')
 						chr = ' ';
 					// Añade el carácter
-					ShowText += chr;
+					TextToShow += chr;
 					// Si es un salto de línea o un espacio, termina
 					if (chr == '\r' || chr == '\n' || chr == ' ')
 						end = true;
@@ -74,7 +74,7 @@ internal class TextSectionModel
 	/// <summary>
 	///		Texto que se debe mostrar
 	/// </summary>
-	internal string ShowText { get; private set; } = string.Empty;
+	internal string TextToShow { get; private set; } = string.Empty;
 
 	/// <summary>
 	///		Color con el que se va a escribir
@@ -99,7 +99,7 @@ internal class TextSectionModel
 	/// <summary>
 	///		Indica si se ha terminado la estructura
 	/// </summary>
-	internal bool Completed => ShowText.Length == Text.Length;
+	internal bool Completed => TextToShow.Length == Text.Length;
 
 	/// <summary>
 	///		Indica si acaba de terminar

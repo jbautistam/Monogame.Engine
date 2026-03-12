@@ -1,7 +1,6 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
 
@@ -19,6 +18,19 @@ public abstract class UiAbstractBorder(Styles.UiStyle style)
 	///		Dibuja el control
 	/// </summary>
 	public abstract void Draw(Camera2D camera, Rectangle position, GameContext gameContext);
+
+	/// <summary>
+	///		Prepara los comandos de representación
+	/// </summary>
+	public abstract void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Rectangle bounds, GameContext gameContext);
+
+	/// <summary>
+	///		Obtiene un rectángulo que coloca al borde por fuera del contenido
+	/// </summary>
+	protected Rectangle Inflate(Rectangle bounds)
+	{
+		return new Rectangle(bounds.X - Thickness, bounds.Y - Thickness, bounds.Width + 2 * Thickness, bounds.Height + 2 * Thickness);
+	}
 
 	/// <summary>
 	///		Estilo padre

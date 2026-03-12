@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Entities.Common;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
 
@@ -14,14 +14,7 @@ public class UiBackground(Styles.UiStyle style) : UiAbstractBackground(style)
 	/// </summary>
 	public override void Update(Managers.GameContext gameContext)
 	{
-        if (!IsInitialized)
-        {
-            // Carga la textura
-            if (!string.IsNullOrWhiteSpace(Texture))
-                Texture2D = Style.Layer.Scene.LoadSceneAsset<Texture2D>(Texture);
-            // Indica que ya está inicializado
-           IsInitialized = true;
-        }
+		Sprite?.Update(gameContext);
 	}
 
 	/// <summary>
@@ -29,17 +22,22 @@ public class UiBackground(Styles.UiStyle style) : UiAbstractBackground(style)
 	/// </summary>
 	public override void Draw(Camera2D camera, Rectangle position, Managers.GameContext gameContext)
 	{
-		if (Texture2D is not null)
-			camera.SpriteBatchController.Draw(Texture2D, position, Color * Opacity);
+		Sprite?.Draw(camera, position, Vector2.Zero, 0, Color * Opacity);
 	}
 
 	/// <summary>
-	///		Textura
+	///		Finaliza el trabajo con el actor
 	/// </summary>
-	public string? Texture { get; set; }
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Rectangle bounds, Managers.GameContext gameContext)
+	{
+		if (Sprite is not null)
+			builder.WithCommand(Sprite)
+				   .WithTransform(bounds, Vector2.Zero)
+				   .WithColor(Color * Opacity);
+	}  
 
 	/// <summary>
-	///		Textura
+	///		Definición del sprite
 	/// </summary>
-	private Texture2D? Texture2D { get; set; }
+	public SpriteDefinition? Sprite { get; set; }
 }

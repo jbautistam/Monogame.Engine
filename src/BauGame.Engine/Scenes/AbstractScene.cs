@@ -15,6 +15,7 @@ public abstract class AbstractScene
         PhysicsManager = new Physics.PhysicsManager(this);
         MessagesManager = new Messages.MessagesManager(this);
         TimerManager = new Timers.TimerManager(this);
+        CameraDirector = new Cameras.CameraDirector(this);
     }
 
     /// <summary>
@@ -48,7 +49,14 @@ public abstract class AbstractScene
     /// </summary>
     public void Draw(Managers.GameContext gameContext)
     {
-        if (Camera is not null)
+        if (CameraDirector.Cameras.Count > 0)
+        {
+            // Prepara los comandos
+            LayerManager.PrepareRenderCommands(gameContext);
+            // Dibuja los comandos
+            CameraDirector.Render(GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice);
+        }
+        else if (Camera is not null)
             LayerManager.Draw(Camera, gameContext);
     }
 
@@ -66,7 +74,6 @@ public abstract class AbstractScene
     /// <summary>
     ///     Obtiene el viewport de la escena
     /// </summary>
-    /// <returns></returns>
     public Viewport GetViewPort() => GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport;
 
     /// <summary>
@@ -77,12 +84,12 @@ public abstract class AbstractScene
     /// <summary>
     ///     Finaliza la escena
     /// </summary>
-    public void End()
+    public void End(Managers.GameContext gameContext)
     {
         // Detiene el audio
         GameEngine.Instance.AudioManager.Stop();
         // Finaliza las capas
-        LayerManager.End();
+        LayerManager.End(gameContext);
         // Finaliza la escena
         EndScene();
     }
@@ -101,6 +108,11 @@ public abstract class AbstractScene
     ///     Cámara de la escena
     /// </summary>
     public Cameras.Camera2D? Camera { get; private set; }
+
+    /// <summary>
+    ///     Director de cámaras
+    /// </summary>
+    public Cameras.CameraDirector CameraDirector { get; }
 
     /// <summary>
     ///     Definición del mundo

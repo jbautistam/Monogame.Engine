@@ -522,6 +522,30 @@
 /processorParam:TextureFormat=Color
 /build:images/SpaceShips/weapons/missiles.png
 
+#begin images/VisualNovel/TypeWriter-Background-01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/VisualNovel/TypeWriter-Background-01.png
+
+#begin images/VisualNovel/TypeWriter-Border-01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/VisualNovel/TypeWriter-Border-01.png
+
 #begin Levels/00.txt
 /copy:Levels/00.txt
 

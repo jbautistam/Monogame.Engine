@@ -1,6 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
@@ -15,10 +14,15 @@ public class UiStyle(UiStylesCollection stylesParent, UiStyle.StyleType type)
 	/// </summary>
 	public enum StyleType
 	{
+		/// <summary>Elemento inactivo</summary>
 		Disabled,
+		/// <summary>Elemento presionado</summary>
 		Pressed,
+		/// <summary>Elemento seleccionado</summary>
 		Selected,
+		/// <summary>Elemento con el cursor encima</summary>
 		Hover,
+		/// <summary>Normal</summary>
 		Normal
 	}
 
@@ -41,14 +45,18 @@ public class UiStyle(UiStylesCollection stylesParent, UiStyle.StyleType type)
 	}
 
 	/// <summary>
+	///		Prepara los comandos de representación
+	/// </summary>
+	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Rectangle bounds, GameContext gameContext)
+	{
+		Background?.PrepareRenderCommands(builder, bounds, gameContext);
+		Border?.PrepareRenderCommands(builder, bounds, gameContext);
+	}
+
+	/// <summary>
 	///		Colección padre
 	/// </summary>
 	public UiStylesCollection StylesParent { get; } = stylesParent;
-
-	/// <summary>
-	///		Capa a la que se asocia el estilo
-	/// </summary>
-	public AbstractUserInterfaceLayer Layer { get; } = stylesParent.Layer;
 
 	/// <summary>
 	///		Tipo
@@ -83,5 +91,5 @@ public class UiStyle(UiStylesCollection stylesParent, UiStyle.StyleType type)
 	/// <summary>
 	///		Opacidad
 	/// </summary>
-	public float Opacity { get; set; }
+	public float Opacity { get; set; } = 1;
 }

@@ -26,22 +26,22 @@ public class SceneManager
     /// <summary>
     ///     Cambia la escena
     /// </summary>
-    public void ChangeScene(string name)
+    public void ChangeScene(string name, Managers.GameContext gameContext)
     {
         AbstractScene? newScene = _scenes.Get(name);
 
             // Cambia la escena
             if (newScene is not null)
-                ChangeScene(newScene);
+                ChangeScene(newScene, gameContext);
     }
 
     /// <summary>
     ///     Cambia la escena
     /// </summary>
-    public void ChangeScene(AbstractScene? newScene)
+    public void ChangeScene(AbstractScene? newScene, Managers.GameContext gameContext)
     {
         // Finaliza la escena
-        _currentScene?.End();
+        _currentScene?.End(gameContext);
         // Cambia la escena actual
         _currentScene = newScene;
         // Inicia la escena
@@ -62,7 +62,7 @@ public class SceneManager
 
             // Cambia la escena
             if (nextScene != _currentScene)
-                ChangeScene(nextScene);
+                ChangeScene(nextScene, gameContext);
         //TransitionManager.Update(gameTime);
         //if (!TransitionManager.IsTransitioning)
         //    _currentScene?.Update(gameTime);

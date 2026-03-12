@@ -18,6 +18,11 @@ public class EngineSettings
     public bool IsDesktop = OperatingSystem.IsMacOS() || OperatingSystem.IsLinux() || OperatingSystem.IsWindows();
 
     /// <summary>
+    ///     Fuente predetermianda
+    /// </summary>
+    public string DefaultFont { get; set; } = "";
+
+    /// <summary>
     ///     Indica si está en modo de depuración
     /// </summary>
     public bool DebugMode { get; set; }

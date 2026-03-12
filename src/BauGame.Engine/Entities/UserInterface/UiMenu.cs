@@ -7,56 +7,75 @@ namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 /// <summary>
 ///		Componente para presentación de un menú
 /// </summary>
-public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
+public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position), Interfaces.IComponentPanel
 {
-    // Eventos públicos
-    public event EventHandler<EventArguments.OptionClickEventArgs>? Click;
     // Variables privadas
     private int _selectedOption = 0, _hoverOption = -1;
     private int? _clickedOption;
+
+    /// <summary>
+    ///     Añade una opción
+    /// </summary>
+    public void AddOption(UiMenuOption option)
+    {
+        // Añade la opción
+        Options.Add(option);
+        // Asigna el padre
+        option.Parent = this;
+        // Invalida el control
+        Invalidate();
+    }
 
     /// <summary>
     ///     Cálculo del layout del elemento
     /// </summary>
     protected override void ComputeScreenBoundsSelf() 
     {
-        // Calcula los límites de los elementos hijo
-        NormalizeOptionsBounds();
-        foreach (UiElement element in Options)
-            element.ComputeScreenBounds(Position.ContentBounds);
+        int count = Options.Count(item => item.Visible);
+        float offset = 0.1f;
+        float limits = 1.0f - 4 * offset;
+        float height = limits / count;
 
-        // Normaliza las posiciones de las opciones
-        void NormalizeOptionsBounds()
-        {
-            int count = Options.Count(item => item.Visible);
-            float offset = 0.1f;
-            float limits = 1.0f - 4 * offset;
-            float height = limits / count;
+            // Coloca los elementos
+            foreach (UiElement element in Options)
+                if (element.Visible)
+                {
+                    element.Position = new UiPosition(element.Position.X, offset, element.Position.Width, height);
+                    offset += height + 0.01f;
+                }
+            // y los invalida
+            foreach (UiElement element in Options)
+                element.Invalidate();
+    }
 
-                foreach (UiElement element in Options)
-                    if (element.Visible)
-                    {
-                        element.Position = new UiPosition(element.Position.X, offset, element.Position.Width, height);
-                        offset += height + 0.01f;
-                    }
-        }
+    /// <summary>
+    ///     Obtiene un elemento del interface de usuario
+    /// </summary>
+    public TypeData? GetItem<TypeData>(string id) where TypeData : UiElement
+    {
+        // Busca el elemento en la lista o en sus componetes hijo
+        foreach (UiElement item in Options)
+            if (item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase) && item is TypeData converted)
+                return converted;
+        // Si ha llegado hasta aquí es porque no ha encontrado nada
+        return null;
     }
 
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext) 
+    protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
         // Cambia la opción seleccionada
         TreatInputs();
         TreatMouse();
         UpdateOptions();
         // Actualiza los elementos
-        Title?.UpdateSelf(gameContext);
+        Title?.Update(gameContext);
         // Calcula los límites de los elementos hijo
         for (int index = 0; index < Options.Count; index++)
             if (Options[index].Visible)
-                Options[index].UpdateSelf(gameContext);
+                Options[index].Update(gameContext);
     }
 
     /// <summary>
@@ -103,8 +122,11 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
 	{
         if (selectedOption >= 0 && selectedOption < Options.Count)
         {
+            // Cambia la opción seleccionada
+            _selectedOption = selectedOption;
             _clickedOption = Options[selectedOption].OptionId;
-            Click?.Invoke(this, new EventArguments.OptionClickEventArgs(Options[selectedOption].OptionId));
+            // Lanza el evento
+            Layer.RaiseCommandClick(new EventArguments.ClickEventArgs(this, Options[selectedOption].OptionId.ToString()));
         }
 	}
 
@@ -154,17 +176,26 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     }
 
     /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        // Dibuja el título, borde y fondo
+        Title?.PrepareRenderCommands(builder, gameContext);
+        Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
+        // Dibuja los elementos hijo
+        foreach (UiElement child in Options)
+            if (child.Visible)
+                child.PrepareRenderCommands(builder, gameContext);
+	}
+
+    /// <summary>
     ///     Etiqueta del título
     /// </summary>
     public UiLabel? Title { get; set; }
 
     /// <summary>
-    ///     Estilo de las opciones
-    /// </summary>
-    public string? StyleOptions { get; set; }
-
-    /// <summary>
     ///     Elementos hijo
     /// </summary>
-    public List<UiMenuOption> Options { get; } = [];
+    private List<UiMenuOption> Options { get; } = [];
 }

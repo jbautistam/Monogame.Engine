@@ -28,6 +28,7 @@ internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Librar
 	{
 		// Guarda el interface de usuario Hud
 		_hudLayer = new Common.HudLayer(this, Constants.LayerHud, 1);
+		LayerManager.Clear();
 		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
 		LayerManager.AddLayer(new Layers.SpaceShipGameLayer(this, SceneName, 1));

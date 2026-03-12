@@ -15,7 +15,8 @@ public class EngineSampleGame : Game
 	{
 		Bau.Libraries.BauGame.Engine.Configuration.EngineSettings settings = new()
 																				{
-																					ContentRoot = "Content"
+																					ContentRoot = "Content",
+																					DefaultFont = "fonts/hud"
 																				};
 
 			// Configura la pantalla
@@ -51,8 +52,12 @@ public class EngineSampleGame : Game
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.GraphicNovel.GraphicNovelScene(GameLogic.Scenes.GraphicNovel.GraphicNovelScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Animations.AnimationsScene(GameLogic.Scenes.Animations.AnimationsScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceTest.UserInterfaceScene(GameLogic.Scenes.UserInterfaceTest.UserInterfaceScene.SceneName));
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene(GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName));
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene(GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName));
+		// Añade las escenas con un manager de cámaras
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Director.UserInterfaceTest.UserInterfaceScene(GameLogic.Scenes.Director.UserInterfaceTest.UserInterfaceScene.SceneName));
 		// Prepara la escena
-		GameEngine.Instance.SceneManager.ChangeScene("MainMenu");
+		GameEngine.Instance.SceneManager.ChangeScene("MainMenu", new Bau.Libraries.BauGame.Engine.Managers.GameContext());
 		// Prepara los mapeos
 		CreateMappings(GameEngine.Instance.InputManager);
 	}

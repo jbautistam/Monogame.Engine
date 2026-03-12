@@ -79,7 +79,7 @@ public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition pos
     /// <summary>
     ///     Actualiza el elemento
     /// </summary>
-    public abstract void UpdateSelf(Managers.GameContext gameContext);
+    protected abstract void UpdateSelf(Managers.GameContext gameContext);
 
     /// <summary>
     ///     Dibuja el elemento
@@ -87,9 +87,14 @@ public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition pos
     public abstract void Draw(Camera2D camera, Managers.GameContext gameContext);
 
     /// <summary>
-    ///     Manager del elemento
+    ///     Prepara los comandos de dibujo
     /// </summary>
-    public AbstractUserInterfaceLayer Layer { get; } = layer;
+	public abstract void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext);
+
+	/// <summary>
+	///     Manager del elemento
+	/// </summary>
+	public AbstractUserInterfaceLayer Layer { get; } = layer;
 
     /// <summary>
     ///     Identificador del elemento

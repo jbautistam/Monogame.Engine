@@ -18,7 +18,7 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext) 
+    protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
         Sprite?.Update(gameContext);
     }
@@ -52,12 +52,88 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                         // Calcula el rectángulo destino
                         target = new Rectangle(target.X, target.Y, newWidth, newHeight);
                 }
+                // Alinea la imagen
+                target = AlignImage(target);
                 // Dibuja la imagen
-                Sprite.Draw(camera, target, new Vector2(0, 0), Rotation, style.Color * style.Opacity);
+                Sprite.Draw(camera, target, Origin, Rotation, style.Color * style.Opacity * Opacity);
                 // Dibuja un rectángulo para depuración
 		        if (GameEngine.Instance.EngineSettings.DebugMode)
                     camera.SpriteBatchController.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugImageColor, 2);
         }
+    }
+
+    /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        // Genera los comandos de los componentes del estilo
+        Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
+        // Genera los comandos de la imagen
+        if (Sprite is not null)
+        {
+            Rectangle target = Position.ContentBounds;
+            Styles.UiStyle style = Layer.Styles.GetDefault(Style);
+            Size size = Sprite.GetSize();
+
+                // Ajusta el tamaño si se requiere preservar aspecto
+                if (PreserveAspectRatio && size.Width > 0 && size.Height > 0)
+                {
+                    float textureRatio = (float) size.Width / size.Height;
+                    float boundsRatio = (float) target.Width / target.Height;
+                    int newWidth = target.Width, newHeight = target.Height;
+
+                        // Dependiendo de si la textura es más ancha o más alta
+                        if (textureRatio > boundsRatio) // Textura más ancha
+                            newHeight = (int) (target.Width / textureRatio);
+                        else // Textura más alta
+                            newWidth = (int) (target.Height * textureRatio);
+                        // Calcula el rectángulo destino
+                        target = new Rectangle(target.X, target.Y, newWidth, newHeight);
+                }
+                // Alinea la imagen
+                target = AlignImage(target);
+                // Genera el comando de dibujo de la imagen
+                builder.WithCommand(Sprite.Asset, Sprite.Region)
+                         .WithTransform(target, Origin)
+                         .WithRotation(Rotation)
+                         .WithColor(style.Color * style.Opacity * Opacity);
+        }
+	}
+
+    /// <summary>
+    ///     Alinea la imagen
+    /// </summary>
+    private Rectangle AlignImage(Rectangle bounds)
+    {
+        int x = bounds.X;
+        int y = bounds.Y;
+
+            // Calcula la X teniendo en cuenta la alineación
+            switch (HorizontalAlignment)
+            {
+                case UiLabel.HorizontalAlignmentType.Center:
+                case UiLabel.HorizontalAlignmentType.Stretch:
+                        x = Position.ContentBounds.X + (int) (0.5f * (Position.ContentBounds.Width - bounds.Width));
+                    break;
+                case UiLabel.HorizontalAlignmentType.Right:
+                        x = Position.ContentBounds.X + Position.ContentBounds.Width - bounds.Width;
+                    break;
+            }
+            // Calcula la Y teniendo en cuenta la alineación
+            switch (VerticalAlignment)
+            {
+                case UiLabel.VerticalAlignmentType.Center:
+                case UiLabel.VerticalAlignmentType.Stretch:
+                        y = Position.ContentBounds.Y + (int) (0.5f * (Position.ContentBounds.Height - bounds.Height));
+                    break;
+                case UiLabel.VerticalAlignmentType.Bottom:
+                        y = Position.ContentBounds.Y + Position.ContentBounds.Height - bounds.Height;
+                    break;
+            }
+
+            // Devuelve el rectángulo modificado
+            return new Rectangle(x, y, bounds.Width, bounds.Height);
     }
 
     /// <summary>
@@ -76,6 +152,11 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     public Vector2 Origin { get; set; } = Vector2.Zero;
 
     /// <summary>
+    ///     Opacidad
+    /// </summary>
+    public float Opacity { get; set; } = 1;
+
+    /// <summary>
     ///     Indica si se debe ajustar
     /// </summary>
     public bool Stretch { get; set; }
@@ -84,4 +165,14 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     ///     Indica si se debe preservar el ratio de la imagen
     /// </summary>
     public bool PreserveAspectRatio { get; set; } = true;
+
+    /// <summary>
+    ///     Alineación horizontal
+    /// </summary>
+    public UiLabel.HorizontalAlignmentType HorizontalAlignment { get; set; } = UiLabel.HorizontalAlignmentType.Center;
+
+    /// <summary>
+    ///     Alineación vertical
+    /// </summary>
+    public UiLabel.VerticalAlignmentType VerticalAlignment { get; set; } = UiLabel.VerticalAlignmentType.Center;
 }

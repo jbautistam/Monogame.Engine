@@ -9,11 +9,8 @@ namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 /// </summary>
 public class UiButton : UiElement
 {
-    // Eventos públicos
-    public event EventHandler? Click;
-    public event EventHandler? MouseEnter;
-    public event EventHandler? MouseLeave;
     // Variables privadas
+    private UiLabel? _label;
     private float _timeFromLastClick;
 
     public UiButton(AbstractUserInterfaceLayer layer, UiPosition position) : base(layer, position)
@@ -32,7 +29,7 @@ public class UiButton : UiElement
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext)
+    protected override void UpdateSelf(Managers.GameContext gameContext)
     {
         if (Enabled)
         {
@@ -45,11 +42,6 @@ public class UiButton : UiElement
                 IsPressed = false;
                 // Comprueba si el ratón está encima del control
                 IsHovered = Position.Bounds.Contains(mousePosition);
-                // Detecta cambios de hover
-                if (IsHovered && !wasHovered)
-                    MouseEnter?.Invoke(this, EventArgs.Empty);
-                else if (!IsHovered && wasHovered)
-                    MouseLeave?.Invoke(this, EventArgs.Empty);
                 // Detecta clicks
                 if (IsHovered)
                 {
@@ -58,12 +50,12 @@ public class UiButton : UiElement
                     // Lanza el evento de pulsación
                     if (IsPressed && _timeFromLastClick > 1f)
                     {
-                        Click?.Invoke(this, EventArgs.Empty);
+                        Layer.RaiseCommandClick(new EventArguments.ClickEventArgs(this));
                         _timeFromLastClick = 0;
                     }
                 }
                 // Actualiza los elementos
-                Label?.UpdateSelf(gameContext);
+                Label?.Update(gameContext);
         }
     }
 
@@ -79,9 +71,29 @@ public class UiButton : UiElement
     }
 
     /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        // Prepara los comandos del estilo (fondo y borde)
+        Layer.PrepareStyleRendercommands(builder, Style, State, Position.ContentBounds, gameContext);
+        // Dibuja el texto
+        Label?.PrepareRenderCommands(builder, gameContext);
+	}
+
+    /// <summary>
     ///     Etiqueta
     /// </summary>
-    public UiLabel? Label { get; set; }
+    public UiLabel? Label 
+    { 
+        get { return _label; }
+        set
+        {
+            _label = value;
+            if (_label is not null)
+                _label.Parent = this;
+        }
+    }
 
     /// <summary>
     ///     Indica si el cursor está sobre el botón

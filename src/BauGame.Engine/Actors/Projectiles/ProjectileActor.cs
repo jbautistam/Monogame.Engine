@@ -118,10 +118,18 @@ public class ProjectileActor : AbstractActorDrawable
     /// <summary>
     ///     Dibuja datos adicionales del actor
     /// </summary>
-    protected override void DrawActor(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawSelf(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
     {
         // ... no hace nada, sólo implementa la interface
     }
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	protected override void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        // ... en este caso no hace nada
+	}
 
 	/// <summary>
 	///		Finaliza el trabajo con el actor

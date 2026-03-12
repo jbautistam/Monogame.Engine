@@ -105,7 +105,6 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 		UiLabel? lblCameraPosition = GetItem<UiLabel>("lblCameraPosition");
 		UiLabel? lblPlayerPosition = GetItem<UiLabel>("lblPlayerPosition");
 
-
 			// Cambia la etiqueta de puntuación
 			if (lblScore is not null)
 				lblScore.Text = GetMessageText("Score", "0");
@@ -119,7 +118,7 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 			if (lblPlayerPosition is not null)
 				lblPlayerPosition.Text = GetMessageText("PlayerPosition", "-");
 			// Marca los mensajes como leidos
-			Scene.MessagesManager.MarkReceived(Name);
+			Scene.MessagesManager.MarkReceived(Id);
 	}
 
 	/// <summary>
@@ -127,7 +126,7 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 	/// </summary>
 	private string GetMessageText(string type, string defaultValue)
 	{
-		MessageModel? message = Scene.MessagesManager.GetFirstReceived(Name, type);
+		MessageModel? message = Scene.MessagesManager.GetFirstReceived(Id, type);
 
 			// Devuelve el contenido del mensaje
 			if (message is not null)

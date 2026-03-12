@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Screen>
+	<Grid Rows = "0.1, 0.4, 0.4, 0.1" Columns ="0.1, 0.4, 0.4, 0.1" Position ="0, 0, 1, 1">
+		<Item Row = "0" Column = "0">
+			<Label Style = "HeaderStyle" Font = "Fonts/Hud" Text = "Score" Position = "0.01, 0.01, 1, 1" />
+		</Item>
+		<Item Row = "0" Column = "1">
+			<Label Id = "lblScore" Style = "TextStyle" Font = "Fonts/Hud" Text = "0" Position = "0.07, 0.01, 1, 1" />
+		</Item>
+		<Item Row = "0" Column = "2">
+			<Label Style = "HeaderStyle" Font = "Fonts/Hud" Text = "Lives" Position = "0.7, 0.01, 1, 1" />
+		</Item>
+		<Item Row = "0" Column = "3">
+			<Label Id = "lblLives" Style = "TextStyle" Font = "Fonts/Hud" Text = "0" Position = "0.8, 0.01, 1, 1" />
+		</Item>
+
+		<Item Row = "1" Column = "0">
+			<Image Texture = "james-avatar" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "1" Column = "1">
+			<Image Texture = "james-sad" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "1" Column = "2">
+			<Image Texture = "james-smile" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "1" Column = "3">
+			<Image Texture = "sylvie-avatar" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+
+		<Item Row = "2" Column = "0">
+			<Image Texture = "sylvie-avatar" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "2" Column = "1">
+			<Image Texture = "sylvie-sad" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "2" Column = "2">
+			<Image Texture = "sylvie-smile" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "2" Column = "3">
+			<Image Texture = "james-avatar" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+
+		<Item Row = "3" Column = "0">
+			<Image Texture = "james-sad" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "3" Column = "1">
+			<Image Texture = "sylvie-avatar" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "3" Column = "2">
+			<Image Texture = "james-avatar" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+		<Item Row = "3" Column = "3">
+			<Image Texture = "james-smile" Region = "" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
+		</Item>
+	</Grid>
+</Screen>

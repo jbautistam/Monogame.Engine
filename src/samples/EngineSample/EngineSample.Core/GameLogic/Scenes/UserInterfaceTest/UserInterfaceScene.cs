@@ -19,6 +19,7 @@ internal class UserInterfaceScene(string name) : AbstractScene(name, new Bau.Lib
 	protected override void StartScene()
 	{
 		// Añade la capa
+		LayerManager.Clear();
 		LayerManager.AddLayer(new UserInterfaceLayer(this, SceneName, 1));
 		LayerManager.AddLayer(new FixedBackgroundLayer(this, "Background", "bg-layer-1", 1));
 		// Arranca las capas

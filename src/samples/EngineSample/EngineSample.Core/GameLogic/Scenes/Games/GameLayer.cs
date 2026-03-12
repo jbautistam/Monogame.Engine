@@ -1,5 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes;
+﻿using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 using EngineSample.Core.GameLogic.Actors;
 
@@ -70,14 +72,22 @@ public class GameLayer(AbstractScene scene, string name, int sortOrder) : Abstra
 	/// <summary>
 	///		Actualiza la capa (los actores se actualizan por separado)
 	/// </summary>
-	protected override void UpdateGameLayer(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateGameLayer(GameContext gameContext)
 	{
 	}
 
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawGameLayer(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void DrawGameLayer(Camera2D camera, GameContext gameContext)
+	{
+		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
+	}
+
+    /// <summary>
+    ///     Prepara los comandos de representación de la capa
+    /// </summary>
+    protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
 	{
 		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
 	}

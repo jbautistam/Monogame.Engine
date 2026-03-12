@@ -15,10 +15,15 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// </summary>
     public enum HorizontalAlignmentType
     {
+        /// <summary>Sin alineación</summary>
         None,
+        /// <summary>A la izquierda</summary>
         Left,
+        /// <summary>Centrada</summary>
         Center,
+        /// <summary>A la derecha</summary>
         Right,
+        /// <summary>Justificada al tamaño</summary>
         Stretch
     }
     /// <summary>
@@ -26,10 +31,15 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// </summary>
     public enum VerticalAlignmentType
     {
+        /// <summary>Sin alineación</summary>
         None,
+        /// <summary>En la parte superior</summary>
         Top,
+        /// <summary>Centrada</summary>
         Center,
+        /// <summary>En la parte inferior</summary>
         Bottom,
+        /// <summary>Justificada al tamaño</summary>
         Stretch
     }
     // Variables privadas
@@ -58,7 +68,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    public override void UpdateSelf(Managers.GameContext gameContext) 
+    protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
         if (!_isInitialized)
         {
@@ -75,6 +85,9 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// </summary>
     public override void Draw(Camera2D camera, Managers.GameContext gameContext)
     {
+        // Dibuja el estilo
+        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
+        // Dibuja el texto
         if (!string.IsNullOrEmpty(Text) && SpriteFont is not null)
         {
             if (WrapText)
@@ -132,35 +145,63 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
         string line = "";
         float yPosition = Position.ContentBounds.Y;
         Styles.UiStyle style = Layer.Styles.GetDefault(Style);
+        bool end = false;
 
+            // Dibuja las palabras
             foreach (string word in words)
-            {
-                string testLine = string.IsNullOrEmpty(line) ? word : line + " " + word;
-                Vector2 textSize = font.MeasureString(testLine);
+                if (!end)
+                {
+                    string testLine = string.IsNullOrEmpty(line) ? word : line + " " + word;
+                    Vector2 textSize = font.MeasureString(testLine);
 
-                    if (textSize.X > Position.ContentBounds.Width && !string.IsNullOrEmpty(line))
-                    {
-                        // Dibujar línea actual y empezar nueva
-                        Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
-                        camera.SpriteBatchController.DrawString(font, line, linePosition, style.Color * style.Opacity);
-                        line = word;
-                        yPosition += font.LineSpacing * LineSpacing;
-                    }
-                    else
-                        line = testLine;
+                        // Si no cabe en la misma línea, pasa a la siguiente
+                        if (textSize.X > Position.ContentBounds.Width && !string.IsNullOrEmpty(line))
+                        {
+                            Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
-                    // Verificar límite vertical
-                    if (yPosition > Position.ContentBounds.Bottom - font.LineSpacing)
-                        break;
-            }
+                                // Dibuja la línea actual y empieza una nueva
+                                camera.SpriteBatchController.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                                // Pasa a la siguiente palabra
+                                line = word;
+                                // Incrementa la posición y
+                                yPosition += font.LineSpacing * LineSpacing;
+                        }
+                        else
+                            line = testLine;
+                        // Verifica el límite vertical
+                        if (IsOutLimits(yPosition))
+                            end = true;
+                }
             // Dibuja la última línea
-            if (!string.IsNullOrEmpty(line) && yPosition <= Position.ContentBounds.Bottom - font.LineSpacing)
+            if (!string.IsNullOrEmpty(line) && !IsOutLimits(yPosition))
             {
                 Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
                     camera.SpriteBatchController.DrawString(font, line, linePosition, style.Color * style.Opacity);
             }
+
+        // Comprueba si la coordenada y está fuera de los límites
+        bool IsOutLimits(float y) => y > Position.ContentBounds.Bottom - font.LineSpacing;
     }
+
+    /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+		if (!string.IsNullOrWhiteSpace(Text))
+        {
+            Styles.UiStyle style = Layer.Styles.GetDefault(Style);
+
+                // Genera los comandos de estilo
+                Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
+                // Genera el comando del texto de la etiqueta
+                builder.WithCommand(Font, LineSpacing, WrapText)
+                        .WithTransform(Position.ContentBounds, Vector2.Zero)
+                        .WithAlignment(HorizontalAlignment, VerticalAlignment)
+                        .WithText(Text, false, false, style.Color * style.Opacity);
+        }
+	}
 
     /// <summary>
     ///     Texto
@@ -170,12 +211,12 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Alineación horizontal
     /// </summary>
-    public HorizontalAlignmentType HorizontalAlignment { get; set; } = HorizontalAlignmentType.None;
+    public HorizontalAlignmentType HorizontalAlignment { get; set; } = HorizontalAlignmentType.Left;
 
     /// <summary>
     ///     Alineación vertical
     /// </summary>
-    public VerticalAlignmentType VerticalAlignment { get; set; } = VerticalAlignmentType.None;
+    public VerticalAlignmentType VerticalAlignment { get; set; } = VerticalAlignmentType.Top;
 
     /// <summary>
     ///     Nombre de la fuente

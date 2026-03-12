@@ -26,6 +26,8 @@ public class MoveCommand(string actorId, float startTime, float duration) : Abst
         actor.Position = Interpolate(_start, Target, sequenceTime);
     }
 
-    // Posición final
+    /// <summary>
+    ///     Posición final
+    /// </summary>
     public required Vector2 Target { get; init; }
 }

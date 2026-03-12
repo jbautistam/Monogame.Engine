@@ -1,4 +1,5 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -33,14 +34,7 @@ public class UiTextureBackground(Styles.UiStyle style) : UiAbstractBackground(st
 	/// </summary>
 	public override void Update(Managers.GameContext gameContext)
 	{
-        if (!IsInitialized)
-        {
-            // Carga la textura
-            if (!string.IsNullOrWhiteSpace(Texture))
-                Texture2D = Style.Layer.Scene.LoadSceneAsset<Texture2D>(Texture);
-            // Indica que ya está inicializado
-           IsInitialized = true;
-        }
+        Sprite?.Update(gameContext);
 	}
 
 	/// <summary>
@@ -48,7 +42,9 @@ public class UiTextureBackground(Styles.UiStyle style) : UiAbstractBackground(st
 	/// </summary>
 	public override void Draw(Camera2D camera, Rectangle position, Managers.GameContext gameContext)
 	{
-		if (Texture2D is not null)
+        Sprite?.Draw(camera, position, Vector2.Zero, 0, Color * Opacity);
+/*
+		if (Sprite is not null)
             switch (ScaleMode)
             {
                 case TextureScaleMode.Stretch:
@@ -70,6 +66,7 @@ public class UiTextureBackground(Styles.UiStyle style) : UiAbstractBackground(st
                         DrawNineSliced(camera, Texture2D, position);
                     break;
             }
+*/
 	}
 
     /// <summary>
@@ -117,99 +114,14 @@ public class UiTextureBackground(Styles.UiStyle style) : UiAbstractBackground(st
             // Dibuja el fondo
             camera.SpriteBatchController.Draw(texture, new Rectangle(x, y, newWidth, newHeight), Color * Opacity);
     }
-    
-    /// <summary>
-    ///     Dibuja en nueva partes para un fondo escalable
-    /// </summary>
-    private void DrawNineSliced(Camera2D camera, Texture2D texture, Rectangle bounds)
-    {
-        int sliceWidth = Math.Min(texture.Width, texture.Height) / 3;
-        int sliceHeight = Math.Min(texture.Width, texture.Height) / 3;
-
-            // Cambia el tamaño de los trozos si se ha definido alguno
-            if (SliceSize.X > 0 && SliceSize.Y > 0)
-            {
-                sliceWidth = (int) SliceSize.X;
-                sliceHeight = (int) SliceSize.Y;
-            }
-            // Dibuja las esquinas (sin escalar)
-            DrawCorners();
-            // Dibuja los bordes (escalando)
-            DrawBorders();
-
-        // Dibuja las esquinas (sin escalar)
-        void DrawCorners()
-        {
-            // Superior izquierda
-            camera.SpriteBatchController.Draw(texture, new Rectangle(bounds.X, bounds.Y, sliceWidth, sliceHeight),
-                                              new Rectangle(0, 0, sliceWidth, sliceHeight), 
-                                              Color * Opacity);
-            // Superior derecha
-            camera.SpriteBatchController.Draw(texture, new Rectangle(bounds.Right - sliceWidth, bounds.Y, sliceWidth, sliceHeight),
-                                              new Rectangle(texture.Width - sliceWidth, 0, sliceWidth, sliceHeight), 
-                                              Color * Opacity);
-            // Inferior izquierda
-            camera.SpriteBatchController.Draw(texture, new Rectangle(bounds.X, bounds.Bottom - sliceHeight, sliceWidth, sliceHeight),
-                                              new Rectangle(0, texture.Height - sliceHeight, sliceWidth, sliceHeight), 
-                                              Color * Opacity);
-            // Inferior derecha
-            camera.SpriteBatchController.Draw(texture, 
-                                              new Rectangle(bounds.Right - sliceWidth, bounds.Bottom - sliceHeight, sliceWidth, sliceHeight),
-                                              new Rectangle(texture.Width - sliceWidth, texture.Height - sliceHeight, sliceWidth, sliceHeight), 
-                                              Color * Opacity);
-        }
-
-        // Dibuja los bordes escalando a la posición en pantalla
-        void DrawBorders()
-        {   
-            int centerWidth = bounds.Width - sliceWidth * 2;
-            int centerHeight = bounds.Height - sliceHeight * 2;
-            
-                // Superior
-                camera.SpriteBatchController.Draw(texture,
-                                                  new Rectangle(bounds.X + sliceWidth, bounds.Y, centerWidth, sliceHeight),
-                                                  new Rectangle(sliceWidth, 0, texture.Width - sliceWidth * 2, sliceHeight), 
-                                                  Color * Opacity);
-                // Inferior
-                camera.SpriteBatchController.Draw(texture,
-                                                  new Rectangle(bounds.X + sliceWidth, bounds.Bottom - sliceWidth, centerWidth, sliceHeight),
-                                                  new Rectangle(sliceWidth, texture.Height - sliceWidth, texture.Width - sliceWidth * 2, sliceHeight), 
-                                                  Color * Opacity);
-                // Izquierda
-                camera.SpriteBatchController.Draw(texture,
-                                                  new Rectangle(bounds.X, bounds.Y + sliceWidth, sliceWidth, centerHeight),
-                                                  new Rectangle(0, sliceWidth, sliceWidth, texture.Height - sliceHeight * 2), 
-                                                  Color * Opacity);
-                // Derecha
-                camera.SpriteBatchController.Draw(texture,
-                                                  new Rectangle(bounds.Right - sliceWidth, bounds.Y + sliceWidth, sliceWidth, centerHeight),
-                                                  new Rectangle(texture.Width - sliceWidth, sliceWidth, sliceWidth, texture.Height - sliceHeight * 2), 
-                                                  Color * Opacity);
-                // Relleno
-                camera.SpriteBatchController.Draw(texture,
-                                                  new Rectangle(bounds.X + sliceWidth, bounds.Y + sliceWidth, centerWidth, centerHeight),
-                                                  new Rectangle(sliceWidth, sliceWidth, texture.Width - sliceWidth * 2, texture.Height - sliceHeight * 2), 
-                                                  Color * Opacity);
-        }
-    }
 
     /// <summary>
-    ///     Nombre de la textura
+    ///     Definición de la textura
     /// </summary>
-    public string? Texture { get; set; }
-
-    /// <summary>
-    ///     Textura
-    /// </summary>
-    private Texture2D? Texture2D { get; set; }
+    public SpriteDefinition? Sprite { get; set; }
         
     /// <summary>
     ///     Modo de escalado de la textura
     /// </summary>
     public TextureScaleMode ScaleMode { get; set; } = TextureScaleMode.Stretch;
-
-    /// <summary>
-    ///     Tamaño para los fondos que se dibujan como Slice 9
-    /// </summary>
-    public Vector2 SliceSize { get; set; } = Vector2.Zero;
 }

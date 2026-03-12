@@ -1,5 +1,7 @@
 ﻿using Bau.Libraries.BauGame.Engine.Actors;
+using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using EngineSample.Core.GameLogic.Actors.Characters.Actions;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters;
@@ -25,7 +27,7 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected override void UpdateActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateActor(GameContext gameContext)
 	{
 		// Ejecuta las acciones
 		if (Actions.Count > 0)
@@ -48,7 +50,7 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
 	{
 /*
 		if (_actualDefinition is not null)
@@ -76,6 +78,14 @@ public class CharacterActor(CharacterManager manager, int zOrder) : AbstractActo
 					texture.Draw(camera, Position, new Vector2(0, 0), new Vector2(1.5f, 1.5f), effect, Color.White, 0);
 			}
 */
+	}
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
+	{
+        //TODO: aún no hace nada
 	}
 
 	/// <summary>

@@ -31,7 +31,7 @@ public class ActorsList(Scenes.Layers.AbstractLayer layer) : Entities.Common.Col
 	public void UpdatePhysics(GameContext gameContext)
 	{
         foreach (AbstractActor actor in Enumerate())
-            if (actor.Enabled && actor is Interfaces.IActorPhisics actorPhisics)
+            if (actor.Enabled && actor is Interfaces.IActorPhysics actorPhisics)
                 actorPhisics.UpdatePhysics(gameContext);
 	}
 
@@ -63,6 +63,16 @@ public class ActorsList(Scenes.Layers.AbstractLayer layer) : Entities.Common.Col
 	}
 
     /// <summary>
+    ///     Prepara los comandos de dibujo
+    /// </summary>
+	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
+	{
+        foreach (AbstractActor actor in Enumerate())
+            if (actor.Enabled && actor is Interfaces.IActorDrawable actorDrawable)
+                actorDrawable.PrepareRenderCommands(builder, gameContext);
+	}
+
+    /// <summary>
     ///     Ordena los actores por su orden de presentación
     /// </summary>
     public void SortByZOrder()
@@ -70,8 +80,8 @@ public class ActorsList(Scenes.Layers.AbstractLayer layer) : Entities.Common.Col
         Sort((first, second) => first.ZOrder.CompareTo(second.ZOrder));
     }
 
-    /// <summary>
-    ///     Capa a la que se asocia la lista
-    /// </summary>
-    public Scenes.Layers.AbstractLayer Layer { get; } = layer;
+	/// <summary>
+	///     Capa a la que se asocia la lista
+	/// </summary>
+	public Scenes.Layers.AbstractLayer Layer { get; } = layer;
 }

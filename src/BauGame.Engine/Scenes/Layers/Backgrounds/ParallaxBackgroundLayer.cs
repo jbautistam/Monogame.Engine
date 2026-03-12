@@ -19,14 +19,14 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
     /// <summary>
     ///     Actualiza la capa de fondo
     /// </summary>
-	protected override void UpdateLayer(Managers.GameContext gameContext)
+	protected override void UpdateSelf(Managers.GameContext gameContext)
 	{
 	}
 
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    protected override void DrawLayer(Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawSelf(Camera2D camera, Managers.GameContext gameContext)
     {
         TextureRegion? region = GetTextureRegion("background");
 
@@ -54,6 +54,19 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
                         camera.SpriteBatchController.Draw(region.Texture, new Vector2(x, y), Color);
             }
     }
+
+
+    /// <summary>
+    ///     Prepara los comandos de presentación
+    /// </summary>
+	protected override void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        builder.WithCommand(Texture, "Bakcground")
+               .WithTransform(new Rectangle(0, 0, 1, 1), Vector2.Zero)
+               .WithDrawType(Scenes.Cameras.Rendering.SpriteRenderCommand.DrawType.Tiled)
+               .WithColor(Color)
+               .WithZIndex(SortOrder);
+	}
 
     /// <summary>
     ///     Finaliza el dibujo del fondo

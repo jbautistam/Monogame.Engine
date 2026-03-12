@@ -1,5 +1,4 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Spawners;
@@ -7,12 +6,12 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Spawners;
 /// <summary>
 ///		Actor utilizado para lanzar elementos
 /// </summary>
-public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDrawable(layer, null)
+public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(layer, null)
 {
 	/// <summary>
 	///		Arranca el actor
 	/// </summary>
-	protected override void StartActor()
+	protected override void StartSelf()
 	{
 	}
 
@@ -32,7 +31,7 @@ public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDraw
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected override void UpdateActor(GameContext gameContext)
+	protected override void UpdateSelf(GameContext gameContext)
 	{
         foreach (SpawnerWaveModel spawnerWave in SpawnerWaves)
             if (spawnerWave.MustRaise(gameContext))
@@ -40,16 +39,9 @@ public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDraw
 	}
 
 	/// <summary>
-	///		Dibuja el actor
-	/// </summary>
-	protected override void DrawActor(Camera2D camera, GameContext gameContext)
-	{
-	}
-
-	/// <summary>
 	///		Finaliza el actor
 	/// </summary>
-	protected override void EndActor(GameContext gameContext)
+	protected override void EndSelf(GameContext gameContext)
 	{
 	}
 

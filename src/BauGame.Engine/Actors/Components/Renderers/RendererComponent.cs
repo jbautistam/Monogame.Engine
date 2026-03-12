@@ -11,7 +11,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
 /// <summary>
 ///		Componente para representación de un actor
 /// </summary>
-public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(actor, true)
+public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(actor, true), Interfaces.IActorDrawable
 {
 	// Variables privadas
 	private string? _texture, _region;
@@ -146,6 +146,19 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 								SpriteEffects, Opacity * Color, Actor.Transform.Rotation);
 			}
     }
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
+	{
+		if (!string.IsNullOrWhiteSpace(Texture))
+			builder.WithCommand(Texture, Region)
+					.WithTransform(Actor.Transform.Bounds.TopLeft, Actor.Transform.Center)
+					.WithRotation(Actor.Transform.Rotation)
+					.WithColor(Color * Opacity)
+					.WithEffect(SpriteEffects);
+	}
 
 	/// <summary>
 	///		Obtiene la región de la textura para dibujarla

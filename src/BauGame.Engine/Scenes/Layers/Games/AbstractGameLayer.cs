@@ -39,7 +39,7 @@ public abstract class AbstractGameLayer : AbstractLayer
 	/// <summary>
 	///		Actualiza la capa (los actores se actualizan por separado)
 	/// </summary>
-	protected override void UpdateLayer(Managers.GameContext gameContext)
+	protected override void UpdateSelf(Managers.GameContext gameContext)
 	{
 		// Actualiza los datos de los managers
 		ProjectileManager.Update(gameContext);
@@ -56,7 +56,7 @@ public abstract class AbstractGameLayer : AbstractLayer
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawLayer(Camera2D camera, Managers.GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, Managers.GameContext gameContext)
 	{
 		// Dibuja los datos de los managers
 		ProjectileManager.Draw(camera, gameContext);

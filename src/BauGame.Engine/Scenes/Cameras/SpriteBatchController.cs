@@ -55,7 +55,7 @@ public class SpriteBatchController
 			End();
 			// Arranca el dibujo
 			_spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
-								RasterizerState.CullCounterClockwise, null, viewMatrix);
+							   RasterizerState.CullCounterClockwise, null, viewMatrix);
 			// Indica que está dibujando
 			_isDrawing = true;
 		}

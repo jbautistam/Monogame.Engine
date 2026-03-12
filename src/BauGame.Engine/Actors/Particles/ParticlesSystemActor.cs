@@ -80,7 +80,7 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
     /// <summary>
     ///     Dibuja las partículas activas y sus colas correspondientes
     /// </summary>
-	protected override void DrawActor(Camera2D camera, Managers.GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, Managers.GameContext gameContext)
     {
         TextureRegion? region = _texture?.GetRegion(Region);
 
@@ -108,6 +108,14 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
                         }
                 }
     }
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	protected override void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        //TODO: aún no hace nada
+	}
 
 	/// <summary>
 	///		Finaliza el trabajo con el actor

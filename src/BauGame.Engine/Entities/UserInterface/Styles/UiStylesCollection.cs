@@ -23,6 +23,14 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
 	}
 
 	/// <summary>
+	///		Añade un estilo
+	/// </summary>
+	public void Add(string key, UiStyle style)
+	{
+		Styles.Add(GetKey(key, style.Type), style);
+	}
+
+	/// <summary>
 	///		Crea un estilo
 	/// </summary>
 	public UiStyle Add(string key, UiStyle.StyleType type, Backgrounds.UiBackground? background, Borders.UiAbstractBorder? border, 
@@ -105,12 +113,21 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
 	}
 
 	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, 
+									  string key, UiStyle.StyleType type, Rectangle bounds, Managers.GameContext gameContext)
+	{
+		GetStyle(key, type)?.PrepareRenderCommands(builder, bounds, gameContext);
+	}
+
+	/// <summary>
 	///		Elemento padre
 	/// </summary>
 	public AbstractUserInterfaceLayer Layer { get; } = layer;
 
 	/// <summary>
-	///		Indica si se debe recalcula
+	///		Indica si se debe recalcular
 	/// </summary>
 	public bool Dirty { get; private set; } = true;
 

@@ -48,12 +48,20 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
     /// <summary>
     ///     Dibuja las partículas activas y sus colas correspondientes
     /// </summary>
-	protected override void DrawActor(Camera2D camera, Managers.GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, Managers.GameContext gameContext)
     {
         foreach (ParticlesPoolManager spawnerBehavior in Pools)
             if (spawnerBehavior.Enabled)
                 spawnerBehavior.Draw(camera, gameContext);
     }
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	protected override void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+        //TODO: aún no hace nada
+	}
 
 	/// <summary>
 	///		Finaliza el trabajo con el actor

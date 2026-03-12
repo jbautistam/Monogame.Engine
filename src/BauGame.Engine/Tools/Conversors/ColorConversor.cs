@@ -112,4 +112,48 @@ public static class ColorConversor
                 return hueDiff;
         }
     }
+	/// <summary>
+	///		Interpreta un color a partir de una cadena de texto
+	/// </summary>
+	public static Color Parse(string text, Color defaultColor)
+	{
+		if (!string.IsNullOrWhiteSpace(text))
+		{
+            if (text.StartsWith("#") && (text.Length == 7 || text.Length == 9))
+                try
+                {
+                    byte a = text.Length == 9 ? Convert.ToByte(text.Substring(1, 2), 16) : (byte) 255;
+                    int start = text.Length == 9 ? 3 : 1;
+                    byte r = Convert.ToByte(text.Substring(start, 2), 16);
+                    byte g = Convert.ToByte(text.Substring(start + 2, 2), 16);
+                    byte b = Convert.ToByte(text.Substring(start + 4, 2), 16);
+
+						// Devuelve el color
+						return new Color(r, g, b, a);
+                }
+                catch 
+				{ 
+					return defaultColor;
+				}
+			else
+				return text.ToLower() switch
+								{
+									"red" => Color.Red,
+									"green" => Color.Green,
+									"blue" => Color.Blue,
+									"yellow" => Color.Yellow,
+									"white" => Color.White,
+									"black" => Color.Black,
+									"gray" or "grey" => Color.Gray,
+									"cyan" => Color.Cyan,
+									"magenta" => Color.Magenta,
+									"orange" => Color.Orange,
+									"purple" => Color.Purple,
+                                    "navy" => Color.Navy,
+									_ => defaultColor
+								};
+		}
+		else
+			return defaultColor;
+	}
 }

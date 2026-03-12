@@ -21,8 +21,7 @@ public class BackgroundState
                             Tint = new Color((int) (Tint.R * delta.Tint.R / 255f),
                                              (int) (Tint.G * delta.Tint.G / 255f),
                                              (int) (Tint.B * delta.Tint.B / 255f),
-                                             255
-                                            )
+                                             255)
                         };
     }
 

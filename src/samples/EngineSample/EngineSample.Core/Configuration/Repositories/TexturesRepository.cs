@@ -3,11 +3,12 @@ using Bau.Libraries.LibMarkupLanguage;
 using Bau.Libraries.BauGame.Engine.Managers.Resources;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
 using Microsoft.Xna.Framework;
+using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
 
 namespace EngineSample.Core.Configuration.Repositories;
 
 /// <summary>
-///		Repositorio de texturas y animaciones
+///		Repositorio de configuraciones de texturas y animaciones
 /// </summary>
 internal class TexturesRepository
 {
@@ -32,6 +33,15 @@ internal class TexturesRepository
 	private const string TagTop = "Top";
 	private const string TagWidth = "Width";
 	private const string TagHeight = "Height";
+	private const string TagTopLeftWidth = "TopLeftWidth";
+	private const string TagTopLeftHeight = "TopLeftHeight";
+	private const string TagTopRightWidth = "TopRightWidth";
+	private const string TagTopRightHeight = "TopRightHeight";
+	private const string TagBottomLeftWidth = "BottomLeftWidth";
+	private const string TagBottomLeftHeight = "BottomLeftHeight";
+	private const string TagBottomRightWidth = "BottomRightWidth";
+	private const string TagBottomRightHeight = "BottomRightHeight";
+	private const string TagFillBackground = "FillBackground";
 
 	/// <summary>
 	///		Carga texturas y animaciones de un texto XML
@@ -48,6 +58,7 @@ internal class TexturesRepository
 							{
 								case TagTexture:
 										LoadTexture(nodeML, resourcesManager.TextureManager);
+										LoadTexture(nodeML, resourcesManager.TextureConfigurationManager);
 									break;
 								case TagAnimation:
 										LoadAnimation(nodeML, resourcesManager.AnimationManager);
@@ -59,7 +70,8 @@ internal class TexturesRepository
 	}
 
 	/// <summary>
-	///		Carga una textora
+	///		Carga una textura (sobre el manager)
+	///	TODO: Esto habrá que quitarlo
 	/// </summary>
 	private void LoadTexture(MLNode rootML, TextureManager texturesManager)
 	{
@@ -85,6 +97,80 @@ internal class TexturesRepository
 				texturesManager.Create(name, asset, rows ?? 0, columns ?? 0);
 			else
 				texturesManager.Create(name, asset);
+	}
+
+	/// <summary>
+	///		Carga una textura
+	/// </summary>
+	private void LoadTexture(MLNode rootML, TextureConfigurationManager texturesManager)
+	{
+		string name = rootML.Attributes[TagName].Value.TrimIgnoreNull();
+		string asset = rootML.Attributes[TagAsset].Value.TrimIgnoreNull();
+		int rows = rootML.Attributes[TagRows].Value.GetInt(-1);
+		int columns = rootML.Attributes[TagColumns].Value.GetInt(-1);
+
+			// Dependiendo de los datos cargados, crea una textura u otra
+			if (rows > 0 && columns > 0)
+				texturesManager.Create(name, asset, rows, columns);
+			else
+			{
+				List<(string name, Rectangle region, TextureRegionNineSliceConfiguration? nineSlice)> regions = [];
+
+					// Carga las regiones
+					foreach (MLNode nodeML in rootML.Nodes)
+						if (nodeML.Name == TagRegion)
+							regions.Add((nodeML.Attributes[TagName].Value.TrimIgnoreNull(),
+										 new Rectangle(nodeML.Attributes[TagLeft].Value.GetInt(0),
+													   nodeML.Attributes[TagTop].Value.GetInt(0),	
+													   nodeML.Attributes[TagWidth].Value.GetInt(0),
+													   nodeML.Attributes[TagHeight].Value.GetInt(0)),
+										 LoadNineSlice(nodeML)
+										));
+					// Crea la textura adecuada
+					if (regions.Count == 0)
+						texturesManager.Create(name, asset);
+					else
+					{
+						TextureConfiguration textureConfiguration = texturesManager.Create(name, asset);
+
+							// Añade las regiones
+							foreach ((string name, Rectangle region, TextureRegionNineSliceConfiguration? nineSlice) regionData in regions)
+								textureConfiguration.Regions.Add(regionData.name,
+																 new TextureRegionRectangleConfiguration(regionData.name)
+																		{
+																			Region = regionData.region,
+																			NineSliceConfiguration = regionData.nineSlice
+																		}
+																 );
+					}
+			}
+	}
+
+	/// <summary>
+	///		Carga la configuración de un elemento de tipo NineSlice
+	/// </summary>
+	private TextureRegionNineSliceConfiguration? LoadNineSlice(MLNode rootML)
+	{
+		TextureRegionNineSliceConfiguration configuration = new();
+
+			// Carga los datos
+			configuration.TopLeftWidth = rootML.Attributes[TagTopLeftWidth].Value.GetInt(-1);
+			configuration.TopLeftHeight = rootML.Attributes[TagTopLeftHeight].Value.GetInt(-1);
+			configuration.TopRightWidth = rootML.Attributes[TagTopRightWidth].Value.GetInt(-1);
+			configuration.TopRightHeight = rootML.Attributes[TagTopRightHeight].Value.GetInt(-1);
+			configuration.BottomLeftWidth = rootML.Attributes[TagBottomLeftWidth].Value.GetInt(-1);
+			configuration.BottomLeftHeight = rootML.Attributes[TagBottomLeftHeight].Value.GetInt(-1);
+			configuration.BottomRightWidth = rootML.Attributes[TagBottomRightWidth].Value.GetInt(-1);
+			configuration.BottomRightHeight = rootML.Attributes[TagBottomRightHeight].Value.GetInt(-1);
+			configuration.FillBackground = rootML.Attributes[TagFillBackground].Value.GetBool();
+			// Devuelve los datos
+			if (configuration.TopLeftWidth > 0 && configuration.TopLeftHeight > 0 && 
+					configuration.TopRightWidth > 0 && configuration.TopRightHeight > 0 && 
+					configuration.BottomLeftWidth  > 0 && configuration.BottomLeftHeight > 0 && 
+					configuration.BottomRightWidth > 0 && configuration.BottomRightHeight > 0)
+				return configuration;
+			else
+				return null;
 	}
 
 	/// <summary>

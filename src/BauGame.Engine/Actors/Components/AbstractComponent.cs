@@ -24,6 +24,7 @@ public abstract class AbstractComponent(AbstractActorDrawable owner, bool isDraw
 	/// <summary>
 	///		Dibuja los datos del componente
 	/// </summary>
+	//TODO: esto se debería poder quitar
 	public abstract void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
 
 	/// <summary>

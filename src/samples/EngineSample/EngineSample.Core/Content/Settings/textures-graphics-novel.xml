@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SpriteSheets>
+	<!-- Personajes -->
 	<Texture Name = "james-avatar" Asset = "images/characters/james/avatar" />
 	<Texture Name = "james-default" Asset = "images/characters/james/default" />
 	<Texture Name = "james-sad" Asset = "images/characters/james/sad" />
@@ -12,4 +13,12 @@
 	<Texture Name = "sylvie-default" Asset = "images/characters/sylvie/default" />
 	<Texture Name = "sylvie-sad" Asset = "images/characters/sylvie/sad" />
 	<Texture Name = "sylvie-smile" Asset = "images/characters/sylvie/smile" />
+	<!-- TypeWriter-->
+	<Texture Name = "typewriter-background-01" Asset = "images/visualnovel/typewriter-background-01" />
+	<Texture Name = "typewriter-border-01" Asset = "images/visualnovel/typewriter-border-01">
+		<Region Name="typewriter-border" Left ="0" Top ="0" Width="693" Height="215"
+				TopLeftWidth = "61" TopLeftHeight = "45" TopRightWidth = "61" TopRightHeight = "45"
+				BottomLeftWidth = "61" BottomLeftHeight = "56" BottomRightWidth = "61" BottomRightHeight = "56"
+				FillBackground = "false" />
+	</Texture>
 </SpriteSheets>

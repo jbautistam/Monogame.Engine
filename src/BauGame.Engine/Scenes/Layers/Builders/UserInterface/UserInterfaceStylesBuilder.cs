@@ -28,36 +28,18 @@ public class UserInterfaceStylesBuilder
 	}
 	
 	/// <summary>
-	///		Crea una textura
+	///		Crea un fondo con una textura
 	/// </summary>
-	public UserInterfaceStylesBuilder WithBackground(string texture, Color? color = null, float opacity = 1)
+	public UserInterfaceStylesBuilder WithBackground(string texture, string? region, Color? color = null, float opacity = 1)
 	{
 		// Genera el estilo
 		if (LastStyle is not null)
 			LastStyle.Background = new UiBackground(LastStyle)
 											{
-												Texture = texture,
+												Sprite = new Entities.Common.SpriteDefinition(texture, region),
 												Color = color ?? Color.White,
 												Opacity = opacity
 											};
-		// Devuelve el generador
-		return this;
-	}
-	
-	/// <summary>
-	///		Crea una textura de fondo
-	/// </summary>
-	public UserInterfaceStylesBuilder WithBackground(string texture, UiTextureBackground.TextureScaleMode mode, Color? color = null, float opacity = 1)
-	{
-		// Asinga el fondo
-		if (LastStyle is not null)
-			LastStyle.Background = new UiTextureBackground(LastStyle)
-												{
-													Texture = texture,
-													ScaleMode = mode,
-													Color = color ?? Color.White,
-													Opacity = opacity
-												};
 		// Devuelve el generador
 		return this;
 	}
@@ -67,7 +49,7 @@ public class UserInterfaceStylesBuilder
 	/// </summary>
 	public UserInterfaceStylesBuilder WithBackground(Color color, float opacity = 1)
 	{
-		// Asinga el fondo
+		// Asigna el fondo
 		if (LastStyle is not null)
 			LastStyle.Background = new UiSolidColorBackground(LastStyle)
 												{
@@ -79,16 +61,16 @@ public class UserInterfaceStylesBuilder
 	}
 	
 	/// <summary>
-	///		Crea un borde
+	///		Crea un borde con color sólido
 	/// </summary>
-	public UserInterfaceStylesBuilder WithBorder(Color color, int thicknes, float opacity = 1)
+	public UserInterfaceStylesBuilder WithBorder(Color color, int thickness, float opacity = 1)
 	{
-		// Asinga el fondo
+		// Asigna el borde
 		if (LastStyle is not null)
 			LastStyle.Border = new UiSolidBorder(LastStyle)
 												{
 													Color = color,
-													Thickness = thicknes,
+													Thickness = thickness,
 													Opacity = opacity
 												};
 		// Devuelve el generador
@@ -96,14 +78,48 @@ public class UserInterfaceStylesBuilder
 	}
 	
 	/// <summary>
-	///		Crea un borde
+	///		Crea un borde con una textura
 	/// </summary>
-	public UserInterfaceStylesBuilder WithBorder(Color shadowColor, Vector2 offset, int blurRadius)
+	public UserInterfaceStylesBuilder WithBorder(string asset, string? region, int thickness, float opacity = 1)
 	{
-		// Asinga el fondo
+		// Asigna el borde
+		if (LastStyle is not null)
+			LastStyle.Border = new UiTextureBorder(LastStyle)
+													{
+														Sprite = new Entities.Common.SpriteDefinition(asset, region),
+														Thickness = thickness,
+														Opacity = opacity
+													};
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Crea un borde redondeado
+	/// </summary>
+	public UserInterfaceStylesBuilder WithRoundedBorder(Color color, int radius)
+	{
+		// Asigna el borde
+		if (LastStyle is not null)
+			LastStyle.Border = new UiRoundedBorder(LastStyle)
+												{
+													Color = color,
+													Radius = radius
+												};
+		// Devuelve el generador
+		return this;
+	}
+	
+	/// <summary>
+	///		Crea un borde con sombra
+	/// </summary>
+	public UserInterfaceStylesBuilder WithShadowBorder(Color color, Color shadowColor, Vector2 offset, int blurRadius)
+	{
+		// Asigna el borde
 		if (LastStyle is not null)
 			LastStyle.Border = new UiShadowBorder(LastStyle)
 												{
+													Color = color,
 													ShadowColor = shadowColor,
 													Offset = offset,
 													BlurRadius = blurRadius

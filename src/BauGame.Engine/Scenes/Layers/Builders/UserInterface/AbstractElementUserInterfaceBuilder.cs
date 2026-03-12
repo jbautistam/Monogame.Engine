@@ -30,6 +30,17 @@ public abstract class AbstractElementUserInterfaceBuilder<TypeElement> where Typ
 	}
 
 	/// <summary>
+	///		Asigna el orden de dibujo
+	/// </summary>
+	public AbstractElementUserInterfaceBuilder<TypeElement> WithZIndex(int zIndex)
+	{
+		// Asigna el orden de dibujo
+		Item.ZIndex = zIndex;
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
 	///		Genera el elemento
 	/// </summary>
 	public TypeElement Build() => Item;

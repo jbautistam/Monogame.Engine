@@ -43,7 +43,10 @@
     <Compile Remove="CharactersEngine\Transitions_Modificado_Engine\Batiburrillo.cs" />
     <Compile Remove="CharactersEngine\Transitions_Modificado_Engine\TransitionParameters.cs" />
     <Compile Remove="CharactersEngine\Transitions_Modificado_Engine\TransitionType.cs" />
+    <Compile Remove="ParticlesEngine_Copiado\Shapes\TextureShapeEmitter.cs" />
     <Compile Remove="Sprites\Class1.cs" />
+    <Compile Remove="UserInterface\Class1.cs" />
+    <Compile Remove="UserInterface\MobileChats\UiMobileMessageComponent.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,11 +74,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bau.Libraries.LibHelper" Version="1.3.68" />
+    <PackageReference Include="Bau.Libraries.LibMarkup" Version="1.3.6" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Sprites\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Monogame.Engine-main\src\BauGame.Engine\BauGame.Engine.csproj" />
   </ItemGroup>
 
 </Project>

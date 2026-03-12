@@ -8,38 +8,62 @@ namespace UI.CharactersEngine.MathTools;
 public static class ColorConversor
 {
     /// <summary>
-    ///     Conversión de HSV a RGB (hue: 0-360, saturation: 0-1, value: 0-1)
+    ///     Conversión de HSV a RGB (h: 0-360, s: 0-1, v: 0-1)
     /// </summary>
-    public static Color HsvToRgb(float hue, float saturation, float value)
+    public static Color HsvToRgb(float h, float s, float v)
     {
         float c, x, m;
+        float r, g, b;
 
             // Normaliza los valores de entrada
-            hue = hue % 360f;
-            if (hue < 0) 
-                hue += 360f;
-            saturation = MathHelper.Clamp(saturation, 0f, 1f);
-            value = MathHelper.Clamp(value, 0f, 1f);
+            h = h % 360f;
+            if (h < 0) 
+                h += 360f;
+            s = MathHelper.Clamp(s, 0f, 1f);
+            v = MathHelper.Clamp(v, 0f, 1f);
             // Variables intermedias        
-            c = value * saturation;
-            x = c * (1 - MathF.Abs((hue / 60f) % 2 - 1));
-            m = value - c;
+            c = v * s;
+            x = c * (1 - MathF.Abs((h / 60f) % 2 - 1));
+            m = v - c;
             // Convierte a RGB
-            if (hue < 60f)
-                return CreateColor(c, x, 0, m);
-            else if (hue < 120f)
-                return CreateColor(x, c, 0, m);
-            else if (hue < 180f)
-                return CreateColor(0, c, x, m);
-            else if (hue < 240f)
-                return CreateColor(0, x, c, m);
-            else if (hue < 300f)
-                return CreateColor(x, 0, c, m);
+            if (h < 60f)
+            {
+                r = c; 
+                g = x; 
+                b = 0;
+            }
+            else if (h < 120f)
+            {
+                r = x; 
+                g = c; 
+                b = 0;
+            }
+            else if (h < 180f)
+            {
+                r = 0; 
+                g = c; 
+                b = x;
+            }
+            else if (h < 240f)
+            {
+                r = 0; 
+                g = x; 
+                b = c;
+            }
+            else if (h < 300f)
+            {
+                r = x; 
+                g = 0; 
+                b = c;
+            }
             else
-                return CreateColor(c, 0, x, m);
-
-            // Convierte el color
-            Color CreateColor(float r, float g, float b, float m) => new Color((byte) ((r + m) * 255), (byte) ((g + m) * 255), (byte)((b + m) * 255));
+            {
+                r = c; 
+                g = 0; 
+                b = x;
+            }
+            // Devuelve el color convertido
+            return new Color((byte) ((r + m) * 255), (byte) ((g + m) * 255), (byte)((b + m) * 255));
     }
     
     /// <summary>

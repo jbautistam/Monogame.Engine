@@ -56,7 +56,7 @@ internal class CommandTypeWriterGenerator
 											_colors.RemoveAt(_colors.Count - 1);
 									}
 									else
-										_colors.Add(ParseColor(extended.Text));
+										_colors.Add(Tools.Conversors.ColorConversor.Parse(extended.Text, Color.Black));
 								break;
 							case TokenType.Wait:
 									CreateCommand(texts, new CommandWaitTypeWriter()
@@ -121,50 +121,6 @@ internal class CommandTypeWriterGenerator
 			return value;
 		else
 			return defaultValue;
-	}
-
-	/// <summary>
-	///		Interpreta un color
-	/// </summary>
-	private Color ParseColor(string text)
-	{
-		if (!string.IsNullOrWhiteSpace(text))
-		{
-            if (text.StartsWith("#") && (text.Length == 7 || text.Length == 9))
-                try
-                {
-                    byte a = text.Length == 9 ? Convert.ToByte(text.Substring(1, 2), 16) : (byte) 255;
-                    int start = text.Length == 9 ? 3 : 1;
-                    byte r = Convert.ToByte(text.Substring(start, 2), 16);
-                    byte g = Convert.ToByte(text.Substring(start + 2, 2), 16);
-                    byte b = Convert.ToByte(text.Substring(start + 4, 2), 16);
-
-						// Devuelve el color
-						return new Color(r, g, b, a);
-                }
-                catch 
-				{ 
-					return Color.Black; 
-				}
-			else
-				return text.ToLower() switch
-								{
-									"red" => Color.Red,
-									"green" => Color.Green,
-									"blue" => Color.Blue,
-									"yellow" => Color.Yellow,
-									"white" => Color.White,
-									"black" => Color.Black,
-									"gray" or "grey" => Color.Gray,
-									"cyan" => Color.Cyan,
-									"magenta" => Color.Magenta,
-									"orange" => Color.Orange,
-									"purple" => Color.Purple,
-									_ => Color.Black
-								};
-		}
-		else
-			return Color.Black;
 	}
 
 

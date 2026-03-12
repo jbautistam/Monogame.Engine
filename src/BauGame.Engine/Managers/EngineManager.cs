@@ -17,6 +17,7 @@ public class EngineManager
         ResourcesManager = new Resources.ResourcesManager(this);
         AudioManager = new Audio.AudioManager(this);
         SceneManager = new Scenes.SceneManager();
+        MathFunctions = new Tools.MathTools.Precomputed.PrecomputedFunctions();
         DebugManager = new Debugger.DebugManager(this);
     }
 
@@ -76,6 +77,11 @@ public class EngineManager
     ///     Manager del teclado
     /// </summary>
     public Input.InputManager InputManager { get; }
+
+    /// <summary>
+    ///     Funciones matemáticas
+    /// </summary>
+    public Tools.MathTools.Precomputed.PrecomputedFunctions MathFunctions { get; }
 
     /// <summary>
     ///     Manager de cultura

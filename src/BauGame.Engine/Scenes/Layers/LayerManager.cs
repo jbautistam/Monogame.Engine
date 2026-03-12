@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.Libraries.BauGame.Engine.Managers;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
 /// <summary>
 ///     Manager para las capas de una escena
@@ -29,9 +31,17 @@ public class LayerManager(AbstractScene scene)
 	}
 
     /// <summary>
+    ///     Limmpia las capas
+    /// </summary>
+	public void Clear()
+	{
+		Layers.Clear();
+	}
+
+    /// <summary>
     ///     Actualiza los datos de la capa
     /// </summary>
-    public void Update(Managers.GameContext gameContext)
+    public void Update(GameContext gameContext)
     {
         foreach (AbstractLayer layer in Layers) 
             if (layer.Enabled)
@@ -41,7 +51,7 @@ public class LayerManager(AbstractScene scene)
     /// <summary>
     ///     Dibuja las capas
     /// </summary>
-    public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
+    public void Draw(Cameras.Camera2D camera, GameContext gameContext)
     {
 		// Comienza el dibujo
         camera.BeginDrawWorld();
@@ -64,20 +74,22 @@ public class LayerManager(AbstractScene scene)
     }
 
     /// <summary>
-    ///     Finaliza las capas
+    ///     Prepara los comandos de dibujo
     /// </summary>
-	internal void End()
+	public void PrepareRenderCommands(GameContext gameContext)
 	{
-	    foreach (AbstractLayer layer in Layers)
-            layer.End();
+		foreach (AbstractLayer layer in Layers)
+            if (layer.Enabled)
+                layer.PrepareRenderCommands(gameContext);
 	}
 
     /// <summary>
-    ///     Obtiene una capa por su nombre
+    ///     Finaliza las capas
     /// </summary>
-	public TypeData? Get<TypeData>(string layer) where TypeData : AbstractLayer
+	public void End(GameContext gameContext)
 	{
-        return Layers.FirstOrDefault(item => item.Name.Equals(layer, StringComparison.CurrentCultureIgnoreCase)) as TypeData;
+	    foreach (AbstractLayer layer in Layers)
+            layer.End(gameContext);
 	}
 
 	/// <summary>

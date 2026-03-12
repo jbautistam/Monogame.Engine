@@ -5,6 +5,8 @@ using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
+using Bau.Libraries.BauGame.Engine.Managers;
 
 namespace EngineSample.Core.GameLogic.Actors;
 
@@ -53,7 +55,7 @@ public class EnemyActor : AbstractActorDrawable
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected override void UpdateActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateActor(GameContext gameContext)
 	{
 		if (_health.JustDead)
 		{
@@ -81,7 +83,7 @@ public class EnemyActor : AbstractActorDrawable
 	/// <summary>
 	///		Mueve el actor
 	/// </summary>
-	private void Move(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	private void Move(GameContext gameContext)
 	{
 		// Mueve el actor a la izquierda / derecha
 		if (Transform.Bounds.X < 0)
@@ -105,14 +107,22 @@ public class EnemyActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
 	{
+	}
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
+	{
+		// ... en este caso no hace nada
 	}
 
 	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void EndActor(GameContext gameContext)
 	{
 	}
 

@@ -11,7 +11,7 @@ public class UserInterfaceImageBuilder : AbstractElementUserInterfaceBuilder<UiI
 	public UserInterfaceImageBuilder(AbstractUserInterfaceLayer layer, string asset, string? region, float x, float y, float width, float height)
 	{
 		Item = new UiImage(layer, new UiPosition(x, y, width, height));
-		Item.Sprite = new Entities.Common.SpriteDefinition(layer, asset, region);
+		Item.Sprite = new Entities.Common.SpriteDefinition(asset, region);
 	}
 
 	/// <summary>

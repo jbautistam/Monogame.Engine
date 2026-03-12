@@ -1,5 +1,7 @@
 ﻿using Bau.Libraries.BauGame.Engine.Actors;
+using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters;
@@ -42,7 +44,7 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActorDr
 	/// <summary>
 	///		Actualiza los personajes
 	/// </summary>
-	protected override void UpdateActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateActor(GameContext gameContext)
 	{
 		foreach (CharacterActor character in Characters.Items.Values)
 			character.Update(gameContext);
@@ -51,11 +53,19 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActorDr
 	/// <summary>
 	///		Dibuja los personajes
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
 	{
 		foreach (CharacterActor character in Characters.Items.Values)
 			if (character.Enabled)
 				character.Draw(camera, gameContext);
+	}
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
+	{
+        //TODO: aún no hace nada
 	}
 
 	/// <summary>

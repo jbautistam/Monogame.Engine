@@ -20,6 +20,11 @@ public abstract class UiAbstractBackground(Styles.UiStyle style)
 	public abstract void Draw(Camera2D camera, Rectangle position, GameContext gameContext);
 
 	/// <summary>
+	///		Prepara los comandos de representación
+	/// </summary>
+	public abstract void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Rectangle bounds, GameContext gameContext);
+
+	/// <summary>
 	///		Estilo padre
 	/// </summary>
 	public Styles.UiStyle Style { get; } = style;
@@ -33,9 +38,4 @@ public abstract class UiAbstractBackground(Styles.UiStyle style)
 	///		Opacidad
 	/// </summary>
 	public float Opacity { get; set; } = 1;
-
-	/// <summary>
-	///		Indica si se ha inicializado
-	/// </summary>
-	protected bool IsInitialized { get; set; }
 }

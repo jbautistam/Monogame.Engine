@@ -28,6 +28,7 @@ internal class GraphicNovelScene(string name) : AbstractScene(name, new Bau.Libr
 	{
 		// Guarda el interface de usuario Hud
 		_hudLayer = new Common.HudLayer(this, Constants.LayerHud, 1);
+		LayerManager.Clear();
 		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
 		LayerManager.AddLayer(new GraphicNovelLayer(this, SceneName, 1));

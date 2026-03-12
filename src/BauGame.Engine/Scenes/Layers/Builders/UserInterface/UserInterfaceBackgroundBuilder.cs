@@ -1,5 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
+﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
@@ -9,11 +8,11 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 /// </summary>
 public class UserInterfaceBackgroundBuilder
 {
-	public UserInterfaceBackgroundBuilder(UiStyle style, string texture)
+	public UserInterfaceBackgroundBuilder(UiStyle style, string texture, string? region)
 	{
 		Background = new UiBackground(style)
 						{
-							Texture = texture
+							Sprite = new Entities.Common.SpriteDefinition(texture, region)
 						};
 	}
 

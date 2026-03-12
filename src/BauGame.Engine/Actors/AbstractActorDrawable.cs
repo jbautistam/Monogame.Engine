@@ -5,7 +5,7 @@ namespace Bau.Libraries.BauGame.Engine.Actors;
 /// <summary>
 ///		Clase abstracta para la definición de actores
 /// </summary>
-public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDrawable, Interfaces.IActorPhisics
+public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDrawable, Interfaces.IActorPhysics
 {
 	protected AbstractActorDrawable(Scenes.Layers.AbstractLayer layer, int? zOrder) : base(layer, zOrder)
 	{
@@ -70,14 +70,30 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 			// Dibuja los componentes
 			Components.Draw(camera, gameContext);
 			// Llama al actor para que se dibuje si es necesario
-			DrawActor(camera, gameContext);
+			DrawSelf(camera, gameContext);
 		}
     }
 
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected abstract void DrawActor(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
+	protected abstract void DrawSelf(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
+	{
+		// Prepara los comandos de los componentes
+		Components.PrepareRenderCommands(builder, gameContext);
+		// Llama al actor para que prepare comandos adicionales si es necesario
+		PrepareRenderCommandsSelf(builder, gameContext);
+	}
+
+	/// <summary>
+	///		Prepara los comandos de presentación del actor
+	/// </summary>
+	protected abstract void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza el trabajo con el actor

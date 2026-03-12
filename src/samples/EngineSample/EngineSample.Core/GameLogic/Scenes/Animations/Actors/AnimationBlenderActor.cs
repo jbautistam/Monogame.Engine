@@ -4,6 +4,7 @@ using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Actors;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 
 namespace EngineSample.Core.GameLogic.Scenes.Animations.Actors;
 
@@ -71,7 +72,14 @@ public class AnimationBlenderActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawActor(Camera2D camera, GameContext gameContext)
+	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
+	{
+	}
+
+	/// <summary>
+	///		Prepara los comandos de presentación
+	/// </summary>
+	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
 	{
 	}
 
