@@ -104,7 +104,7 @@ public class UserInterfaceVisuaNovelTextBuilder : AbstractElementUserInterfaceBu
 		UiImage image = new(Item.Layer, new UiPosition(0, 0, 0, 0));
 
 			// Crea la definición de la imagen
-			image.Sprite = new Entities.Common.SpriteDefinition(asset, region);
+			image.Sprite = new Entities.Common.Sprites.SpriteDefinition(asset, region);
 			image.Style = style;
 			// Devuelve la imagen
 			return image;

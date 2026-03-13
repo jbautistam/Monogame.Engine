@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
+using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;
 
@@ -11,21 +11,17 @@ public class ShowCharacterAction : AbstractCharacterAction
 	/// <summary>
 	///		Actualiza la acción de mostrar
 	/// </summary>
-	protected override bool UpdateAction(CharacterActor actor, float elapsed, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateActionSelf(CharacterActor actor, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
-		TweenResult<Vector2> tweenPosition = TweenCalculator.CalculateVector2(elapsed + gameContext.DeltaTime, Duration,
-																			  StartPosition, EndPosition);
-		TweenResult<float> tweenOpacity = TweenCalculator.CalculateFloat(elapsed + gameContext.DeltaTime, Duration,
-																		 StartOpacity, EndOpacity);
+		Vector2 position = EasingFunctionsHelper.Interpolate(ToWorld(actor, StartPosition), ToWorld(actor, EndPosition), Progress, Easing);
+		float opacity = EasingFunctionsHelper.Interpolate(StartOpacity, EndOpacity, Progress, Easing);
 
 			// Cambia la definición del personaje
 			actor.SetDefinition(DefinitionId);
 			// Cambia los estados del actor
-			actor.Transform.Bounds.X = tweenPosition.Value.X;
-			actor.Transform.Bounds.Y = tweenPosition.Value.Y;
-			actor.Opacity = tweenOpacity.Value;
-			// Devuelve el valor que indica si ha terminado la acción
-			return tweenPosition.IsComplete && tweenOpacity.IsComplete;
+			actor.Transform.Bounds.X = position.X;
+			actor.Transform.Bounds.Y = position.Y;
+			actor.Opacity = opacity;
 	}
 
 	/// <summary>

@@ -1,4 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Microsoft.Xna.Framework;
@@ -26,7 +26,7 @@ public class UiTextureBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 		Rectangle destination = InflateWithSprite(position);
 
 			// Dibuja el control
-			Sprite?.Draw(camera, destination, Vector2.Zero, 0, Color * Opacity);
+			Sprite?.Renderer.Draw(camera, destination, Vector2.Zero, 0, Color * Opacity);
 	}
 
     /// <summary>

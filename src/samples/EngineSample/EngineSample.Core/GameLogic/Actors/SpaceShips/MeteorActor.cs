@@ -123,13 +123,7 @@ public class MeteorActor : AbstractActorDrawable
 																},
 												   Transform.Bounds.TopLeft);
 			// Envía el mensaje de fin para añadir la puntuación
-			Layer.Scene.MessagesManager.SendMessage(PlayerActor.PlayerName, 
-													new Bau.Libraries.BauGame.Engine.Scenes.Messages.MessageModel(this, Constants.MessageEnemyKilled)
-																{
-																	Message = "Meteor eliminated",
-																	Tag = GetScore()
-																}
-													);
+			Layer.Scene.MessagesManager.SendMessage(this, PlayerActor.PlayerName, Constants.MessageEnemyKilled, "Meteor eliminated", GetScore());
 			// Genera los meteoros hijo
 			for (int index = 0; index < 2; index++)
 				switch (Size)

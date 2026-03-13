@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
 
@@ -22,7 +22,7 @@ public class UiBackground(Styles.UiStyle style) : UiAbstractBackground(style)
 	/// </summary>
 	public override void Draw(Camera2D camera, Rectangle position, Managers.GameContext gameContext)
 	{
-		Sprite?.Draw(camera, position, Vector2.Zero, 0, Color * Opacity);
+		Sprite?.Renderer.Draw(camera, position, Vector2.Zero, 0, Color * Opacity);
 	}
 
 	/// <summary>

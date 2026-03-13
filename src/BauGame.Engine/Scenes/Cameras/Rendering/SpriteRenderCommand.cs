@@ -183,7 +183,7 @@ public class SpriteRenderCommand : AbstractRenderCommand
     /// <summary>
     ///     Sprite a dibujar
     /// </summary>
-    public required Entities.Common.SpriteDefinition Sprite { get; init; }
+    public required Entities.Common.Sprites.SpriteDefinition Sprite { get; init; }
 
     /// <summary>
     ///     Transformación

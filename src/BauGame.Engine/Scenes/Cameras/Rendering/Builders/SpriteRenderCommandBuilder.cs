@@ -20,7 +20,7 @@ public class SpriteRenderCommandBuilder : AbstractRenderCommandBuilder
 	{
 		Commands.Add(new SpriteRenderCommand()
 								{
-									Sprite = new Entities.Common.SpriteDefinition(texture, region)
+									Sprite = new Entities.Common.Sprites.SpriteDefinition(texture, region)
 								}
 					);
 	}
@@ -28,7 +28,7 @@ public class SpriteRenderCommandBuilder : AbstractRenderCommandBuilder
 	/// <summary>
 	///		Crea un nuevo comando <see cref="SpriteRenderCommand"/>
 	/// </summary>
-	public SpriteRenderCommandBuilder WithCommand(Entities.Common.SpriteDefinition sprite) => WithCommand(sprite.Asset, sprite.Region);
+	public SpriteRenderCommandBuilder WithCommand(Entities.Common.Sprites.SpriteDefinition sprite) => WithCommand(sprite.Asset, sprite.Region);
 
 	/// <summary>
 	///		Crea un nuevo comando <see cref="SpriteRenderCommand"/>

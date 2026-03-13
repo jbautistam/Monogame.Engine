@@ -15,4 +15,5 @@ internal class Constants
 	internal const string LayerHud = "Hud";
 	// Constantes de mensajes
 	internal const string MessageEnemyKilled = nameof(MessageEnemyKilled);
+	internal const string PlayerPosition = nameof(PlayerPosition);
 }

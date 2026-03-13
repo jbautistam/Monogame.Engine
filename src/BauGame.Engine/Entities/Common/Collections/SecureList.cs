@@ -18,6 +18,14 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 		_itemsToAdd.Add(item);
 	}
 
+	/// <summary>
+	///		Añade una serie de elementos (los prepara para añadirlos más tarde)
+	/// </summary>
+	public void AddRange(List<TypeData> items)
+	{
+		_itemsToAdd.AddRange(items);
+	}
+
     /// <summary>
     ///     Marca un elemento para eliminar
     /// </summary>
@@ -108,6 +116,11 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 	{
 		Items.Sort((first, second) => compare(first, second));
 	}
+
+	/// <summary>
+	///		Obtiene un elemento por su Id
+	/// </summary>
+	public TypeData? Get(string id) => Items.FirstOrDefault(item => item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase));
 
 	/// <summary>
 	///		Limpia los elementos de la lista

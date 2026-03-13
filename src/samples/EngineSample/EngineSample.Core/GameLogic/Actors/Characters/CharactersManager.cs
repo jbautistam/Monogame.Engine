@@ -1,7 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Actors;
 using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters;
@@ -9,17 +7,24 @@ namespace EngineSample.Core.GameLogic.Actors.Characters;
 /// <summary>
 ///		Actor del manager de personajes
 /// </summary>
-public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActorDrawable(layer, zOrder)
+public class CharacterManager : AbstractActor
 {
+	// Eventos públicos
+	public event EventHandler? EndSequence;
+	// Variables privadas
+	private bool _raisedEvent = true; // ... no se debe lanzar el evento la primera vez
+
+	public CharacterManager(AbstractLayer layer) : base(layer, 0)
+	{
+		Sequences = new Sequences.CinematicSequenceList(this);
+	}
+
 	/// <summary>
 	///		Añade un personaje
 	/// </summary>
-	public CharacterActor Add(string name)
+	public CharacterDefinition Add(string name)
 	{
-		CharacterActor character = new(this, ZOrder)
-										{
-											Enabled = false
-										};
+		CharacterDefinition character = new(name);
 
 			// Añade el personaje al diccionario
 			Characters.Add(name, character);
@@ -28,57 +33,69 @@ public class CharacterManager(AbstractLayer layer, int zOrder) : AbstractActorDr
 	}
 
 	/// <summary>
-	///		Obtiene un actor
+	///		Obtiene el actor correspondiente a un Id (si no existe, se crea)
 	/// </summary>
-	public CharacterActor? GetActor(string name) => Characters.Get(name);
+	public AbstractActor? GetActor(string actorId)
+	{
+		AbstractActor? actor = Layer.Actors.Get(actorId);
+
+			// Si no encuentra el actor en la capa, lo crea
+			if (actor is null)
+			{
+				CharacterDefinition? definition = Characters.Get(actorId);
+
+					if (definition is not null)
+					{
+						CharacterActor characterActor = new(Layer, definition);
+
+							// Asigna el Id al actor
+							characterActor.Id = actorId;
+							// y lo añade a la lista
+							Layer.Actors.Add(characterActor);
+					}
+			}
+			// Devuelve el actor creado
+			return actor;
+	}
 
 	/// <summary>
-	///		Inicializa los personajes
+	///		Inicializa el manager
 	/// </summary>
-	protected override void StartActor()
+	protected override void StartSelf()
 	{
-		foreach (CharacterActor character in Characters.Items.Values)
-			character.Start();
 	}
 
 	/// <summary>
 	///		Actualiza los personajes
 	/// </summary>
-	protected override void UpdateActor(GameContext gameContext)
+	protected override void UpdateSelf(GameContext gameContext)
 	{
-		foreach (CharacterActor character in Characters.Items.Values)
-			character.Update(gameContext);
-	}
-
-	/// <summary>
-	///		Dibuja los personajes
-	/// </summary>
-	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
-	{
-		foreach (CharacterActor character in Characters.Items.Values)
-			if (character.Enabled)
-				character.Draw(camera, gameContext);
-	}
-
-	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
-	{
-        //TODO: aún no hace nada
+		// Actualiza las secuencias
+		Sequences.Update(gameContext);
+		// Si no hay nada por ejecutar se lanza el evento de fin
+		if (!Sequences.Enabled && !_raisedEvent)
+		{
+			// Lanza el evento de fin de secuencia
+			EndSequence?.Invoke(this, EventArgs.Empty);
+			// Indica que se ha lanzado el evento
+			_raisedEvent = true;
+		}
 	}
 
 	/// <summary>
 	///		Finaliza el trabajo con los personajes
 	/// </summary>
-	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void EndSelf(GameContext gameContext)
 	{
-		foreach (CharacterActor character in Characters.Items.Values)
-			character.End(new Bau.Libraries.BauGame.Engine.Managers.GameContext());
 	}
 
 	/// <summary>
 	///		Personajes
 	/// </summary>
-	private Bau.Libraries.BauGame.Engine.Entities.Common.DictionaryModel<CharacterActor> Characters { get; } = new();
+	private Bau.Libraries.BauGame.Engine.Entities.Common.DictionaryModel<CharacterDefinition> Characters { get; } = new();
+
+	/// <summary>
+	///		Comandos
+	/// </summary>
+	public Sequences.CinematicSequenceList Sequences { get; }
 }

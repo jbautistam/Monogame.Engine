@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
@@ -75,7 +75,7 @@ public class UiProgressBar : UiElement
         Styles.UiStyle style = Layer.Styles.GetDefault(Style);
 
             // Dibuja la textura de fondo si existe
-            Background?.Draw(camera, Position.Bounds, Vector2.Zero, 0, Color.White);
+            Background?.Renderer.Draw(camera, Position.Bounds, Vector2.Zero, 0, Color.White);
             // Calcular rectángulo de relleno según orientación y modo
             switch (Orientation)
             {
@@ -94,7 +94,7 @@ public class UiProgressBar : UiElement
             if (Bar is not null)
                 target = new Rectangle(target.X + 2, target.Y + 2, target.Width - 4, target.Height - 4);
             // Dibuja la barra de progreso
-            Bar?.Draw(camera, target, Vector2.Zero, 0, style.Color * style.Opacity);
+            Bar?.Renderer.Draw(camera, target, Vector2.Zero, 0, style.Color * style.Opacity);
     }
 
     /// <summary>

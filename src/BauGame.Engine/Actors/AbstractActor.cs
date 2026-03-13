@@ -77,7 +77,7 @@ public abstract class AbstractActor : Entities.Common.Pools.IPoolable, Entities.
 	/// <summary>
 	///		Id del elemento
 	/// </summary>
-	public string Id { get; } = Guid.NewGuid().ToString();
+	public string Id { get; set; } = Guid.NewGuid().ToString();
 
 	/// <summary>
 	///		Orden de dibujo solicitado

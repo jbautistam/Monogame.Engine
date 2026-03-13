@@ -36,7 +36,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	private void CreateCharacters()
 	{
 		// Crea el manager de personajes
-		_characterManager = new(this, 2);
+		_characterManager = new(this);
 		// Crea los personajes
 		CreateCharacter(_characterManager, "sylvie");
 		CreateCharacter(_characterManager, "james");
@@ -50,13 +50,13 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateCharacter(CharacterManager manager, string name)
 	{
-		CharacterActor character = manager.Add(name);
+		CharacterDefinition character = manager.Add(name);
 
 			// Crea las definiciones
-			character.AddDefinition(CharacterActorDefinition.DefaultType, $"{name}-default", name);
-			character.AddDefinition("avatar", $"{name}-avatar", name);
-			character.AddDefinition("sad", $"{name}-sad", name);
-			character.AddDefinition("smile", $"{name}-smile", name);
+			character.AddExpression(CharacterExpressionDefinition.DefaultType, $"{name}-default", null);
+			character.AddExpression("avatar", $"{name}-avatar", null);
+			character.AddExpression("sad", $"{name}-sad", null);
+			character.AddExpression("smile", $"{name}-smile", null);
 	}
 
 	/// <summary>
@@ -90,14 +90,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	{
 		// Crea los personajes y sus acciones
 		if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.S))
-		{
-			CreateShowAction("sylvie", "sad", 0.4f, 1);
-			CreateMoveAction("sylvie", 0.8f);
-			CreateMoveAction("sylvie", 0);
-			CreateExpressionAction("sylvie", "happy");
-			CreateHideAction("sylvie");
-			CreateFadeInAction("sylvie");
-		}
+			CreateSylvieSequence();
 		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.J))
 			CreateShowAction("james", "sad", 0.3f, 1);
 		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.N))
@@ -111,21 +104,47 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	}
 
 	/// <summary>
-	///		Obtiene un actor
+	///		Crea una secuencia para Sylvie
 	/// </summary>
-	private CharacterActor? GetActor(string name) => _characterManager?.GetActor(name);
+	private void CreateSylvieSequence()
+	{
+		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("sylvie");
+
+			// Crea la secuencia
+			builder.WithMoveTo(0, 0.1f, Vector2.Zero)
+				   .WithMove(2, 3, new Vector2(0, 0.3f))
+				   .WithMove(3, 7, new Vector2(1, 0.1f))
+				   .WithMove(7, 10, new Vector2(0, 0))
+				   ;
+			// Añade la secuencia al manager
+			_characterManager?.Sequences.Add(builder.Build());
+		//CreateShowAction("sylvie", "sad", 0.4f, 1);
+		//CreateMoveAction("sylvie", 0.8f);
+		//CreateMoveAction("sylvie", 0);
+		//CreateExpressionAction("sylvie", "happy");
+		//CreateHideAction("sylvie");
+		//CreateFadeInAction("sylvie");
+	}
+
+
+	///// <summary>
+	/////		Obtiene un actor
+	///// </summary>
+	//private CharacterActor? GetActor(string name) => _characterManager?.GetActor(name);
 
 	/// <summary>
 	///		Cambia la expresión de un personaje
 	/// </summary>
 	private void CreateExpressionAction(string name, string definition)
 	{
+	/*
 		GetActor(name)?.AddAction(new Actors.Characters.Actions.UpdateExpressionCharacterAction()
 													{
 														DefinitionId = definition,
 														Duration = 5
 													}
 								);
+	*/
 	}
 
 	/// <summary>
@@ -133,6 +152,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateShowAction(string name, string definition, float end, float duration)
 	{
+	/*
 		GetActor(name)?.AddAction(new Actors.Characters.Actions.ShowCharacterAction()
 													{
 														DefinitionId = definition,
@@ -143,6 +163,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 														Duration = duration
 													}
 								);
+	*/
 	}
 
 	/// <summary>
@@ -150,12 +171,14 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateMoveAction(string name, float end)
 	{
+	/*
 		GetActor(name)?.AddAction(new Actors.Characters.Actions.MoveCharacterAction()
 												{
 													EndPosition = new Vector2(end, 0),
 													Duration = 1
 												}
 							   );
+	*/
 	}
 
 	/// <summary>
@@ -163,12 +186,14 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateHideAction(string name)
 	{
+	/*
 		GetActor(name)?.AddAction(new Actors.Characters.Actions.FadeCharacterAction()
 												{
 													EndOpacity = 0,
 													Duration = 1
 												}
 							   );
+	*/
 	}
 
 	/// <summary>
@@ -176,12 +201,14 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateFadeInAction(string name)
 	{
+	/*
 		GetActor(name)?.AddAction(new Actors.Characters.Actions.FadeCharacterAction()
 												{
 													EndOpacity = 1,
 													Duration = 3
 												}
 							   );
+	*/
 	}
 
 	/// <summary>

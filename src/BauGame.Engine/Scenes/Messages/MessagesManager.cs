@@ -5,110 +5,101 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Messages;
 /// <summary>
 ///		Manager de mensajes
 /// </summary>
-public class MessagesManager(AbstractScene scene)
+public class MessagesManager(AbstractScene scene) : Entities.Common.Collections.SecureList<MessageModel>
 {
     // Registros
     private record Received(string To, string? Type, Guid? Guid);
+    // Variables privadas
+    private float _elapsedTime;
 
     /// <summary>
     ///     Actualiza el manager
     /// </summary>
-	public void Update(GameContext gameContext)
+	protected override void UpdateSelf(GameContext gameContext)
 	{
-        foreach (Received received in ReceivedMessages)
-            if (Messages.TryGetValue(received.To, out List<MessageModel>? messages))
-            {
-                // Borra todos los mensajes o los que sean para ese destinatario y del tipo especificado o con el Guid indicado
-                if (string.IsNullOrWhiteSpace(received.Type) && received.Guid is null)
-                    Messages.Remove(received.To);
-                else
-                    for (int index = messages.Count - 1; index >= 0; index--)
-                        if ((received.Guid is not null && messages[index].Id == received.Guid) ||
-                                (!string.IsNullOrWhiteSpace(received.Type) && messages[index].Type.Equals(received.Type, StringComparison.CurrentCultureIgnoreCase)))
-                            messages.RemoveAt(index);
-            }
+        // Marca para eliminar todos los mensajes que hayan pasado el tiempo
+        foreach (MessageModel message in Enumerate())
+            if (message.CreatedAt + _elapsedTime > 2)
+                MarkToDestroy(message, TimeSpan.FromMilliseconds(1));
+        // Incrementa el tiempo pasado
+        _elapsedTime += gameContext.DeltaTime;
+	}
+
+    /// <summary>
+    ///     Trata el elemento añadido
+    /// </summary>
+	protected override void Added(MessageModel item)
+	{
+        item.CreatedAt = _elapsedTime;
+	}
+
+    /// <summary>
+    ///     Trata el elemento eliminado
+    /// </summary>
+	protected override void Removed(MessageModel item)
+	{
 	}
 
     /// <summary>
     ///     Envía un mensaje a un destinatario
     /// </summary>
-    public void SendMessage(string to, MessageModel message)
+    public void SendMessage(Actors.AbstractActor sender, string to, string type, string message, object? tag = null)
     {
-        SendMessages(to, [ message ]);
+        Add(new MessageModel(sender, type, to)
+                    {
+                        Message = message,
+                        Tag = tag
+                    }
+            );
     }
 
-    /// <summary>
-    ///     Envía una serie de mensajes a un destinatario
-    /// </summary>
-    public void SendMessages(string to, List<MessageModel> messages)
-    {
-        if (Messages.ContainsKey(to))
-            Messages[to].AddRange(messages);
-        else
-            Messages.Add(to, messages);
-    }
-
-    /// <summary>
-    ///     Obtiene la lista de mensajes recibidos de un tipo
-    /// </summary>
+	/// <summary>
+	///     Obtiene la lista de mensajes recibidos de un tipo ordenados ascendentemente por el momento de la creación
+	/// </summary>
 	public List<MessageModel> GetReceived(string to, string? type = null)
 	{
 		List<MessageModel> messages = [];
 
             // Obtiene los mensajes
-            if (Messages.TryGetValue(to, out List<MessageModel>? receivedMessages))
-            {
-                if (string.IsNullOrWhiteSpace(type))
-                    messages.AddRange(receivedMessages);
-                else
-                    foreach (MessageModel receivedMessage in receivedMessages)
-                        if (receivedMessage.Type.Equals(type, StringComparison.CurrentCultureIgnoreCase))
-                            messages.Add(receivedMessage);
-            }
+            foreach (MessageModel message in Enumerate())
+                if (message.To.Equals(to, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    if (string.IsNullOrWhiteSpace(type) || message.Type.Equals(type, StringComparison.CurrentCultureIgnoreCase))
+                        messages.Add(message);
+                }
+            // Ordena los mensajes
+            messages.Sort((first, second) => first.CreatedAt.CompareTo(second.CreatedAt));
+            // Marca los mensajes como recibidos
+            MarkReceived(messages);
             // Devuelve los mensajes
             return messages;
 	}
 
     /// <summary>
-    ///     Obtiene el primer mensaje recibido de un tipo
+    ///     Obtiene el último mensaje recibido de un tipo (borra el resto de mensajes)
     /// </summary>
-	public MessageModel? GetFirstReceived(string to, string type)
+	public MessageModel? GetLastReceived(string to, string? type = null)
 	{
-        if (Messages.TryGetValue(to, out List<MessageModel>? receivedMessages))
-            return receivedMessages.FirstOrDefault(item => item.Type.Equals(type, StringComparison.CurrentCultureIgnoreCase));
-        else
-            return null;
-	}
+		List<MessageModel> messages = GetReceived(to, type);
 
-    /// <summary>
-    ///     Marca los mensajes a un destinatario como recibidos
-    /// </summary>
-	public void MarkReceived(string to, string? type = null, Guid? guid = null)
-	{
-		ReceivedMessages.Add(new Received(to, type, guid));
+            // Devuelve el último mensaje de la lista
+            if (messages.Count > 0)
+                return messages[^1];
+            else
+                return null;
 	}
 
     /// <summary>
     ///     Marca como recibidos una serie de mensajes
     /// </summary>
-	public void MarkReceived(string to, List<MessageModel> messages)
+	private void MarkReceived(List<MessageModel> messages)
 	{
 		foreach (MessageModel message in messages)
-            MarkReceived(to, null, message.Id);
+            MarkToDestroy(message, TimeSpan.FromMilliseconds(0));
 	}
 
 	/// <summary>
 	///		Escena a la que se asocian los mensajes
 	/// </summary>
 	public AbstractScene Scene { get; } = scene;
-
-    /// <summary>
-    ///     Mensajes recibidos en la capa
-    /// </summary>
-    private Dictionary<string, List<MessageModel>> Messages { get; } = new(StringComparer.CurrentCultureIgnoreCase);
-
-    /// <summary>
-    ///     Mensajes recibidos
-    /// </summary>
-    private List<Received> ReceivedMessages { get; } = [];
 }

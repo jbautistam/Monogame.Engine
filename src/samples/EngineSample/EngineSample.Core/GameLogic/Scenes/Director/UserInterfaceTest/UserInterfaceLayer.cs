@@ -67,8 +67,6 @@ public class UserInterfaceLayer(AbstractScene scene, string name, int sortOrder)
 			// Cambia la etiqueta de la posición del jugador
 			if (lblPlayerPosition is not null)
 				lblPlayerPosition.Text = GetMessageText("PlayerPosition", "-");
-			// Marca los mensajes como leidos
-			Scene.MessagesManager.MarkReceived(Id);
 	}
 
 	/// <summary>
@@ -144,7 +142,7 @@ public class UserInterfaceLayer(AbstractScene scene, string name, int sortOrder)
 	/// </summary>
 	private string GetMessageText(string type, string defaultValue)
 	{
-		MessageModel? message = Scene.MessagesManager.GetFirstReceived(Id, type);
+		MessageModel? message = Scene.MessagesManager.GetLastReceived(Id, type);
 
 			// Devuelve el contenido del mensaje
 			if (message is not null)

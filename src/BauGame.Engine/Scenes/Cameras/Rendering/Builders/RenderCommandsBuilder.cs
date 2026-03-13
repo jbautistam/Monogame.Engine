@@ -27,7 +27,7 @@ public class RenderCommandsBuilder
 	/// <summary>
 	///		Crea un generador para un comando <see cref="SpriteRenderCommand"/>
 	/// </summary>
-	public SpriteRenderCommandBuilder WithCommand(Entities.Common.SpriteDefinition sprite)
+	public SpriteRenderCommandBuilder WithCommand(Entities.Common.Sprites.SpriteDefinition sprite)
 	{
 		SpriteRenderCommandBuilder builder = new(this, sprite.Asset, sprite.Region);
 

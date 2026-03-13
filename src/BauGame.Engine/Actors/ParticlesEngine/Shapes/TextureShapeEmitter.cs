@@ -75,6 +75,6 @@ public class TextureShapeEmitter(string texture, string? region) : AbstractShape
     /// <summary>
     ///     Definición del sprite
     /// </summary>
-    public Entities.Common.SpriteDefinition Sprite { get; } = new(texture, region);
+    public Entities.Common.Sprites.SpriteDefinition Sprite { get; } = new(texture, region);
 }
 

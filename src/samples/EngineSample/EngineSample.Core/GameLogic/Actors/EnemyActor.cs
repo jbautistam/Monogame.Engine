@@ -68,13 +68,7 @@ public class EnemyActor : AbstractActorDrawable
 			// Destruye el actor
 			Layer.Actors.MarkToDestroy(this, gameContext.GetTotalTime(TimeSpan.FromSeconds(5)));
 			// Manda un mensaje indicando que se ha matado un enemigo
-			Layer.Scene.MessagesManager.SendMessage(PlayerActor.PlayerName, 
-													new Bau.Libraries.BauGame.Engine.Scenes.Messages.MessageModel(this, Constants.MessageEnemyKilled)
-																{
-																	Message = "I'm died",
-																	Tag = 30
-																}
-													);
+			Layer.Scene.MessagesManager.SendMessage(this, PlayerActor.PlayerName, Constants.MessageEnemyKilled, "I'm died", 30);
 		}
 		else if (!_health.IsDead)
 			Move(gameContext);

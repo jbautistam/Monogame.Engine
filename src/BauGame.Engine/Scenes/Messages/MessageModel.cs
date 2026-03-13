@@ -1,19 +1,40 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Messages;
+﻿using Bau.Libraries.BauGame.Engine.Managers;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Messages;
 
 /// <summary>
 ///		Mensajes enviados entre actores o capas
 /// </summary>
-public class MessageModel(Actors.AbstractActorDrawable sender, string type)
+public class MessageModel(Actors.AbstractActor sender, string type, string to) : Entities.Common.Collections.ISecureListItem
 {
+	/// <summary>
+	///		Arranca el objeto (necesario para la interface)
+	/// </summary>
+	public void Start()
+	{
+	}
+
+	/// <summary>
+	///		Detiene el objeto (necesario para la interface)
+	/// </summary>
+	public void End(GameContext gameContext)
+	{
+	}
+
 	/// <summary>
 	///		Id del mensaje
 	/// </summary>
-	public Guid Id { get; } = Guid.NewGuid();
+	public string Id { get; } = Guid.NewGuid().ToString();
 
 	/// <summary>
 	///		Actor que envía el mensaje
 	/// </summary>
-	public Actors.AbstractActorDrawable Sender { get; } = sender;
+	public Actors.AbstractActor Sender { get; } = sender;
+
+	/// <summary>
+	///		Destinatario del mensaje
+	/// </summary>
+	public string To { get; } = to;
 
 	/// <summary>
 	///		Tipo del mensaje
@@ -29,4 +50,9 @@ public class MessageModel(Actors.AbstractActorDrawable sender, string type)
 	///		Datos adicionales
 	/// </summary>
 	public object? Tag { get; set; }
+
+	/// <summary>
+	///		Momento en que se ha creado el mensaje
+	/// </summary>
+	public float CreatedAt { get; set; }
 }

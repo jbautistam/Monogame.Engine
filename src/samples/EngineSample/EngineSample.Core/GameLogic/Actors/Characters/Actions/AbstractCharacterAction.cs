@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Microsoft.Xna.Framework;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;
 
@@ -8,8 +9,8 @@ namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;
 public abstract class AbstractCharacterAction
 {
 	// Variables privadas
-	private float _elapsed;
 	private bool _isFirst = true;
+	private float _elapsed;
 
 	/// <summary>
 	///		Actualiza la acción
@@ -27,14 +28,27 @@ public abstract class AbstractCharacterAction
 		}
 		// Incrementa el tiempo pasado
 		_elapsed += gameContext.DeltaTime;
+		if (Duration == 0)
+			Duration = 1;
+		Progress = _elapsed / Duration;
 		// Actualiza la acción
-		return UpdateAction(actor, _elapsed, gameContext);
+		UpdateActionSelf(actor, gameContext);
+		// Indica si ha terminado
+		return Progress >= 1;
 	}
 
 	/// <summary>
 	///		Actualiza la acción
 	/// </summary>
-	protected abstract bool UpdateAction(CharacterActor actor, float elapsed, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext);
+	protected abstract void UpdateActionSelf(CharacterActor actor, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext);
+
+	/// <summary>
+	///		Transforma un vector a las posiciones de mundo
+	/// </summary>
+	protected Vector2 ToWorld(CharacterActor actor, Vector2 position)
+	{
+		return new Vector2(position.X * actor.Layer.Scene.WorldDefinition.WorldBounds.Width, position.Y * actor.Layer.Scene.WorldDefinition.WorldBounds.Height);
+	}
 
 	/// <summary>
 	///		Posición inicial del personaje
@@ -50,4 +64,14 @@ public abstract class AbstractCharacterAction
 	///		Duración del efecto
 	/// </summary>
 	public float Duration { get; set; } = 2;
+
+	/// <summary>
+	///		Porcentaje de progreso
+	/// </summary>
+	public float Progress { get; protected set; }
+
+	/// <summary>
+	///		Modo de interpolación
+	/// </summary>
+	public EasingFunctionsHelper.EasingType Easing { get; set; } = EasingFunctionsHelper.EasingType.Linear;
 }

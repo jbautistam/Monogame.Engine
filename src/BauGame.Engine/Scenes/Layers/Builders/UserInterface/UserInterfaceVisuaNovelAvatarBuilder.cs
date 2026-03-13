@@ -21,7 +21,7 @@ public class UserInterfaceVisuaNovelAvatarBuilder : AbstractElementUserInterface
 		UiImage image = new(Item.Layer, new UiPosition(0, 0, 1, 1));
 
 			// Crea la definición de la imagen
-			image.Sprite = new Entities.Common.SpriteDefinition(asset, region);
+			image.Sprite = new Entities.Common.Sprites.SpriteDefinition(asset, region);
 			image.Style = style;
 			// Asigna el avatar
 			Item.Avatar = image;

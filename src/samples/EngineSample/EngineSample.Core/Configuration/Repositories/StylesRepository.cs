@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
 namespace EngineSample.Core.Configuration.Repositories;
 

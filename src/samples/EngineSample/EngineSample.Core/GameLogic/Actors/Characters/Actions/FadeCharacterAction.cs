@@ -1,4 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
+﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;
 
@@ -10,15 +10,9 @@ public class FadeCharacterAction : AbstractCharacterAction
 	/// <summary>
 	///		Actualiza la acción de mostrar
 	/// </summary>
-	protected override bool UpdateAction(CharacterActor actor, float elapsed, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateActionSelf(CharacterActor actor, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
-		TweenResult<float> tweenOpacity = TweenCalculator.CalculateFloat(elapsed + gameContext.DeltaTime, Duration,
-																		 ActorStartOpacity, EndOpacity);
-
-			// Cambia los estados del actor
-			actor.Opacity = tweenOpacity.Value;
-			// Devuelve el valor que indica si ha terminado la acción
-			return tweenOpacity.IsComplete;
+		actor.Opacity = EasingFunctionsHelper.Interpolate(ActorStartOpacity, EndOpacity, Progress, Easing);
 	}
 
 	/// <summary>

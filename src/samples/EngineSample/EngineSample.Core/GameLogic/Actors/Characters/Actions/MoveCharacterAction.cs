@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
+using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
 
 namespace EngineSample.Core.GameLogic.Actors.Characters.Actions;
 
@@ -11,16 +11,13 @@ public class MoveCharacterAction : AbstractCharacterAction
 	/// <summary>
 	///		Actualiza la acción de mostrar
 	/// </summary>
-	protected override bool UpdateAction(CharacterActor actor, float elapsed, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateActionSelf(CharacterActor actor, Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
 	{
-		TweenResult<Vector2> tweenPosition = TweenCalculator.CalculateVector2(elapsed + gameContext.DeltaTime, Duration,
-																			  ActorStartPosition, EndPosition);
+		Vector2 position = EasingFunctionsHelper.Interpolate(ActorStartPosition, ToWorld(actor, EndPosition), Progress, Easing);
 
 			// Cambia la posición del actor
-			actor.Transform.Bounds.X = tweenPosition.Value.X;
-			actor.Transform.Bounds.Y = tweenPosition.Value.Y;
-			// Devuelve el valor que indica si ha terminado la acción
-			return tweenPosition.IsComplete;
+			actor.Transform.Bounds.X = position.X;
+			actor.Transform.Bounds.Y = position.Y;
 	}
 
 	/// <summary>

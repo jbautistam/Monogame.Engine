@@ -62,8 +62,6 @@ public class UserInterfaceLayer(AbstractScene scene, string name, int sortOrder)
 			// Cambia la etiqueta de número de vidas
 			if (lblLives is not null)
 				lblLives.Text = GetMessageText("Lives", "0");
-			// Marca los mensajes como leidos
-			Scene.MessagesManager.MarkReceived(Id);
 	}
 
 	/// <summary>
@@ -127,7 +125,7 @@ public class UserInterfaceLayer(AbstractScene scene, string name, int sortOrder)
 	/// </summary>
 	private string GetMessageText(string type, string defaultValue)
 	{
-		MessageModel? message = Scene.MessagesManager.GetFirstReceived(Id, type);
+		MessageModel? message = Scene.MessagesManager.GetLastReceived(Id, type);
 
 			// Devuelve el contenido del mensaje
 			if (message is not null)

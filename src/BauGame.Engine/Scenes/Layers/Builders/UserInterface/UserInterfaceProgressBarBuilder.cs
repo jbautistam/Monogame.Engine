@@ -62,7 +62,7 @@ public class UserInterfaceProgressBarBuilder : AbstractElementUserInterfaceBuild
 	public UserInterfaceProgressBarBuilder WithBackgroundBar(string texture, string? region)
 	{
 		// Asigna la textura
-		Item.Background = new Entities.Common.SpriteDefinition(texture, region);
+		Item.Background = new Entities.Common.Sprites.SpriteDefinition(texture, region);
 		// Devuelve el generador
 		return this;
 	}
@@ -73,7 +73,7 @@ public class UserInterfaceProgressBarBuilder : AbstractElementUserInterfaceBuild
 	public UserInterfaceProgressBarBuilder WithBar(string texture, string? region)
 	{
 		// Asigna la textura
-		Item.Bar = new Entities.Common.SpriteDefinition(texture, region);
+		Item.Bar = new Entities.Common.Sprites.SpriteDefinition(texture, region);
 		// Devuelve el generador
 		return this;
 	}

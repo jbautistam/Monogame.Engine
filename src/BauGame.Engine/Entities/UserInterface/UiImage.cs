@@ -1,4 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Microsoft.Xna.Framework;
@@ -55,7 +56,7 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                 // Alinea la imagen
                 target = AlignImage(target);
                 // Dibuja la imagen
-                Sprite.Draw(camera, target, Origin, Rotation, style.Color * style.Opacity * Opacity);
+                Sprite.Renderer.Draw(camera, target, Origin, Rotation, style.Color * style.Opacity * Opacity);
                 // Dibuja un rectángulo para depuración
 		        if (GameEngine.Instance.EngineSettings.DebugMode)
                     camera.SpriteBatchController.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugImageColor, 2);

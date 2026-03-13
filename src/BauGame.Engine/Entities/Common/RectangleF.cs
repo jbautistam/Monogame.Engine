@@ -114,6 +114,15 @@ public class RectangleF(float x, float y, float width, float height)
 	}
 
     /// <summary>
+    ///     Convierte las coordenadas relativas a absolutas dentro de una región
+    /// </summary>
+    public RectangleF ToAbsoluteRect(Rectangle region)
+    {
+        return new RectangleF(region.X + X * region.Width, region.Y + Y * region.Height, 
+                              Width * region.Width, Height * region.Height);
+    }
+
+    /// <summary>
     ///     Sobrecarga el operador ==
     /// </summary>
     public static bool operator ==(RectangleF? left, RectangleF? right)
@@ -214,7 +223,15 @@ public class RectangleF(float x, float y, float width, float height)
     /// <summary>
     ///     Devuelve la posición superior / izquierda
     /// </summary>
-    public Vector2 TopLeft => new(X, Y);
+    public Vector2 TopLeft
+    {
+        get { return new Vector2(X, Y); }
+        set 
+        {
+            X = value.X;
+            Y = value.Y;
+        }
+    }
 
     /// <summary>
     ///     Posición izquierda

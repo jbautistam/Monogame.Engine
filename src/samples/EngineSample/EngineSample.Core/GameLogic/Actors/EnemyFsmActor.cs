@@ -128,13 +128,7 @@ public class EnemyFsmActor : AbstractActorDrawable
 	/// </summary>
 	private void TreaActorIsDead()
 	{
-		Layer.Scene.MessagesManager.SendMessage(PlayerActor.PlayerName, 
-												new Bau.Libraries.BauGame.Engine.Scenes.Messages.MessageModel(this, Constants.MessageEnemyKilled)
-															{
-																Message = "I'm died",
-																Tag = 90
-															}
-												);
+		Layer.Scene.MessagesManager.SendMessage(this, PlayerActor.PlayerName, Constants.MessageEnemyKilled, "I'm died", 90);
 	}
 
 	/// <summary>

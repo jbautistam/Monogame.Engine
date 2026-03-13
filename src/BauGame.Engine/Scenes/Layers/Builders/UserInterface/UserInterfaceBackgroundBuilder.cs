@@ -12,7 +12,7 @@ public class UserInterfaceBackgroundBuilder
 	{
 		Background = new UiBackground(style)
 						{
-							Sprite = new Entities.Common.SpriteDefinition(texture, region)
+							Sprite = new Entities.Common.Sprites.SpriteDefinition(texture, region)
 						};
 	}
 

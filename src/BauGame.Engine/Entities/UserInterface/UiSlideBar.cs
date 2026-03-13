@@ -1,4 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Microsoft.Xna.Framework;
@@ -101,7 +102,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
             }
 
         // Obtiene el ancho de un sprite teniendo en cuenta los nulos
-        (int width, int height) GetSize(Common.SpriteDefinition? sprite, int defaultWidth, int defaultHeight)
+        (int width, int height) GetSize(SpriteDefinition? sprite, int defaultWidth, int defaultHeight)
         {
             if (sprite is null)
                 return (defaultWidth, defaultHeight);
@@ -191,36 +192,36 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
         }
         // Dibuja el thumb encima de las barras
         if (Thumb is not null)
-            Thumb.Draw(camera, _thumbBounds, Vector2.Zero, 0, Color.White);
+            Thumb.Renderer.Draw(camera, _thumbBounds, Vector2.Zero, 0, Color.White);
     }
 
     /// <summary>
     ///     Dibuja el control en horizontal
     /// </summary>
-    private void DrawHorizontalTrack(Camera2D camera, Common.SpriteDefinition trackLeft, Common.SpriteDefinition trackRight)
+    private void DrawHorizontalTrack(Camera2D camera, SpriteDefinition trackLeft, SpriteDefinition trackRight)
     {
         (Rectangle left, Rectangle right) = GetHorizontalRectangles();
 
             // Dibuja las barras
             if (left.Width > 0)
-                trackLeft.Draw(camera, left, Vector2.Zero, 0, Color.White);
+                trackLeft.Renderer.Draw(camera, left, Vector2.Zero, 0, Color.White);
             if (right.Width > 0)
-                trackRight.Draw(camera, right, Vector2.Zero, 0, Color.White);
+                trackRight.Renderer.Draw(camera, right, Vector2.Zero, 0, Color.White);
     }
 
     /// <summary>
     ///     Dibuja el control en vertical
     /// </summary>
-    private void DrawVerticalTrack(Camera2D camera, Common.SpriteDefinition trackUp, Common.SpriteDefinition trackBottom)
+    private void DrawVerticalTrack(Camera2D camera, SpriteDefinition trackUp, SpriteDefinition trackBottom)
     {
         (Rectangle top, Rectangle bottom) = GetVerticalRectangles();
 
             // Parte inferior: desde el thumb hacia abajo
             if (bottom.Height > 0)
-                trackBottom.Draw(camera, bottom, Vector2.Zero, 0, Color.White);
+                trackBottom.Renderer.Draw(camera, bottom, Vector2.Zero, 0, Color.White);
             // Parte superior: desde arriba hasta el thumb
             if (top.Height > 0)
-                trackUp.Draw(camera, top, Vector2.Zero, 0, Color.White);
+                trackUp.Renderer.Draw(camera, top, Vector2.Zero, 0, Color.White);
     }
 
     /// <summary>
@@ -300,17 +301,17 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     /// <summary>
     ///     Textura del thumb del control
     /// </summary>
-    public Common.SpriteDefinition? Thumb { get; set; }
+    public SpriteDefinition? Thumb { get; set; }
 
     /// <summary>
     ///     Textura de la parte izquierda / superior al thumb
     /// </summary>
-    public Common.SpriteDefinition? TrackLeft { get; set; }
+    public SpriteDefinition? TrackLeft { get; set; }
 
     /// <summary>
     ///     Textura de la parte derecha / inferior al thumb
     /// </summary>
-    public Common.SpriteDefinition? TrackRight { get; set; }
+    public SpriteDefinition? TrackRight { get; set; }
         
     /// <summary>
     ///     Valor actual del control

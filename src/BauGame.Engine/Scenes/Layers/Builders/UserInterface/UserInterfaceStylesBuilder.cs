@@ -36,7 +36,7 @@ public class UserInterfaceStylesBuilder
 		if (LastStyle is not null)
 			LastStyle.Background = new UiBackground(LastStyle)
 											{
-												Sprite = new Entities.Common.SpriteDefinition(texture, region),
+												Sprite = new Entities.Common.Sprites.SpriteDefinition(texture, region),
 												Color = color ?? Color.White,
 												Opacity = opacity
 											};
@@ -86,7 +86,7 @@ public class UserInterfaceStylesBuilder
 		if (LastStyle is not null)
 			LastStyle.Border = new UiTextureBorder(LastStyle)
 													{
-														Sprite = new Entities.Common.SpriteDefinition(asset, region),
+														Sprite = new Entities.Common.Sprites.SpriteDefinition(asset, region),
 														Thickness = thickness,
 														Opacity = opacity
 													};

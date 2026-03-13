@@ -2,7 +2,7 @@
 using Bau.Libraries.LibMarkupLanguage;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Grids;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Galleries;

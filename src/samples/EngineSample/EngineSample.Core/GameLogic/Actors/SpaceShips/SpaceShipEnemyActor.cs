@@ -105,13 +105,7 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 																},
 												   Transform.Bounds.TopLeft);
 			// Envía el mensaje de fin para añadir la puntuación
-			Layer.Scene.MessagesManager.SendMessage(PlayerActor.PlayerName, 
-													new Bau.Libraries.BauGame.Engine.Scenes.Messages.MessageModel(this, Constants.MessageEnemyKilled)
-																{
-																	Message = "Meteor eliminated",
-																	Tag = 50
-																}
-													);
+			Layer.Scene.MessagesManager.SendMessage(this, PlayerActor.PlayerName, Constants.MessageEnemyKilled, "Meteor eliminated", 50);
 			// Lanza un powerup
 			SpawnPowerUp();
 		}

@@ -230,9 +230,6 @@ public class PlayerActor : AbstractActorDrawable
 								_score += 10;
 						break;
 				}
-			// Marca los mensajes como recibidos
-			if (messages.Count > 0)
-				Layer.Scene.MessagesManager.MarkReceived(PlayerName, messages);
 	}
 
 	/// <summary>
@@ -243,19 +240,19 @@ public class PlayerActor : AbstractActorDrawable
 		List<MessageModel> messages = [];
 
 			// Crea los mensajes
-			messages.Add(new MessageModel(this, "PlayerPosition")
+			messages.Add(new MessageModel(this, "PlayerPosition", Constants.LayerHud)
 								{
 									Message = $"{Transform.Bounds.TopLeft.X:0}-{Transform.Bounds.TopLeft.Y:0}"
 								}
 						);
-			messages.Add(new MessageModel(this, "Score")
+			messages.Add(new MessageModel(this, "Score", Constants.LayerHud)
 								{
 									Message = _score.ToString()
 								}
 						);
 			// Envía los mensajes
 			if (messages.Count > 0)
-				Layer.Scene.MessagesManager.SendMessages(Constants.LayerHud, messages);
+				Layer.Scene.MessagesManager.AddRange(messages);
 	}
 
 	/// <summary>
