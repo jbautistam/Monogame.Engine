@@ -16,21 +16,17 @@ internal class GraphicNovelScene(string name) : AbstractScene(name, new Bau.Libr
 	public const int PhysicsPlayerProjectileLayer = 2;
 	public const int PhysicsNpcLayer = 3;
 	public const int PhysicsNpcProjectileLayer = 4;
-	// Variables privadas
-	private Common.HudLayer? _hudLayer;
 
 	/// <summary>
 	///		Arranca la escena
 	/// </summary>
 	protected override void StartScene()
 	{
-		// Guarda el interface de usuario Hud
-		_hudLayer = new Common.HudLayer(this, Constants.LayerHud, 1);
 		// Crea las capas
 		LayerManager.Clear();
-		LayerManager.AddLayer(_hudLayer);
 		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", 1));
 		LayerManager.AddLayer(new GraphicNovelLayer(this, SceneName, 1));
+		LayerManager.AddLayer(new GraphicNovelUserInterfaceLayer(this, "UI", 2));
 		// Crea los datos de físicas
 		CreatePhysics();
 		// Arranca las capas

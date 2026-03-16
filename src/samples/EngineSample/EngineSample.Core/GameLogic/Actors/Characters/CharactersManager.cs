@@ -50,8 +50,10 @@ public class CharacterManager : AbstractActor
 
 							// Asigna el Id al actor
 							characterActor.Id = actorId;
-							// y lo añade a la lista
+							// Añade el actor a la lista
 							Layer.Actors.Add(characterActor);
+							// y lo asigna a la salida
+							actor = characterActor;
 					}
 			}
 			// Devuelve el actor creado

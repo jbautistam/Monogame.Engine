@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Bau.Libraries.BauGame.Engine;
+using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Actors.Particles;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
-using EngineSample.Core.GameLogic.Actors.Characters;
-using Bau.Libraries.BauGame.Engine.Actors.Projectiles;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
-using Bau.Libraries.BauGame.Engine.Managers;
+using EngineSample.Core.GameLogic.Actors.Characters.Sequences.Commands;
+using EngineSample.Core.GameLogic.Actors.Characters;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel;
 
@@ -18,8 +17,6 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 {
 	// Variables privadas
 	private CharacterManager? _characterManager;
-	private ParticlesSystemActor? _particlesManager;
-	private Random _random = new();
 
 	/// <summary>
 	///		Inicia la capa
@@ -27,7 +24,6 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	protected override void StartGameLayer()
 	{
 		CreateCharacters();
-		CreateParticles();
 	}
 
 	/// <summary>
@@ -60,22 +56,6 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	}
 
 	/// <summary>
-	///		Crea el sistema de partículas
-	/// </summary>
-	private void CreateParticles()
-	{
-		// Genera el actor del sistema de partículas
-		_particlesManager = new(this, 3)
-								{
-									Position = new Vector2(0, 0),
-									Texture = "particle",
-									Region = "default"
-								};
-		// Añade el sistema de partículas a la lista de actores
-		Actors.Add(_particlesManager);
-	}
-
-	/// <summary>
 	///		Actualiza la capa (los actores se actualizan por separado)
 	/// </summary>
 	protected override void UpdateGameLayer(GameContext gameContext)
@@ -88,19 +68,14 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void TreatInputs(GameContext gameContext)
 	{
-		// Crea los personajes y sus acciones
 		if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.S))
 			CreateSylvieSequence();
 		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.J))
-			CreateShowAction("james", "sad", 0.3f, 1);
+			CreateJamesSequence();
 		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.N))
-			CreateShowAction("narrator", "happy", 0.6f, 1);
-		// Emite partículas
-		if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.P))
-			EmitParticles();
-		// Crea una explosión
-		if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.E))
-			CreateExplosion();
+			CreateNarratorSequence();
+		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.C))
+			CreateCombinedSequence();
 	}
 
 	/// <summary>
@@ -111,154 +86,98 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("sylvie");
 
 			// Crea la secuencia
-			builder.WithMoveTo(0, 0.1f, Vector2.Zero)
-				   .WithMove(2, 3, new Vector2(0, 0.3f))
-				   .WithMove(3, 7, new Vector2(1, 0.1f))
-				   .WithMove(7, 10, new Vector2(0, 0))
-				   ;
+			builder.WithStart(0)
+				   .WithReset(0.1f, Vector2.Zero, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1)
+				   .WithMove(0.1f, TranslateCommand.MovementMode.ToPointInmediate, Vector2.Zero)
+				   .WithMove(3, TranslateCommand.MovementMode.Relative, new Vector2(0, 0.3f))
+				   .WithMove(3, TranslateCommand.MovementMode.To, new Vector2(1, 0.1f))
+				   .WithMove(2, TranslateCommand.MovementMode.To, new Vector2(0, 0))
+				   .WithFade(2, 0.5f)
+				   .WithMove(2, TranslateCommand.MovementMode.Relative, new Vector2(-0.2f, 0))
+				   .WithMove(1, TranslateCommand.MovementMode.To, new Vector2(0, 0))
+				   .WithFade(1, 1)
+				   .WithFlash(1, 0.5f)
+				   .WithExpression(3, "sad")
+				   .WithZoomOnPoint(3, new Vector2(0.5f, 0.5f), new Vector2(1.5f, 1.5f))
+				   .WithZoomOnPoint(1, new Vector2(0.5f, 0.5f), new Vector2(1, 1))
+				   .WithEntrance(5, CinematicEntranceCommand.EntranceType.Teleport, new Vector2(0.4f, 0), 0.7f, 0.2f)
+				   .WithSpriteEffects(3, Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally)
+				   .WithSpriteEffects(3, Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipVertically);
 			// Añade la secuencia al manager
 			_characterManager?.Sequences.Add(builder.Build());
-		//CreateShowAction("sylvie", "sad", 0.4f, 1);
-		//CreateMoveAction("sylvie", 0.8f);
-		//CreateMoveAction("sylvie", 0);
-		//CreateExpressionAction("sylvie", "happy");
-		//CreateHideAction("sylvie");
-		//CreateFadeInAction("sylvie");
-	}
-
-
-	///// <summary>
-	/////		Obtiene un actor
-	///// </summary>
-	//private CharacterActor? GetActor(string name) => _characterManager?.GetActor(name);
-
-	/// <summary>
-	///		Cambia la expresión de un personaje
-	/// </summary>
-	private void CreateExpressionAction(string name, string definition)
-	{
-	/*
-		GetActor(name)?.AddAction(new Actors.Characters.Actions.UpdateExpressionCharacterAction()
-													{
-														DefinitionId = definition,
-														Duration = 5
-													}
-								);
-	*/
 	}
 
 	/// <summary>
-	///		Crea una acción para mostrar un personaje
+	///		Crea una secuencia para el narrador
 	/// </summary>
-	private void CreateShowAction(string name, string definition, float end, float duration)
+	private void CreateNarratorSequence()
 	{
-	/*
-		GetActor(name)?.AddAction(new Actors.Characters.Actions.ShowCharacterAction()
-													{
-														DefinitionId = definition,
-														StartPosition = Vector2.Zero,
-														EndPosition = new Vector2(end, 0),
-														StartOpacity = 0,
-														EndOpacity = 1,
-														Duration = duration
-													}
-								);
-	*/
+		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("Narrator");
+
+			// Crea la secuencia
+			builder.WithStart(0)
+				   .WithMove(0.1f, TranslateCommand.MovementMode.ToPointInmediate, Vector2.Zero)
+				   .WithPose(2, DramaticPoseCommand.PoseStyle.Heroic, new Vector2(0.3f, 0), Vector2.One, 0)
+				   .WithPose(2, DramaticPoseCommand.PoseStyle.Villainous, new Vector2(-0.3f, 0), Vector2.One, 0)
+				   .WithPose(2, DramaticPoseCommand.PoseStyle.Comedic, new Vector2(0.3f, 0), Vector2.One, 0)
+				   .WithPose(2, DramaticPoseCommand.PoseStyle.Tragic, new Vector2(-0.3f, 0), Vector2.One, 0)
+				   .WithPose(2, DramaticPoseCommand.PoseStyle.Mysterious, new Vector2(0.3f, 0), Vector2.One, 0)
+				   .WithMove(2, TranslateCommand.MovementMode.ToPointInmediate, new Vector2(0.3f, 0))
+				   .WithFade(2, 1)
+				   .WithTint(2, Color.White);
+			// Añade la secuencia al manager
+			_characterManager?.Sequences.Add(builder.Build());
 	}
 
 	/// <summary>
-	///		Crea una acción para mover un personaje
+	///		Crea una secuencia para James
 	/// </summary>
-	private void CreateMoveAction(string name, float end)
+	private void CreateJamesSequence()
 	{
-	/*
-		GetActor(name)?.AddAction(new Actors.Characters.Actions.MoveCharacterAction()
-												{
-													EndPosition = new Vector2(end, 0),
-													Duration = 1
-												}
-							   );
-	*/
+		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("James");
+
+			// Crea la secuencia
+			builder.WithStart(0)
+				   .WithReset(0, new Vector2(0.2f, 0), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0)
+				   .WithFade(2, 1)
+				   .WithJump(1, 0.2f, 0.3f)
+				   .WithMove(1, TranslateCommand.MovementMode.Relative, new Vector2(0.2f, 0));
+			// Añade la secuencia al manager
+			_characterManager?.Sequences.Add(builder.Build());
 	}
 
 	/// <summary>
-	///		Crea una acción para ocultar un personaje
+	///		Crea una secuencia combinada
 	/// </summary>
-	private void CreateHideAction(string name)
+	private void CreateCombinedSequence()
 	{
-	/*
-		GetActor(name)?.AddAction(new Actors.Characters.Actions.FadeCharacterAction()
-												{
-													EndOpacity = 0,
-													Duration = 1
-												}
-							   );
-	*/
-	}
+		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("sylvie");
 
-	/// <summary>
-	///		Crea una acción para mostrar un personaje
-	/// </summary>
-	private void CreateFadeInAction(string name)
-	{
-	/*
-		GetActor(name)?.AddAction(new Actors.Characters.Actions.FadeCharacterAction()
-												{
-													EndOpacity = 1,
-													Duration = 3
-												}
-							   );
-	*/
-	}
-
-	/// <summary>
-	///		Emite una serie de partículas
-	/// </summary>
-	private void EmitParticles()
-	{
-		if (_particlesManager is not null)
-		{
-			int type = _random.Next(1, 5);
-			Vector2 position = new(_random.Next(0, 200), _random.Next(0, 200));
-
-				// Cambia la posición del emisor
-				_particlesManager.Position = position;
-				// Dependiendo del valor aleatorio
-				switch (type)
-				{
-					case 1:
-							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Actors.Particles.Effects.ParticlesConfettiEffect(1_000);
-						break;
-					case 2:
-							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Actors.Particles.Effects.ParticlesExplossionEffect(1_000);
-						break;
-					case 3:
-							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Actors.Particles.Effects.ParticlesFireworkEffect(1_000);
-						break;
-					case 4:
-							_particlesManager.Effect = new Bau.Libraries.BauGame.Engine.Actors.Particles.Effects.ParticlesSparklesEffect(1_000);
-						break;
-				}
-				// Emite las partículas
-				_particlesManager.Emit();
-		}
-	}
-
-	/// <summary>
-	///		Crea una explosión
-	/// </summary>
-	private void CreateExplosion()
-	{
-		ExplosionProperties properties = new()
-											{
-												Texture = "explosion",
-												Region = string.Empty,
-												Animation = "explosion-animation",
-												ZOrder = 4
-											};
-
-			// Crea la explosión
-			ExplosionsManager.Create(properties, new Vector2(_random.Next(0, 200), _random.Next(0, 200)));
+			// Crea la secuencia
+			builder.WithStart(0)
+				   .WithMove(0.1f, TranslateCommand.MovementMode.ToPointInmediate, Vector2.Zero)
+				   .WithMove(3, TranslateCommand.MovementMode.Relative, new Vector2(0, 0.3f))
+				   .WithMove(3, TranslateCommand.MovementMode.To, new Vector2(1, 0.1f))
+				   .WithMove(2, TranslateCommand.MovementMode.To, new Vector2(0, 0))
+				   .WithFade(2, 0.5f)
+				   .WithMove(2, TranslateCommand.MovementMode.Relative, new Vector2(-0.2f, 0))
+				   .WithMove(1, TranslateCommand.MovementMode.To, new Vector2(0, 0))
+				   .WithFade(1, 1)
+				   .WithFlash(1, 0.5f)
+				   .WithExpression(3, "sad")
+				   .WithZoomOnPoint(3, new Vector2(0.5f, 0.5f), new Vector2(1.5f, 1.5f))
+				   .WithActor("James")
+						.WithReset(2, new Vector2(0.1f, 0.0f), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0)
+						.WithMove(2, TranslateCommand.MovementMode.Relative, new Vector2(0.3f, 0.1f), 2)
+						.WithFade(2, 1, 2)
+						.WithShake(3, 2, 4, true, true)
+					.WithActor("Narrator")
+						.WithReset(0.2f, new Vector2(1, 0.2f), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0)
+						.WithMove(2, TranslateCommand.MovementMode.Relative, new Vector2(-0.5f, 0))
+						.WithFade(2, 0.5f, 0)
+						.WithScale(1, new Vector2(1.5f, 1.5f));
+			// Añade la secuencia al manager
+			_characterManager?.Sequences.Add(builder.Build());
 	}
 
 	/// <summary>

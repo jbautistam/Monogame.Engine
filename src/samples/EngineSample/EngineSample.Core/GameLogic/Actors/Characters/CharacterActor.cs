@@ -23,7 +23,7 @@ public class CharacterActor(Bau.Libraries.BauGame.Engine.Scenes.Layers.AbstractL
 	protected override void UpdateActor(GameContext gameContext)
 	{
 		// Manda un mensaje con la posición del actor
-		Layer.Scene.MessagesManager.SendMessage(this, Constants.PlayerPosition, "Hud", $"{Transform.Bounds.Top:#,##0}, {Transform.Bounds.Left:#,##0}");
+		Layer.Scene.MessagesManager.SendMessage(this, "Hud", Constants.PlayerPosition, $"{Transform.Bounds.Top:#,##0}, {Transform.Bounds.Left:#,##0}");
 	}
 
 	/// <summary>

@@ -68,6 +68,7 @@ internal class UserInterfaceRepository
 	private const string TagRightBar = "RightBar";
 	private const string TagMinimum = "Minimum";
 	private const string TagOrientation = "Orientation";
+	private const string TagClipMode = "ClipMode";
 
 	// Variables privadas
 	private RepositoryHelper _helper = new();
@@ -249,6 +250,7 @@ internal class UserInterfaceRepository
 			slideBar.Maximum = (float) rootML.Attributes[TagMaximum].Value.GetDouble(0);
 			slideBar.Value = (float) rootML.Attributes[TagValue].Value.GetDouble(0);
 			slideBar.Orientation = rootML.Attributes[TagOrientation].Value.GetEnum(UiSlideBar.SliderOrientation.Horizontal);
+			slideBar.Mode = rootML.Attributes[TagClipMode].Value.GetEnum(UiSlideBar.ClipMode.Stretch);
 			// Carga los sprites
 			foreach (MLNode nodeML in rootML.Nodes)
 				switch (nodeML.Name)

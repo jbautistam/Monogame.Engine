@@ -23,11 +23,11 @@ public class FadeCommand(string actorId, float startTime, float duration) : Abst
             _initialized = true;
         }
         // Cambia el valor del actor
-        actor.Renderer.Opacity = EasingFunctionsHelper.Interpolate(_startOpacity, TargetOpacity, Progress, Easing);
+        actor.Renderer.Opacity = EasingFunctionsHelper.Interpolate(_startOpacity, Opacity, Progress, Easing);
     }
 
     /// <summary>
     ///     Opacidad final
     /// </summary>
-    public required float TargetOpacity { get; init; }
+    public required float Opacity { get; init; }
 }

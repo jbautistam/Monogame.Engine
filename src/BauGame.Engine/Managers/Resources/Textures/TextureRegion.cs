@@ -39,4 +39,9 @@ public class TextureRegion(string name)
 	///		Región
 	/// </summary>
 	public required Rectangle Region { get; init; }
+
+	/// <summary>
+	///		Padding para diujo de texto
+	/// </summary>
+	public Entities.UserInterface.UiMargin? Padding { get; set; }
 }

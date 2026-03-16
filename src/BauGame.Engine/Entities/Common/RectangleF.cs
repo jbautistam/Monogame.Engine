@@ -259,6 +259,11 @@ public class RectangleF(float x, float y, float width, float height)
     public Vector2 Center => new Vector2(X + Width * 0.5f, Y + Height * 0.5f);
 
     /// <summary>
+    ///     Indica si las coordenadas son relativas
+    /// </summary>
+    public bool IsRelative { get; set; }
+
+    /// <summary>
     ///     Comprueba si el rectángulo está vacío (no tiene tamaño)
     /// </summary>
     public bool IsEmpty => Width <= 0 || Height <= 0;

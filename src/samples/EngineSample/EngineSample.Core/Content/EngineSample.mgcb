@@ -546,6 +546,18 @@
 /processorParam:TextureFormat=Color
 /build:images/VisualNovel/TypeWriter-Border-01.png
 
+#begin images/VisualNovel/bubbles/Bubble-01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/VisualNovel/bubbles/Bubble-01.png
+
 #begin Levels/00.txt
 /copy:Levels/00.txt
 
@@ -590,6 +602,21 @@
 
 #begin Settings/Maps/Map_001.tmx
 /copy:Settings/Maps/Map_001.tmx
+
+#begin Settings/VisualNovel/GraphicNovelUserInterface.xml
+/copy:Settings/VisualNovel/GraphicNovelUserInterface.xml
+
+#begin Settings/VisualNovel/ScreenUserInterface.xml
+/copy:Settings/VisualNovel/ScreenUserInterface.xml
+
+#begin Settings/VisualNovel/ScreenUserInterfaceGallery.xml
+/copy:Settings/VisualNovel/ScreenUserInterfaceGallery.xml
+
+#begin Settings/VisualNovel/ScreenUserInterfaceGrid.xml
+/copy:Settings/VisualNovel/ScreenUserInterfaceGrid.xml
+
+#begin Settings/VisualNovel/Styles.xml
+/copy:Settings/VisualNovel/Styles.xml
 
 #begin Sounds/MonsterKilled.wav
 /importer:WavImporter

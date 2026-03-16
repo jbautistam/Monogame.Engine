@@ -1,43 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Screen>
 	<!-- Menú -->
-	<Menu Id ="Menu" Style = "MenuStyle" StyleOptions = "MenuOptionsStyle" Position = "0.05, 0.05, 0.4, 0.4">
+	<Menu Id ="Menu" Style = "MenuStyle" Position = "0.7, 0.05, 0.3, 0.6">
 		<Option Value = "0" Text = "Type writer full" Font = "Fonts/Hud" Style = "MenuOptionsStyle" Position = "0.2, 0, 0.6, 1" />
 		<Option Value = "1" Text = "Type writer words" Font = "Fonts/Hud" Style = "MenuOptionsStyle" Position = "0.2, 0, 0.6, 1" />
 		<Option Value = "2" Text = "Type writer characters" Font = "Fonts/Hud" Style = "MenuOptionsStyle" Position = "0.2, 0, 0.6, 1" />
 		<Option Value = "3" Text = "Show left avatar" Font = "Fonts/Hud" Style = "MenuOptionsStyle" Position = "0.2, 0, 0.6, 1" />
 		<Option Value = "4" Text = "Show right avatar" Font = "Fonts/Hud" Style = "MenuOptionsStyle" Position = "0.2, 0, 0.6, 1" />
-		<Option Value = "5" Text = "Update James" Font = "Fonts/Hud" Style = "MenuOptionsStyle" Position = "0.2, 0, 0.6, 1" />
 	</Menu>
-	<!-- Etiquetas -->
-	<Label Style = "HeaderStyle" Font = "Fonts/Hud" Text = "Score" Position = "0.01, 0.01, 1, 1" />
-	<Label Id = "lblScore" Style = "TextStyle" Font = "Fonts/Hud" Text = "0" Position = "0.07, 0.01, 1, 1" />
-	<Label Style = "HeaderStyle" Font = "Fonts/Hud" Text = "Lives" Position = "0.7, 0.01, 1, 1" />
-	<Label Id = "lblLives" Style = "TextStyle" Font = "Fonts/Hud" Text = "0" Position = "0.8, 0.01, 1, 1" />
-	<!-- Imágenes -->
-	<Image Id ="CharacterJames" Style = "" Texture = "james-sad" Region = "" 
-		   Horizontal = "Center"
-		   Stretch = "true" PreserveAspectRatio = "true" Position = "0.7, 0.2, 0.3, 1" />
-	<!-- Barra de progreso -->
-	<ProgressBar BarTexture = "sprites/gradient" BarRegion = "" Texture = "" Region = ""
-		Maximum = "100" Value = "50" Position = "0.5, 0.5, 0.3, 0.05" />
 	<!-- Botones -->
 	<Button Id = "cmdNext" Style = "ButtonStyle" Position = "0.85, 0.8, 0.13, 0.1">
 		<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "Next" 
 			   Horizontal = "Center" Vertical = "Center"
 			   Position = "0, 0, 1, 1" />
 	</Button>
-	<!-- Slide bar -->
-	<SlideBar Id = "SlideBarHorizontal" Minimum="0" Maximum="100" Value="5" Orientation = "Horizontal" ClipMode= "Window" Position = "0.5, 0.1, 0.4, 0.1">
-		<Thumb Texture="Tiles/BlockA4" Region=""/>
-		<LeftBar Texture="Tiles/BlockA0" Region=""/>
-		<RightBar Texture="Tiles/BlockB0" Region=""/>
-	</SlideBar>
-	<SlideBar Id = "SlideBarVertical" Minimum="0" Maximum="100" Value="5" Orientation = "Vertical" ClipMode = "Window" Position = "0.9, 0.1, 0.1, 0.4">
-		<Thumb Texture="Tiles/BlockA4" Region=""/>
-		<LeftBar Texture="Tiles/BlockA0" Region=""/>
-		<RightBar Texture="Tiles/BlockB0" Region=""/>
-	</SlideBar>
 	<!-- Cuadro de diálogo de Visual Novel -->
 	<VisualDialog Id = "PromptControlName" Position = "0.05, 0.7, 0.75, 0.2" Visible = "true">
 		<TypeWriter Style = "TypeWriterStyle" Font="Fonts/Hud" Speed = "0.05"

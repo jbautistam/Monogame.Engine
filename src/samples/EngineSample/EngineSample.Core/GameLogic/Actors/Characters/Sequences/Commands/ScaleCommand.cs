@@ -24,11 +24,11 @@ public class ScaleCommand(string actorId, float startTime, float duration) : Abs
             _initialized = true;
         }
         // Asigna la escala actual
-        actor.Renderer.Scale = EasingFunctionsHelper.Interpolate(_startScale, TargetScale, Progress, Easing);
+        actor.Renderer.Scale = EasingFunctionsHelper.Interpolate(_startScale, Scale, Progress, Easing);
     }
 
     /// <summary>
     ///     Escala final
     /// </summary>
-    public required Vector2 TargetScale { get; init; }
+    public required Vector2 Scale { get; init; }
 }

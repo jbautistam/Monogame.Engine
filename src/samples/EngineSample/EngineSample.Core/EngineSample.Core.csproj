@@ -62,6 +62,9 @@
     <None Update="Content\Settings\tilesets.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Settings\VisualNovel\GraphicNovelUserInterface.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Settings\VisualNovel\ScreenUserInterfaceGallery.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

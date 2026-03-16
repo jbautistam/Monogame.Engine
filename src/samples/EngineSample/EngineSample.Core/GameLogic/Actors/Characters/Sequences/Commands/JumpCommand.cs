@@ -18,6 +18,7 @@ public class JumpCommand(string actorId, float startTime, float duration) : Abst
     protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
     {
         float t = Progress;
+        Vector2 target = ToWorld(new Vector2(OffsetX, Height));
         Vector2 horizontal;
 
             // Recoge el valor inicial
@@ -27,9 +28,9 @@ public class JumpCommand(string actorId, float startTime, float duration) : Abst
                 _initialized = true;
             }
             // Calcula la nueva posición horizontal
-            horizontal = EasingFunctionsHelper.Interpolate(_start, new Vector2(_start.X + OffsetX, _start.Y), t, Easing);
+            horizontal = EasingFunctionsHelper.Interpolate(_start, new Vector2(_start.X + target.X, _start.Y), t, Easing);
             // Cambia la posición
-            actor.Transform.Bounds.TopLeft = new Vector2(horizontal.X, horizontal.Y - 4 * t * (1 - t) * Height);
+            actor.Transform.Bounds.TopLeft = new Vector2(horizontal.X, horizontal.Y - 4 * t * (1 - t) * target.Y);
     }
 
     /// <summary>

@@ -120,8 +120,8 @@ public class SpriteRenderer(SpriteDefinition sprite)
 	/// </summary>
 	private Rectangle ComputeFit(int sourceWidth, int sourceHeight, Rectangle container)
     {
-        float sourceAspect = sourceWidth / sourceHeight;
-        float targetAspect = container.Width / container.Height;
+        float sourceAspect = sourceWidth / MathHelper.Clamp(sourceHeight, 0.1f, sourceHeight);
+        float targetAspect = container.Width / MathHelper.Clamp(container.Height, 0.1f, container.Height);
         int width, height;
 
 			// Cambia ancho y alto dependiendo de la relación de aspecto

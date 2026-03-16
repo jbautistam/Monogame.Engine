@@ -83,6 +83,7 @@
     <Compile Remove="Entities\UserInterface\Borders\TexturedBorder.cs" />
     <Compile Remove="Entities\UserInterface\Borders\TextureHelper.cs" />
     <Compile Remove="Entities\UserInterface\Grids\Class1.cs" />
+    <Compile Remove="Entities\UserInterface\Popups\MobileChats\UiMobileMessageComponent.cs" />
     <Compile Remove="Entities\UserInterface\Popups\Class1.cs" />
     <Compile Remove="Entities\UserInterface\UiBalloonLabel.cs" />
     <Compile Remove="Entities\UserInterface\UiBorder.cs" />

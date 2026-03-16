@@ -21,8 +21,16 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
         /// <summary>Orientación vertical</summary>
         Vertical
     }
-    // Eventos públcios
-    //public event EventHandler<float>? ValueChanged;
+    /// <summary>
+    ///     Modo de clip de las texturas
+    /// </summary>
+    public enum ClipMode
+    {
+        /// <summary>Ajuste de la textura</summary>
+        Stretch,
+        /// <summary>Ventana sobre la textura</summary>
+        Window
+    }
     // Variables privadas
     private Rectangle _thumbBounds;
     private int _trackLength, _trackThickness, _thumbLength, _thumbThickness;
@@ -163,16 +171,22 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
         float percentage;
         int availableSpace = _trackLength - _thumbLength;
 
-            // Calcula el porcentaje dependiendo de la orientación            
-            if (Orientation == SliderOrientation.Horizontal)
-                percentage = GetRelativePos(point.X, Position.ContentBounds.X) / availableSpace;
+            // Normaliza el espacio
+            if (availableSpace == 0)
+                Value = 0;
             else
-                percentage = 1f - GetRelativePos(point.Y, Position.ContentBounds.Y) / availableSpace; 
-            // Asigna el valor
-            Value = Minimum + MathHelper.Clamp(percentage, 0f, 1f) * (Maximum - Minimum);
+            {
+                // Calcula el porcentaje dependiendo de la orientación            
+                if (Orientation == SliderOrientation.Horizontal)
+                    percentage = GetRelativePos(point.X, Position.ContentBounds.X) / availableSpace;
+                else
+                    percentage = 1f - GetRelativePos(point.Y, Position.ContentBounds.Y) / availableSpace; 
+                // Asigna el valor
+                Value = Minimum + MathHelper.Clamp(percentage, 0f, 1f) * (Maximum - Minimum);
+            }
 
         // Obtiene la posición relativa del cursor a partir de la posición del control en pantalla
-        float GetRelativePos(float positionCursor, float positionControl) => positionCursor - positionControl - _thumbLength / 2;
+        float GetRelativePos(float positionCursor, float positionControl) => positionCursor - positionControl - 0.5f * _thumbLength;
     }
 
     /// <summary>
@@ -203,10 +217,22 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
         (Rectangle left, Rectangle right) = GetHorizontalRectangles();
 
             // Dibuja las barras
-            if (left.Width > 0)
-                trackLeft.Renderer.Draw(camera, left, Vector2.Zero, 0, Color.White);
-            if (right.Width > 0)
-                trackRight.Renderer.Draw(camera, right, Vector2.Zero, 0, Color.White);
+            if (Mode == ClipMode.Stretch)
+            {
+                if (left.Width > 0)
+                    trackLeft.Renderer.Draw(camera, left, Vector2.Zero, 0, Color.White);
+                if (right.Width > 0)
+                    trackRight.Renderer.Draw(camera, right, Vector2.Zero, 0, Color.White);
+            }
+            else
+            {
+                if (left.Width > 0)
+                    trackLeft.Renderer.Draw(camera, SpriteRenderer.DrawMode.WindowFill, left, Vector2.Zero,
+                                            new Common.RectangleF(0, 0, GetPercentage(), 1), 0, Color.White);
+                if (right.Width > 0)
+                    trackRight.Renderer.Draw(camera, SpriteRenderer.DrawMode.WindowFill, right, Vector2.Zero,
+                                             new Common.RectangleF(GetPercentage(), 0, 1, 1), 0, Color.White);
+            }
     }
 
     /// <summary>
@@ -216,12 +242,29 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     {
         (Rectangle top, Rectangle bottom) = GetVerticalRectangles();
 
-            // Parte inferior: desde el thumb hacia abajo
-            if (bottom.Height > 0)
-                trackBottom.Renderer.Draw(camera, bottom, Vector2.Zero, 0, Color.White);
-            // Parte superior: desde arriba hasta el thumb
-            if (top.Height > 0)
-                trackUp.Renderer.Draw(camera, top, Vector2.Zero, 0, Color.White);
+            // Dibuja las barras
+            if (Mode == ClipMode.Stretch)
+            {
+                // Parte inferior: desde el thumb hacia abajo
+                if (bottom.Height > 0)
+                    trackBottom.Renderer.Draw(camera, bottom, Vector2.Zero, 0, Color.White);
+                // Parte superior: desde arriba hasta el thumb
+                if (top.Height > 0)
+                    trackUp.Renderer.Draw(camera, top, Vector2.Zero, 0, Color.White);
+            }
+            else
+            {
+                // Parte inferior: desde el thumb hacia abajo
+                if (bottom.Height > 0)
+                    trackBottom.Renderer.Draw(camera, SpriteRenderer.DrawMode.WindowFill, bottom, Vector2.Zero, 
+                                              new Common.RectangleF(0, GetPercentage(), 1, 1),
+                                              0, Color.White);
+                // Parte superior: desde arriba hasta el thumb
+                if (top.Height > 0)
+                    trackUp.Renderer.Draw(camera, SpriteRenderer.DrawMode.WindowFill, top, Vector2.Zero, 
+                                          new Common.RectangleF(0, 0, 1, GetPercentage()),
+                                          0, Color.White);
+            }
     }
 
     /// <summary>
@@ -294,6 +337,17 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     }
 
     /// <summary>
+    ///     Obtiene el porcentaje del valor
+    /// </summary>
+    private float GetPercentage()
+    {
+        if (Maximum - Minimum == 0)
+            return 0;
+        else
+            return Value / (Maximum - Minimum);
+    }
+
+    /// <summary>
     ///     Comprueba si el control está correctamente definido
     /// </summary>
     private bool IsValid() => Thumb is not null && TrackLeft is not null && TrackRight is not null;
@@ -352,7 +406,12 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     ///     Orientación del control
     /// </summary>
     public SliderOrientation Orientation { get; set; } = SliderOrientation.Horizontal;
-        
+
+    /// <summary>
+    ///     Modo de dibujo
+    /// </summary>
+    public ClipMode Mode { get; set;  } = ClipMode.Stretch;
+
     /// <summary>
     ///     Espacio entre el thumb y las barras
     /// </summary>

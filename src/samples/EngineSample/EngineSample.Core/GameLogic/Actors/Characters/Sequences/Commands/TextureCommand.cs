@@ -10,7 +10,7 @@ public class TextureCommand(string actorId, float startTime, float duration) : A
     /// </summary>
     protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
     {
-        if (Texture is not null)
+        if (!string.IsNullOrWhiteSpace(Texture))
         {
             actor.Renderer.Texture = Texture;
             actor.Renderer.Region = Region;

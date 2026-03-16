@@ -10,19 +10,19 @@
   <ItemGroup>
     <Compile Remove="CharactersEngine\Characters\**" />
     <Compile Remove="CharactersEngine\MathTools_Modificado_Engine\Interpolation\Cuirves\**" />
-    <Compile Remove="CharactersEngine\Sequences\**" />
+    <Compile Remove="CharactersEngine\Sequences_Modificado_Engine\**" />
     <Compile Remove="Components\**" />
     <Compile Remove="Configuration\**" />
     <Compile Remove="Particles\**" />
     <EmbeddedResource Remove="CharactersEngine\Characters\**" />
     <EmbeddedResource Remove="CharactersEngine\MathTools_Modificado_Engine\Interpolation\Cuirves\**" />
-    <EmbeddedResource Remove="CharactersEngine\Sequences\**" />
+    <EmbeddedResource Remove="CharactersEngine\Sequences_Modificado_Engine\**" />
     <EmbeddedResource Remove="Components\**" />
     <EmbeddedResource Remove="Configuration\**" />
     <EmbeddedResource Remove="Particles\**" />
     <None Remove="CharactersEngine\Characters\**" />
     <None Remove="CharactersEngine\MathTools_Modificado_Engine\Interpolation\Cuirves\**" />
-    <None Remove="CharactersEngine\Sequences\**" />
+    <None Remove="CharactersEngine\Sequences_Modificado_Engine\**" />
     <None Remove="Components\**" />
     <None Remove="Configuration\**" />
     <None Remove="Particles\**" />
@@ -50,27 +50,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CharactersEngine\Sequences\Commands\AbstractSequenceCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Actor.cs" />
-    <Compile Include="CharactersEngine\Sequences\CharacterLayer.cs" />
-    <Compile Include="CharactersEngine\Sequences\CinematicManager.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\FadeCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\FlashCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\JumpCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\MoveCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\NodCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\PulseCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\ScaleCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\CinematicSequence.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\ShakeCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\TextureCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\TintCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\Commands\ZOrderCommand.cs" />
-    <Compile Include="CharactersEngine\Sequences\EventArguments\SequenceProgressEventArgs.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\AbstractSequenceCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Actor.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\CharacterLayer.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\CinematicManager.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\FadeCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\FlashCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\JumpCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\MoveCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\NodCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\PulseCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\ScaleCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\CinematicSequence.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\ShakeCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\TextureCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\TintCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\Commands\ZOrderCommand.cs" />
+    <Compile Include="CharactersEngine\Sequences_Modificado_Engine\EventArguments\SequenceProgressEventArgs.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="CharactersEngine\Sequences\Batiburrillo.md" />
+    <None Include="CharactersEngine\Sequences_Modificado_Engine\Batiburrillo.md" />
   </ItemGroup>
 
   <ItemGroup>
