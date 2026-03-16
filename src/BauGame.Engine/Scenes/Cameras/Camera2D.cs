@@ -213,18 +213,6 @@ public class Camera2D
     }
 
     /// <summary>
-    ///     Comienza el dibujo del mundo
-    /// </summary>
-	public void BeginDrawWorld()
-	{
-        // Actualiza las matrices
-        UpdateMatrices();
-        // Limpia la pantalla y arranca el dibujo
-        SpriteBatchController.Clear();
-        SpriteBatchController.BeginDraw(_transformMatrix);
-	}
-
-    /// <summary>
     ///     Obtiene la <see cref="Matrix"/> necesario para comenzar con el dibujo del mundo
     /// </summary>
 	public Matrix? GetMatrixDrawWorld()
@@ -233,14 +221,6 @@ public class Camera2D
         UpdateMatrices();
         // Devuelve la matriz
         return _transformMatrix;
-	}
-
-    /// <summary>
-    ///     Arranca el dibujo de la UI
-    /// </summary>
-	public void BeginDrawUI()
-	{
-        SpriteBatchController.BeginDraw(null);
 	}
 
     /// <summary>
@@ -337,5 +317,5 @@ public class Camera2D
     /// <summary>
     ///     Controlador de sprites
     /// </summary>
-    public SpriteBatchController SpriteBatchController { get; } = new();
+    public Rendering.SpriteBatchController SpriteBatchController => Scene.RenderingManager.SpriteBatchController;
 }

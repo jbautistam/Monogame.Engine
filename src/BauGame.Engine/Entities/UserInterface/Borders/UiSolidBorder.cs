@@ -33,21 +33,21 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	private void DrawOutline(Camera2D camera, Rectangle position, GameContext gameContext)
     {
         // Arriba
-        camera.SpriteBatchController.DrawLine(new Vector2(position.X, position.Y), 
-                                              new Vector2(position.X + position.Width, position.Y), 
-                                              Color * Opacity, Thickness);
+        camera.SpriteBatchController.FiguresRenderer.DrawLine(new Vector2(position.X, position.Y), 
+                                                              new Vector2(position.X + position.Width, position.Y), 
+                                                              Color * Opacity, Thickness);
         // Abajo
-        camera.SpriteBatchController.DrawLine(new Vector2(position.X, position.Bottom - Thickness), 
-                                              new Vector2(position.X + position.Width, position.Bottom - Thickness), 
-                                              Color * Opacity, Thickness);
+        camera.SpriteBatchController.FiguresRenderer.DrawLine(new Vector2(position.X, position.Bottom - Thickness), 
+                                                              new Vector2(position.X + position.Width, position.Bottom - Thickness), 
+                                                              Color * Opacity, Thickness);
         // Izquierda
-        camera.SpriteBatchController.DrawLine(new Vector2(position.X, position.Y), 
-                                              new Vector2(position.X, position.Bottom), 
-                                              Color * Opacity, Thickness);
+        camera.SpriteBatchController.FiguresRenderer.DrawLine(new Vector2(position.X, position.Y), 
+                                                              new Vector2(position.X, position.Bottom), 
+                                                              Color * Opacity, Thickness);
         // Derecha
-        camera.SpriteBatchController.DrawLine(new Vector2(position.Right, position.Y), 
-                                              new Vector2(position.Right, position.Bottom), 
-                                              Color * Opacity, Thickness);
+        camera.SpriteBatchController.FiguresRenderer.DrawLine(new Vector2(position.Right, position.Y), 
+                                                              new Vector2(position.Right, position.Bottom), 
+                                                              Color * Opacity, Thickness);
     }
 
 	/// <summary>
@@ -69,11 +69,11 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
                     Color color = new(ShadowColor.R, ShadowColor.G, ShadowColor.B, (byte) (alpha * 255));
                     
                         // Dibuja el rectángulo
-                        camera.SpriteBatchController.DrawRectangleOutline(expanded, color);
+                        camera.SpriteBatchController.FiguresRenderer.DrawRectangleOutline(expanded, color);
                 }
             }
             else
-                camera.SpriteBatchController.DrawRectangleOutline(shadowBounds, ShadowColor);
+                camera.SpriteBatchController.FiguresRenderer.DrawRectangleOutline(shadowBounds, ShadowColor);
     }
 
 	/// <summary>
@@ -84,10 +84,14 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
         int radius = (int) Math.Min(CornerRadius, Math.Min(position.Width, position.Height) / 2f);
 
             // Dibuja los lados dejando espacio para las esquinas
-            camera.SpriteBatchController.DrawRectangle(new Rectangle(position.X + radius, position.Y, position.Width - radius * 2, Thickness), Color * Opacity);
-            camera.SpriteBatchController.DrawRectangle(new Rectangle(position.X + radius, position.Bottom - Thickness, position.Width - radius * 2, Thickness), Color * Opacity);
-            camera.SpriteBatchController.DrawRectangle(new Rectangle(position.X, position.Y + radius, Thickness, position.Height - radius * 2), Color * Opacity);
-            camera.SpriteBatchController.DrawRectangle(new Rectangle(position.Right - Thickness, position.Y + radius, Thickness, position.Height - radius * 2), Color * Opacity);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(position.X + radius, position.Y, position.Width - radius * 2, Thickness), 
+                                                                       Color * Opacity);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(position.X + radius, position.Bottom - Thickness, position.Width - radius * 2, Thickness), 
+                                                                       Color * Opacity);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(position.X, position.Y + radius, Thickness, position.Height - radius * 2), 
+                                                                       Color * Opacity);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(position.Right - Thickness, position.Y + radius, Thickness, position.Height - radius * 2), 
+                                                                       Color * Opacity);
             // Dibuja las esquinas
             DrawCorner(camera, position.X + radius, position.Y + radius, -1, -1, radius);
             DrawCorner(camera, position.Right - radius, position.Y + radius, 1, -1, radius);
@@ -110,7 +114,7 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
                 int y = cy + (int) (dirY * (radius - Math.Cos(angle) * radius));
                 
                     // Dibuja el rectángulo
-                    camera2D.SpriteBatchController.DrawRectangle(new Rectangle(x, y, Thickness, Thickness), Color * Opacity);
+                    camera2D.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(x, y, Thickness, Thickness), Color * Opacity);
             }
     }
 

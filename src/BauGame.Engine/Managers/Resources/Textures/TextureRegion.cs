@@ -14,7 +14,7 @@ public class TextureRegion(string name)
 	public void Draw(Scenes.Cameras.Camera2D camera, Vector2 position, Vector2 origin, Vector2 scale, SpriteEffects spriteEffect, 
 					 Color color, float rotation)
 	{
-		camera.SpriteBatchController.Draw(Texture, position, Region, origin, scale, spriteEffect, color, rotation, 1);
+		camera.SpriteBatchController.TexturesRenderer.Draw(Texture, position, Region, origin, scale, spriteEffect, color, rotation, 1);
 	}
 
 	/// <summary>
@@ -22,7 +22,7 @@ public class TextureRegion(string name)
 	/// </summary>
 	public void Draw(Scenes.Cameras.Camera2D camera, Rectangle destination, Vector2 origin, SpriteEffects spriteEffect, Color color, float rotation)
 	{
-		camera.SpriteBatchController.Draw(Texture, destination, Region, origin, color, rotation, spriteEffect, 1);
+		camera.SpriteBatchController.TexturesRenderer.Draw(Texture, destination, Region, origin, color, rotation, spriteEffect, 1);
 	}
 
 	/// <summary>

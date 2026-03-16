@@ -75,7 +75,8 @@ public class UiProgressBar : UiElement
         Styles.UiStyle style = Layer.Styles.GetDefault(Style);
 
             // Dibuja la textura de fondo si existe
-            Background?.Renderer.Draw(camera, Position.Bounds, Vector2.Zero, 0, Color.White);
+            if (Background is not null)
+                camera.SpriteBatchController.SpriteRenderer.Draw(Background, Position.Bounds, Vector2.Zero, 0, Color.White);
             // Calcular rectángulo de relleno según orientación y modo
             switch (Orientation)
             {
@@ -94,7 +95,8 @@ public class UiProgressBar : UiElement
             if (Bar is not null)
                 target = new Rectangle(target.X + 2, target.Y + 2, target.Width - 4, target.Height - 4);
             // Dibuja la barra de progreso
-            Bar?.Renderer.Draw(camera, target, Vector2.Zero, 0, style.Color * style.Opacity);
+            if (Bar is not null)
+                camera.SpriteBatchController.SpriteRenderer.Draw(Bar, target, Vector2.Zero, 0, style.Color * style.Opacity);
     }
 
     /// <summary>

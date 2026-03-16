@@ -14,8 +14,8 @@ public abstract class AbstractScene
         LayerManager = new Layers.LayerManager(this);
         PhysicsManager = new Physics.PhysicsManager(this);
         MessagesManager = new Messages.MessagesManager(this);
+        RenderingManager = new Rendering.RenderingManager(this);
         TimerManager = new Timers.TimerManager(this);
-        CameraDirector = new Cameras.CameraDirector(this);
     }
 
     /// <summary>
@@ -50,7 +50,26 @@ public abstract class AbstractScene
     public void Draw(Managers.GameContext gameContext)
     {
         if (Camera is not null)
-           LayerManager.Draw(Camera, gameContext);
+        {
+		    // Comienza el dibujo
+            RenderingManager.BeginDrawWorld();
+            // Dibuja las capas de fondo / partida
+            foreach (Layers.AbstractLayer layer in LayerManager.Layers)
+                if (layer.Enabled && layer.Type != Layers.AbstractLayer.LayerType.UserInterface)
+                    layer.Draw(Camera, gameContext);
+		    // Dibuja la capa de log
+            GameEngine.Instance.DebugManager.DrawLogFigures(gameContext, Camera);
+		    // Comienza el dibujo de la interface de usuario
+            RenderingManager.BeginDrawUI();
+            // Dibuja las capas de interface de usuario
+            foreach (Layers.AbstractLayer layer in LayerManager.Layers)
+                if (layer.Enabled && layer.Type == Layers.AbstractLayer.LayerType.UserInterface)
+                    layer.Draw(Camera, gameContext);
+            // Dibuja la capa de log
+            GameEngine.Instance.DebugManager.DrawLogStrings(gameContext, Camera);
+		    // Finaliza el dibujo
+            RenderingManager.End();
+        }
     }
 
     /// <summary>
@@ -103,14 +122,14 @@ public abstract class AbstractScene
     public Cameras.Camera2D? Camera { get; private set; }
 
     /// <summary>
-    ///     Director de cámaras
-    /// </summary>
-    public Cameras.CameraDirector CameraDirector { get; }
-
-    /// <summary>
     ///     Definición del mundo
     /// </summary>
     public Entities.Common.WorldDefinitionModel WorldDefinition { get; private set; }
+
+    /// <summary>
+    ///     Manager de dibujo
+    /// </summary>
+    public Rendering.RenderingManager RenderingManager { get; private set; }
 
     /// <summary>
     ///     Manager de físicas

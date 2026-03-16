@@ -20,6 +20,6 @@ public class UiSolidColorBackground(Styles.UiStyle style) : UiAbstractBackground
 	/// </summary>
 	public override void Draw(Camera2D camera, Rectangle position, Managers.GameContext gameContext)
 	{
-		camera.SpriteBatchController.DrawRectangle(position, Color * Opacity);
+		camera.SpriteBatchController.FiguresRenderer.DrawRectangle(position, Color * Opacity);
 	}
 }

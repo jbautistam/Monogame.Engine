@@ -24,10 +24,14 @@ public class UiRoundedBorder(Styles.UiStyle style) : UiAbstractBorder(style)
         int radius = (int) Math.Min(Radius, Math.Min(position.Width, position.Height) / 2f);
 
             // Dibuja los lados dejando espacio para las esquinas
-            camera.SpriteBatchController.DrawRectangle(new Rectangle(position.X + radius, position.Y, position.Width - radius * 2, Thickness), Color * Opacity);
-            camera.SpriteBatchController.DrawRectangle(new Rectangle(position.X + radius, position.Bottom - Thickness, position.Width - radius * 2, Thickness), Color * Opacity);
-            camera.SpriteBatchController.DrawRectangle(new Rectangle(position.X, position.Y + radius, Thickness, position.Height - radius * 2), Color * Opacity);
-            camera.SpriteBatchController.DrawRectangle(new Rectangle(position.Right - Thickness, position.Y + radius, Thickness, position.Height - radius * 2), Color * Opacity);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(position.X + radius, position.Y, position.Width - radius * 2, Thickness), 
+                                                                       Color * Opacity);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(position.X + radius, position.Bottom - Thickness, position.Width - radius * 2, Thickness), 
+                                                                       Color * Opacity);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(position.X, position.Y + radius, Thickness, position.Height - radius * 2), 
+                                                                       Color * Opacity);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(position.Right - Thickness, position.Y + radius, Thickness, position.Height - radius * 2), 
+                                                                       Color * Opacity);
             // Dibuja las esquinas
             DrawCorner(camera, position.X + radius, position.Y + radius, -1, -1, radius);
             DrawCorner(camera, position.Right - radius, position.Y + radius, 1, -1, radius);
@@ -50,7 +54,7 @@ public class UiRoundedBorder(Styles.UiStyle style) : UiAbstractBorder(style)
                 int y = cy + (int) (dirY * (radius - Math.Cos(angle) * radius));
                 
                     // Dibuja el rectángulo
-                    camera2D.SpriteBatchController.DrawRectangle(new Rectangle(x, y, Thickness, Thickness), Color * Opacity);
+                    camera2D.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(x, y, Thickness, Thickness), Color * Opacity);
             }
     }
 

@@ -120,7 +120,6 @@ public class CameraDirector(AbstractScene scene)
             spriteBatchManager.End();
         }
     }
-*/
 
 	/// <summary>
 	///		Prepara las texturas comunes
@@ -133,6 +132,7 @@ public class CameraDirector(AbstractScene scene)
 			WhitePixel.SetData([ Color.White ]);
 		}
 	}
+*/
 
     /// <summary>
     ///     Escena a la que se asocia el director de cámaras

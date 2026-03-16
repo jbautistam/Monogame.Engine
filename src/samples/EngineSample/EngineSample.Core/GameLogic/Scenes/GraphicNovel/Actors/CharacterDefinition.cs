@@ -3,8 +3,22 @@
 /// <summary>
 ///		Definición de un personaje
 /// </summary>
-public class CharacterDefinition(string name, int logicalLayer)
+public class CharacterDefinition(string name, CharacterDefinition.CharacterType type, int logicalLayer)
 {
+	/// <summary>
+	///		Tipo de actor
+	/// </summary>
+	public enum CharacterType
+	{
+		/// <summary>Fondo</summary>
+		Background,
+		/// <summary>Personaje</summary>
+		Character
+	}
+
+	/// <summary>
+	///		Añade una expresión al personaje
+	/// </summary>
 	public void AddExpression(string name, string asset, string? region)
 	{
 		Expressions.Add(new CharacterExpressionDefinition(name)
@@ -32,6 +46,11 @@ public class CharacterDefinition(string name, int logicalLayer)
 	///		Nombre del personaje
 	/// </summary>
 	public string Name { get; } = name;
+
+	/// <summary>
+	///		Tipo de personaje
+	/// </summary>
+	public CharacterType Type { get; } = type;
 
 	/// <summary>
 	///		Capa lógica

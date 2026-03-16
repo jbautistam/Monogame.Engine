@@ -55,7 +55,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateBackground(CharacterManager manager, string name, string asset, int layer)
 	{
-		CharacterDefinition character = manager.Add(name, layer);
+		CharacterDefinition character = manager.Add(name, CharacterDefinition.CharacterType.Background, layer);
 
 			// Crea la definición
 			character.AddExpression(CharacterExpressionDefinition.DefaultType, asset, null);
@@ -66,7 +66,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateCharacter(CharacterManager manager, string name)
 	{
-		CharacterDefinition character = manager.Add(name, LogicalCharactersLayer);
+		CharacterDefinition character = manager.Add(name, CharacterDefinition.CharacterType.Character, LogicalCharactersLayer);
 
 			// Crea las definiciones
 			character.AddExpression(CharacterExpressionDefinition.DefaultType, $"{name}-default", null);

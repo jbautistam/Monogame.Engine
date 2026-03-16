@@ -149,7 +149,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
             DrawWrappedText(camera, SpriteFont);
         // Depuración
 		if (GameEngine.Instance.EngineSettings.DebugMode)
-            camera.SpriteBatchController.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugOverlayColor, 2);
+            camera.SpriteBatchController.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugOverlayColor, 2);
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
                             if (x + wordSize.X > Position.ContentBounds.Right)
                                 (x, y) = NewLine(y, font);
                             // Dibuja la cadena
-                            camera.SpriteBatchController.DrawString(font, wordToWrite, new Vector2(x, y), color * style.Opacity);
+                            camera.SpriteBatchController.TextRenderer.DrawString(font, wordToWrite, new Vector2(x, y), color * style.Opacity);
                             // Cambia la X
                             if (isEndOfLine)
                                 (x, y) = NewLine(y, font);

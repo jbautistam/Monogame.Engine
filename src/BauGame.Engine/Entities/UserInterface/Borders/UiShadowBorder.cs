@@ -33,11 +33,11 @@ public class UiShadowBorder(Styles.UiStyle style) : UiAbstractBorder(style)
                     Color color = new(ShadowColor.R, ShadowColor.G, ShadowColor.B, (byte) (alpha * 255));
                     
                         // Dibuja el rectángulo
-                        camera.SpriteBatchController.DrawRectangleOutline(expanded, color);
+                        camera.SpriteBatchController.FiguresRenderer.DrawRectangleOutline(expanded, color);
                 }
             }
             else
-                camera.SpriteBatchController.DrawRectangleOutline(shadowBounds, ShadowColor);
+                camera.SpriteBatchController.FiguresRenderer.DrawRectangleOutline(shadowBounds, ShadowColor);
     }
 
     /// <summary>

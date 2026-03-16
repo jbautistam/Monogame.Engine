@@ -114,16 +114,16 @@ public class DebugManager(EngineManager manager)
                 // Muestra los mensajes
                 foreach ((string message, Color? color) in _messages)
                 {
-                    camera2D.SpriteBatchController.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugColor);
+                    camera2D.SpriteBatchController.TextRenderer.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugColor);
                     position.Y += DebugFont.LineSpacing;
                 }
                 // Muestra las estadísticas
                 position = camera2D.WorldToScreenRelative(OverlayPosition);
-                camera2D.SpriteBatchController.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugOverlayColor);
+                camera2D.SpriteBatchController.TextRenderer.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
-                camera2D.SpriteBatchController.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, Manager.EngineSettings.DebugOverlayColor);
+                camera2D.SpriteBatchController.TextRenderer.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
-                camera2D.SpriteBatchController.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, Manager.EngineSettings.DebugOverlayColor);
+                camera2D.SpriteBatchController.TextRenderer.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
         }
     }

@@ -19,7 +19,6 @@ public class SpriteDefinition
 	{
 		Asset = asset;
 		Region = region;
-		Renderer = new SpriteRenderer(this);
 	}
 
 	/// <summary>
@@ -82,9 +81,4 @@ public class SpriteDefinition
 	///		Efecto aplicado al sprite
 	/// </summary>
 	public SpriteEffects SpriteEffect { get; set; } = SpriteEffects.None;
-
-	/// <summary>
-	///		Rutinas de dibujo del sprite
-	/// </summary>
-	public SpriteRenderer Renderer { get; }
 }

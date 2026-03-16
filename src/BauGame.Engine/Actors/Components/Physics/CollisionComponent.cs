@@ -42,10 +42,10 @@ public class CollisionComponent(AbstractActorDrawable owner, int physicLayerId) 
 				switch (collider)
 				{
 					case RectangleCollider rectangle:
-							camera.SpriteBatchController.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.White, 2);
+							camera.SpriteBatchController.FiguresRenderer.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.White, 2);
 						break;
 					case CircleCollider circle:
-							camera.SpriteBatchController.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.Red, 2);
+							camera.SpriteBatchController.FiguresRenderer.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.Red, 2);
 						break;
 				}
 	}

@@ -133,7 +133,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                     break;
             }
             // Dibuja el texto
-            camera.SpriteBatchController.DrawString(font, text, textPosition, style.Color * style.Opacity);
+            camera.SpriteBatchController.TextRenderer.DrawString(font, text, textPosition, style.Color * style.Opacity);
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                             Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
                                 // Dibuja la línea actual y empieza una nueva
-                                camera.SpriteBatchController.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                                camera.SpriteBatchController.TextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
                                 // Pasa a la siguiente palabra
                                 line = word;
                                 // Incrementa la posición y
@@ -177,7 +177,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
             {
                 Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
-                    camera.SpriteBatchController.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                    camera.SpriteBatchController.TextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
             }
 
         // Comprueba si la coordenada y está fuera de los límites

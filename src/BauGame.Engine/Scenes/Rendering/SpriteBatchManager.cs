@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Controllers;
+namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering;
 
 /// <summary>
 ///		Manager del SpriteBatch

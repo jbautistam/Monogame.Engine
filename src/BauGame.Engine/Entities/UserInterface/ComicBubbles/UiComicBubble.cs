@@ -75,7 +75,8 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
         if (!string.IsNullOrWhiteSpace(Text))
         {
             // Dibuja el bocadillo
-            BubbleSprite?.Renderer.Draw(camera, _bubbleBounds, Vector2.Zero, 0, BubbleColor);
+            if (BubbleSprite is not null)
+                camera.SpriteBatchController.SpriteRenderer.Draw(BubbleSprite, _bubbleBounds, Vector2.Zero, 0, BubbleColor);
             // Dibuja el texto
             DrawText(camera);
         }
@@ -88,7 +89,7 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     {
         SpriteFont? spriteFont = Font?.LoadAsset();
 
-            if (spriteFont is not null)
+            if (Font is not null && spriteFont is not null)
             {
                 List<string> lines = new Popups.MobileChats.StringFontHelper().WrapText(spriteFont, Text, TextScale, Position.ContentBounds.Width);
                 float lineHeight = spriteFont.LineSpacing * LineSpacing * TextScale;
@@ -134,7 +135,7 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
                             // Calcula la coordenada Y
                             y = Math.Min(y, y + textHeight - lineHeight);
                             // Dibuja el texto
-                            camera.SpriteBatchController.DrawString(spriteFont, line, new Vector2(x, y), Color);
+                            camera.SpriteBatchController.SpriteTextRenderer.DrawString(Font, line, new Vector2(x, y), Color);
                     }
             }
     }

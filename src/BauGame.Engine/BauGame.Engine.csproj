@@ -150,10 +150,13 @@
     <Compile Include="Scenes\Cameras\Definitions\ScreenCamera.cs" />
     <Compile Include="Scenes\Cameras\Definitions\WorldCamera.cs" />
     <Compile Include="Scenes\Cameras\CameraDirector.cs" />
-    <Compile Include="Scenes\Cameras\Controllers\SpriteBatchManager.cs" />
+    <Compile Include="Scenes\Rendering\Renderers\SpriteRenderer.cs" />
+    <Compile Include="Scenes\Rendering\Renderers\SpriteTextRenderer.cs" />
+    <Compile Include="Scenes\Rendering\Renderers\TexturesRenderer.cs" />
+    <Compile Include="Scenes\Rendering\Renderers\TextRenderer.cs" />
+    <Compile Include="Scenes\Rendering\Renderers\FiguresRenderer.cs" />
     <Compile Include="Scenes\Cameras\CameraTargetsManager.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\BackgroundState.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\DynamicBackgroundLayer.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\Effects\AbstractBackgroundEffect.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\Effects\DriftEffect.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\Effects\EffectsList.cs" />
@@ -172,7 +175,6 @@
     <Compile Include="Scenes\Layers\Games\Pools\ExplosionsManager.cs" />
     <Compile Include="Scenes\Layers\Games\Pools\ProjectileManager.cs" />
     <Compile Include="Scenes\Cameras\Camera2D.cs" />
-    <Compile Include="Scenes\Cameras\SpriteBatchController.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\AbstractElementUserInterfaceBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceMenuBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceBackgroundBuilder.cs" />
@@ -207,6 +209,8 @@
     <Compile Include="Scenes\Layers\Backgrounds\AbstractBackgroundLayer.cs" />
     <Compile Include="Scenes\Layers\LayerManager.cs" />
     <Compile Include="Scenes\Physics\RaycastingService.cs" />
+    <Compile Include="Scenes\Rendering\RenderingManager.cs" />
+    <Compile Include="Scenes\Rendering\SpriteBatchController.cs" />
     <Compile Include="Scenes\Rendering\Transitions\Effects\AbstractTransitionEffect.cs" />
     <Compile Include="Scenes\Rendering\Transitions\Effects\BarsEffect.cs" />
     <Compile Include="Scenes\Rendering\Transitions\Effects\ChromaticAberrationEffect.cs" />
@@ -230,7 +234,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Scenes\Cameras\Rendering\" />
     <Folder Include="Tools\MathTools\Interpolation\" />
   </ItemGroup>
 

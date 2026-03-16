@@ -56,10 +56,10 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                 // Alinea la imagen
                 target = AlignImage(target);
                 // Dibuja la imagen
-                Sprite.Renderer.Draw(camera, target, Origin, Rotation, style.Color * style.Opacity * Opacity);
+                camera.SpriteBatchController.SpriteRenderer.Draw(Sprite, target, Origin, Rotation, style.Color * style.Opacity * Opacity);
                 // Dibuja un rectángulo para depuración
 		        if (GameEngine.Instance.EngineSettings.DebugMode)
-                    camera.SpriteBatchController.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugImageColor, 2);
+                    camera.SpriteBatchController.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugImageColor, 2);
         }
     }
 

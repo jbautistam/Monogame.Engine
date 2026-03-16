@@ -16,7 +16,6 @@ public class SpriteTextDefinition
 	public SpriteTextDefinition(string? font)
 	{
 		Font = font;
-		Renderer = new SpriteTexttRenderer(this);
 	}
 
 	/// <summary>
@@ -62,9 +61,4 @@ public class SpriteTextDefinition
 			}
 		}
 	}
-
-	/// <summary>
-	///		Rutinas de dibujo de la fuente
-	/// </summary>
-	public SpriteTexttRenderer Renderer { get; }
 }

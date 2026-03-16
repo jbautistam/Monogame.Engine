@@ -36,7 +36,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		Quit = 40
 	}
 	// Variables privadas
-	private UiMenu? _menu, _menuDirector;
+	private UiMenu? _menu;
 
 	/// <summary>
 	///		Arranca la escena
@@ -76,7 +76,6 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 
 			// Añade los componentes del interface de usuario
 			builder.WithItem(CreateMainMenu(uiLayer));
-			builder.WithItem(CreateMainDirectorMenu(uiLayer));
 			// Añade los elementos generados a la capa
 			uiLayer.Items.AddRange(builder.Build());
 	}
@@ -105,21 +104,6 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 			// Guarda el menú en una variable
 			_menu = builder.Build();
 			return _menu;
-	}
-
-	/// <summary>
-	///		Crea el menú principal
-	/// </summary>
-	private UiMenu CreateMainDirectorMenu(AbstractUserInterfaceLayer layer)
-	{
-		UserInterfaceMenuBuilder builder = new(layer, 0.7f, 0.05f, 0.3f, 0.8f);
-
-			// Asigna los elementos al menú
-			builder.WithOption((int) MenuOption.UserInterface, "User interface director", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithStyle(MenuStyle);
-			// Guarda el menú en una variable
-			_menuDirector = builder.Build();
-			return _menuDirector;
 	}
 
 	/// <summary>
@@ -173,14 +157,6 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 						break;
 					case MenuOption.Quit:
 							GameEngine.Instance.Exit();
-						break;
-				}
-			// Cambia la escena con el menú que utiliza el manager de cámaras
-			if (_menuDirector is not null)
-				switch ((MenuOption?) _menuDirector.GetAndResetClickOption())
-				{
-					case MenuOption.UserInterface:
-							nextScene = GetNewScene(Director.UserInterfaceTest.UserInterfaceScene.SceneName);
 						break;
 				}
 			// Devuelve la nueva escena

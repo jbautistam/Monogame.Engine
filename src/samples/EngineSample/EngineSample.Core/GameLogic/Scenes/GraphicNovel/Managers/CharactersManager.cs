@@ -23,9 +23,9 @@ public class CharacterManager : AbstractActor
 	/// <summary>
 	///		Añade un personaje
 	/// </summary>
-	public CharacterDefinition Add(string name, int logicalLayer)
+	public CharacterDefinition Add(string name, CharacterDefinition.CharacterType type, int logicalLayer)
 	{
-		CharacterDefinition character = new(name, logicalLayer);
+		CharacterDefinition character = new(name, type, logicalLayer);
 
 			// Añade el personaje al diccionario
 			Characters.Add(name, character);

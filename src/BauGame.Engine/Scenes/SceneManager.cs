@@ -63,9 +63,6 @@ public class SceneManager
             // Cambia la escena
             if (nextScene != _currentScene)
                 ChangeScene(nextScene, gameContext);
-        //TransitionManager.Update(gameTime);
-        //if (!TransitionManager.IsTransitioning)
-        //    _currentScene?.Update(gameTime);
     }
 
     /// <summary>
@@ -75,15 +72,5 @@ public class SceneManager
     {
         if (_currentScene is not null)
             _currentScene.Draw(gameContext);
-        //if (TransitionManager.IsTransitioning)
-        //{
-        //    spriteBatch.Begin();
-        //    TransitionManager.Draw(spriteBatch);
-        //    spriteBatch.End();
-        //}
-        //else
-        //{
-        //    _currentScene?.Draw(spriteBatch, gameTime);
-        //}
     }
 }

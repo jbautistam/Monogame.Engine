@@ -25,7 +25,8 @@ public class UiTextureBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 		Rectangle destination = InflateWithSprite(position);
 
 			// Dibuja el control
-			Sprite?.Renderer.Draw(camera, destination, Vector2.Zero, 0, Color * Opacity);
+			if (Sprite is not null)
+				camera.SpriteBatchController.SpriteRenderer.Draw(Sprite, destination, Vector2.Zero, 0, Color * Opacity);
 	}
 
 	/// <summary>

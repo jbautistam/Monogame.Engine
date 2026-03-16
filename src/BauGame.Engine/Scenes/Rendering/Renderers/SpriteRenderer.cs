@@ -1,15 +1,16 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers.Resources;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+using Bau.Libraries.BauGame.Engine.Managers.Resources;
+using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Renderers;
 
 /// <summary>
 ///     Clase para dibujo de un <see cref="SpriteDefinition"/>
 /// </summary>
-public class SpriteRenderer(SpriteDefinition sprite)
+public class SpriteRenderer(SpriteBatchController spriteBatchController)
 {
     /// <summary>
     ///     Modos de dibujo
@@ -33,61 +34,70 @@ public class SpriteRenderer(SpriteDefinition sprite)
 	/// <summary>
 	///		Dibuja el sprite
 	/// </summary>
-    public void Draw(Camera2D camera, Point position, Point center, Vector2 scale, float rotation, Color color)
+    public void Draw(SpriteDefinition? sprite, Point position, Point center, Vector2 scale, float rotation, Color color)
     {
-		Draw(camera, new Vector2(position.X, position.Y), new Vector2(center.X, center.Y), scale, rotation, color);
+		Draw(sprite, new Vector2(position.X, position.Y), new Vector2(center.X, center.Y), scale, rotation, color);
     }
 
 	/// <summary>
 	///		Dibuja la textura en una posición con escala
 	/// </summary>
-	public void Draw(Camera2D camera, Vector2 position, Vector2 origin, Vector2 scale, float rotation, Color color)
+	public void Draw(SpriteDefinition? sprite, Vector2 position, Vector2 origin, Vector2 scale, float rotation, Color color)
 	{
-		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera.Scene);
+		if (sprite is not null)
+		{
+			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(SpriteBatchController.RenderingManager.Scene);
 
-			// Dibuja la textura
-			if (textureConfiguration is not null)
-			{
-				if (textureConfiguration.NineSliceConfiguration is not null)
-					DrawNineSlice(camera, textureConfiguration.Texture, textureConfiguration.Region, textureConfiguration.NineSliceConfiguration,
-								  new Rectangle((int) position.X, (int) position.Y, textureConfiguration.Region.Width, textureConfiguration.Region.Height),
-								  origin, scale, rotation, color);
-				else
-					camera.SpriteBatchController.Draw(textureConfiguration.Texture, position, textureConfiguration.Region, 
-													  origin, scale, Sprite.SpriteEffect, color, rotation, 1);
-			}
+				// Dibuja la textura
+				if (textureConfiguration is not null)
+				{
+					if (textureConfiguration.NineSliceConfiguration is not null)
+						DrawNineSlice(sprite, textureConfiguration.Texture, textureConfiguration.Region, textureConfiguration.NineSliceConfiguration,
+									  new Rectangle((int) position.X, (int) position.Y, textureConfiguration.Region.Width, textureConfiguration.Region.Height),
+									  origin, scale, rotation, color);
+					else
+						SpriteBatchController.TexturesRenderer.Draw(textureConfiguration.Texture, position, textureConfiguration.Region, 
+																	origin, scale, sprite.SpriteEffect, color, rotation, 1);
+				}
+		}
 	}
 
 	/// <summary>
 	///		Dibuja la textura en un rectángulo concreto (ajusta al ancho y alto del rectángulo)
 	/// </summary>
-	public void Draw(Camera2D camera, Rectangle destination, Vector2 origin, float rotation, Color color)
+	public void Draw(SpriteDefinition? sprite, Rectangle destination, Vector2 origin, float rotation, Color color)
 	{
-		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera.Scene);
+		if (sprite is not null)
+		{
+			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(SpriteBatchController.RenderingManager.Scene);
 
-			// Dibuja la textura
-			if (textureConfiguration is not null)
-			{
-				if (textureConfiguration.NineSliceConfiguration is not null)
-					DrawNineSlice(camera, textureConfiguration.Texture, textureConfiguration.Region, textureConfiguration.NineSliceConfiguration,
-								  destination, origin, new Vector2(1, 1), rotation, color);
-				else
-					camera.SpriteBatchController.Draw(textureConfiguration.Texture, destination, textureConfiguration.Region, 
-													  origin, color, rotation, Sprite.SpriteEffect, 0);
-			}
+				// Dibuja la textura
+				if (textureConfiguration is not null)
+				{
+					if (textureConfiguration.NineSliceConfiguration is not null)
+						DrawNineSlice(sprite, textureConfiguration.Texture, textureConfiguration.Region, textureConfiguration.NineSliceConfiguration,
+									  destination, origin, new Vector2(1, 1), rotation, color);
+					else
+						SpriteBatchController.TexturesRenderer.Draw(textureConfiguration.Texture, destination, textureConfiguration.Region, 
+																	origin, color, rotation, sprite.SpriteEffect, 0);
+				}
+		}
 	}
 
     /// <summary>
     ///     Dibuja un sprite escalado al rectángulo destino
     /// </summary>
-    public void Draw(Camera2D camera, DrawMode mode, Rectangle destination, Vector2 origin, RectangleF window, float rotation, Color color)
+    public void Draw(SpriteDefinition? sprite, DrawMode mode, Rectangle destination, Vector2 origin, RectangleF window, float rotation, Color color)
     {
-		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera.Scene);
+		if (sprite is not null)
+		{
+			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(SpriteBatchController.RenderingManager.Scene);
 
-			if (textureConfiguration is not null)
-				camera.SpriteBatchController.Draw(textureConfiguration.Texture, 
-												  ComputeTargetRectangle(mode, destination, textureConfiguration.Region, window), 
-												  textureConfiguration.Region, origin, color, rotation, Sprite.SpriteEffect, 0);
+				if (textureConfiguration is not null)
+					SpriteBatchController.TexturesRenderer.Draw(textureConfiguration.Texture, 
+																ComputeTargetRectangle(mode, destination, textureConfiguration.Region, window), 
+																textureConfiguration.Region, origin, color, rotation, sprite.SpriteEffect, 0);
+		}
     }
 
 	/// <summary>
@@ -143,7 +153,7 @@ public class SpriteRenderer(SpriteDefinition sprite)
 	/// <summary>
 	///		Dibuja una textura definida como NineSlice
 	/// </summary>
-	private void DrawNineSlice(Camera2D camera, Texture2D texture, Rectangle region, TextureRegionNineSliceConfiguration nineSlice,
+	private void DrawNineSlice(SpriteDefinition sprite, Texture2D texture, Rectangle region, TextureRegionNineSliceConfiguration nineSlice,
 							   Rectangle destination, Vector2 origin, Vector2 vector2, float rotation, Color color)
 	{
 		Rectangle[] slices = GenerateSlices(texture, nineSlice);
@@ -174,22 +184,22 @@ public class SpriteRenderer(SpriteDefinition sprite)
 					centerH = 0;
 			}
 			// Dibuja la fila superior
-			DrawSlice(camera, texture, slices[0], dx0, dy0, nineSlice.TopLeftWidth, nineSlice.TopLeftHeight, color);
-			DrawSlice(camera, texture, slices[1], dx1, dy0, centerW, nineSlice.TopEdgeHeight, color);
-			DrawSlice(camera, texture, slices[2], dx2, dy0, nineSlice.TopRightWidth, nineSlice.TopRightHeight, color);
+			DrawSlice(texture, slices[0], dx0, dy0, nineSlice.TopLeftWidth, nineSlice.TopLeftHeight, color);
+			DrawSlice(texture, slices[1], dx1, dy0, centerW, nineSlice.TopEdgeHeight, color);
+			DrawSlice(texture, slices[2], dx2, dy0, nineSlice.TopRightWidth, nineSlice.TopRightHeight, color);
 			// Dibuja la fila central
-			DrawSlice(camera, texture, slices[3], dx0, dy1, nineSlice.LeftEdgeWidth, centerH, color);
-			DrawSlice(camera, texture, slices[4], dx1, dy1, centerW, centerH, color);
-			DrawSlice(camera, texture, slices[5], dx2, dy1, nineSlice.RightEdgeWidth, centerH, color);
+			DrawSlice(texture, slices[3], dx0, dy1, nineSlice.LeftEdgeWidth, centerH, color);
+			DrawSlice(texture, slices[4], dx1, dy1, centerW, centerH, color);
+			DrawSlice(texture, slices[5], dx2, dy1, nineSlice.RightEdgeWidth, centerH, color);
 			// Dibuja la fila inferior
-			DrawSlice(camera, texture, slices[6], dx0, dy2, nineSlice.BottomLeftWidth, nineSlice.BottomLeftHeight, color);
-			DrawSlice(camera, texture, slices[7], dx1, dy2, centerW, nineSlice.BottomEdgeHeight, color);
-			DrawSlice(camera, texture, slices[8], dx2, dy2, nineSlice.BottomRightWidth, nineSlice.BottomRightHeight, color);
+			DrawSlice(texture, slices[6], dx0, dy2, nineSlice.BottomLeftWidth, nineSlice.BottomLeftHeight, color);
+			DrawSlice(texture, slices[7], dx1, dy2, centerW, nineSlice.BottomEdgeHeight, color);
+			DrawSlice(texture, slices[8], dx2, dy2, nineSlice.BottomRightWidth, nineSlice.BottomRightHeight, color);
 
 		// Dibuja una sección de la imagen
-		void DrawSlice(Camera2D camera2D, Texture2D texture, Rectangle source, int x, int y, int width, int height, Color color)
+		void DrawSlice(Texture2D texture, Rectangle source, int x, int y, int width, int height, Color color)
 		{
-			camera.SpriteBatchController.Draw(texture, new Rectangle(x, y, width, height), source, color);
+			SpriteBatchController.TexturesRenderer.Draw(texture, new Rectangle(x, y, width, height), source, color);
 		}
     }    
 
@@ -221,11 +231,11 @@ public class SpriteRenderer(SpriteDefinition sprite)
 					];
 
 		// Crea un rectángulo
-		Rectangle CreateSlice(int x, int y, int width, int height) => new Rectangle(x, y, Math.Max(0, width), Math.Max(0, height));
+		Rectangle CreateSlice(int x, int y, int width, int height) => new(x, y, Math.Max(0, width), Math.Max(0, height));
     }
 
     /// <summary>
-    ///     Definición de sprite a dibujar
+    ///     Controlador de presentación
     /// </summary>
-    public SpriteDefinition Sprite { get; } = sprite;
+    public SpriteBatchController SpriteBatchController { get; } = spriteBatchController;
 }

@@ -22,7 +22,8 @@ public class UiBackground(Styles.UiStyle style) : UiAbstractBackground(style)
 	/// </summary>
 	public override void Draw(Camera2D camera, Rectangle position, Managers.GameContext gameContext)
 	{
-		Sprite?.Renderer.Draw(camera, position, Vector2.Zero, 0, Color * Opacity);
+		if (Sprite is not null)
+			camera.SpriteBatchController.SpriteRenderer.Draw(Sprite, position, Vector2.Zero, 0, Color * Opacity);
 	}
 
 	/// <summary>

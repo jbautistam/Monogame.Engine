@@ -40,9 +40,9 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
                         Vector2 backgroundPosition = camera.Position - new Vector2(worldScreenWidth / 2f, worldScreenHeight / 2f);
 
                             // Dibujamos el fondo escalado para cubrir toda la pantalla visible
-                            camera.SpriteBatchController.Draw(region.Texture, backgroundPosition, null, Vector2.Zero, scale, 
-                                                              Microsoft.Xna.Framework.Graphics.SpriteEffects.None,
-                                                              Color, 0f, 0);
+                            camera.SpriteBatchController.TexturesRenderer.Draw(region.Texture, backgroundPosition, null, Vector2.Zero, scale, 
+                                                                               Microsoft.Xna.Framework.Graphics.SpriteEffects.None,
+                                                                               Color, 0f, 0);
                     }
                     else
                     {
@@ -59,7 +59,7 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
                             // Dibuja los diferentes tiles
                             for (int x = startX; x < endX; x += tileWidth)
                                 for (int y = startY; y < endY; y += tileHeight)
-                                    camera.SpriteBatchController.Draw(region.Texture, new Vector2(x, y), Color);
+                                    camera.SpriteBatchController.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
                     }
             }
     }
