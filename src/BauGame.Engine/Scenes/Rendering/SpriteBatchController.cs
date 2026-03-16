@@ -45,35 +45,10 @@ public class SpriteBatchController
 	}
 
 	/// <summary>
-	///		Comienza el dibujo
-	/// </summary>
-	public void BeginDraw(Matrix? viewMatrix)
-	{
-		// Prepara los buffers de dibujo
-		Prepare();
-		// Arranca el dibujo
-		if (SpriteBatch is not null)
-		{
-			// Finaliza los dibujos anteriores
-			End();
-			// Arranca el dibujo
-			SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
-							   RasterizerState.CullCounterClockwise, null, viewMatrix);
-			// Indica que está dibujando
-			_isDrawing = true;
-		}
-	}
-
-	/// <summary>
 	///		Finaliza el dibujo
 	/// </summary>
 	public void End()
 	{
-		if (SpriteBatch is not null && _isDrawing)
-		{
-			SpriteBatch.End();
-			_isDrawing = false;
-		}
 	}
 
 	/// <summary>

@@ -10,7 +10,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Renderers;
 /// <summary>
 ///     Clase para dibujo de un <see cref="SpriteDefinition"/>
 /// </summary>
-public class SpriteRenderer(SpriteBatchController spriteBatchController)
+public class SpriteRenderer(RenderingManager renderingManager)
 {
     /// <summary>
     ///     Modos de dibujo
@@ -46,7 +46,7 @@ public class SpriteRenderer(SpriteBatchController spriteBatchController)
 	{
 		if (sprite is not null)
 		{
-			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(SpriteBatchController.RenderingManager.Scene);
+			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(RenderingManager.Scene);
 
 				// Dibuja la textura
 				if (textureConfiguration is not null)
@@ -56,7 +56,7 @@ public class SpriteRenderer(SpriteBatchController spriteBatchController)
 									  new Rectangle((int) position.X, (int) position.Y, textureConfiguration.Region.Width, textureConfiguration.Region.Height),
 									  origin, scale, rotation, color);
 					else
-						SpriteBatchController.TexturesRenderer.Draw(textureConfiguration.Texture, position, textureConfiguration.Region, 
+						RenderingManager.TexturesRenderer.Draw(textureConfiguration.Texture, position, textureConfiguration.Region, 
 																	origin, scale, sprite.SpriteEffect, color, rotation, 1);
 				}
 		}
@@ -69,7 +69,7 @@ public class SpriteRenderer(SpriteBatchController spriteBatchController)
 	{
 		if (sprite is not null)
 		{
-			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(SpriteBatchController.RenderingManager.Scene);
+			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(RenderingManager.Scene);
 
 				// Dibuja la textura
 				if (textureConfiguration is not null)
@@ -78,8 +78,8 @@ public class SpriteRenderer(SpriteBatchController spriteBatchController)
 						DrawNineSlice(sprite, textureConfiguration.Texture, textureConfiguration.Region, textureConfiguration.NineSliceConfiguration,
 									  destination, origin, new Vector2(1, 1), rotation, color);
 					else
-						SpriteBatchController.TexturesRenderer.Draw(textureConfiguration.Texture, destination, textureConfiguration.Region, 
-																	origin, color, rotation, sprite.SpriteEffect, 0);
+						RenderingManager.TexturesRenderer.Draw(textureConfiguration.Texture, destination, textureConfiguration.Region, 
+															   origin, color, rotation, sprite.SpriteEffect, 0);
 				}
 		}
 	}
@@ -91,12 +91,12 @@ public class SpriteRenderer(SpriteBatchController spriteBatchController)
     {
 		if (sprite is not null)
 		{
-			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(SpriteBatchController.RenderingManager.Scene);
+			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(RenderingManager.Scene);
 
 				if (textureConfiguration is not null)
-					SpriteBatchController.TexturesRenderer.Draw(textureConfiguration.Texture, 
-																ComputeTargetRectangle(mode, destination, textureConfiguration.Region, window), 
-																textureConfiguration.Region, origin, color, rotation, sprite.SpriteEffect, 0);
+					RenderingManager.TexturesRenderer.Draw(textureConfiguration.Texture, 
+														   ComputeTargetRectangle(mode, destination, textureConfiguration.Region, window),
+														   textureConfiguration.Region, origin, color, rotation, sprite.SpriteEffect, 0);
 		}
     }
 
@@ -199,7 +199,7 @@ public class SpriteRenderer(SpriteBatchController spriteBatchController)
 		// Dibuja una sección de la imagen
 		void DrawSlice(Texture2D texture, Rectangle source, int x, int y, int width, int height, Color color)
 		{
-			SpriteBatchController.TexturesRenderer.Draw(texture, new Rectangle(x, y, width, height), source, color);
+			RenderingManager.TexturesRenderer.Draw(texture, new Rectangle(x, y, width, height), source, color);
 		}
     }    
 
@@ -234,8 +234,8 @@ public class SpriteRenderer(SpriteBatchController spriteBatchController)
 		Rectangle CreateSlice(int x, int y, int width, int height) => new(x, y, Math.Max(0, width), Math.Max(0, height));
     }
 
-    /// <summary>
-    ///     Controlador de presentación
-    /// </summary>
-    public SpriteBatchController SpriteBatchController { get; } = spriteBatchController;
+	/// <summary>
+	///		Manager de presentación
+	/// </summary>
+	public RenderingManager RenderingManager { get; } = renderingManager;
 }

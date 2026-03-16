@@ -6,7 +6,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Renderers;
 /// <summary>
 ///		Clase de presentación para textures
 /// </summary>
-public class TexturesRenderer(SpriteBatchController spriteBatchController)
+public class TexturesRenderer(RenderingManager renderingManager)
 {
 	/// <summary>
 	///		Dibuja una textura
@@ -14,8 +14,8 @@ public class TexturesRenderer(SpriteBatchController spriteBatchController)
 	public void Draw(Texture2D texture, Vector2 position, Rectangle? source, Vector2 origin, Vector2 scale, SpriteEffects spriteEffect, 
 					 Color color, float rotation, int layerDepth = 0)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
-			SpriteBatchController.SpriteBatch.Draw(texture, position, source, color, rotation, origin, scale, spriteEffect, layerDepth);
+		if (RenderingManager.SpriteBatch is not null)
+			RenderingManager.SpriteBatch.Draw(texture, position, source, color, rotation, origin, scale, spriteEffect, layerDepth);
 	}
 
 	/// <summary>
@@ -24,8 +24,8 @@ public class TexturesRenderer(SpriteBatchController spriteBatchController)
 	public void Draw(Texture2D texture, Vector2 position, Rectangle? source, Vector2 origin, float scale, SpriteEffects spriteEffect, 
 					 Color color, float rotation, int layerDepth = 0)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
-			SpriteBatchController.SpriteBatch.Draw(texture, position, source, color, rotation, origin, scale, spriteEffect, layerDepth);
+		if (RenderingManager.SpriteBatch is not null)
+			RenderingManager.SpriteBatch.Draw(texture, position, source, color, rotation, origin, scale, spriteEffect, layerDepth);
 	}
 
 	/// <summary>
@@ -33,8 +33,8 @@ public class TexturesRenderer(SpriteBatchController spriteBatchController)
 	/// </summary>
 	public void Draw(Texture2D texture, Rectangle destinationRectangle, Color color)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
-			SpriteBatchController.SpriteBatch.Draw(texture, destinationRectangle, color);
+		if (RenderingManager.SpriteBatch is not null)
+			RenderingManager.SpriteBatch.Draw(texture, destinationRectangle, color);
 	}
 
 	/// <summary>
@@ -43,8 +43,8 @@ public class TexturesRenderer(SpriteBatchController spriteBatchController)
 	public void Draw(Texture2D texture, Rectangle destination, Rectangle? source, Vector2 origin, Color color, float rotation, 
 					 SpriteEffects spriteEffect, float layerDepth = 0)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
-			SpriteBatchController.SpriteBatch.Draw(texture, destination, source, color, rotation, origin, spriteEffect, layerDepth);
+		if (RenderingManager.SpriteBatch is not null)
+			RenderingManager.SpriteBatch.Draw(texture, destination, source, color, rotation, origin, spriteEffect, layerDepth);
 	}
 
 	/// <summary>
@@ -52,8 +52,8 @@ public class TexturesRenderer(SpriteBatchController spriteBatchController)
 	/// </summary>
 	public void Draw(Texture2D texture, Rectangle destination, Rectangle source, Color color)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
-			SpriteBatchController.SpriteBatch.Draw(texture, destination, source, color);
+		if (RenderingManager.SpriteBatch is not null)
+			RenderingManager.SpriteBatch.Draw(texture, destination, source, color);
 	}
 
 	/// <summary>
@@ -61,12 +61,12 @@ public class TexturesRenderer(SpriteBatchController spriteBatchController)
 	/// </summary>
 	public void Draw(Texture2D texture, Vector2 position, Color color)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
-			SpriteBatchController.SpriteBatch.Draw(texture, position, color);
+		if (RenderingManager.SpriteBatch is not null)
+			RenderingManager.SpriteBatch.Draw(texture, position, color);
 	}
 
 	/// <summary>
-	///		Controlador de dibujo principal
+	///		Manager de presentación
 	/// </summary>
-	public SpriteBatchController SpriteBatchController { get; } = spriteBatchController;
+	public RenderingManager RenderingManager { get; } = renderingManager;
 }

@@ -205,7 +205,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
         }
         // Dibuja el thumb encima de las barras
         if (Thumb is not null)
-            camera.SpriteBatchController.SpriteRenderer.Draw(Thumb, _thumbBounds, Vector2.Zero, 0, Color.White);
+            camera.RenderingManager.SpriteRenderer.Draw(Thumb, _thumbBounds, Vector2.Zero, 0, Color.White);
     }
 
     /// <summary>
@@ -219,18 +219,18 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
             if (Mode == ClipMode.Stretch)
             {
                 if (left.Width > 0)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(trackLeft, left, Vector2.Zero, 0, Color.White);
+                    camera.RenderingManager.SpriteRenderer.Draw(trackLeft, left, Vector2.Zero, 0, Color.White);
                 if (right.Width > 0)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(trackRight, right, Vector2.Zero, 0, Color.White);
+                    camera.RenderingManager.SpriteRenderer.Draw(trackRight, right, Vector2.Zero, 0, Color.White);
             }
             else
             {
                 if (left.Width > 0)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(trackLeft, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
+                    camera.RenderingManager.SpriteRenderer.Draw(trackLeft, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
                                                                      left, Vector2.Zero,
                                                                      new Common.RectangleF(0, 0, GetPercentage(), 1), 0, Color.White);
                 if (right.Width > 0)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(trackRight, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
+                    camera.RenderingManager.SpriteRenderer.Draw(trackRight, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
                                                                      right, Vector2.Zero,
                                                                      new Common.RectangleF(GetPercentage(), 0, 1, 1), 0, Color.White);
             }
@@ -248,22 +248,22 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
             {
                 // Parte inferior: desde el thumb hacia abajo
                 if (bottom.Height > 0)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(trackBottom, bottom, Vector2.Zero, 0, Color.White);
+                    camera.RenderingManager.SpriteRenderer.Draw(trackBottom, bottom, Vector2.Zero, 0, Color.White);
                 // Parte superior: desde arriba hasta el thumb
                 if (top.Height > 0)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(trackUp, top, Vector2.Zero, 0, Color.White);
+                    camera.RenderingManager.SpriteRenderer.Draw(trackUp, top, Vector2.Zero, 0, Color.White);
             }
             else
             {
                 // Parte inferior: desde el thumb hacia abajo
                 if (bottom.Height > 0)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(trackBottom, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
+                    camera.RenderingManager.SpriteRenderer.Draw(trackBottom, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
                                                                      bottom, Vector2.Zero, 
                                                                      new Common.RectangleF(0, GetPercentage(), 1, 1),
                                                                      0, Color.White);
                 // Parte superior: desde arriba hasta el thumb
                 if (top.Height > 0)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(trackUp, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
+                    camera.RenderingManager.SpriteRenderer.Draw(trackUp, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
                                                                      top, Vector2.Zero, 
                                                                      new Common.RectangleF(0, 0, 1, GetPercentage()),
                                                                      0, Color.White);

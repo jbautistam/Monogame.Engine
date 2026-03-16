@@ -50,7 +50,7 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
                 // Dibuja la textura de fondo si existe
                 Layer.DrawStyle(camera, Style, State, Position.Bounds, gameContext);
                 // Dibuja el texto
-                camera.SpriteBatchController.TextRenderer.DrawString(SpriteFont, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
+                camera.RenderingManager.TextRenderer.DrawString(SpriteFont, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
         }
     }
 

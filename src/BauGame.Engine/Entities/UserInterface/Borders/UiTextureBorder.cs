@@ -26,7 +26,7 @@ public class UiTextureBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 
 			// Dibuja el control
 			if (Sprite is not null)
-				camera.SpriteBatchController.SpriteRenderer.Draw(Sprite, destination, Vector2.Zero, 0, Color * Opacity);
+				camera.RenderingManager.SpriteRenderer.Draw(Sprite, destination, Vector2.Zero, 0, Color * Opacity);
 	}
 
 	/// <summary>

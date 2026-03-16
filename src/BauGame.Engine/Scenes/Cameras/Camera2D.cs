@@ -223,14 +223,6 @@ public class Camera2D
         return _transformMatrix;
 	}
 
-    /// <summary>
-    ///     Método para finalizar el lote de dibujo
-    /// </summary>
-    public void EndDraw()
-    {
-        SpriteBatchController.End();
-    }
-
 	/// <summary>
 	///     Escena a la que se asocia la cámara
 	/// </summary>
@@ -317,5 +309,5 @@ public class Camera2D
     /// <summary>
     ///     Controlador de sprites
     /// </summary>
-    public Rendering.SpriteBatchController SpriteBatchController => Scene.RenderingManager.SpriteBatchController;
+    public Rendering.RenderingManager RenderingManager => Scene.RenderingManager;
 }

@@ -101,7 +101,7 @@ public class UiPopupManager(AbstractUserInterfaceLayer layer)
     {
         // Dibuja un fondo oscuro
         if (_lastModal is not null)
-            camera.SpriteBatchController.FiguresRenderer.DrawRectangle(new Rectangle(0, 0, camera.ScreenViewport.Width, camera.ScreenViewport.Height), 
+            camera.RenderingManager.FiguresRenderer.DrawRectangle(new Rectangle(0, 0, camera.ScreenViewport.Width, camera.ScreenViewport.Height), 
                                                                        Color.Black * 0.75f);
         // Dibuja todos los popups abiertos
         foreach (UiAbstractPopup popup in _popups)

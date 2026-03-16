@@ -51,7 +51,7 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
                 // Dibuja las partes del fondo
                 for (int x = startX; x < endX; x += tileWidth)
                     for (int y = startY; y < endY; y += tileHeight)
-                        camera.SpriteBatchController.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
+                        camera.RenderingManager.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
             }
     }
 

@@ -7,7 +7,7 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Renderers;
 /// <summary>
 ///     Clase para dibujo de un <see cref="SpriteTextDefinition"/>
 /// </summary>
-public class SpriteTextRenderer(SpriteBatchController spriteBatchController)
+public class SpriteTextRenderer(RenderingManager renderingManager)
 {
 	/// <summary>
 	///		Escribe una cadena
@@ -16,12 +16,12 @@ public class SpriteTextRenderer(SpriteBatchController spriteBatchController)
 	{
 		SpriteFont? spriteFont = sprite.LoadAsset();
 
-			if (spriteFont is not null && SpriteBatchController.SpriteBatch is not null)
-				SpriteBatchController.SpriteBatch.DrawString(spriteFont, text, position, color);
+			if (spriteFont is not null && RenderingManager.SpriteBatch is not null)
+				RenderingManager.SpriteBatch.DrawString(spriteFont, text, position, color);
 	}
 
     /// <summary>
-    ///     Controlador de sprites
+    ///     Manager de representación
     /// </summary>
-    public SpriteBatchController SpriteBatchController { get; } = spriteBatchController;
+    public RenderingManager RenderingManager { get; } = renderingManager;
 }

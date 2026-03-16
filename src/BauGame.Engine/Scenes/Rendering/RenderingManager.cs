@@ -1,14 +1,48 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering;
 
 /// <summary>
 ///		Manager para rendering
 /// </summary>
 public class RenderingManager
 {
+	// Variables privadas
+	private bool _isDrawing = false;
+
 	public RenderingManager(AbstractScene scene)
 	{
 		Scene = scene;
-		SpriteBatchController = new SpriteBatchController(this, GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice);
+		Device = GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice;
+		FiguresRenderer = new Renderers.FiguresRenderer(this);
+		TextRenderer = new Renderers.TextRenderer(this);
+		TexturesRenderer = new Renderers.TexturesRenderer(this);
+		SpriteRenderer = new Renderers.SpriteRenderer(this);
+		SpriteTextRenderer = new Renderers.SpriteTextRenderer(this);
+	}
+
+	/// <summary>
+	///		Prepara el spritebatch
+	/// </summary>
+	private void Prepare()
+	{
+		if (SpriteBatch is null)
+		{
+			// Inicia los objetos
+			SpriteBatch = new SpriteBatch(Device);
+			// Indica que aún no ha comenzado a dibujar
+			_isDrawing = false;
+		}
+	}
+
+	/// <summary>
+	///		Limpia la pantalla
+	/// </summary>
+	public void Clear()
+	{
+		Prepare();
+		Device.Clear(ClearOptions.Target, Color.Black, 0, 0);
 	}
 
     /// <summary>
@@ -16,8 +50,8 @@ public class RenderingManager
     /// </summary>
 	public void BeginDrawWorld()
 	{
-        SpriteBatchController.Clear();
-        SpriteBatchController.BeginDraw(Scene.Camera?.GetMatrixDrawWorld());
+		Clear();
+        BeginDraw(Scene.Camera?.GetMatrixDrawWorld());
 	}
 
     /// <summary>
@@ -25,7 +59,27 @@ public class RenderingManager
     /// </summary>
 	public void BeginDrawUI()
 	{
-        SpriteBatchController.BeginDraw(null);
+        BeginDraw(null);
+	}
+
+	/// <summary>
+	///		Comienza el dibujo
+	/// </summary>
+	private void BeginDraw(Matrix? viewMatrix)
+	{
+		// Prepara los buffers de dibujo
+		Prepare();
+		// Arranca el dibujo
+		if (SpriteBatch is not null)
+		{
+			// Finaliza los dibujos anteriores
+			End();
+			// Arranca el dibujo
+			SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
+							  RasterizerState.CullCounterClockwise, null, viewMatrix);
+			// Indica que está dibujando
+			_isDrawing = true;
+		}
 	}
 
 	/// <summary>
@@ -33,7 +87,11 @@ public class RenderingManager
 	/// </summary>
 	public void End()
 	{
-		SpriteBatchController.End();
+		if (SpriteBatch is not null && _isDrawing)
+		{
+			SpriteBatch.End();
+			_isDrawing = false;
+		}
 	}
 
 	/// <summary>
@@ -42,7 +100,37 @@ public class RenderingManager
 	public AbstractScene Scene { get; }
 
 	/// <summary>
-	///		Controlador de dibujo
+	///		Dispositivo de dibujo
 	/// </summary>
-	public SpriteBatchController SpriteBatchController { get; }
+	public GraphicsDevice Device { get; }
+
+	/// <summary>
+	///		Batch de sprites
+	/// </summary>
+	public SpriteBatch? SpriteBatch { get; private set; }
+
+	/// <summary>
+	///		Renderer para figuras
+	/// </summary>
+	public Renderers.FiguresRenderer FiguresRenderer { get; }
+
+	/// <summary>
+	///		Renderer para cadenas de textos
+	/// </summary>
+	public Renderers.TextRenderer TextRenderer { get; }
+
+	/// <summary>
+	///		Renderer para texturas
+	/// </summary>
+	public Renderers.TexturesRenderer TexturesRenderer { get; }
+
+	/// <summary>
+	///		Renderer para <see cref="Entities.Common.Sprites.SpriteDefinition"/>
+	/// </summary>
+	public Renderers.SpriteRenderer SpriteRenderer { get; }
+
+	/// <summary>
+	///		Renderer para <see cref="Entities.Common.Sprites.SpriteTextDefinition"/>
+	/// </summary>
+	public Renderers.SpriteTextRenderer SpriteTextRenderer { get; }
 }

@@ -6,19 +6,19 @@ namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Renderers;
 /// <summary>
 ///		Clase de presentación para textos
 /// </summary>
-public class TextRenderer(SpriteBatchController spriteBatchController)
+public class TextRenderer(RenderingManager renderingManager)
 {
 	/// <summary>
 	///		Escribe una cadena
 	/// </summary>
 	public void DrawString(SpriteFont font, string text, Vector2 position, Color color)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
-			SpriteBatchController.SpriteBatch.DrawString(font, text, position, color);
+		if (RenderingManager.SpriteBatch is not null)
+			RenderingManager.SpriteBatch.DrawString(font, text, position, color);
 	}
 
 	/// <summary>
-	///		Controlador de dibujo principal
+	///		Manager de presentación
 	/// </summary>
-	public SpriteBatchController SpriteBatchController { get; } = spriteBatchController;
+	public RenderingManager RenderingManager { get; } = renderingManager;
 }

@@ -76,7 +76,7 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
         {
             // Dibuja el bocadillo
             if (BubbleSprite is not null)
-                camera.SpriteBatchController.SpriteRenderer.Draw(BubbleSprite, _bubbleBounds, Vector2.Zero, 0, BubbleColor);
+                camera.RenderingManager.SpriteRenderer.Draw(BubbleSprite, _bubbleBounds, Vector2.Zero, 0, BubbleColor);
             // Dibuja el texto
             DrawText(camera);
         }
@@ -135,7 +135,7 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
                             // Calcula la coordenada Y
                             y = Math.Min(y, y + textHeight - lineHeight);
                             // Dibuja el texto
-                            camera.SpriteBatchController.SpriteTextRenderer.DrawString(Font, line, new Vector2(x, y), Color);
+                            camera.RenderingManager.SpriteTextRenderer.DrawString(Font, line, new Vector2(x, y), Color);
                     }
             }
     }

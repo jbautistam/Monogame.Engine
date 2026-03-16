@@ -210,7 +210,6 @@
     <Compile Include="Scenes\Layers\LayerManager.cs" />
     <Compile Include="Scenes\Physics\RaycastingService.cs" />
     <Compile Include="Scenes\Rendering\RenderingManager.cs" />
-    <Compile Include="Scenes\Rendering\SpriteBatchController.cs" />
     <Compile Include="Scenes\Rendering\Transitions\Effects\AbstractTransitionEffect.cs" />
     <Compile Include="Scenes\Rendering\Transitions\Effects\BarsEffect.cs" />
     <Compile Include="Scenes\Rendering\Transitions\Effects\ChromaticAberrationEffect.cs" />

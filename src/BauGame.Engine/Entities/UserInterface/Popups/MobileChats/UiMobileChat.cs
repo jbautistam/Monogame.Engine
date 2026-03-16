@@ -151,7 +151,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
 
                             // Dibuja el avatar
                             if (avatar is not null)
-                                camera.SpriteBatchController.SpriteRenderer.Draw(avatar, avatarBounds, Vector2.Zero, 0, Color.White);
+                                camera.RenderingManager.SpriteRenderer.Draw(avatar, avatarBounds, Vector2.Zero, 0, Color.White);
                             // Dibuja el contenido del mensaje
                             if (message.Status == MobileMessage.StatusType.Writing && !message.Sender.IsPlayer)
                                 DrawWritting(camera, bounds, gameContext);
@@ -211,7 +211,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
 
                 // Dibuja la textura
                 if (SpriteWriting is not null)
-                    camera.SpriteBatchController.SpriteRenderer.Draw(SpriteWriting, position, Vector2.Zero, 0, Color.White * result.Value);
+                    camera.RenderingManager.SpriteRenderer.Draw(SpriteWriting, position, Vector2.Zero, 0, Color.White * result.Value);
                 // Incrementa el tiempo pasado o vuelve a empezar
                 if (result.Progress >= 0.99f)
                     _typingElapsed = 0;
@@ -226,9 +226,9 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
 	private void DrawBackground(Camera2D camera, MobileSender sender, Rectangle bounds)
 	{
         if (sender.SpriteBackground is not null)
-            camera.SpriteBatchController.SpriteRenderer.Draw(sender.SpriteBackground, bounds, Vector2.Zero, 0, sender.BackgroundColor);
+            camera.RenderingManager.SpriteRenderer.Draw(sender.SpriteBackground, bounds, Vector2.Zero, 0, sender.BackgroundColor);
         else
-		    camera.SpriteBatchController.FiguresRenderer.DrawRectangle(bounds, sender.BackgroundColor);
+		    camera.RenderingManager.FiguresRenderer.DrawRectangle(bounds, sender.BackgroundColor);
 	}
 
     /// <summary>
@@ -247,7 +247,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
                     Vector2 size = _spriteFont.MeasureString(message.Sender.Name);
 
                         // Dibuja el nombre
-                        camera.SpriteBatchController.TextRenderer.DrawString(_spriteFont, message.Sender.Name, 
+                        camera.RenderingManager.TextRenderer.DrawString(_spriteFont, message.Sender.Name, 
                                                                              new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.NameForecolor);
                         // Incrementa la posición
                         y += (int) size.Y + 2;
@@ -256,7 +256,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
                 foreach (string line in message.Lines)
                 {
                     // Escribe el texto
-                    camera.SpriteBatchController.TextRenderer.DrawString(_spriteFont, line, new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.Forecolor);
+                    camera.RenderingManager.TextRenderer.DrawString(_spriteFont, line, new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.Forecolor);
                     // Pasa a la siguiente línea
                     y += height;
                 }

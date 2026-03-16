@@ -11,12 +11,12 @@ public class FiguresRenderer
 	// Variables privadas
 	private Texture2D _whitePixel = default!;
 
-	public FiguresRenderer(SpriteBatchController spriteBatchController)
+	public FiguresRenderer(RenderingManager renderingManager)
 	{
 		// Guarda los objetos
-		SpriteBatchController = spriteBatchController;
+		RenderingManager = renderingManager;
 		// Prepara la textura de 1x1 en color blanco
-		_whitePixel = new Texture2D(spriteBatchController.Device, 1, 1);
+		_whitePixel = new Texture2D(renderingManager.Device, 1, 1);
 		_whitePixel.SetData([ Color.White ]);
 	}
 
@@ -25,8 +25,8 @@ public class FiguresRenderer
 	/// </summary>
 	public void DrawRectangle(Rectangle rectangle, Color color)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
-			SpriteBatchController.SpriteBatch.Draw(_whitePixel, rectangle, color);
+		if (RenderingManager.SpriteBatch is not null)
+			RenderingManager.SpriteBatch.Draw(_whitePixel, rectangle, color);
 	}
 
 	/// <summary>
@@ -34,16 +34,16 @@ public class FiguresRenderer
 	/// </summary>
 	public void DrawRectangleOutline(Rectangle rectangle, Color color, int thickness = 1)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
+		if (RenderingManager.SpriteBatch is not null)
 		{
 			// Arriba
-			SpriteBatchController.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, thickness), color);
+			RenderingManager.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, thickness), color);
 			// Abajo
-			SpriteBatchController.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - thickness, rectangle.Width, thickness), color);
+			RenderingManager.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - thickness, rectangle.Width, thickness), color);
 			// Izquierda
-			SpriteBatchController.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y, thickness, rectangle.Height), color);
+			RenderingManager.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y, thickness, rectangle.Height), color);
 			// Derecha
-			SpriteBatchController.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X + rectangle.Width - thickness, rectangle.Y, thickness, rectangle.Height), color);
+			RenderingManager.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X + rectangle.Width - thickness, rectangle.Y, thickness, rectangle.Height), color);
 		}
 	}
 
@@ -52,18 +52,18 @@ public class FiguresRenderer
 	/// </summary>
 	public void DrawLine(Vector2 start, Vector2 end, Color color, int thickness = 1)
 	{
-		if (SpriteBatchController.SpriteBatch is not null)
+		if (RenderingManager.SpriteBatch is not null)
 		{
 			Vector2 edge = end - start;
 			float angle = (float) Math.Atan2(edge.Y, edge.X);
 
 				// Dibuja la línea como un rectángulo rotado
-				SpriteBatchController.SpriteBatch.Draw(_whitePixel, start, null, color, angle, Vector2.Zero, new Vector2(edge.Length(), thickness), SpriteEffects.None, 0);
+				RenderingManager.SpriteBatch.Draw(_whitePixel, start, null, color, angle, Vector2.Zero, new Vector2(edge.Length(), thickness), SpriteEffects.None, 0);
 		}
 	}
 
 	/// <summary>
-	///		Controlador de dibujo principal
+	///		Manager de presentación
 	/// </summary>
-	public SpriteBatchController SpriteBatchController { get; }
+	public RenderingManager RenderingManager { get; }
 }
