@@ -48,11 +48,11 @@ public class ParticlesSystemEngineActor(Scenes.Layers.AbstractLayer layer, int? 
     /// <summary>
     ///     Dibuja las partículas activas y sus colas correspondientes
     /// </summary>
-	protected override void DrawSelf(Camera2D camera, Managers.GameContext gameContext)
+	protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         foreach (ParticlesPoolManager spawnerBehavior in Pools)
             if (spawnerBehavior.Enabled)
-                spawnerBehavior.Draw(camera, gameContext);
+                spawnerBehavior.Draw(renderingManager, gameContext);
     }
 
 	/// <summary>

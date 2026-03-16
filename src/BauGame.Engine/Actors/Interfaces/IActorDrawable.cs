@@ -8,5 +8,5 @@ public interface IActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
+	void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
 }

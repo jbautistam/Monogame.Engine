@@ -41,7 +41,7 @@ public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractAct
     /// <summary>
     ///     Dibuja el actor
     /// </summary>
-	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
+	protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		// ... no hace nada, simplemente implementa la interface
 	}

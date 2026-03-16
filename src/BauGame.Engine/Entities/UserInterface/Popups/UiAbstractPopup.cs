@@ -57,13 +57,13 @@ public abstract class UiAbstractPopup : UiElement
     /// <summary>
     ///     Dibuja el elemento
     /// </summary>
-    public override void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         if (!IsClosed)
         {
-            Header?.Draw(camera, gameContext);
-            Body?.Draw(camera, gameContext);
-            Footer?.Draw(camera, gameContext);
+            Header?.Draw(renderingManager, gameContext);
+            Body?.Draw(renderingManager, gameContext);
+            Footer?.Draw(renderingManager, gameContext);
         }
     }
     

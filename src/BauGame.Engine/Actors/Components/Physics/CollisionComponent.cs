@@ -35,17 +35,17 @@ public class CollisionComponent(AbstractActorDrawable owner, int physicLayerId) 
 	/// <summary>
 	///		Dibuja el componente
 	/// </summary>
-	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 		if (GameEngine.Instance.EngineSettings.DebugMode)
 			foreach (AbstractCollider collider in Colliders)
 				switch (collider)
 				{
 					case RectangleCollider rectangle:
-							camera.RenderingManager.FiguresRenderer.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.White, 2);
+							renderingManager.FiguresRenderer.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.White, 2);
 						break;
 					case CircleCollider circle:
-							camera.RenderingManager.FiguresRenderer.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.Red, 2);
+							renderingManager.FiguresRenderer.DrawRectangleOutline(collider.GetBoundsAABB().ToRectangle(), Color.Red, 2);
 						break;
 				}
 	}

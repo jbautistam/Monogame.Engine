@@ -84,7 +84,7 @@ public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition pos
     /// <summary>
     ///     Dibuja el elemento
     /// </summary>
-    public abstract void Draw(Camera2D camera, Managers.GameContext gameContext);
+    public abstract void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
 
 	/// <summary>
 	///     Manager del elemento

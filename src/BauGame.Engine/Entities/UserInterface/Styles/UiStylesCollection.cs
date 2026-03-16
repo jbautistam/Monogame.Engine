@@ -104,12 +104,12 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public void Draw(Camera2D camera, string key, UiStyle.StyleType type, Rectangle position, Managers.GameContext gameContext)
+	public void Draw(Scenes.Rendering.RenderingManager renderingManager, string key, UiStyle.StyleType type, Rectangle position, Managers.GameContext gameContext)
 	{
 		UiStyle? style = GetStyle(key, type);
 
 			if (style is not null)
-				style.Draw(camera, position, gameContext);
+				style.Draw(renderingManager, position, gameContext);
 	}
 
 	/// <summary>

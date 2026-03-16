@@ -1,5 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
 
@@ -18,8 +17,8 @@ public class UiSolidColorBackground(Styles.UiStyle style) : UiAbstractBackground
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, Rectangle position, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, Managers.GameContext gameContext)
 	{
-		camera.RenderingManager.FiguresRenderer.DrawRectangle(position, Color * Opacity);
+		renderingManager.FiguresRenderer.DrawRectangle(position, Color * Opacity);
 	}
 }

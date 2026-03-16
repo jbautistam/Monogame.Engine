@@ -84,10 +84,10 @@ public class ParticlesPoolManager(Emisors.AbstractEmissorShape emissor, Particle
     /// <summary>
     ///     Dibuja las partículas
     /// </summary>
-	internal void Draw(Camera2D camera, GameContext gameContext)
+	internal void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		foreach (ParticleProperties particle in _particles.Enumerate())
-            particle.Draw(camera, gameContext);
+            particle.Draw(renderingManager, gameContext);
 	}
 
     /// <summary>

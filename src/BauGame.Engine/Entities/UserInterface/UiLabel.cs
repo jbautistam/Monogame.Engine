@@ -83,24 +83,24 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja el estilo
-        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
+        Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja el texto
         if (!string.IsNullOrEmpty(Text) && SpriteFont is not null)
         {
             if (WrapText)
-                DrawWrappedText(camera, Text, SpriteFont);
+                DrawWrappedText(renderingManager, Text, SpriteFont);
             else
-                DrawSimpleText(camera, Text, SpriteFont);
+                DrawSimpleText(renderingManager, Text, SpriteFont);
         }
     }
 
     /// <summary>
     ///     Dibuja el texto en una línea
     /// </summary>
-    private void DrawSimpleText(Camera2D camera, string text, SpriteFont font)
+    private void DrawSimpleText(Scenes.Rendering.RenderingManager renderingManager, string text, SpriteFont font)
     {
         Vector2 textSize = font.MeasureString(text);
         Vector2 textPosition = new(Position.ContentBounds.X, Position.ContentBounds.Y);
@@ -133,13 +133,13 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                     break;
             }
             // Dibuja el texto
-            camera.RenderingManager.TextRenderer.DrawString(font, text, textPosition, style.Color * style.Opacity);
+            renderingManager.TextRenderer.DrawString(font, text, textPosition, style.Color * style.Opacity);
     }
 
     /// <summary>
     ///     Dibuja el texto en varias líneas
     /// </summary>
-    private void DrawWrappedText(Camera2D camera, string text, SpriteFont font)
+    private void DrawWrappedText(Scenes.Rendering.RenderingManager renderingManager, string text, SpriteFont font)
     {
         string[] words = text.Split(' ');
         string line = "";
@@ -160,7 +160,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                             Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
                                 // Dibuja la línea actual y empieza una nueva
-                                camera.RenderingManager.TextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                                renderingManager.TextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
                                 // Pasa a la siguiente palabra
                                 line = word;
                                 // Incrementa la posición y
@@ -177,7 +177,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
             {
                 Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
-                    camera.RenderingManager.TextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                    renderingManager.TextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
             }
 
         // Comprueba si la coordenada y está fuera de los límites

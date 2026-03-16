@@ -103,7 +103,7 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
     /// <summary>
     ///     Dibuja los elementos
     /// </summary>
-	public override void Draw(Camera2D camera, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
         for (int row = FirstVisibleRow; row < FirstVisibleRow + ViewportRows; row++)
             for (int column = FirstVisibleColumn; column < FirstVisibleColumn + ViewportColumns; column++)
@@ -115,7 +115,7 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
                     // Dibja los elementos
                     foreach (UiGalleryItem gridItem in gridItems)
                         if (gridItem.Item.Visible)
-                            gridItem.Draw(camera, gameContext);
+                            gridItem.Draw(renderingManager, gameContext);
             }
 	}
 

@@ -66,14 +66,14 @@ public class GridItemCollection(UiGrid grid) : List<GridItemModel>
     /// <summary>
     ///     Dibuja los elementos
     /// </summary>
-	public void Draw(Camera2D camera, GameContext gameContext)
+	public void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
         // Ordena los elementos
         Sort((first, second) => first.ZIndex.CompareTo(second.ZIndex));
         // Y los dibuja
         foreach (GridItemModel element in this)
             if (element.Visible)
-                element.Draw(camera, gameContext);
+                element.Draw(renderingManager, gameContext);
 	}
 
 	/// <summary>

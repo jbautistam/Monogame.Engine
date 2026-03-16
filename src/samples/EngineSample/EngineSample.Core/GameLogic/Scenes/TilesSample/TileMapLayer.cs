@@ -70,7 +70,7 @@ internal class TileMapLayer(AbstractScene scene, string name, int physicsLayer, 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
+	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		// ... no hace nada, sólo implementa la interface
 	}

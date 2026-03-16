@@ -56,11 +56,11 @@ public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, i
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
+	protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		foreach (TileActor tile in Tiles)
-			if (camera.IsAtView(tile.Transform.Bounds))
-				tile.Draw(camera, gameContext);
+			if (renderingManager.Scene.Camera is not null && renderingManager.Scene.Camera.IsAtView(tile.Transform.Bounds))
+				tile.Draw(renderingManager, gameContext);
 	}
 	
 	/// <summary>

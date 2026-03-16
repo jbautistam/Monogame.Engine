@@ -27,10 +27,10 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja los componentes del estilo
-        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
+        Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
         // Dibuja la imagen
         if (Sprite is not null)
         {
@@ -56,10 +56,10 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                 // Alinea la imagen
                 target = AlignImage(target);
                 // Dibuja la imagen
-                camera.RenderingManager.SpriteRenderer.Draw(Sprite, target, Origin, Rotation, style.Color * style.Opacity * Opacity);
+                renderingManager.SpriteRenderer.Draw(Sprite, target, Origin, Rotation, style.Color * style.Opacity * Opacity);
                 // Dibuja un rectángulo para depuración
 		        if (GameEngine.Instance.EngineSettings.DebugMode)
-                    camera.RenderingManager.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugImageColor, 2);
+                    renderingManager.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugImageColor, 2);
         }
     }
 

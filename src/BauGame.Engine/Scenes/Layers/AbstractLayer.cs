@@ -78,20 +78,20 @@ public abstract class AbstractLayer : Entities.Common.Collections.ISecureListIte
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
+	public void Draw(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
         // Dibuja la capa
-        DrawSelf(camera, gameContext);
+        DrawSelf(renderingManager, gameContext);
         // Ordena los actores
         Actors.SortByZOrder();
         // Dibuja los actores
-        Actors.Draw(camera, gameContext);
+        Actors.Draw(renderingManager, gameContext);
 	}
 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected abstract void DrawSelf(Cameras.Camera2D camera, Managers.GameContext gameContext);
+	protected abstract void DrawSelf(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
 
     /// <summary>
     ///     Finaliza la capa

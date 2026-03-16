@@ -45,11 +45,11 @@ public class ComponentCollectionModel(AbstractActor owner)
 	/// <summary>
 	///		Dibuja los componentes
 	/// </summary>
-	internal void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
+	internal void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 		foreach (AbstractComponent component in Items)
 			if (component.Enabled && (component.Drawable || GameEngine.Instance.EngineSettings.DebugMode))
-				component.Draw(camera, gameContext);
+				component.Draw(renderingManager, gameContext);
 	}
 
 	/// <summary>

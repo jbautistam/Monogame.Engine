@@ -42,7 +42,7 @@ public class CharacterActor(Bau.Libraries.BauGame.Engine.Scenes.Layers.AbstractL
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
+	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

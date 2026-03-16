@@ -67,7 +67,7 @@ public class ParticleProperties : Entities.Common.Pools.IPoolable
     /// <summary>
     ///     Dibuja las partículas activas y sus colas correspondientes
     /// </summary>
-	internal void Draw(Camera2D camera, GameContext gameContext)
+	internal void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
         TextureRegion? region = _texture?.GetRegion(Region);
 
@@ -81,7 +81,7 @@ public class ParticleProperties : Entities.Common.Pools.IPoolable
                     if (tailDirection != Vector2.Zero)
                         tailDirection.Normalize();
                     // Dibuja la partícula principal
-                    region.Draw(camera, Position, center, Scale, SpriteEffects.None, Color * Opacity, Rotation);
+                    region.Draw(renderingManager, Position, center, Scale, SpriteEffects.None, Color * Opacity, Rotation);
                     // Dibuja la cola de partículas en segmentos
                     for (float tail = 0; tail < tailLength; tail += TailDensity)
                     {
@@ -89,7 +89,7 @@ public class ParticleProperties : Entities.Common.Pools.IPoolable
                         float alpha = MathHelper.Clamp(1f - tail / tailLength, 0f, 1f);
 
                             // Dibuja el segmento de cola a una escala más pequeña
-                            region.Draw(camera, tailPosition, center, Scale, SpriteEffects.None, Color * alpha, Rotation);
+                            region.Draw(renderingManager, tailPosition, center, Scale, SpriteEffects.None, Color * alpha, Rotation);
                     }
             }
     }

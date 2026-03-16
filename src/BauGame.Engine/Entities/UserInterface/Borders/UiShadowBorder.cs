@@ -17,7 +17,7 @@ public class UiShadowBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, Rectangle position, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
     {
         Rectangle shadowBounds = new(position.X + (int) Offset.X, position.Y + (int) Offset.Y, position.Width, position.Height);
             
@@ -33,11 +33,11 @@ public class UiShadowBorder(Styles.UiStyle style) : UiAbstractBorder(style)
                     Color color = new(ShadowColor.R, ShadowColor.G, ShadowColor.B, (byte) (alpha * 255));
                     
                         // Dibuja el rectángulo
-                        camera.RenderingManager.FiguresRenderer.DrawRectangleOutline(expanded, color);
+                        renderingManager.FiguresRenderer.DrawRectangleOutline(expanded, color);
                 }
             }
             else
-                camera.RenderingManager.FiguresRenderer.DrawRectangleOutline(shadowBounds, ShadowColor);
+                renderingManager.FiguresRenderer.DrawRectangleOutline(shadowBounds, ShadowColor);
     }
 
     /// <summary>

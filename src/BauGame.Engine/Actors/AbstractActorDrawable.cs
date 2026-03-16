@@ -63,21 +63,21 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 	/// <summary>
 	///		Dibuja el actor y los componentes
 	/// </summary>
-    public void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
+    public void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-		if (camera.IsAtView(Transform.Bounds))
+		if (renderingManager.Scene.Camera is not null && renderingManager.Scene.Camera.IsAtView(Transform.Bounds))
 		{
 			// Dibuja los componentes
-			Components.Draw(camera, gameContext);
+			Components.Draw(renderingManager, gameContext);
 			// Llama al actor para que se dibuje si es necesario
-			DrawSelf(camera, gameContext);
+			DrawSelf(renderingManager, gameContext);
 		}
     }
 
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected abstract void DrawSelf(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
+	protected abstract void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza el trabajo con el actor

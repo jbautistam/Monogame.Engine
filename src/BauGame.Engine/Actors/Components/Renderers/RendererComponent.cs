@@ -128,21 +128,21 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-    public override void Draw(Camera2D camera, GameContext gameContext)
+    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
 		TextureRegion? region = GetRegion(Region);
 
-			if (region is not null)
+			if (region is not null && renderingManager.Scene.Camera is not null)
 			{
 				Vector2 position;
 
 					// Calcula la posición dependiendo de si las coordenadas son relativas
 					if (ScaleToViewPort)
-						position = camera.WorldToScreenRelative(Actor.Transform.Bounds.TopLeft);
+						position = renderingManager.Scene.Camera.WorldToScreenRelative(Actor.Transform.Bounds.TopLeft);
 					else
 						position = Actor.Transform.BoundsCentered.TopLeft;
 					// Dibuja el actor
-					region.Draw(camera, position, Actor.Transform.Center, CalculateScale(camera.ScreenViewport, region.Region),
+					region.Draw(renderingManager, position, Actor.Transform.Center, CalculateScale(renderingManager.Scene.Camera.ScreenViewport, region.Region),
 								SpriteEffects, Opacity * Color, Actor.Transform.Rotation);
 			}
     }

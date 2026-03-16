@@ -45,10 +45,10 @@ public class ExplosionsManager(AbstractLayer layer)
     /// <summary>
     ///     Dibuja las explosiones
     /// </summary>
-    public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
+    public void Draw(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         foreach (ExplosionActor explosion in _explossions.Enumerate())
-            explosion.Draw(camera, gameContext);
+            explosion.Draw(renderingManager, gameContext);
     }
 
     /// <summary>

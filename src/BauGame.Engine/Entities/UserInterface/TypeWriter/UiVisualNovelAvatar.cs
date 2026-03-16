@@ -30,10 +30,10 @@ public class UiVisualNovelAvatar(Scenes.Layers.AbstractUserInterfaceLayer layer,
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
-		Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
-		Avatar?.Draw(camera, gameContext);
+		Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
+		Avatar?.Draw(renderingManager, gameContext);
 	}
 
 	/// <summary>

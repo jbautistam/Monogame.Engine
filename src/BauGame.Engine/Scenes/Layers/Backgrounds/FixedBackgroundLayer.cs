@@ -25,41 +25,39 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    protected override void DrawSelf(Cameras.Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         TextureRegion? region = GetTextureRegion("background");
 
-            if (region is not null)
+            if (region is not null && renderingManager.Scene.Camera is not null)
             {
-                float worldScreenWidth = camera.ScreenViewport.Width / camera.Zoom;
-                float worldScreenHeight = camera.ScreenViewport.Height / camera.Zoom;
+                float worldScreenWidth = renderingManager.Scene.Camera.ScreenViewport.Width / renderingManager.Scene.Camera.Zoom;
+                float worldScreenHeight = renderingManager.Scene.Camera.ScreenViewport.Height / renderingManager.Scene.Camera.Zoom;
 
                     if (!Tiled)
                     {
                         Vector2 scale = new(worldScreenWidth / region.Texture.Width, worldScreenHeight / region.Texture.Height);
-                        Vector2 backgroundPosition = camera.Position - new Vector2(worldScreenWidth / 2f, worldScreenHeight / 2f);
+                        Vector2 backgroundPosition = renderingManager.Scene.Camera.Position - new Vector2(worldScreenWidth / 2f, worldScreenHeight / 2f);
 
                             // Dibujamos el fondo escalado para cubrir toda la pantalla visible
-                            camera.RenderingManager.TexturesRenderer.Draw(region.Texture, backgroundPosition, null, Vector2.Zero, scale, 
-                                                                               Microsoft.Xna.Framework.Graphics.SpriteEffects.None,
-                                                                               Color, 0f, 0);
+                            renderingManager.TexturesRenderer.Draw(region.Texture, backgroundPosition, null, Vector2.Zero, scale, 
+                                                                   Microsoft.Xna.Framework.Graphics.SpriteEffects.None,
+                                                                   Color, 0f, 0);
                     }
                     else
                     {
                         // Calculamos cuántos tiles necesitamos
                         int tileWidth = region.Texture.Width;
                         int tileHeight = region.Texture.Height;
-
-                        int startX = (int) (camera.Position.X - worldScreenWidth / 2f) / tileWidth * tileWidth;
-                        int startY = (int) (camera.Position.Y - worldScreenHeight / 2f) / tileHeight * tileHeight;
-
+                        int startX = (int) (renderingManager.Scene.Camera.Position.X - worldScreenWidth / 2f) / tileWidth * tileWidth;
+                        int startY = (int) (renderingManager.Scene.Camera.Position.Y - worldScreenHeight / 2f) / tileHeight * tileHeight;
                         int endX = startX + (int) worldScreenWidth + tileWidth;
                         int endY = startY + (int) worldScreenHeight + tileHeight;
 
                             // Dibuja los diferentes tiles
                             for (int x = startX; x < endX; x += tileWidth)
                                 for (int y = startY; y < endY; y += tileHeight)
-                                    camera.RenderingManager.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
+                                    renderingManager.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
                     }
             }
     }

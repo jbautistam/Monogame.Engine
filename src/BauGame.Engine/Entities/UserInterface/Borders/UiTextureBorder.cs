@@ -20,13 +20,13 @@ public class UiTextureBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, Rectangle position, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, Managers.GameContext gameContext)
 	{
 		Rectangle destination = InflateWithSprite(position);
 
 			// Dibuja el control
 			if (Sprite is not null)
-				camera.RenderingManager.SpriteRenderer.Draw(Sprite, destination, Vector2.Zero, 0, Color * Opacity);
+				renderingManager.SpriteRenderer.Draw(Sprite, destination, Vector2.Zero, 0, Color * Opacity);
 	}
 
 	/// <summary>

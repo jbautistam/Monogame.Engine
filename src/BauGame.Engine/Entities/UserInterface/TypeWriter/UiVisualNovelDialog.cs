@@ -102,19 +102,19 @@ public class UiVisualNovelDialog(Scenes.Layers.AbstractUserInterfaceLayer layer,
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		// Dibuja el avatar izquierdo
 		if (LeftAvatar is not null && LeftAvatar.Visible)
-			LeftAvatar.Draw(camera, gameContext);
+			LeftAvatar.Draw(renderingManager, gameContext);
 		// Dibuja los textos y el cursor
-		TypeWriter?.Draw(camera, gameContext);
-		Header?.Draw(camera, gameContext);
+		TypeWriter?.Draw(renderingManager, gameContext);
+		Header?.Draw(renderingManager, gameContext);
 		if (Cursor is not null && Cursor.Visible)
-			Cursor.Draw(camera, gameContext);
+			Cursor.Draw(renderingManager, gameContext);
 		// Dibuja el avatar derecho
 		if (RightAvatar is not null && RightAvatar.Visible)
-			RightAvatar.Draw(camera, gameContext);
+			RightAvatar.Draw(renderingManager, gameContext);
 	}
 
 	/// <summary>

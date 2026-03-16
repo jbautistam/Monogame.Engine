@@ -118,7 +118,7 @@ public class ProjectileActor : AbstractActorDrawable
     /// <summary>
     ///     Dibuja datos adicionales del actor
     /// </summary>
-    protected override void DrawSelf(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // ... no hace nada, sólo implementa la interface
     }

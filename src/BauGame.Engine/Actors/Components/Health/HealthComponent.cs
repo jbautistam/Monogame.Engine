@@ -80,7 +80,7 @@ public class HealthComponent(AbstractActorDrawable owner) : AbstractComponent(ow
 	/// <summary>
 	///		Dibuja el compoente (no hace nada, sólo implementa el interface)
 	/// </summary>
-	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 	}
 

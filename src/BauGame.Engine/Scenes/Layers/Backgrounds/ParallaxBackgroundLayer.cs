@@ -26,18 +26,18 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    protected override void DrawSelf(Camera2D camera, Managers.GameContext gameContext)
+    protected override void DrawSelf(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         TextureRegion? region = GetTextureRegion("background");
 
             // Si tenemos una textura
-            if (region is not null)
+            if (region is not null && renderingManager.Scene.Camera is not null)
             {
-                float worldScreenWidth = camera.ScreenViewport.Width / camera.Zoom;
-                float worldScreenHeight = camera.ScreenViewport.Height / camera.Zoom;
+                float worldScreenWidth = renderingManager.Scene.Camera.ScreenViewport.Width / renderingManager.Scene.Camera.Zoom;
+                float worldScreenHeight = renderingManager.Scene.Camera.ScreenViewport.Height / renderingManager.Scene.Camera.Zoom;
 
                 // La capa se mueve más lento → posición "atrasada"
-                Vector2 layerPosition = camera.Position * SpeedMultiplier;
+                Vector2 layerPosition = renderingManager.Scene.Camera.Position * SpeedMultiplier;
 
                 int tileWidth = region.Texture.Width;
                 int tileHeight = region.Texture.Height;
@@ -51,7 +51,7 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
                 // Dibuja las partes del fondo
                 for (int x = startX; x < endX; x += tileWidth)
                     for (int y = startY; y < endY; y += tileHeight)
-                        camera.RenderingManager.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
+                        renderingManager.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
             }
     }
 

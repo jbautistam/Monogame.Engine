@@ -62,12 +62,12 @@ public class UiButton : UiElement
     /// <summary>
     ///     Dibuja el contenido del elemento
     /// </summary>
-    public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibujar textura de fondo si existe
-        Layer.DrawStyle(camera, Style, State, Position.ContentBounds, gameContext);
+        Layer.DrawStyle(renderingManager, Style, State, Position.ContentBounds, gameContext);
         // Dibuja el texto
-        Label?.Draw(camera, gameContext);
+        Label?.Draw(renderingManager, gameContext);
     }
 
     /// <summary>

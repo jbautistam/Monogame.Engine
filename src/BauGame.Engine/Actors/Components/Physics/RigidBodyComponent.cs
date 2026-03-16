@@ -114,7 +114,7 @@ public class RigidbodyComponent(AbstractActorDrawable owner) : AbstractComponent
     /// <summary>
     ///     Dibuja el componente (en este caso no hace nada)
     /// </summary>
-	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 	}
 

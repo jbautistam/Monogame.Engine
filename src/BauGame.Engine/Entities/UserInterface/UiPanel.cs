@@ -61,14 +61,14 @@ public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja el borde y el fondo
-        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
+        Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja los elementos hijo
         foreach (UiElement child in Children)
             if (child.Visible)
-                child.Draw(camera, gameContext);
+                child.Draw(renderingManager, gameContext);
     }
 
     /// <summary>

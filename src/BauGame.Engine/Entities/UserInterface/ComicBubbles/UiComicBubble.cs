@@ -70,22 +70,22 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     /// <summary>
     ///     Dibuja el componente
     /// </summary>
-	public override void Draw(Camera2D camera, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
         if (!string.IsNullOrWhiteSpace(Text))
         {
             // Dibuja el bocadillo
             if (BubbleSprite is not null)
-                camera.RenderingManager.SpriteRenderer.Draw(BubbleSprite, _bubbleBounds, Vector2.Zero, 0, BubbleColor);
+                renderingManager.SpriteRenderer.Draw(BubbleSprite, _bubbleBounds, Vector2.Zero, 0, BubbleColor);
             // Dibuja el texto
-            DrawText(camera);
+            DrawText(renderingManager);
         }
 	}
 
     /// <summary>
     ///     Dibuja el texto del bocadillo
     /// </summary>
-    private void DrawText(Camera2D camera)
+    private void DrawText(Scenes.Rendering.RenderingManager renderingManager)
     {
         SpriteFont? spriteFont = Font?.LoadAsset();
 
@@ -135,7 +135,7 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
                             // Calcula la coordenada Y
                             y = Math.Min(y, y + textHeight - lineHeight);
                             // Dibuja el texto
-                            camera.RenderingManager.SpriteTextRenderer.DrawString(Font, line, new Vector2(x, y), Color);
+                            renderingManager.SpriteTextRenderer.DrawString(Font, line, new Vector2(x, y), Color);
                     }
             }
     }

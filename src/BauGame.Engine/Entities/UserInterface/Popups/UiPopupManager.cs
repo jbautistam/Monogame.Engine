@@ -97,16 +97,21 @@ public class UiPopupManager(AbstractUserInterfaceLayer layer)
     /// <summary>
     ///     Dibuja los popups
     /// </summary>
-    public void Draw(Camera2D camera, Managers.GameContext gameContext)
+    public void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-        // Dibuja un fondo oscuro
-        if (_lastModal is not null)
-            camera.RenderingManager.FiguresRenderer.DrawRectangle(new Rectangle(0, 0, camera.ScreenViewport.Width, camera.ScreenViewport.Height), 
-                                                                       Color.Black * 0.75f);
-        // Dibuja todos los popups abiertos
-        foreach (UiAbstractPopup popup in _popups)
-            if (!popup.IsClosed)
-                popup.Draw(camera, gameContext);
+        if (renderingManager.Scene.Camera is not null)
+        {
+            // Dibuja un fondo oscuro
+            if (_lastModal is not null)
+                renderingManager.FiguresRenderer.DrawRectangle(new Rectangle(0, 0, 
+                                                                             renderingManager.Scene.Camera.ScreenViewport.Width, 
+                                                                             renderingManager.Scene.Camera.ScreenViewport.Height), 
+                                                               Color.Black * 0.75f);
+            // Dibuja todos los popups abiertos
+            foreach (UiAbstractPopup popup in _popups)
+                if (!popup.IsClosed)
+                    popup.Draw(renderingManager, gameContext);
+        }
     }
 
     /// <summary>

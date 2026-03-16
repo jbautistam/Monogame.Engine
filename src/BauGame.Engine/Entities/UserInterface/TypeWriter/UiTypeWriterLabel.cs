@@ -140,22 +140,22 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
 	/// <summary>
 	///     Dibuja el contenido
 	/// </summary>
-	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja el fondo
-        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
+        Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja el texto
         if (SpriteFont is not null)
-            DrawWrappedText(camera, SpriteFont);
+            DrawWrappedText(renderingManager, SpriteFont);
         // Depuración
 		if (GameEngine.Instance.EngineSettings.DebugMode)
-            camera.RenderingManager.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugOverlayColor, 2);
+            renderingManager.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugOverlayColor, 2);
     }
 
     /// <summary>
     ///     Dibuja el texto en varias líneas
     /// </summary>
-    private void DrawWrappedText(Camera2D camera, SpriteFont font)
+    private void DrawWrappedText(Scenes.Rendering.RenderingManager renderingManager, SpriteFont font)
     {
         Styles.UiStyle style = Layer.Styles.GetDefault(Style);
         float x = Position.ContentBounds.X, y = Position.ContentBounds.Y;
@@ -182,7 +182,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
                             if (x + wordSize.X > Position.ContentBounds.Right)
                                 (x, y) = NewLine(y, font);
                             // Dibuja la cadena
-                            camera.RenderingManager.TextRenderer.DrawString(font, wordToWrite, new Vector2(x, y), color * style.Opacity);
+                            renderingManager.TextRenderer.DrawString(font, wordToWrite, new Vector2(x, y), color * style.Opacity);
                             // Cambia la X
                             if (isEndOfLine)
                                 (x, y) = NewLine(y, font);

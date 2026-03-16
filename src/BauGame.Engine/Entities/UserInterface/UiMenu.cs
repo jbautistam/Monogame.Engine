@@ -164,15 +164,15 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja el título, borde y fondo
-        Title?.Draw(camera, gameContext);
-        Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
+        Title?.Draw(renderingManager, gameContext);
+        Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja los elementos hijo
         foreach (UiElement child in Options)
             if (child.Visible)
-                child.Draw(camera, gameContext);
+                child.Draw(renderingManager, gameContext);
     }
 
     /// <summary>

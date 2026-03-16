@@ -58,10 +58,10 @@ public class GridItemModel : UiElement
     /// <summary>
     ///     Dibuja el elemento
     /// </summary>
-	public override void Draw(Camera2D camera, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
         if (Item.Visible)
-		    Item.Draw(camera, gameContext);
+		    Item.Draw(renderingManager, gameContext);
 	}
 
 	/// <summary>

@@ -56,17 +56,17 @@ public abstract class AbstractScene
             // Dibuja las capas de fondo / partida
             foreach (Layers.AbstractLayer layer in LayerManager.Layers)
                 if (layer.Enabled && layer.Type != Layers.AbstractLayer.LayerType.UserInterface)
-                    layer.Draw(Camera, gameContext);
+                    layer.Draw(RenderingManager, gameContext);
 		    // Dibuja la capa de log
-            GameEngine.Instance.DebugManager.DrawLogFigures(gameContext, Camera);
+            GameEngine.Instance.DebugManager.DrawLogFigures(RenderingManager, gameContext);
 		    // Comienza el dibujo de la interface de usuario
             RenderingManager.BeginDrawUI();
             // Dibuja las capas de interface de usuario
             foreach (Layers.AbstractLayer layer in LayerManager.Layers)
                 if (layer.Enabled && layer.Type == Layers.AbstractLayer.LayerType.UserInterface)
-                    layer.Draw(Camera, gameContext);
+                    layer.Draw(RenderingManager, gameContext);
             // Dibuja la capa de log
-            GameEngine.Instance.DebugManager.DrawLogStrings(gameContext, Camera);
+            GameEngine.Instance.DebugManager.DrawLogStrings(RenderingManager, gameContext);
 		    // Finaliza el dibujo
             RenderingManager.End();
         }

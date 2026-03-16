@@ -38,10 +38,10 @@ public class UiStyle(UiStylesCollection stylesParent, UiStyle.StyleType type)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public void Draw(Camera2D camera, Rectangle position, GameContext gameContext)
+	public void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
 	{
-		Background?.Draw(camera, position, gameContext);
-		Border?.Draw(camera, position, gameContext);
+		Background?.Draw(renderingManager, position, gameContext);
+		Border?.Draw(renderingManager, position, gameContext);
 	}
 
 	/// <summary>

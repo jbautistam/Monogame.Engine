@@ -257,7 +257,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawGameLayer(Camera2D camera, GameContext gameContext)
+	protected override void DrawGameLayer(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
 	}

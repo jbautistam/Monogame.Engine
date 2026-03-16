@@ -38,7 +38,7 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         if (!string.IsNullOrEmpty(Text) && SpriteFont is not null)
         {
@@ -48,9 +48,9 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
             UiStyle? style = GetStyle();
 
                 // Dibuja la textura de fondo si existe
-                Layer.DrawStyle(camera, Style, State, Position.Bounds, gameContext);
+                Layer.DrawStyle(renderingManager, Style, State, Position.Bounds, gameContext);
                 // Dibuja el texto
-                camera.RenderingManager.TextRenderer.DrawString(SpriteFont, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
+                renderingManager.TextRenderer.DrawString(SpriteFont, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
         }
     }
 

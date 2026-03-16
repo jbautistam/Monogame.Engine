@@ -53,9 +53,9 @@ public class UiGrid : UiElement, Interfaces.IComponentPanel
     /// <summary>
     ///     Dibuja el grid
     /// </summary>
-	public override void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
-        Items.Draw(camera, gameContext);
+        Items.Draw(renderingManager, gameContext);
     }
 
 	/// <summary>

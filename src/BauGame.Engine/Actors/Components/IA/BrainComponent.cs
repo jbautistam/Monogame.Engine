@@ -111,7 +111,7 @@ public class BrainComponent : AbstractComponent
 	/// <summary>
 	///		Dibuja el componente
 	/// </summary>
-	public override void Draw(Camera2D camera, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		// ... en este caso no hace nada
 	}

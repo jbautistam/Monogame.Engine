@@ -19,30 +19,30 @@ public class UiRoundedBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, Rectangle position, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
     {
         int radius = (int) Math.Min(Radius, Math.Min(position.Width, position.Height) / 2f);
 
             // Dibuja los lados dejando espacio para las esquinas
-            camera.RenderingManager.FiguresRenderer.DrawRectangle(new Rectangle(position.X + radius, position.Y, position.Width - radius * 2, Thickness), 
-                                                                       Color * Opacity);
-            camera.RenderingManager.FiguresRenderer.DrawRectangle(new Rectangle(position.X + radius, position.Bottom - Thickness, position.Width - radius * 2, Thickness), 
-                                                                       Color * Opacity);
-            camera.RenderingManager.FiguresRenderer.DrawRectangle(new Rectangle(position.X, position.Y + radius, Thickness, position.Height - radius * 2), 
-                                                                       Color * Opacity);
-            camera.RenderingManager.FiguresRenderer.DrawRectangle(new Rectangle(position.Right - Thickness, position.Y + radius, Thickness, position.Height - radius * 2), 
-                                                                       Color * Opacity);
+            renderingManager.FiguresRenderer.DrawRectangle(new Rectangle(position.X + radius, position.Y, position.Width - radius * 2, Thickness), 
+                                                           Color * Opacity);
+            renderingManager.FiguresRenderer.DrawRectangle(new Rectangle(position.X + radius, position.Bottom - Thickness, position.Width - radius * 2, Thickness), 
+                                                           Color * Opacity);
+            renderingManager.FiguresRenderer.DrawRectangle(new Rectangle(position.X, position.Y + radius, Thickness, position.Height - radius * 2), 
+                                                           Color * Opacity);
+            renderingManager.FiguresRenderer.DrawRectangle(new Rectangle(position.Right - Thickness, position.Y + radius, Thickness, position.Height - radius * 2), 
+                                                           Color * Opacity);
             // Dibuja las esquinas
-            DrawCorner(camera, position.X + radius, position.Y + radius, -1, -1, radius);
-            DrawCorner(camera, position.Right - radius, position.Y + radius, 1, -1, radius);
-            DrawCorner(camera, position.X + radius, position.Bottom - radius, -1, 1, radius);
-            DrawCorner(camera, position.Right - radius, position.Bottom - radius, 1, 1, radius);
+            DrawCorner(renderingManager, position.X + radius, position.Y + radius, -1, -1, radius);
+            DrawCorner(renderingManager, position.Right - radius, position.Y + radius, 1, -1, radius);
+            DrawCorner(renderingManager, position.X + radius, position.Bottom - radius, -1, 1, radius);
+            DrawCorner(renderingManager, position.Right - radius, position.Bottom - radius, 1, 1, radius);
     }
 
     /// <summary>
     ///     Dibuja una esquina. Utiliza una aproximación dibujando segmentos pequeños escalonados
     /// </summary>
-    private void DrawCorner(Camera2D camera2D, int cx, int cy, int dirX, int dirY, int radius)
+    private void DrawCorner(Scenes.Rendering.RenderingManager renderingManager, int cx, int cy, int dirX, int dirY, int radius)
     {
         int steps = Math.Max(3, radius / 2);
 
@@ -54,7 +54,7 @@ public class UiRoundedBorder(Styles.UiStyle style) : UiAbstractBorder(style)
                 int y = cy + (int) (dirY * (radius - Math.Cos(angle) * radius));
                 
                     // Dibuja el rectángulo
-                    camera2D.RenderingManager.FiguresRenderer.DrawRectangle(new Rectangle(x, y, Thickness, Thickness), Color * Opacity);
+                    renderingManager.FiguresRenderer.DrawRectangle(new Rectangle(x, y, Thickness, Thickness), Color * Opacity);
             }
     }
 

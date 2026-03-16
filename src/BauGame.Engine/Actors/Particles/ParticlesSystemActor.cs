@@ -80,7 +80,7 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
     /// <summary>
     ///     Dibuja las partículas activas y sus colas correspondientes
     /// </summary>
-	protected override void DrawSelf(Camera2D camera, Managers.GameContext gameContext)
+	protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         TextureRegion? region = _texture?.GetRegion(Region);
 
@@ -95,7 +95,7 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
                         if (tailDirection != Vector2.Zero)
                             tailDirection.Normalize();
                         // Dibuja la partícula principal
-                        region.Draw(camera, particle.Position, center, particle.Scale, SpriteEffects.None, particle.Color, particle.Rotation);
+                        region.Draw(renderingManager, particle.Position, center, particle.Scale, SpriteEffects.None, particle.Color, particle.Rotation);
                         // Dibuja la cola de partículas en segmentos
                         for (float tail = 0; tail < tailLength; tail += TailDensity)
                         {
@@ -104,7 +104,7 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
                             Color tailColor = particle.Color * alpha;
 
                                 // Dibuja el segmento de cola a una escala más pequeña
-                                region.Draw(camera, tailPosition, center, particle.Scale, SpriteEffects.None, tailColor, particle.Rotation);
+                                region.Draw(renderingManager, tailPosition, center, particle.Scale, SpriteEffects.None, tailColor, particle.Rotation);
                         }
                 }
     }

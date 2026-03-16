@@ -95,7 +95,7 @@ public class DebugManager(EngineManager manager)
     /// <summary>
     ///     Dibuja las figuras de log
     /// </summary>
-    public void DrawLogFigures(GameContext gameContext, Scenes.Cameras.Camera2D camera2D)
+    public void DrawLogFigures(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
         if (Manager.EngineSettings.DebugMode && DebugFont is not null)
         {
@@ -105,25 +105,25 @@ public class DebugManager(EngineManager manager)
     /// <summary>
     ///     Dibuja la información de log
     /// </summary>
-    public void DrawLogStrings(GameContext gameContext, Scenes.Cameras.Camera2D camera2D)
+    public void DrawLogStrings(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
-        if (Manager.EngineSettings.DebugMode && DebugFont is not null)
+        if (Manager.EngineSettings.DebugMode && DebugFont is not null && renderingManager.Scene.Camera is not null)
         {
-            Vector2 position = camera2D.WorldToScreenRelative(LogPosition);
+            Vector2 position = renderingManager.Scene.Camera.WorldToScreenRelative(LogPosition);
 
                 // Muestra los mensajes
                 foreach ((string message, Color? color) in _messages)
                 {
-                    camera2D.RenderingManager.TextRenderer.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugColor);
+                    renderingManager.TextRenderer.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugColor);
                     position.Y += DebugFont.LineSpacing;
                 }
                 // Muestra las estadísticas
-                position = camera2D.WorldToScreenRelative(OverlayPosition);
-                camera2D.RenderingManager.TextRenderer.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugOverlayColor);
+                position = renderingManager.Scene.Camera.WorldToScreenRelative(OverlayPosition);
+                renderingManager.TextRenderer.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
-                camera2D.RenderingManager.TextRenderer.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, Manager.EngineSettings.DebugOverlayColor);
+                renderingManager.TextRenderer.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
-                camera2D.RenderingManager.TextRenderer.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, Manager.EngineSettings.DebugOverlayColor);
+                renderingManager.TextRenderer.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, Manager.EngineSettings.DebugOverlayColor);
                 position.Y += DebugFont.LineSpacing;
         }
     }

@@ -54,10 +54,10 @@ public class ProjectileManager(AbstractLayer layer)
     /// <summary>
     ///     Dibuja los proyectiles
     /// </summary>
-    public void Draw(Cameras.Camera2D camera, Managers.GameContext gameContext)
+    public void Draw(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         foreach (ProjectileActor projectile in _projectiles.Enumerate())
-            projectile.Draw(camera, gameContext);
+            projectile.Draw(renderingManager, gameContext);
     }
 
     /// <summary>

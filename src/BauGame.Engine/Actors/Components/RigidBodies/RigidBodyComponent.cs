@@ -64,7 +64,7 @@ public class RigidBodyComponent(AbstractActorDrawable owner, RigidBodyComponent.
 	/// <summary>
 	///		Dibuja el componente
 	/// </summary>
-	public override void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // ... no hace nada, sólo implementa la interface
     }

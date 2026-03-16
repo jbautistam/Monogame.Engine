@@ -58,15 +58,15 @@ public class UiVisualNovelHeader : UiElement
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Camera2D camera, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 		// Dibuja el estilo
-		Layer.DrawStyle(camera, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
+		Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
 		// Dibuja la imagen
 		if (Image is not null && Image.Visible)
-			Image.Draw(camera, gameContext);
+			Image.Draw(renderingManager, gameContext);
 		// Dibuja la etiqueta
-		Label?.Draw(camera, gameContext);
+		Label?.Draw(renderingManager, gameContext);
 	}
 
 	/// <summary>
