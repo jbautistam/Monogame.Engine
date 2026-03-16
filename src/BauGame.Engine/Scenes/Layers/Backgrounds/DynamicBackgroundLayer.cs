@@ -66,18 +66,6 @@ public class DynamicBackgroundLayer(AbstractScene scene, string name, string tex
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	protected override void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        builder.WithCommand(Texture, "Background")
-                    .WithTransform(new Rectangle(0, 0, 1, 1), Vector2.Zero)
-                    .WithDrawType(Scenes.Cameras.Rendering.SpriteRenderCommand.DrawType.Normal)
-                    .WithColor(Color)
-                    .WithZIndex(SortOrder);
-	}
-
-    /// <summary>
     ///     Calcula el zoom de referencia
     /// </summary>
     private void ComputeReferenceZoom(Cameras.Camera2D camera)

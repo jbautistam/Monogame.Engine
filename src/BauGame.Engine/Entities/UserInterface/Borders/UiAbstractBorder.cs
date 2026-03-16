@@ -20,11 +20,6 @@ public abstract class UiAbstractBorder(Styles.UiStyle style)
 	public abstract void Draw(Camera2D camera, Rectangle position, GameContext gameContext);
 
 	/// <summary>
-	///		Prepara los comandos de representación
-	/// </summary>
-	public abstract void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Rectangle bounds, GameContext gameContext);
-
-	/// <summary>
 	///		Obtiene un rectángulo que coloca al borde por fuera del contenido
 	/// </summary>
 	protected Rectangle Inflate(Rectangle bounds)

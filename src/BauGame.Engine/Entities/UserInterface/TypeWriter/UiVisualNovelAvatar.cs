@@ -36,15 +36,6 @@ public class UiVisualNovelAvatar(Scenes.Layers.AbstractUserInterfaceLayer layer,
 		Avatar?.Draw(camera, gameContext);
 	}
 
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
-		Avatar?.PrepareRenderCommands(builder, gameContext);
-	}
-
 	/// <summary>
 	///		Imagen del avatar
 	/// </summary>

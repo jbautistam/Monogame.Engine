@@ -69,20 +69,6 @@ public class UiVisualNovelHeader : UiElement
 		Label?.Draw(camera, gameContext);
 	}
 
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-		// Dibuja el estilo
-		Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
-		// Dibuja la imagen
-		if (Image is not null && Image.Visible)
-			Image.PrepareRenderCommands(builder, gameContext);
-		// Dibuja la etiqueta
-		Label?.PrepareRenderCommands(builder, gameContext);
-	}
-
 	/// <summary>
 	///		Control de texto
 	/// </summary>

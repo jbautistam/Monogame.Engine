@@ -1,6 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Grids;
@@ -63,15 +62,6 @@ public class GridItemModel : UiElement
 	{
         if (Item.Visible)
 		    Item.Draw(camera, gameContext);
-	}
-
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		if (Item.Visible)
-            Item.PrepareRenderCommands(builder, gameContext);
 	}
 
 	/// <summary>

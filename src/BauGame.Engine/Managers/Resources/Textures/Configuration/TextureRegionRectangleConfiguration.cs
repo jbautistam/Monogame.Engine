@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
 
@@ -16,6 +17,11 @@ public class TextureRegionRectangleConfiguration(string name) : TextureAbstractR
 	///		Región
 	/// </summary>
 	public required Rectangle Region { get; init; }
+
+	/// <summary>
+	///		Padding de la región
+	/// </summary>
+	public UiMargin Padding { get; set; } = new();
 
 	/// <summary>
 	///		Configuración para una textura NineSlice

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.ComicBubbles;
 
@@ -20,6 +19,7 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     /// </summary>
     protected override void ComputeScreenBoundsSelf()
 	{
+        // Carga los datos de la fuente
         if (Font is not null && !string.IsNullOrEmpty(Text))
         {   
             SpriteFont? spriteFont = Font.LoadAsset();
@@ -37,11 +37,25 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
                                 if (contentHeight < Position.ContentBounds.Height)
                                     contentHeight += size.Y + spriteFont.LineSpacing * LineSpacing * TextScale;
                         }
-                        // Tamaño del bocadillo = contenido + padding
-                        _bubbleBounds = new Rectangle(Position.ContentBounds.X - SpritePadding.Left,
-                                                      Position.ContentBounds.Y - SpritePadding.Top,
-                                                      Position.ContentBounds.Width + SpritePadding.Horizontal,
-                                                      Position.ContentBounds.Height + SpritePadding.Vertical);
+                }
+        }
+        // Carga los datos del fondo del bocadillo
+        if (BubbleSprite is not null)
+        {
+            Managers.Resources.TextureConfigurationManager.TextureResolved? texture = BubbleSprite.LoadAsset(Layer.Scene);
+
+                if (texture is not null)
+                {
+                    UiMargin? padding = texture.Padding;
+
+                        // Normaliza el padding
+                        if (padding is null)
+                            padding = new UiMargin(5);
+                        // Calcula el nuevo tamaño del fondo del bocadillo = contenido + padding
+                        _bubbleBounds = new Rectangle(Position.ContentBounds.X - padding.Value.Left,
+                                                      Position.ContentBounds.Y - padding.Value.Top,
+                                                      Position.ContentBounds.Width + padding.Value.Horizontal,
+                                                      Position.ContentBounds.Height + padding.Value.Vertical);
                 }
         }
     }
@@ -51,7 +65,6 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     /// </summary>
 	protected override void UpdateSelf(GameContext gameContext)
 	{
-        ComputeScreenBoundsSelf();
 	}
 
     /// <summary>
@@ -66,13 +79,6 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
             // Dibuja el texto
             DrawText(camera);
         }
-	}
-
-    /// <summary>
-    ///     Prepara los comandos de representcación
-    /// </summary>
-	public override void PrepareRenderCommands(RenderCommandsBuilder builder, GameContext gameContext)
-	{
 	}
 
     /// <summary>
@@ -141,7 +147,7 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     /// <summary>
     ///     Fuente
     /// </summary>
-    public Common.Sprites.SpriteFontDefinition? Font { get; set; }
+    public Common.Sprites.SpriteTextDefinition? Font { get; set; }
         
     /// <summary>
     ///     Alineación horizontal
@@ -167,11 +173,6 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     ///     Color del bocadillo
     /// </summary>
     public Color BubbleColor { get; set; } = Color.White;
-
-    /// <summary>
-    ///     Padding de sprite: lugar del sprite donde se va a dibujar el texto
-    /// </summary>
-    public UiMargin SpritePadding { get; set; } = new(30);
 
     /// <summary>
     ///     Escala del texto

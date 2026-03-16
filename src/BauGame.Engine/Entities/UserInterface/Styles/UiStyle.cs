@@ -45,15 +45,6 @@ public class UiStyle(UiStylesCollection stylesParent, UiStyle.StyleType type)
 	}
 
 	/// <summary>
-	///		Prepara los comandos de representación
-	/// </summary>
-	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Rectangle bounds, GameContext gameContext)
-	{
-		Background?.PrepareRenderCommands(builder, bounds, gameContext);
-		Border?.PrepareRenderCommands(builder, bounds, gameContext);
-	}
-
-	/// <summary>
 	///		Colección padre
 	/// </summary>
 	public UiStylesCollection StylesParent { get; } = stylesParent;

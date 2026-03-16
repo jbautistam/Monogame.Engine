@@ -1,7 +1,6 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
@@ -266,45 +265,6 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
                                           0, Color.White);
             }
     }
-
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(RenderCommandsBuilder builder, GameContext gameContext)
-	{
-        // Dibuja los estilos
-        Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
-        // Dibuja las barras
-        if (TrackLeft is not null)
-        {
-            if (Orientation == SliderOrientation.Horizontal)
-            {
-                (Rectangle left, Rectangle right) = GetHorizontalRectangles();
-
-                    if (left.Width > 0)
-                        builder.WithCommand(TrackLeft)
-                               .WithTransform(left, Vector2.Zero);
-                    if (right.Width > 0)
-                        builder.WithCommand(TrackRight ?? TrackLeft)
-                               .WithTransform(right, Vector2.Zero);
-            }
-            else
-            {
-                (Rectangle top, Rectangle bottom) = GetVerticalRectangles();
-
-                    if (top.Height > 0)
-                        builder.WithCommand(TrackLeft)
-                               .WithTransform(top, Vector2.Zero);
-                    if (bottom.Height > 0)
-                        builder.WithCommand(TrackRight ?? TrackLeft)
-                               .WithTransform(bottom, Vector2.Zero);
-            }
-        }
-        // Dibuja el thumb encima de las barras
-        if (Thumb is not null)
-            builder.WithCommand(Thumb)
-                    .WithTransform(_thumbBounds, Vector2.Zero);
-	}
 
     /// <summary>
     ///     Obtiene los rectángulos de dibujo en horizontal

@@ -42,7 +42,7 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 			Items.Clear();
 			Items.AddRange(loader.LoadScreen(this, "Settings/VisualNovel/GraphicNovelUserInterface.xml"));
 			Items.Add(PrepareMobileChat());
-			Items.Add(PrepareComicBubble());
+			Items.AddRange(PrepareComicBubble());
 			// Asigna los manejadores de eventos
 			CommandExecute += (sender, args) => TreatTypeWriterEvent(args);
 			Click += (sender, args) => TreatClick(args.Component, args.Tag);
@@ -116,18 +116,33 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 	}
 
 	/// <summary>
-	///		Prepara un bocadillo de cómic
+	///		Prepara una lista de bocadillos de cómic
 	/// </summary>
-	private UiComicBubble PrepareComicBubble()
+	private List<UiComicBubble> PrepareComicBubble()
 	{
-		UiComicBubble bubble = new(this, new UiPosition(0.5f, 0.3f, 0.2f, 0.2f));
+		List<UiComicBubble> bubbles = [];
 
 			// Asigna las propiedades
-			bubble.BubbleSprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("bubble-01", null);
-			bubble.Font = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteFontDefinition("Fonts/Hud");
-			bubble.Text = "Primer texto del bocadillo que queremos que sea un poco largo para que salte entre líneas";
-			// Devuelve el bocadillo
-			return bubble;
+			bubbles.Add(CreateBubble("bubbles-01", "bubble-01", 
+									 "Primer texto del bocadillo que queremos que sea un poco largo para que salte entre líneas",
+									 new UiPosition(0.5f, 0.1f, 0.2f, 0.2f)));
+			bubbles.Add(CreateBubble("bubbles-01", "bubble-02", 
+									 "Texto del segundo bocadillo",
+									 new UiPosition(0.5f, 0.4f, 0.2f, 0.2f)));
+
+			// Devuelve los bocadillos creados
+			return bubbles;
+
+		// Crea una etiqueta con un bocadillo
+		UiComicBubble CreateBubble(string asset, string region, string text, UiPosition position)
+		{
+			 return new UiComicBubble(this, position)
+							{
+								BubbleSprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(asset, region),
+								Font = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteTextDefinition("Fonts/Hud"),
+								Text = text
+							};
+		}
 	}
 
 	/// <summary>

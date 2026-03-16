@@ -4,6 +4,7 @@ using Bau.Libraries.BauGame.Engine.Managers.Resources;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
 using Microsoft.Xna.Framework;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 
 namespace EngineSample.Core.Configuration.Repositories;
 
@@ -29,6 +30,8 @@ internal class TexturesRepository
 	private const string TagProperty = "Property";
 	private const string TagCondition = "Condition";
 	private const string TagValue = "Value";
+	private const string TagRectangle = "Rectangle";
+	private const string TagPadding = "Padding";
 	private const string TagLeft = "Left";
 	private const string TagTop = "Top";
 	private const string TagWidth = "Width";
@@ -42,6 +45,8 @@ internal class TexturesRepository
 	private const string TagBottomRightWidth = "BottomRightWidth";
 	private const string TagBottomRightHeight = "BottomRightHeight";
 	private const string TagFillBackground = "FillBackground";
+	// Variables privadas
+	private RepositoryHelper _helper = new();
 
 	/// <summary>
 	///		Carga texturas y animaciones de un texto XML
@@ -114,18 +119,24 @@ internal class TexturesRepository
 				texturesManager.Create(name, asset, rows, columns);
 			else
 			{
-				List<(string name, Rectangle region, TextureRegionNineSliceConfiguration? nineSlice)> regions = [];
+				List<(string name, Rectangle region, UiMargin padding, TextureRegionNineSliceConfiguration? nineSlice)> regions = [];
 
 					// Carga las regiones
 					foreach (MLNode nodeML in rootML.Nodes)
 						if (nodeML.Name == TagRegion)
-							regions.Add((nodeML.Attributes[TagName].Value.TrimIgnoreNull(),
-										 new Rectangle(nodeML.Attributes[TagLeft].Value.GetInt(0),
-													   nodeML.Attributes[TagTop].Value.GetInt(0),	
-													   nodeML.Attributes[TagWidth].Value.GetInt(0),
-													   nodeML.Attributes[TagHeight].Value.GetInt(0)),
-										 LoadNineSlice(nodeML)
-										));
+						{
+							Rectangle rectangle = _helper.GetRectangle(nodeML.Attributes[TagRectangle].Value.TrimIgnoreNull());
+							UiMargin padding = _helper.GetMargin(nodeML.Attributes[TagPadding].Value.TrimIgnoreNull());
+
+								// Carga el rectángulo desde los atributos
+								if (rectangle.Width == 0)
+									rectangle = new Rectangle(nodeML.Attributes[TagLeft].Value.GetInt(0),
+															  nodeML.Attributes[TagTop].Value.GetInt(0),	
+															  nodeML.Attributes[TagWidth].Value.GetInt(0),
+															  nodeML.Attributes[TagHeight].Value.GetInt(0));
+								// Añade la región
+								regions.Add((nodeML.Attributes[TagName].Value.TrimIgnoreNull(), rectangle, padding, LoadNineSlice(nodeML)));
+						}
 					// Crea la textura adecuada
 					if (regions.Count == 0)
 						texturesManager.Create(name, asset);
@@ -134,11 +145,12 @@ internal class TexturesRepository
 						TextureConfiguration textureConfiguration = texturesManager.Create(name, asset);
 
 							// Añade las regiones
-							foreach ((string name, Rectangle region, TextureRegionNineSliceConfiguration? nineSlice) regionData in regions)
+							foreach ((string name, Rectangle region, UiMargin padding, TextureRegionNineSliceConfiguration? nineSlice) regionData in regions)
 								textureConfiguration.Regions.Add(regionData.name,
 																 new TextureRegionRectangleConfiguration(regionData.name)
 																		{
 																			Region = regionData.region,
+																			Padding = regionData.padding,
 																			NineSliceConfiguration = regionData.nineSlice
 																		}
 																 );

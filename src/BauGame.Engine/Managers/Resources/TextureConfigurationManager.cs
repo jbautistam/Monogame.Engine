@@ -1,4 +1,5 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
+﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +12,7 @@ namespace Bau.Libraries.BauGame.Engine.Managers.Resources;
 public class TextureConfigurationManager(ResourcesManager resourcesManager)
 {
 	// Registros públicos
-	public record TextureResolved(Texture2D Texture, Rectangle Region, TextureRegionNineSliceConfiguration? NineSliceConfiguration);
+	public record TextureResolved(Texture2D Texture, Rectangle Region, UiMargin? Padding, TextureRegionNineSliceConfiguration? NineSliceConfiguration);
 
 	/// <summary>
 	///		Crea una textura
@@ -66,7 +67,7 @@ public class TextureConfigurationManager(ResourcesManager resourcesManager)
 					if (texture is not null)
 					{
 						if (configuration.Regions.Items.Count == 0)
-							return new TextureResolved(texture, new Rectangle(0, 0, texture.Width, texture.Height), null);
+							return new TextureResolved(texture, new Rectangle(0, 0, texture.Width, texture.Height), null, null);
 						else if (!string.IsNullOrWhiteSpace(region))
 						{
 							TextureAbstractRegionConfiguration? textureRegion = configuration.Regions.Get(region);
@@ -74,9 +75,9 @@ public class TextureConfigurationManager(ResourcesManager resourcesManager)
 								if (textureRegion is not null)
 								{
 									if (textureRegion is TextureRegionRectangleConfiguration rectangleConfiguration)
-										return new TextureResolved(texture, rectangleConfiguration.GetBounds(texture), rectangleConfiguration.NineSliceConfiguration);
+										return new TextureResolved(texture, rectangleConfiguration.GetBounds(texture), rectangleConfiguration.Padding, rectangleConfiguration.NineSliceConfiguration);
 									else
-										return new TextureResolved(texture, textureRegion.GetBounds(texture), null);
+										return new TextureResolved(texture, textureRegion.GetBounds(texture), null, null);
 								}
 						}
 					}
@@ -86,7 +87,7 @@ public class TextureConfigurationManager(ResourcesManager resourcesManager)
 				Texture2D? texture = scene.LoadSceneAsset<Texture2D>(name);
 
 					if (texture is not null)
-						return new TextureResolved(texture, new Rectangle(0, 0, texture.Width, texture.Height), null);
+						return new TextureResolved(texture, new Rectangle(0, 0, texture.Width, texture.Height), null, null);
 			}
 			// Si hemos llegado hasta aquí es porque no tenemos todos los datos
 			return null;

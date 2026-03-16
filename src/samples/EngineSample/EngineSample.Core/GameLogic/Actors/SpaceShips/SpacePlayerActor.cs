@@ -8,7 +8,6 @@ using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Actors.Components.Shooting;
 using Bau.Libraries.BauGame.Engine.Scenes.Messages;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 
 namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 
@@ -277,14 +276,6 @@ public class SpacePlayerActor : AbstractActorDrawable
 	/// </summary>
 	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
 	{
-	}
-
-	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		// ... en este caso no hace nada
 	}
 
 	/// <summary>

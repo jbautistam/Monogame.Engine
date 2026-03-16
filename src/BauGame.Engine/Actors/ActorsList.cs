@@ -63,16 +63,6 @@ public class ActorsList(Scenes.Layers.AbstractLayer layer) : Entities.Common.Col
 	}
 
     /// <summary>
-    ///     Prepara los comandos de dibujo
-    /// </summary>
-	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
-	{
-        foreach (AbstractActor actor in Enumerate())
-            if (actor.Enabled && actor is Interfaces.IActorDrawable actorDrawable)
-                actorDrawable.PrepareRenderCommands(builder, gameContext);
-	}
-
-    /// <summary>
     ///     Ordena los actores por su orden de presentación
     /// </summary>
     public void SortByZOrder()

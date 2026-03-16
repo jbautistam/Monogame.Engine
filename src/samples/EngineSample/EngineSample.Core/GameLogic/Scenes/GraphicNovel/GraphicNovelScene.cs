@@ -24,7 +24,6 @@ internal class GraphicNovelScene(string name) : AbstractScene(name, new Bau.Libr
 	{
 		// Crea las capas
 		LayerManager.Clear();
-		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", 1));
 		LayerManager.AddLayer(new GraphicNovelLayer(this, SceneName, 1));
 		LayerManager.AddLayer(new GraphicNovelUserInterfaceLayer(this, "UI", 2));
 		// Crea los datos de físicas

@@ -76,19 +76,6 @@ public class GridItemCollection(UiGrid grid) : List<GridItemModel>
                 element.Draw(camera, gameContext);
 	}
 
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
-	{
-        // Ordena los elementos
-        Sort((first, second) => first.ZIndex.CompareTo(second.ZIndex));
-        // Y los dibuja
-        foreach (GridItemModel element in this)
-            if (element.Visible)
-                element.PrepareRenderCommands(builder, gameContext);
-	}
-
 	/// <summary>
 	///     Grid al que se asocia el elemento
 	/// </summary>

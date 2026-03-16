@@ -86,11 +86,6 @@ public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition pos
     /// </summary>
     public abstract void Draw(Camera2D camera, Managers.GameContext gameContext);
 
-    /// <summary>
-    ///     Prepara los comandos de dibujo
-    /// </summary>
-	public abstract void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext);
-
 	/// <summary>
 	///     Manager del elemento
 	/// </summary>

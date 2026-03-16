@@ -71,17 +71,6 @@ public class UiButton : UiElement
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        // Prepara los comandos del estilo (fondo y borde)
-        Layer.PrepareStyleRendercommands(builder, Style, State, Position.ContentBounds, gameContext);
-        // Dibuja el texto
-        Label?.PrepareRenderCommands(builder, gameContext);
-	}
-
-    /// <summary>
     ///     Etiqueta
     /// </summary>
     public UiLabel? Label 

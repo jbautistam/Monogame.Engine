@@ -80,22 +80,6 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 	protected abstract void DrawSelf(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
 
 	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-		// Prepara los comandos de los componentes
-		Components.PrepareRenderCommands(builder, gameContext);
-		// Llama al actor para que prepare comandos adicionales si es necesario
-		PrepareRenderCommandsSelf(builder, gameContext);
-	}
-
-	/// <summary>
-	///		Prepara los comandos de presentación del actor
-	/// </summary>
-	protected abstract void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext);
-
-	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
 	protected override void EndSelf(Managers.GameContext gameContext)

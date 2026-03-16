@@ -32,13 +32,13 @@ public class SpriteDefinition
 	/// <summary>
 	///		Carga la textura si es la primera vez o ha habido modificaciones
 	/// </summary>
-	public TextureConfigurationManager.TextureResolved? LoadAsset(Camera2D camera)
+	public TextureConfigurationManager.TextureResolved? LoadAsset(Scenes.AbstractScene scene)
 	{
 		// Carga el asset si no estaba ya en memoria o se ha modificado
 		if (_isDirty)
 		{
 			// Carga la configuración del asset
-			_textureConfiguration = GameEngine.Instance.ResourcesManager.TextureConfigurationManager.GetTextureRegion(camera, Asset, Region);
+			_textureConfiguration = GameEngine.Instance.ResourcesManager.TextureConfigurationManager.GetTextureRegion(scene, Asset, Region);
 			// Indica que se ha cargado con las últimas modificaciones
 			_isDirty = false;
 		}

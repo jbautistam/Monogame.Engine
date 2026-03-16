@@ -30,7 +30,6 @@ public abstract class AbstractLayer : Entities.Common.Collections.ISecureListIte
         SortOrder = sortOrder;
         // Inicializa los objetos
         Services = new Services.LayerServicesList(this);
-        CommandsQueue = new Cameras.Rendering.RenderCommandsQueue();
     }
 
     /// <summary>
@@ -95,28 +94,6 @@ public abstract class AbstractLayer : Entities.Common.Collections.ISecureListIte
 	protected abstract void DrawSelf(Cameras.Camera2D camera, Managers.GameContext gameContext);
 
     /// <summary>
-    ///     Prepara los comandos de representación
-    /// </summary>
-	public void PrepareRenderCommands(Managers.GameContext gameContext)
-	{
-        Cameras.Rendering.Builders.RenderCommandsBuilder builder = new();
-
-            // Ordena los actores
-            Actors.SortByZOrder();
-            // Añade los comandos de los actores
-            Actors.PrepareRenderCommands(builder, gameContext);
-            // Añade los comandos específicos de la capa
-            PrepareRenderCommandsSelf(builder, gameContext);
-            // Añade los comandos a la cola
-            CommandsQueue.AddRange(builder.Build());
-	}
-
-    /// <summary>
-    ///     Prepara los comandos de representación de la capa
-    /// </summary>
-    protected abstract void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext);
-
-    /// <summary>
     ///     Finaliza la capa
     /// </summary>
     public void End(Managers.GameContext gameContext)
@@ -171,11 +148,6 @@ public abstract class AbstractLayer : Entities.Common.Collections.ISecureListIte
     ///     Servicios de la capa
     /// </summary>
     public Services.LayerServicesList Services { get; }
-    
-    /// <summary>
-    ///     Cola de comandos de dibujo
-    /// </summary>
-    public Cameras.Rendering.RenderCommandsQueue CommandsQueue { get; }
 
     /// <summary>
     ///     Cámaras sobre las que se dibuja la capa

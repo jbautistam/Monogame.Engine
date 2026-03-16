@@ -53,16 +53,6 @@ public class ComponentCollectionModel(AbstractActor owner)
 	}
 
 	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-		foreach (AbstractComponent component in Items)
-			if (component.Enabled && component is Interfaces.IActorDrawable componentDrawable)
-				componentDrawable.PrepareRenderCommands(builder, gameContext);
-	}
-
-	/// <summary>
 	///		Elimina el componente de la lista
 	/// </summary>
 	public void Remove(AbstractComponent component)

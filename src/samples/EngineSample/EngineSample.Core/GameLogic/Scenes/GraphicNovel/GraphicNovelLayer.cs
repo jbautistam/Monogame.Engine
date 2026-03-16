@@ -4,9 +4,9 @@ using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
-using EngineSample.Core.GameLogic.Actors.Characters.Sequences.Commands;
-using EngineSample.Core.GameLogic.Actors.Characters;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Actors;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Managers;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel;
 
@@ -15,6 +15,10 @@ namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel;
 /// </summary>
 public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) : AbstractGameLayer(scene, name, sortOrder)
 {
+	// Constantes privadas
+	private const int LogicalBackgroundLayer = 1;
+	private const int LogicalCharactersLayer = 10;
+	private const int LogicalFirstPlaneLayer = 20;
 	// Variables privadas
 	private CharacterManager? _characterManager;
 
@@ -34,11 +38,27 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 		// Crea el manager de personajes
 		_characterManager = new(this);
 		// Crea los personajes
+		CreateBackground(_characterManager, "background-01", "vn-background-01", LogicalBackgroundLayer);
+		CreateBackground(_characterManager, "background-kitchen", "vn-background-kitchen-01", LogicalBackgroundLayer);
+		CreateBackground(_characterManager, "background-kitchen-table", "vn-background-kitchen-01-table", LogicalFirstPlaneLayer);
 		CreateCharacter(_characterManager, "sylvie");
 		CreateCharacter(_characterManager, "james");
 		CreateCharacter(_characterManager, "narrator");
-		// Añade el personaje
+		// Añade el manager de personajes
 		Actors.Add(_characterManager);
+		// Crea el fondo
+		CreateBackgroundStartSequence("background-kitchen");
+	}
+
+	/// <summary>
+	///		Crea un fondo
+	/// </summary>
+	private void CreateBackground(CharacterManager manager, string name, string asset, int layer)
+	{
+		CharacterDefinition character = manager.Add(name, layer);
+
+			// Crea la definición
+			character.AddExpression(CharacterExpressionDefinition.DefaultType, asset, null);
 	}
 
 	/// <summary>
@@ -46,7 +66,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateCharacter(CharacterManager manager, string name)
 	{
-		CharacterDefinition character = manager.Add(name);
+		CharacterDefinition character = manager.Add(name, LogicalCharactersLayer);
 
 			// Crea las definiciones
 			character.AddExpression(CharacterExpressionDefinition.DefaultType, $"{name}-default", null);
@@ -76,6 +96,60 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 			CreateNarratorSequence();
 		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.C))
 			CreateCombinedSequence();
+		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.B))
+			CreateBackgroundMoveSequence("background-01");
+		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.F))
+			CreateFirstPlaneSequence("background-kitchen-table");
+	}
+
+	/// <summary>
+	///		Crea una secuencia para mostrar el fondo
+	/// </summary>
+	private void CreateBackgroundStartSequence(string name)
+	{
+		Sequences.Builders.SequenceBuilder builder = new(name);
+
+			// Crea la secuencia
+			builder.WithStart(0)
+					.WithReset(0.1f, Vector2.Zero, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0)
+					.WithFade(0.5f, 1);
+			// Añade la secuencia al manager
+			_characterManager?.Sequences.Add(builder.Build());
+	}
+
+	/// <summary>
+	///		Crea una secuencia para mostrar el gráfico de primer plano
+	/// </summary>
+	private void CreateFirstPlaneSequence(string name)
+	{
+		Sequences.Builders.SequenceBuilder builder = new(name);
+
+			// Crea la secuencia
+			builder.WithStart(0)
+					.WithReset(0.1f, Vector2.Zero, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0)
+					.WithFade(0.5f, 1);
+			// Añade la secuencia al manager
+			_characterManager?.Sequences.Add(builder.Build());
+	}
+
+	/// <summary>
+	///		Crea una secuencia para mostrar el fondo
+	/// </summary>
+	private void CreateBackgroundMoveSequence(string name)
+	{
+		Sequences.Builders.SequenceBuilder builder = new(name);
+
+			// Crea la secuencia
+			builder.WithStart(0)
+					.WithMove(3, TranslateCommand.MovementMode.To, new Vector2(-0.5f, -0.3f))
+					.WithMove(3, TranslateCommand.MovementMode.To, new Vector2(0, 0))
+					.WithMove(3, TranslateCommand.MovementMode.To, new Vector2(0.2f, 0.2f))
+					.WithFade(3, 0.5f)
+					.WithZoomOnPoint(3, new Vector2(0.5f, 0.5f), new Vector2(1.3f, 1.3f))
+					.WithFade(5, 1)
+					.WithMove(3, TranslateCommand.MovementMode.To, new Vector2(0, 0));
+			// Añade la secuencia al manager
+			_characterManager?.Sequences.Add(builder.Build());
 	}
 
 	/// <summary>
@@ -83,7 +157,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateSylvieSequence()
 	{
-		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("sylvie");
+		Sequences.Builders.SequenceBuilder builder = new("sylvie");
 
 			// Crea la secuencia
 			builder.WithStart(0)
@@ -112,7 +186,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateNarratorSequence()
 	{
-		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("Narrator");
+		Sequences.Builders.SequenceBuilder builder = new("Narrator");
 
 			// Crea la secuencia
 			builder.WithStart(0)
@@ -134,7 +208,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateJamesSequence()
 	{
-		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("James");
+		Sequences.Builders.SequenceBuilder builder = new("James");
 
 			// Crea la secuencia
 			builder.WithStart(0)
@@ -151,7 +225,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	private void CreateCombinedSequence()
 	{
-		Actors.Characters.Sequences.Builders.SequenceBuilder builder = new("sylvie");
+		Sequences.Builders.SequenceBuilder builder = new("sylvie");
 
 			// Crea la secuencia
 			builder.WithStart(0)
@@ -184,14 +258,6 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
 	protected override void DrawGameLayer(Camera2D camera, GameContext gameContext)
-	{
-		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
-	}
-
-    /// <summary>
-    ///     Prepara los comandos de representación de la capa
-    /// </summary>
-    protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
 	{
 		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
 	}

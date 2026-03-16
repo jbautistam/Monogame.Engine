@@ -58,14 +58,6 @@ public class UiGrid : UiElement, Interfaces.IComponentPanel
         Items.Draw(camera, gameContext);
     }
 
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-		Items.PrepareRenderCommands(builder, gameContext);
-	}
-
 	/// <summary>
 	///     Definición de las filas y columnas del grid
 	/// </summary>

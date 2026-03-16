@@ -49,15 +49,8 @@ public abstract class AbstractScene
     /// </summary>
     public void Draw(Managers.GameContext gameContext)
     {
-        if (CameraDirector.Cameras.Count > 0)
-        {
-            // Prepara los comandos
-            LayerManager.PrepareRenderCommands(gameContext);
-            // Dibuja los comandos
-            CameraDirector.Render(GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice);
-        }
-        else if (Camera is not null)
-            LayerManager.Draw(Camera, gameContext);
+        if (Camera is not null)
+           LayerManager.Draw(Camera, gameContext);
     }
 
     /// <summary>

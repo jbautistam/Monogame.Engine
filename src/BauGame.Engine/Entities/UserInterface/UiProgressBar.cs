@@ -98,14 +98,6 @@ public class UiProgressBar : UiElement
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-		//TODO: aquí debería ir todo
-	}
-
-    /// <summary>
     ///     Fondo de todo el control
     /// </summary>
     public SpriteDefinition? Background { get; set; }

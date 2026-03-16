@@ -113,15 +113,6 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
 	}
 
 	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, 
-									  string key, UiStyle.StyleType type, Rectangle bounds, Managers.GameContext gameContext)
-	{
-		GetStyle(key, type)?.PrepareRenderCommands(builder, bounds, gameContext);
-	}
-
-	/// <summary>
 	///		Elemento padre
 	/// </summary>
 	public AbstractUserInterfaceLayer Layer { get; } = layer;

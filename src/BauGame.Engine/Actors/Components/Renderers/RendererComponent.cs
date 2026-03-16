@@ -148,19 +148,6 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
     }
 
 	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	public void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		if (!string.IsNullOrWhiteSpace(Texture))
-			builder.WithCommand(Texture, Region)
-					.WithTransform(Actor.Transform.Bounds.TopLeft, Actor.Transform.Center)
-					.WithRotation(Actor.Transform.Rotation)
-					.WithColor(Color * Opacity)
-					.WithEffect(SpriteEffects);
-	}
-
-	/// <summary>
 	///		Obtiene la región de la textura para dibujarla
 	/// </summary>
 	private TextureRegion? GetRegion(string? region)
@@ -197,7 +184,7 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	/// <summary>
 	///		Obtiene el tamaño
 	/// </summary>
-	internal Size GetSize()
+	public Size GetSize()
 	{
 		TextureRegion? region = GetRegion(Region);
 

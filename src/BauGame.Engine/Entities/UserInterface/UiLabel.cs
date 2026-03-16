@@ -185,25 +185,6 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-		if (!string.IsNullOrWhiteSpace(Text))
-        {
-            Styles.UiStyle style = Layer.Styles.GetDefault(Style);
-
-                // Genera los comandos de estilo
-                Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
-                // Genera el comando del texto de la etiqueta
-                builder.WithCommand(Font, LineSpacing, WrapText)
-                        .WithTransform(Position.ContentBounds, Vector2.Zero)
-                        .WithAlignment(HorizontalAlignment, VerticalAlignment)
-                        .WithText(Text, false, false, style.Color * style.Opacity);
-        }
-	}
-
-    /// <summary>
     ///     Texto
     /// </summary>
     public string? Text { get; set; }

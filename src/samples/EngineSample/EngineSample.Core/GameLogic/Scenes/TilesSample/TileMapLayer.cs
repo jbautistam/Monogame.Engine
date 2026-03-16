@@ -2,7 +2,6 @@
 using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 
 namespace EngineSample.Core.GameLogic.Scenes.TilesSample;
@@ -72,14 +71,6 @@ internal class TileMapLayer(AbstractScene scene, string name, int physicsLayer, 
 	///		Dibuja la capa
 	/// </summary>
 	protected override void DrawSelf(Camera2D camera, GameContext gameContext)
-	{
-		// ... no hace nada, sólo implementa la interface
-	}
-
-	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
 	{
 		// ... no hace nada, sólo implementa la interface
 	}

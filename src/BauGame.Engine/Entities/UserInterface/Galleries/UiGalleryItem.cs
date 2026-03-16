@@ -42,15 +42,6 @@ public class UiGalleryItem : UiElement
 		    Item.Draw(camera, gameContext);
 	}
 
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		if (Item.Visible)
-			Item.PrepareRenderCommands(builder, gameContext);
-	}
-
 	/// <summary>
 	///		Fila
 	/// </summary>

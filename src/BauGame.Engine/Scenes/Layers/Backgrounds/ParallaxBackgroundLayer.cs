@@ -55,19 +55,6 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
             }
     }
 
-
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	protected override void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        builder.WithCommand(Texture, "Bakcground")
-               .WithTransform(new Rectangle(0, 0, 1, 1), Vector2.Zero)
-               .WithDrawType(Scenes.Cameras.Rendering.SpriteRenderCommand.DrawType.Tiled)
-               .WithColor(Color)
-               .WithZIndex(SortOrder);
-	}
-
     /// <summary>
     ///     Finaliza el dibujo del fondo
     /// </summary>

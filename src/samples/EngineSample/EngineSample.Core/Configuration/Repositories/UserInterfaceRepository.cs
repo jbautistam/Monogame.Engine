@@ -69,7 +69,6 @@ internal class UserInterfaceRepository
 	private const string TagMinimum = "Minimum";
 	private const string TagOrientation = "Orientation";
 	private const string TagClipMode = "ClipMode";
-
 	// Variables privadas
 	private RepositoryHelper _helper = new();
 

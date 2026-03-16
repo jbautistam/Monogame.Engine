@@ -64,45 +64,6 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        // Genera los comandos de los componentes del estilo
-        Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
-        // Genera los comandos de la imagen
-        if (Sprite is not null)
-        {
-            Rectangle target = Position.ContentBounds;
-            Styles.UiStyle style = Layer.Styles.GetDefault(Style);
-            Size size = Sprite.GetSize();
-
-                // Ajusta el tamaño si se requiere preservar aspecto
-                if (PreserveAspectRatio && size.Width > 0 && size.Height > 0)
-                {
-                    float textureRatio = (float) size.Width / size.Height;
-                    float boundsRatio = (float) target.Width / target.Height;
-                    int newWidth = target.Width, newHeight = target.Height;
-
-                        // Dependiendo de si la textura es más ancha o más alta
-                        if (textureRatio > boundsRatio) // Textura más ancha
-                            newHeight = (int) (target.Width / textureRatio);
-                        else // Textura más alta
-                            newWidth = (int) (target.Height * textureRatio);
-                        // Calcula el rectángulo destino
-                        target = new Rectangle(target.X, target.Y, newWidth, newHeight);
-                }
-                // Alinea la imagen
-                target = AlignImage(target);
-                // Genera el comando de dibujo de la imagen
-                builder.WithCommand(Sprite.Asset, Sprite.Region)
-                         .WithTransform(target, Origin)
-                         .WithRotation(Rotation)
-                         .WithColor(style.Color * style.Opacity * Opacity);
-        }
-	}
-
-    /// <summary>
     ///     Alinea la imagen
     /// </summary>
     private Rectangle AlignImage(Rectangle bounds)

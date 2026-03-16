@@ -43,7 +43,7 @@ public class SpriteRenderer(SpriteDefinition sprite)
 	/// </summary>
 	public void Draw(Camera2D camera, Vector2 position, Vector2 origin, Vector2 scale, float rotation, Color color)
 	{
-		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera);
+		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera.Scene);
 
 			// Dibuja la textura
 			if (textureConfiguration is not null)
@@ -63,7 +63,7 @@ public class SpriteRenderer(SpriteDefinition sprite)
 	/// </summary>
 	public void Draw(Camera2D camera, Rectangle destination, Vector2 origin, float rotation, Color color)
 	{
-		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera);
+		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera.Scene);
 
 			// Dibuja la textura
 			if (textureConfiguration is not null)
@@ -82,7 +82,7 @@ public class SpriteRenderer(SpriteDefinition sprite)
     /// </summary>
     public void Draw(Camera2D camera, DrawMode mode, Rectangle destination, Vector2 origin, RectangleF window, float rotation, Color color)
     {
-		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera);
+		TextureConfigurationManager.TextureResolved? textureConfiguration = Sprite.LoadAsset(camera.Scene);
 
 			if (textureConfiguration is not null)
 				camera.SpriteBatchController.Draw(textureConfiguration.Texture, 

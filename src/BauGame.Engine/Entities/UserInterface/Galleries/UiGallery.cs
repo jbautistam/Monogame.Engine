@@ -120,25 +120,6 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
 	}
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        for (int row = FirstVisibleRow; row < FirstVisibleRow + ViewportRows; row++)
-            for (int column = FirstVisibleColumn; column < FirstVisibleColumn + ViewportColumns; column++)
-            {
-                List<UiGalleryItem> gridItems = GetItems(row, column);
-
-                    // Ordena los elementos
-                    gridItems.Sort((first, second) => first.ZIndex.CompareTo(second.ZIndex));
-                    // Dibja los elementos
-                    foreach (UiGalleryItem gridItem in gridItems)
-                        if (gridItem.Item.Visible)
-                            gridItem.PrepareRenderCommands(builder, gameContext);
-            }
-	}
-
-    /// <summary>
     ///     Obtiene los elementos de una celda
     /// </summary>
     private List<UiGalleryItem> GetItems(int row, int column)

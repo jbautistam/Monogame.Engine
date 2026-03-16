@@ -26,17 +26,6 @@ public class UiBackground(Styles.UiStyle style) : UiAbstractBackground(style)
 	}
 
 	/// <summary>
-	///		Finaliza el trabajo con el actor
-	/// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Rectangle bounds, Managers.GameContext gameContext)
-	{
-		if (Sprite is not null)
-			builder.WithCommand(Sprite)
-				   .WithTransform(bounds, Vector2.Zero)
-				   .WithColor(Color * Opacity);
-	}  
-
-	/// <summary>
 	///		Definición del sprite
 	/// </summary>
 	public SpriteDefinition? Sprite { get; set; }

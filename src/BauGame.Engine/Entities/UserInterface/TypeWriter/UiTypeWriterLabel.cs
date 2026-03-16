@@ -214,33 +214,6 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        Styles.UiStyle style = Layer.Styles.GetDefault(Style);
-        bool end = false;
-        Scenes.Cameras.Rendering.Builders.SpriteFontRenderCommandBuilder fontBuilder;
-
-            // Genera los comandos de estilo
-            Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
-            // Genera el comando de preparación de un renderer de texto
-            fontBuilder = builder.WithCommand(Font, LineSpacing, true)
-                                 .WithTransform(Position.ContentBounds, Vector2.Zero)
-                                 .WithAlignment(UiLabel.HorizontalAlignmentType.Left, UiLabel.VerticalAlignmentType.Top);
-            // Añade los textos
-            for (int index = 0; index < _textSections.Count && !end; index++)
-            {
-                // Añade el texto
-                fontBuilder.WithText(_textSections[index].TextToShow, _textSections[index].Bold, _textSections[index].Italic,
-                                        _textSections[index].Color ?? style.Color);
-                // Comprueba si se debe terminar de añadir textos
-                if (!_textSections[index].Completed)
-                    end = true;
-            }
-	}
-
-    /// <summary>
     ///     Texto (al asignarle un valor, arranca de nuevo la generación)
     /// </summary>
     public string Text 

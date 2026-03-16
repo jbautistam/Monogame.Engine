@@ -263,13 +263,6 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-	}
-
-    /// <summary>
     ///     Nombre de la fuente
     /// </summary>
     public string? Font { get; set; }

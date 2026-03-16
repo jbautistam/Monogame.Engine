@@ -8,30 +8,30 @@
   <ItemGroup>
     <Compile Remove="Configuration\Repositories\Models\**" />
     <Compile Remove="Content\Shaders\**" />
-    <Compile Remove="GameLogic\Actors\Characters\Actions\**" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Managers\Actions\**" />
     <EmbeddedResource Remove="Configuration\Repositories\Models\**" />
     <EmbeddedResource Remove="Content\Shaders\**" />
-    <EmbeddedResource Remove="GameLogic\Actors\Characters\Actions\**" />
+    <EmbeddedResource Remove="GameLogic\Scenes\GraphicNovel\Managers\Actions\**" />
     <None Remove="Configuration\Repositories\Models\**" />
     <None Remove="Content\Shaders\**" />
-    <None Remove="GameLogic\Actors\Characters\Actions\**" />
+    <None Remove="GameLogic\Scenes\GraphicNovel\Managers\Actions\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="GameLogic\Actors\Characters\CharacterActorOld.cs" />
-    <Compile Remove="GameLogic\Actors\Characters\Sequences\Actor.cs" />
-    <Compile Remove="GameLogic\Actors\Characters\Sequences\CharacterLayer.cs" />
-    <Compile Remove="GameLogic\Actors\Characters\Sequences\CinematicManager.cs" />
-    <Compile Remove="GameLogic\Actors\Characters\Sequences\Class1.cs" />
-    <Compile Remove="GameLogic\Actors\Characters\Sequences\Commands\CurveMoveCommand.cs" />
-    <Compile Remove="GameLogic\Actors\Characters\Sequences\Commands\OriginCommand.cs" />
-    <Compile Remove="GameLogic\Actors\Characters\Sequences\Commands\RotateCommand.cs" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Managers\CharacterActorOld.cs" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Actor.cs" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\CharacterLayer.cs" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\CinematicManager.cs" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Class1.cs" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Commands\CurveMoveCommand.cs" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Commands\OriginCommand.cs" />
+    <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Commands\RotateCommand.cs" />
     <Compile Remove="GameLogic\Actors\SpaceShips\Rotation.cs" />
     <Compile Remove="GameLogic\Scenes\BackgroundLayer.cs" />
     <Compile Remove="GameLogic\Scenes\TilesSample\TileMapManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Content\Settings\textures.xml" />
-    <None Remove="GameLogic\Actors\Characters\Sequences\Batiburrillo.md" />
+    <None Remove="GameLogic\Scenes\GraphicNovel\Sequences\Batiburrillo.md" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Bau.Libraries.LibHelper" Version="1.3.68" />

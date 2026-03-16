@@ -62,15 +62,6 @@ public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, i
 			if (camera.IsAtView(tile.Transform.Bounds))
 				tile.Draw(camera, gameContext);
 	}
-
-	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		foreach (TileActor tile in Tiles)
-			tile.PrepareRenderCommands(builder, gameContext);
-	}
 	
 	/// <summary>
 	///		Finaliza el actor

@@ -546,7 +546,7 @@
 /processorParam:TextureFormat=Color
 /build:images/VisualNovel/TypeWriter-Border-01.png
 
-#begin images/VisualNovel/bubbles/Bubble-01.png
+#begin images/VisualNovel/backgrounds/Background-01.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -556,7 +556,43 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/VisualNovel/bubbles/Bubble-01.png
+/build:images/VisualNovel/backgrounds/Background-01.png
+
+#begin images/VisualNovel/backgrounds/Background-Kitchen-01-Table.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/VisualNovel/backgrounds/Background-Kitchen-01-Table.png
+
+#begin images/VisualNovel/backgrounds/Background-Kitchen-01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/VisualNovel/backgrounds/Background-Kitchen-01.png
+
+#begin images/VisualNovel/bubbles/Bubbles-01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/VisualNovel/bubbles/Bubbles-01.png
 
 #begin Levels/00.txt
 /copy:Levels/00.txt

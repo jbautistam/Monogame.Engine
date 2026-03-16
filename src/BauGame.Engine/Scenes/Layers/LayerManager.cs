@@ -74,16 +74,6 @@ public class LayerManager(AbstractScene scene)
     }
 
     /// <summary>
-    ///     Prepara los comandos de dibujo
-    /// </summary>
-	public void PrepareRenderCommands(GameContext gameContext)
-	{
-		foreach (AbstractLayer layer in Layers)
-            if (layer.Enabled)
-                layer.PrepareRenderCommands(gameContext);
-	}
-
-    /// <summary>
     ///     Finaliza las capas
     /// </summary>
 	public void End(GameContext gameContext)

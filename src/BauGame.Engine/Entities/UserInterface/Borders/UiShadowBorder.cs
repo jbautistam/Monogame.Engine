@@ -1,6 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
@@ -40,17 +39,6 @@ public class UiShadowBorder(Styles.UiStyle style) : UiAbstractBorder(style)
             else
                 camera.SpriteBatchController.DrawRectangleOutline(shadowBounds, ShadowColor);
     }
-
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(RenderCommandsBuilder builder, Rectangle bounds, GameContext gameContext)
-	{
-        builder.WithCommand(Thickness, false)
-               .WithTransform(bounds, Vector2.Zero)
-               .WithShadow(Offset, ShadowColor, BlurRadius)
-               .WithColor(Color * Opacity);
-	}
 
     /// <summary>
     ///     Color de la sombra

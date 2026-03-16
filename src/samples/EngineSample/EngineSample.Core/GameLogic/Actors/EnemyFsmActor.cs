@@ -7,13 +7,12 @@ using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
 using Bau.Libraries.BauGame.Engine.Actors.Components.IA;
 using Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Bau.Libraries.BauGame.Engine.Managers;
 
 namespace EngineSample.Core.GameLogic.Actors;
 
 /// <summary>
-///		Segundo actor enemigo
+///		Actor con máquina de estados
 /// </summary>
 public class EnemyFsmActor : AbstractActorDrawable
 {
@@ -139,17 +138,9 @@ public class EnemyFsmActor : AbstractActorDrawable
 	}
 
 	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		// ... en este caso no hace nada
-	}
-
-	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
-	protected override void EndActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void EndActor(GameContext gameContext)
 	{
 	}
 

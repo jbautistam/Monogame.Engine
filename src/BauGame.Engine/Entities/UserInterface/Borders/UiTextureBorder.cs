@@ -1,6 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
@@ -27,20 +26,6 @@ public class UiTextureBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 
 			// Dibuja el control
 			Sprite?.Renderer.Draw(camera, destination, Vector2.Zero, 0, Color * Opacity);
-	}
-
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(RenderCommandsBuilder builder, Rectangle bounds, Managers.GameContext gameContext)
-	{
-		Rectangle destination = InflateWithSprite(bounds);
-
-			// Genera los comandos
-			if (Sprite is not null)
-				builder.WithCommand(Sprite)
-						.WithTransform(destination, Vector2.Zero)
-						.WithColor(Color * Opacity);
 	}
 
 	/// <summary>

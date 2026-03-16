@@ -110,14 +110,6 @@ public class ParticlesSystemActor(Scenes.Layers.AbstractLayer layer, int? zOrder
     }
 
 	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        //TODO: aún no hace nada
-	}
-
-	/// <summary>
 	///		Finaliza el trabajo con el actor
 	/// </summary>
 	protected override void EndActor(Managers.GameContext gameContext)

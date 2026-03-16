@@ -9,9 +9,4 @@ public interface IActorDrawable
 	///		Dibuja el actor
 	/// </summary>
 	void Draw(Scenes.Cameras.Camera2D camera, Managers.GameContext gameContext);
-
-	/// <summary>
-	///		Prepara los comandos de dibujo
-	/// </summary>
-	void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext);
 }

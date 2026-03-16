@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.LibMarkupLanguage;
 
 namespace EngineSample.Core.Configuration.Repositories;
 
@@ -25,7 +24,7 @@ internal class RepositoryHelper
 		{
 			string [] parts = value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-				if (parts.Length == 0)
+				if (parts.Length == 1)
 					return new UiMargin(parts[0].GetInt(0));
 				else if (parts.Length == 2)
 					return new UiMargin(parts[0].GetInt(0), parts[1].GetInt(0), parts[0].GetInt(0), parts[1].GetInt(0));

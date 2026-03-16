@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SpriteSheets>
+	<!-- Fondos -->
+	<Texture Name = "vn-background-01" Asset = "images/visualnovel/backgrounds/Background-01" />
+	<Texture Name = "vn-background-kitchen-01" Asset = "images/visualnovel/backgrounds/Background-Kitchen-01" />
+	<Texture Name = "vn-background-kitchen-01-table" Asset = "images/visualnovel/backgrounds/Background-Kitchen-01-Table" />
 	<!-- Personajes -->
 	<Texture Name = "james-avatar" Asset = "images/characters/james/avatar" />
 	<Texture Name = "james-default" Asset = "images/characters/james/default" />
@@ -14,7 +18,14 @@
 	<Texture Name = "sylvie-sad" Asset = "images/characters/sylvie/sad" />
 	<Texture Name = "sylvie-smile" Asset = "images/characters/sylvie/smile" />
 	<!-- Bubbles -->
-	<Texture Name = "bubble-01" Asset = "images/VisualNovel/bubbles/bubble-01" />
+	<Texture Name = "bubbles-01" Asset = "images/visualnovel/bubbles/Bubbles-01" >
+		<Region Name="Bubble-01" Rectangle = "0, 566, 358, 299" Padding = "40" Left ="0" Top ="566" Width="358" Height="299" />
+		<Region Name="Bubble-02" Rectangle = "394, 0, 296, 209" Padding = "5, 0, 5, 0" Left ="394" Top ="0" Width="296" Height="209" />
+		<Region Name="Bubble-03" Rectangle = "0, 282, 362, 283" Padding = "30" Left ="0" Top ="282" Width="362" Height="283" />
+		<Region Name="Bubble-04" Rectangle = "0, 0, 393, 281" Padding = "30" Left ="0" Top ="0" Width="393" Height="281" />
+		<Region Name="Bubble-05" Rectangle = "359, 566, 322, 249" Padding = "30" Left ="359" Top ="566" Width="322" Height="249" />
+		<Region Name="Bubble-06" Rectangle = "394, 210, 283, 343" Padding = "30" Left ="394" Top ="210" Width="283" Height="343" />
+	</Texture>
 	<!-- TypeWriter-->
 	<Texture Name = "typewriter-background-01" Asset = "images/visualnovel/typewriter-background-01" />
 	<Texture Name = "typewriter-border-01" Asset = "images/visualnovel/typewriter-border-01">

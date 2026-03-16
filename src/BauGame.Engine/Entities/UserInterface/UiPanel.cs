@@ -72,19 +72,6 @@ public class UiPanel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        // Prepara los comandos de borde y fondo
-        Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
-        // Dibuja los elementos hijo
-        foreach (UiElement child in Children)
-            if (child.Visible)
-                child.PrepareRenderCommands(builder, gameContext);
-	}
-
-    /// <summary>
     ///     Elementos hijo
     /// </summary>
     private List<UiElement> Children { get; } = [];

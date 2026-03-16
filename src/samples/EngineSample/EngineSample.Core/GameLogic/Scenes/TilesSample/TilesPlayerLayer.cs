@@ -1,7 +1,6 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
 using EngineSample.Core.GameLogic.Actors;
 
@@ -60,14 +59,6 @@ public class TilesPlayerLayer(AbstractScene scene, string name, int sortOrder) :
 	protected override void DrawGameLayer(Camera2D camera, GameContext gameContext)
 	{
 		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
-	}
-
-	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		// ... no hace nada, sólo implementa la interface
 	}
 
 	/// <summary>

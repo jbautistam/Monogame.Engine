@@ -22,15 +22,4 @@ public class UiSolidColorBackground(Styles.UiStyle style) : UiAbstractBackground
 	{
 		camera.SpriteBatchController.DrawRectangle(position, Color * Opacity);
 	}
-
-	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Rectangle bounds, Managers.GameContext gameContext)
-	{
-		//TODO: aún no hace nada
-		//builder.WithCommand(Sprite)
-		//		.WithTransform(bounds, Vector2.Zero)
-		//		.WithColor(Color * Opacity);
-	}  
 }

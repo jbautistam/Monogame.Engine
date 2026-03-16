@@ -176,20 +176,6 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     }
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        // Dibuja el título, borde y fondo
-        Title?.PrepareRenderCommands(builder, gameContext);
-        Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
-        // Dibuja los elementos hijo
-        foreach (UiElement child in Options)
-            if (child.Visible)
-                child.PrepareRenderCommands(builder, gameContext);
-	}
-
-    /// <summary>
     ///     Etiqueta del título
     /// </summary>
     public UiLabel? Title { get; set; }

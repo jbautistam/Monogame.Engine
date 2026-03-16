@@ -1,6 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Rendering.Builders;
 using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
@@ -114,18 +113,6 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
                     camera2D.SpriteBatchController.DrawRectangle(new Rectangle(x, y, Thickness, Thickness), Color * Opacity);
             }
     }
-
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(RenderCommandsBuilder builder, Rectangle bounds, GameContext gameContext)
-	{
-        builder.WithCommand(Thickness, false)
-               .WithTransform(bounds, Vector2.Zero)
-               .WithCorner(CornerRadius)
-               .WithShadow(ShadowOffset, ShadowColor, ShadowBlurRadius)
-               .WithColor(Color * Opacity);
-	}
 
     /// <summary>
     ///     Radio del borde redondeado

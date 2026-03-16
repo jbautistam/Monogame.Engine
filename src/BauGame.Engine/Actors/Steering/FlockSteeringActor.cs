@@ -46,14 +46,6 @@ public class FlockSteeringActor(Scenes.Layers.AbstractLayer layer) : AbstractAct
 		// ... no hace nada, simplemente implementa la interface
 	}
 
-	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        // ... en este caso no hace nada
-	}
-
     /// <summary>
     ///     Finaliza el actor
     /// </summary>

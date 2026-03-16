@@ -91,27 +91,6 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
 	}
 
     /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	protected override void PrepareRenderCommandsSelf(Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
-	{
-        if (Enabled)
-            foreach (UiElement item in Items)
-                if (item.Visible)
-                    item.PrepareRenderCommands(builder, gameContext);
-	}
-
-    /// <summary>
-    ///     Obtiene los comandos de un componente en la interface de usuario con un estilo
-    /// </summary>
-	public void PrepareStyleRendercommands(Cameras.Rendering.Builders.RenderCommandsBuilder builder, string? style, 
-                                           UiStyle.StyleType type, Rectangle bounds, GameContext gameContext)
-	{
-        if (!string.IsNullOrWhiteSpace(style))
-            Styles.PrepareRenderCommands(builder, style, type, bounds, gameContext);
-	}
-
-    /// <summary>
     ///     Obtiene un elemento del interface de usuario
     /// </summary>
     public TypeData? GetItem<TypeData>(string id) where TypeData : UiElement

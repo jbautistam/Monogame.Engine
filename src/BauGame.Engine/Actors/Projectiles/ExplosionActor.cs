@@ -76,14 +76,6 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDr
 		// ... en este caso no hace nada
 	}
 
-	/// <summary>
-	///		Prepara los comandos de presentación
-	/// </summary>
-	protected override void PrepareRenderCommandsSelf(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, Managers.GameContext gameContext)
-	{
-        // ... en este caso no hace nada
-	}
-
     /// <summary>
     ///     Verifica si una posición está dentro del radio de explosión
     /// </summary>

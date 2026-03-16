@@ -117,26 +117,6 @@ public class UiVisualNovelDialog(Scenes.Layers.AbstractUserInterfaceLayer layer,
 			RightAvatar.Draw(camera, gameContext);
 	}
 
-    /// <summary>
-    ///     Prepara los comandos de presentación
-    /// </summary>
-	public override void PrepareRenderCommands(Scenes.Cameras.Rendering.Builders.RenderCommandsBuilder builder, GameContext gameContext)
-	{
-		// Prepara los comandos de los estilos
-		Layer.PrepareStyleRendercommands(builder, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
-		// Dibuja el avatar izquierdo
-		if (LeftAvatar is not null && LeftAvatar.Visible)
-			LeftAvatar.PrepareRenderCommands(builder, gameContext);
-		// Dibuja los textos y el cursor
-		TypeWriter?.PrepareRenderCommands(builder, gameContext);
-		Header?.PrepareRenderCommands(builder, gameContext);
-		if (Cursor is not null && Cursor.Visible)
-			Cursor.PrepareRenderCommands(builder, gameContext);
-		// Dibuja el avatar derecho
-		if (RightAvatar is not null && RightAvatar.Visible)
-			RightAvatar.PrepareRenderCommands(builder, gameContext);
-	}
-
 	/// <summary>
 	///		Imagen del avatar izquierdo
 	/// </summary>

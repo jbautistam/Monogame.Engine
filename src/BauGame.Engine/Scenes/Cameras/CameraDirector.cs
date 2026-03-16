@@ -78,35 +78,8 @@ public class CameraDirector(AbstractScene scene)
         foreach (AbstractCameraBase camera in Cameras)
             camera.Update(gameContext);
     }
+
 /*
-    /// <summary>
-    ///     Añade un comando a las cámaras asociadas a una capa
-    /// </summary>
-    public void Submit(Layers.AbstractLayer layer, Rendering.AbstractRenderCommand command)
-    {
-        Submit(layer, [ command ]);
-    }
-
-    /// <summary>
-    ///     Añade una serie de comandos a las cámaras asociadas a una capa
-    /// </summary>
-    public void Submit(Layers.AbstractLayer layer, List<Rendering.AbstractRenderCommand> commands)
-    {
-        foreach (AbstractCameraBase camera in Cameras)
-            if (layer.Cameras.Any(item => item.Equals(camera.Name, StringComparison.CurrentCultureIgnoreCase)))
-                camera.CommandsQueue.AddRange(commands);
-    }
-
-    /// <summary>
-    ///     Añade una serie de comandos a las cámaras asociadas a una capa
-    /// </summary>
-    public void Submit(Layers.AbstractLayer layer, Rendering.Builders.RenderCommandsBuilder builder)
-    {
-        foreach (AbstractCameraBase camera in Cameras)
-            if (layer.Cameras.Any(item => item.Equals(camera.Name, StringComparison.CurrentCultureIgnoreCase)))
-                camera.CommandsQueue.AddRange(builder.Build());
-    }
-*/
     /// <summary>
     ///     Renderiza los comandos sobre la cámara
     /// </summary>
@@ -116,32 +89,6 @@ public class CameraDirector(AbstractScene scene)
 
         // Prepara las texturas comunes
         PrepareCommonTextures(device);
-/*
-	    // Limpia la pantalla
-	    device.Clear(ClearOptions.Target, Color.Black, 0, 0);
-        // Ordena las cámaras
-        Cameras.Sort((first, second) => first.ZIndex.CompareTo(second.ZIndex));
-        // Dibuja sobre las cámaras
-        foreach (AbstractCameraBase camera in Cameras)
-        {
-            CameraViewport viewport = camera.CameraViewport;
-            Viewport oldViewport = device.Viewport;
-            SpriteBatch spriteBatch = new(device);
-                
-                // Actualiza el vieport de dibujo
-                spriteBatch.GraphicsDevice.Viewport = viewport.ToViewport(Scene.GetViewPort());
-                // Arranca el spritebatch
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
-                                  SamplerState.PointClamp, null, null, null,
-                                  camera.GetViewMatrix() * camera.GetProjectionMatrix());
-                // Ejecuta los comandos de la cola
-                camera.CommandsQueue.Execute(camera, spriteBatch);
-                // Finaliza el dibujo
-                spriteBatch.End();
-                // Recupera el viewport inicial
-                spriteBatch.GraphicsDevice.Viewport = oldViewport;
-        }
-*/
         // Dibuja la pantalla
         if (Scene.Camera is not null)
         {
@@ -173,6 +120,7 @@ public class CameraDirector(AbstractScene scene)
             spriteBatchManager.End();
         }
     }
+*/
 
 	/// <summary>
 	///		Prepara las texturas comunes
