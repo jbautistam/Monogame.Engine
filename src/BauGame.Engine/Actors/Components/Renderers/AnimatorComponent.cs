@@ -1,5 +1,6 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
+using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
 
@@ -11,9 +12,8 @@ internal class AnimatorComponent
 	// Variables privadas
 	private float _elapsed;
 	private Animation? _actualAnimation;
-	private int _frameIndex, _lastIndex;
+	private int _frameIndex;
 	private Animation.AnimationFrame? _frame;
-	private TextureRegion? _lastRegion;
 	private bool _isPlaying;
 
 	/// <summary>
@@ -37,7 +37,6 @@ internal class AnimatorComponent
 			// Marca los datos de inicio
 			_frameIndex = 0;
 			_elapsed = 0;
-			_lastRegion = null;
 			Loop = loop;
 			// Indica que se ha asignado
 			return true;
@@ -89,28 +88,14 @@ internal class AnimatorComponent
 	}
 
 	/// <summary>
-	///		Obtiene la textura
+	///		Obtiene la región actual
 	/// </summary>
-	internal TextureRegion? GetTexture(AbstractTexture texture)
+	internal string? GetActualRegion()
 	{
-		// Obtiene la textura (si ha cambiado)
-		if (_actualAnimation is not null && texture is not null)
-		{
-			if (_lastIndex != _frameIndex || _lastRegion is null)
-			{
-				Animation.AnimationFrame? frame = _actualAnimation.GetFrame(_frameIndex);
-
-					if (frame is not null)
-					{
-						// Guarda la región
-						_lastRegion = texture?.GetRegion(frame.Region);
-						// y el índice
-						_lastIndex = _frameIndex;
-					}
-			}
-		}
-		// Devuelve la textura
-		return _lastRegion;
+		if (_actualAnimation is not null && _frameIndex >= 0 && _frameIndex < _actualAnimation.Frames.Count)
+			return _actualAnimation.GetFrame(_frameIndex)?.Region;
+		else
+			return null;
 	}
 
 	/// <summary>

@@ -22,8 +22,7 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 			if (definition is not null)
 			{
 				// Añade la textura
-				Renderer.Texture = definition.Texture;
-				Renderer.Region = definition.Region;
+				Renderer.Sprite = new Entities.Common.Sprites.SpriteDefinition(definition.Texture, definition.Region);
 				// Añade la animación
 				if (!string.IsNullOrWhiteSpace(definition.Animation))
 					Renderer.Animator.SetAnimation(definition.Animation, true);

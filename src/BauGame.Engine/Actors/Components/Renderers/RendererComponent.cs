@@ -12,18 +12,11 @@ namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
 /// </summary>
 public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(actor, true), Interfaces.IActorDrawable
 {
-	// Variables privadas
-	private string? _texture, _region;
-	private AbstractTexture? _textureSprite;
-	private bool _updated;
-
 	/// <summary>
 	///		Inicia el componente
 	/// </summary>
 	public override void Start()
 	{
-		_updated = true;
-		LoadTexture();
 	}
 
 	/// <summary>
@@ -39,8 +32,8 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	/// </summary>
 	public override void Update(GameContext gameContext)
 	{
-		// Actualiza la textura
-		LoadTexture();
+		// Carga los datos del sprite
+		Sprite?.LoadAsset(Actor.Layer.Scene);
 		// Actualiza la animación
 		UpdateAnimator(gameContext);
 		// Actualiza los efectos
@@ -72,32 +65,14 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	}
 
 	/// <summary>
-	///		Carga la textura si es la primera vez o ha habido modificaciones
-	/// </summary>
-	private void LoadTexture()
-	{
-		if (_updated)
-		{
-			// Carga la textura
-			if (string.IsNullOrWhiteSpace(Texture))
-				_textureSprite = null;
-			else
-				_textureSprite = GameEngine.Instance.ResourcesManager.TextureManager.Assets.Get(Texture);
-			// Indica que se ha cargado con las últimas modificaciones
-			_updated = false;
-		}
-	}
-
-	/// <summary>
 	///		Arranca una animación
 	/// </summary>
 	public void StartAnimation(string texture, string animation, bool loop)
 	{
 		if (Animator.SetAnimation(animation, loop))
 		{
-			// Asigna la textura
-			Texture = texture;
-			Region = Animator.GetDefaultRegion();
+			// Crea el sprite
+			Sprite = new Entities.Common.Sprites.SpriteDefinition(texture, Animator.GetDefaultRegion());
 			// Indica que está animando
 			Animator.IsPlaying = true;
 		}
@@ -129,31 +104,26 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	/// </summary>
     public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
-		TextureRegion? region = GetRegion(Region);
-
-			if (region is not null)
-			{
-				Vector2 position;
-
-					// Calcula la posición dependiendo de si las coordenadas son relativas
-					position = Actor.Transform.BoundsCentered.Location;
-					// Dibuja el actor
-					region.Draw(renderingManager, position, Actor.Transform.Center, Scale,
-								SpriteEffects, Opacity * Color, Actor.Transform.Rotation);
-			}
+		if (Sprite is not null)
+		{
+			// Obtiene la región adecuada para la animación
+			Sprite.Region = GetRegion();
+			// Cambia la posición
+			Sprite.SpriteEffect = SpriteEffects;
+			// Dibuja el sprite
+			renderingManager.SpriteRenderer.Draw(Sprite, Actor.Transform.BoundsCentered.Location, Actor.Transform.Center, Scale, Actor.Transform.Rotation, Opacity * Color);
+		}
     }
 
 	/// <summary>
-	///		Obtiene la región de la textura para dibujarla
+	///		Obtiene la región de la textura adecuada para la animación
 	/// </summary>
-	private TextureRegion? GetRegion(string? region)
+	private string? GetRegion()
 	{
-		if (_textureSprite is null)
-			return null;
-		else if (Animator.IsPlaying || Animator.HasEndLoop)
-			return Animator.GetTexture(_textureSprite);
+		if (Sprite is not null && (Animator.IsPlaying || Animator.HasEndLoop))
+			return Animator.GetActualRegion();
 		else
-			return _textureSprite.GetRegion(region);
+			return Sprite?.Region;
 	}
 
 	/// <summary>
@@ -161,12 +131,10 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	/// </summary>
 	public Size GetSize()
 	{
-		TextureRegion? region = GetRegion(Region);
-
-			if (region is null)
-				return new Size(0, 0);
-			else
-				return new Size(region.Region.Width, region.Region.Height);
+		if (Sprite is not null)
+			return Sprite.GetSize();
+		else
+			return new Size(0, 0);
 	}
 
 	/// <summary>
@@ -183,36 +151,9 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	public AbstractActorDrawable Actor { get; } = actor;
 
 	/// <summary>
-	///		Textura
+	///		Sprite
 	/// </summary>
-	public string? Texture 
-	{	
-		get { return _texture; }
-		set
-		{
-			if (string.IsNullOrWhiteSpace(_texture) || !_texture.Equals(value, StringComparison.CurrentCultureIgnoreCase))
-			{
-				_texture = value;
-				_updated = true;
-			}
-		}
-	}
-
-	/// <summary>
-	///		Región
-	/// </summary>
-	public string? Region
-	{	
-		get { return _region; }
-		set
-		{
-			if (string.IsNullOrWhiteSpace(_region) || !_region.Equals(value, StringComparison.CurrentCultureIgnoreCase))
-			{
-				_region = value;
-				_updated = true;
-			}
-		}
-	}
+	public Entities.Common.Sprites.SpriteDefinition? Sprite { get; set; }
 
 	/// <summary>
 	///		Efectos de dibujo

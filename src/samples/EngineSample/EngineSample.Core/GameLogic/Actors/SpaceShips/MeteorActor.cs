@@ -33,8 +33,7 @@ public class MeteorActor : AbstractActorDrawable
 		Texture = texture; // ... almacena la textura para cuando se lancen meteoritos hijo al destruir este
 		Region = region;
 		// Configura el renderer
-		Renderer.Texture = texture;
-		Renderer.Region = region;
+		Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(texture, region);
 		switch (size)
 		{
 			case MeteorSize.Medium:

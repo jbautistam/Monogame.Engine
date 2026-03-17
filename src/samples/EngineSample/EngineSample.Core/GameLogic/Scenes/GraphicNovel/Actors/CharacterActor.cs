@@ -1,5 +1,4 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Actors;
 
@@ -7,7 +6,7 @@ namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Actors;
 ///		Actor que representa un personaje
 /// </summary>
 public class CharacterActor(Bau.Libraries.BauGame.Engine.Scenes.Layers.AbstractLayer layer, int logicalLayer, int logicalZOrder, CharacterDefinition definition) 
-					: Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable(layer, logicalLayer * 1_000 + logicalZOrder)
+					: Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable(layer, 1_000 * logicalLayer + logicalZOrder)
 {
 	/// <summary>
 	///		Arranca el actor
@@ -33,10 +32,7 @@ public class CharacterActor(Bau.Libraries.BauGame.Engine.Scenes.Layers.AbstractL
 
 			// Cambia la textura
 			if (definition is not null)
-			{
-				Renderer.Texture = definition.Sprite.Asset;
-				Renderer.Region = definition.Sprite.Region;
-			}
+				Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(definition.Sprite.Asset, definition.Sprite.Region);
 	}
 
 	/// <summary>

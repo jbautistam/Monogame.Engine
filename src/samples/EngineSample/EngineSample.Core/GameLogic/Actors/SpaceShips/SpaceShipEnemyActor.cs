@@ -24,8 +24,8 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 		// Inicializa las propiedades
 		Name = name;
 		// Configura el renderer
-		Renderer.Texture = "enemies";
-		Renderer.Region = $"Ship {Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 14):00}";
+		Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("enemies", 
+																									$"Ship {Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 14):00}");
 		// Configura las colisiones
 		_collision = new(this, Scenes.Space.SpaceShipsScene.PhysicsNpcLayer);
 		_collision.Colliders.Add(new CircleCollider(_collision, null));
@@ -53,7 +53,7 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 	/// <summary>
 	///		Actualiza el actor
 	/// </summary>
-	protected override void UpdateActor(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateActor(GameContext gameContext)
 	{
 		if (_health.JustDead)
 			TreaActorIsDead(gameContext, true);
@@ -86,7 +86,7 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 	/// <summary>
 	///		Trata el resto de la muerte del actor
 	/// </summary>
-	private void TreaActorIsDead(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext, bool killedByPlayer)
+	private void TreaActorIsDead(GameContext gameContext, bool killedByPlayer)
 	{
 		// Desactiva la colisión
 		_collision.ToggleEnabled(false);

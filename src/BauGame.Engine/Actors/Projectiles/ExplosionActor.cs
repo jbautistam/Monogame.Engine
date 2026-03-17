@@ -21,13 +21,12 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDr
         // Actualiza los datos de posición
         Transform.Bounds = new Entities.Common.RectangleF(position.X, position.Y, 0, 0);
         // Actualiza los datos de dibujo
-        Renderer.Texture = properties.Texture;
-        Renderer.Region = properties.Region;
+        Renderer.Sprite = new Entities.Common.Sprites.SpriteDefinition(properties.Texture, properties.Region);
         Renderer.Opacity = 1;
         if (!string.IsNullOrWhiteSpace(Properties.Animation))
         {
             Renderer.Animator.Reset();
-            Renderer.StartAnimation(Renderer.Texture, Properties.Animation, false);
+            Renderer.StartAnimation(Renderer.Sprite.Asset, Properties.Animation, false);
         }
         // Inicializa las variables y activa la explosión
         _currentTime = 0f;

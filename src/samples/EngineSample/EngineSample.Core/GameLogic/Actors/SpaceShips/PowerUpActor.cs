@@ -40,20 +40,7 @@ public class PowerUpActor : AbstractActorDrawable
 		Name = name;
 		Type = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom<PowerUpType>();
 		// Configura el renderer
-		Renderer.Texture = "bonus";
-		Renderer.Region = Type switch
-								{
-									PowerUpType.Armor => "Armor_Bonus",
-									PowerUpType.Barrier => "Barrier_Bonus",
-									PowerUpType.Damage => "Damage_Bonus",
-									PowerUpType.EnemyDestroy => "Enemy_Destroy_Bonus",
-									PowerUpType.EnemySpeedDebuff => "Enemy_Speed_Debuff",
-									PowerUpType.HeroMovementDebuff => "Hero_Movement_Debuff",
-									PowerUpType.HeroSpeedDebuff => "Hero_Speed_Debuff",
-									PowerUpType.Live => "HP_Bonus",
-									PowerUpType.Magnet => "Magnet_Bonus",
-									_ => "Rockets_Bonus"
-								};
+		Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("bonus", GetRegion(Type));
 		// Configura las colisiones
 		_collision = new(this, Scenes.Space.SpaceShipsScene.PhysicsPowerUpLayer);
 		_collision.Colliders.Add(new CircleCollider(_collision, null));
@@ -69,6 +56,24 @@ public class PowerUpActor : AbstractActorDrawable
 		Components.Add(_health);
 		// Añade la etiqueta
 		Tags.Add(Constants.TagPowerUp);
+
+		// Obtiene la región
+		string GetRegion(PowerUpType type)
+		{
+			return type switch
+						{
+							PowerUpType.Armor => "Armor_Bonus",
+							PowerUpType.Barrier => "Barrier_Bonus",
+							PowerUpType.Damage => "Damage_Bonus",
+							PowerUpType.EnemyDestroy => "Enemy_Destroy_Bonus",
+							PowerUpType.EnemySpeedDebuff => "Enemy_Speed_Debuff",
+							PowerUpType.HeroMovementDebuff => "Hero_Movement_Debuff",
+							PowerUpType.HeroSpeedDebuff => "Hero_Speed_Debuff",
+							PowerUpType.Live => "HP_Bonus",
+							PowerUpType.Magnet => "Magnet_Bonus",
+							_ => "Rockets_Bonus"
+						};
+		}
 	}
 
 	/// <summary>

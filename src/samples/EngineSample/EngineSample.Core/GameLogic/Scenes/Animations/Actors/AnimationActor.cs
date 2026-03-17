@@ -30,7 +30,7 @@ public class AnimationActor : AbstractActorDrawable
 	/// </summary>
 	protected override void StartActor()
 	{
-		Renderer.Texture = Texture;
+		Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(Texture, null);
 		Renderer.StartAnimation(Texture, Animation, false);
 	}
 

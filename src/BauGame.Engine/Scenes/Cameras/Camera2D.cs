@@ -90,7 +90,7 @@ public class Camera2D
     /// </summary>
     public Rectangle WorldToScreenRect(RectangleF worldRect)
     {
-        return WorldToScreenRect(new Rectangle((int) worldRect.Top, (int) worldRect.Left, (int) worldRect.Width, (int) worldRect.Height));
+        return WorldToScreenRect(new Rectangle((int) worldRect.X, (int) worldRect.Y, (int) worldRect.Width, (int) worldRect.Height));
     }
 
     /// <summary>

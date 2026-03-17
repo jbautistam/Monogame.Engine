@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Managers.Resources;
+using Bau.Libraries.BauGame.Engine.Tools.Extensors;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
@@ -11,6 +12,7 @@ public class SpriteDefinition
 {
 	// Variables privadas
 	private string _asset = string.Empty;
+	private string? _region;
 	private TextureConfigurationManager.TextureResolved? _textureConfiguration;
 	private bool _isDirty;
 
@@ -63,7 +65,7 @@ public class SpriteDefinition
 		get { return _asset;}
 		set
 		{
-			if (!string.IsNullOrWhiteSpace(value) && !value.Equals(_asset, StringComparison.CurrentCultureIgnoreCase))
+			if (!value.EqualsIgnoreNull(_asset, StringComparison.CurrentCultureIgnoreCase))
 			{
 				_asset = value;
 				_isDirty = true;
@@ -74,7 +76,18 @@ public class SpriteDefinition
 	/// <summary>
 	///		Región de la textura
 	/// </summary>
-	public string? Region { get; set; }
+	public string? Region
+	{
+		get { return _region; }
+		set
+		{
+			if (!value.EqualsIgnoreNull(_region, StringComparison.CurrentCultureIgnoreCase))
+			{
+				_region = value;
+				_isDirty = true;
+			}
+		}
+	}
 
 	/// <summary>
 	///		Efecto aplicado al sprite

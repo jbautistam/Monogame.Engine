@@ -40,12 +40,11 @@ public class ProjectileActor : AbstractActorDrawable
         Transform.Bounds = new Entities.Common.RectangleF(position.X, position.Y, 0, 0);
         Transform.Rotation = rotation;
         // Inicializa los datos de dibujo
-        Renderer.Texture = Properties.Texture;
-        Renderer.Region = Properties.Region;
+        Renderer.Sprite = new Entities.Common.Sprites.SpriteDefinition(Properties.Texture, Properties.Region);
         if (!string.IsNullOrWhiteSpace(Properties.Animation))
         {
             Renderer.Animator.Reset();
-            Renderer.StartAnimation(Renderer.Texture, Properties.Animation, false);
+            Renderer.StartAnimation(Renderer.Sprite.Asset, Properties.Animation, false);
         }
         // Inicializa el resto de propiedades
         CurrentDistance = 0f;
