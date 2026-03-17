@@ -1,4 +1,5 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
@@ -18,7 +19,7 @@ public class UserInterfaceVisuaNovelTextBuilder : AbstractElementUserInterfaceBu
 	/// <summary>
 	///		Asigna la fuente
 	/// </summary>
-	public UserInterfaceVisuaNovelTextBuilder WithFont(string font)
+	public UserInterfaceVisuaNovelTextBuilder WithFont(SpriteTextDefinition font)
 	{
 		// Asigna la fuente
 		if (Item.TypeWriter is not null)
@@ -113,7 +114,7 @@ public class UserInterfaceVisuaNovelTextBuilder : AbstractElementUserInterfaceBu
 	/// <summary>
 	///		Asigna la cabecera
 	/// </summary>
-	public UserInterfaceVisuaNovelTextBuilder WithHeader(string text, string font, string asset, string? region, bool visible, string style)
+	public UserInterfaceVisuaNovelTextBuilder WithHeader(string text, SpriteTextDefinition font, string asset, string? region, bool visible, string style)
 	{
 		// Crea la cabecera
 		Item.Header = new UiVisualNovelHeader(Item.Layer, new UiPosition(0, 0, 0, 0));

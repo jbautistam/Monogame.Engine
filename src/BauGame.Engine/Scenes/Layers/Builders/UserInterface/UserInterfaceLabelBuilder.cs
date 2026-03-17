@@ -1,4 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
 
@@ -18,10 +19,21 @@ public class UserInterfaceLabelBuilder : AbstractElementUserInterfaceBuilder<UiL
 	/// <summary>
 	///		Asigna la fuente
 	/// </summary>
-	public UserInterfaceLabelBuilder WithFont(string font)
+	public UserInterfaceLabelBuilder WithFont(SpriteTextDefinition font)
 	{
 		// Asigna la fuente
 		Item.Font = font;
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Asigna la fuente
+	/// </summary>
+	public UserInterfaceLabelBuilder WithFont(string font)
+	{
+		// Asigna la fuente
+		Item.Font = new SpriteTextDefinition(font);
 		// Devuelve el generador
 		return this;
 	}

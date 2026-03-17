@@ -1,4 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
@@ -19,7 +20,7 @@ public class UserInterfaceTypeWriterBuilder : AbstractElementUserInterfaceBuilde
 	/// <summary>
 	///		Asigna la fuente
 	/// </summary>
-	public UserInterfaceTypeWriterBuilder WithFont(string font)
+	public UserInterfaceTypeWriterBuilder WithFont(SpriteTextDefinition font)
 	{
 		// Asigna la fuente
 		Item.Font = font;

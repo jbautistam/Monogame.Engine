@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.ComicBubbles;
 
@@ -22,21 +21,16 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
         // Carga los datos de la fuente
         if (Font is not null && !string.IsNullOrEmpty(Text))
         {   
-            SpriteFont? spriteFont = Font.LoadAsset();
+            List<string> lines = new Popups.MobileChats.StringFontHelper().WrapText(Font, Text, Position.ContentBounds.Width);
+            float contentHeight = 0f;
 
-                if (spriteFont is not null)
+                // Calcula el tamaño de las líneas            
+                foreach (string line in lines)
                 {
-                    List<string> lines = new Popups.MobileChats.StringFontHelper().WrapText(spriteFont, Text, TextScale, Position.ContentBounds.Width);
-                    float contentHeight = 0f;
+                    Vector2 size = Font.MeasureString(line);
 
-                        // Calcula el tamaño de las líneas            
-                        foreach (string line in lines)
-                        {
-                            Vector2 size = spriteFont.MeasureString(line) * TextScale;
-
-                                if (contentHeight < Position.ContentBounds.Height)
-                                    contentHeight += size.Y + spriteFont.LineSpacing * LineSpacing * TextScale;
-                        }
+                        if (contentHeight < Position.ContentBounds.Height)
+                            contentHeight += size.Y + Font.GetLineSpacing();
                 }
         }
         // Carga los datos del fondo del bocadillo
@@ -65,6 +59,7 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     /// </summary>
 	protected override void UpdateSelf(GameContext gameContext)
 	{
+        Font?.Update(gameContext);
 	}
 
     /// <summary>
@@ -87,57 +82,55 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     /// </summary>
     private void DrawText(Scenes.Rendering.RenderingManager renderingManager)
     {
-        SpriteFont? spriteFont = Font?.LoadAsset();
+        if (Font is not null)
+        {
+            List<string> lines = new Popups.MobileChats.StringFontHelper().WrapText(Font, Text, Position.ContentBounds.Width);
+            float lineHeight = Font.GetLineSpacing();
+            float textHeight = lines.Count * lineHeight;
+            float startY;
 
-            if (Font is not null && spriteFont is not null)
-            {
-                List<string> lines = new Popups.MobileChats.StringFontHelper().WrapText(spriteFont, Text, TextScale, Position.ContentBounds.Width);
-                float lineHeight = spriteFont.LineSpacing * LineSpacing * TextScale;
-                float textHeight = lines.Count * lineHeight;
-                float startY;
-
-                    // Quita el último espaciado de las líneas
-                    textHeight -= lineHeight - spriteFont.LineSpacing * TextScale;
-                    // Calcula la posición inicial dependiendo de la alineación
-                    switch (VerticalAlignment)
-                    {
-                        case UiLabel.VerticalAlignmentType.Center: 
-                                startY = Position.ContentBounds.Y + (Position.ContentBounds.Height - textHeight) / 2f; 
-                            break;
-                        case UiLabel.VerticalAlignmentType.Bottom: 
-                                startY = Position.ContentBounds.Y + Position.ContentBounds.Height - textHeight; 
-                            break;
-                        default: 
-                                startY = Position.ContentBounds.Y; 
-                            break;
-                    }
-                    // Dibuja las líneas
-                    for (int index = 0; index < lines.Count; index++)
-                    {
-                        string line = lines[index];
-                        Vector2 size = spriteFont.MeasureString(line) * TextScale;
-                        float x;
-                        float y = startY + (index * lineHeight);
+                // Quita el último espaciado de las líneas
+                textHeight -= lineHeight - Font.GetLineSpacing();
+                // Calcula la posición inicial dependiendo de la alineación
+                switch (VerticalAlignment)
+                {
+                    case UiLabel.VerticalAlignmentType.Center: 
+                            startY = Position.ContentBounds.Y + (Position.ContentBounds.Height - textHeight) / 2f; 
+                        break;
+                    case UiLabel.VerticalAlignmentType.Bottom: 
+                            startY = Position.ContentBounds.Y + Position.ContentBounds.Height - textHeight; 
+                        break;
+                    default: 
+                            startY = Position.ContentBounds.Y; 
+                        break;
+                }
+                // Dibuja las líneas
+                for (int index = 0; index < lines.Count; index++)
+                {
+                    string line = lines[index];
+                    Vector2 size = Font.MeasureString(line);
+                    float x;
+                    float y = startY + (index * lineHeight);
                 
-                            // Posición X según alineación
-                            switch (HorizontalAlignment)
-                            {
-                                case UiLabel.HorizontalAlignmentType.Center: 
-                                        x = Position.ContentBounds.X + (Position.ContentBounds.Width - size.X) / 2f; 
-                                    break;
-                                case UiLabel.HorizontalAlignmentType.Right: 
-                                        x = Position.ContentBounds.X + Position.ContentBounds.Width - size.X; 
-                                    break;
-                                default:
-                                        x = Position.ContentBounds.X; 
-                                    break;
-                            }
-                            // Calcula la coordenada Y
-                            y = Math.Min(y, y + textHeight - lineHeight);
-                            // Dibuja el texto
-                            renderingManager.SpriteTextRenderer.DrawString(Font, line, new Vector2(x, y), Color);
-                    }
-            }
+                        // Posición X según alineación
+                        switch (HorizontalAlignment)
+                        {
+                            case UiLabel.HorizontalAlignmentType.Center: 
+                                    x = Position.ContentBounds.X + (Position.ContentBounds.Width - size.X) / 2f; 
+                                break;
+                            case UiLabel.HorizontalAlignmentType.Right: 
+                                    x = Position.ContentBounds.X + Position.ContentBounds.Width - size.X; 
+                                break;
+                            default:
+                                    x = Position.ContentBounds.X; 
+                                break;
+                        }
+                        // Calcula la coordenada Y
+                        y = Math.Min(y, y + textHeight - lineHeight);
+                        // Dibuja el texto
+                        renderingManager.SpriteTextRenderer.DrawString(Font, line, new Vector2(x, y), Color);
+                }
+        }
     }
 
     /// <summary>
@@ -174,14 +167,4 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     ///     Color del bocadillo
     /// </summary>
     public Color BubbleColor { get; set; } = Color.White;
-
-    /// <summary>
-    ///     Escala del texto
-    /// </summary>
-    public float TextScale { get; set; } = 1.0f;
-
-    /// <summary>
-    ///     Espaciado de línea
-    /// </summary>
-    public float LineSpacing { get; set; } = 1.0f;
 }

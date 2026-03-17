@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine.Managers;
+using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
@@ -47,6 +48,28 @@ public class SpriteTextDefinition
 	}
 
 	/// <summary>
+	///		Mide la longitud de una cadena
+	/// </summary>
+	public Vector2 MeasureString(string text)
+	{
+		if (_spriteFont is not null)
+			return _spriteFont.MeasureString(text) * TextScale;
+		else
+			return Vector2.One;
+	}
+
+	/// <summary>
+	///		Obtiene el espaciado entre líneas
+	/// </summary>
+	public float GetLineSpacing()
+	{
+		if (_spriteFont is not null)
+			return TextScale * _spriteFont.LineSpacing * LineSpacing;
+		else
+			return TextScale * LineSpacing;
+	}
+
+	/// <summary>
 	///		Nombre de la fuente
 	/// </summary>
 	public string? Font
@@ -61,4 +84,14 @@ public class SpriteTextDefinition
 			}
 		}
 	}
+
+	/// <summary>
+	///		Espaciado entre líneas
+	/// </summary>
+	public float LineSpacing { private get; set; } = 1.2f;
+
+    /// <summary>
+    ///     Escala del texto
+    /// </summary>
+    public float TextScale { get; set; } = 1.0f;
 }

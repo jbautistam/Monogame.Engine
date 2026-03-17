@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats;
 
@@ -10,7 +10,7 @@ public class StringFontHelper
     /// <summary>
     ///     Divide el texto de un mensaje para que quepa en el ancho
     /// </summary>
-    public List<string> WrapText(SpriteFont font, string text, float textScale, float maxLineWidth)
+    public List<string> WrapText(SpriteTextDefinition font, string text, float maxLineWidth)
     {
         List<string> lines = [];
 
@@ -25,7 +25,7 @@ public class StringFontHelper
                         string testLine = string.IsNullOrEmpty(currentLine) ? word : currentLine + " " + word;
                 
                             // Si se ha superado el ancho, se pasa a la siguiente línea
-                            if (font.MeasureString(testLine).X * textScale > maxLineWidth)
+                            if (font.MeasureString(testLine).X > maxLineWidth)
                             {
                                 // Añade la línea que llevamos hasta ahora
                                 lines.Add(currentLine);

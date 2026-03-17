@@ -56,7 +56,7 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 		UiMobileChat chat = new(this, new UiPosition(0.1f, 0.1f, 0.4f, 0.4f))
 								{
 									Style = "MenuStyle",
-									Font = "Fonts/Hud",
+									Font = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteTextDefinition("Fonts/Hud"),
 									MessageSpacing = 20,
 									SpriteWriting = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("Tiles/BlockA3", string.Empty)
 								};

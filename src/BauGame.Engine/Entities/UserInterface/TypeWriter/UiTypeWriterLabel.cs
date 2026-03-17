@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter.TextItems;
 
@@ -27,7 +26,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     // Eventos públicos
     public event EventHandler<EventArguments.CommandEventArgs>? CommandExecute;
     // Variables privadas
-    private bool _isInitialized, _isDirty;
+    private bool _isDirty;
     private string _text = string.Empty;
     private float _elapsed, _wait, _speedMultiplier;
     private List<TextSectionModel> _textSections = [];
@@ -45,14 +44,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
         // Inicializa el contenido
-        if (!_isInitialized)
-        {
-            // Carga la fuente
-            if (!string.IsNullOrWhiteSpace(Font))
-                SpriteFont = Layer.Scene.LoadSceneAsset<SpriteFont>(Font);
-            // Indica que ya está inicializado
-            _isInitialized = true;
-        }
+        Font?.Update(gameContext);
         // Interpreta el texto si es necesario
         if (_isDirty)
         {
@@ -145,8 +137,8 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
         // Dibuja el fondo
         Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja el texto
-        if (SpriteFont is not null)
-            DrawWrappedText(renderingManager, SpriteFont);
+        if (Font is not null)
+            DrawWrappedText(renderingManager, Font);
         // Depuración
 		if (GameEngine.Instance.EngineSettings.DebugMode)
             renderingManager.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugOverlayColor, 2);
@@ -155,7 +147,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     /// <summary>
     ///     Dibuja el texto en varias líneas
     /// </summary>
-    private void DrawWrappedText(Scenes.Rendering.RenderingManager renderingManager, SpriteFont font)
+    private void DrawWrappedText(Scenes.Rendering.RenderingManager renderingManager, SpriteTextDefinition font)
     {
         Styles.UiStyle style = Layer.Styles.GetDefault(Style);
         float x = Position.ContentBounds.X, y = Position.ContentBounds.Y;
@@ -182,7 +174,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
                             if (x + wordSize.X > Position.ContentBounds.Right)
                                 (x, y) = NewLine(y, font);
                             // Dibuja la cadena
-                            renderingManager.TextRenderer.DrawString(font, wordToWrite, new Vector2(x, y), color * style.Opacity);
+                            renderingManager.SpriteTextRenderer.DrawString(font, wordToWrite, new Vector2(x, y), color * style.Opacity);
                             // Cambia la X
                             if (isEndOfLine)
                                 (x, y) = NewLine(y, font);
@@ -210,7 +202,7 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
         }
 
         // Obtiene las coordenadas para saltar de línea
-        (float x, float y) NewLine(float y, SpriteFont font) => (Position.ContentBounds.X, y + font.LineSpacing * LineSpacing);
+        (float x, float y) NewLine(float y, SpriteTextDefinition font) => (Position.ContentBounds.X, y + font.GetLineSpacing());
     }
 
     /// <summary>
@@ -235,19 +227,9 @@ public class UiTypeWriterLabel(AbstractUserInterfaceLayer layer, UiPosition posi
     }
 
     /// <summary>
-    ///     Nombre de la fuente
-    /// </summary>
-    public string? Font { get; set; }
-
-    /// <summary>
     ///     Fuente del texto
     /// </summary>
-    private SpriteFont? SpriteFont { get; set; }
-
-    /// <summary>
-    ///     Espaciado de líneas
-    /// </summary>
-    public float LineSpacing { get; set; } = 1f;
+    public SpriteTextDefinition? Font { get; set; }
 
     /// <summary>
     ///     Velocidad para mostrar los caracteres

@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats;
@@ -12,10 +10,8 @@ namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats
 public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosition position) : UiElement(layer, position)
 {
     // Variables privadas
-    private bool _initialized = false;
     private List<MobileSender> _senders = [];
     private List<MobileMessage> _messages = [];
-    private SpriteFont? _spriteFont;
     private float _typingElapsed = 8f;
 
     /// <summary>
@@ -82,15 +78,8 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
     /// </summary>
 	protected override void UpdateSelf(GameContext gameContext)
 	{
-        // Inicializa los datos
-        if (!_initialized)
-        {
-            // Carga la fuente
-            if (!string.IsNullOrWhiteSpace(Font))
-                _spriteFont = Layer.Scene.LoadSceneAsset<SpriteFont>(Font);
-            // Indica que se ha inicializado
-            _initialized = true;
-        }
+        // Carga la fuente
+        Font?.Update(gameContext);
         // Modifica el tiempo de presentación de los mensajes
         foreach (MobileMessage message in _messages)
             message.Start -= gameContext.DeltaTime;
@@ -112,7 +101,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
                 if (_messages[index].Status != MobileMessage.StatusType.Waiting)
                 {
                     // Calcula la posición y
-                    y -= _messages[index].GetHeight(_spriteFont, GetMaxBubbleWidth(), _spriteFont?.LineSpacing ?? 0);
+                    y -= _messages[index].GetHeight(Font, GetMaxBubbleWidth());
                     // Asigna la posición Y al mensaje
                     _messages[index].Y = y;
                     // Quita la separación entre mensajes
@@ -140,14 +129,13 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
             // Dibuja los datos dependiendo del estilo
             Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
             // Dibuja los mensajes
-            if (_spriteFont is not null)
+            if (Font is not null)
                 foreach (MobileMessage message in _messages)
                     if (message.Status != MobileMessage.StatusType.Waiting)
                     {
                         Common.Sprites.SpriteDefinition? avatar = GetAvatar(message);
                         Rectangle avatarBounds = ComputeAvatarBounds(avatar, message.Sender.IsPlayer, message.Y);
-                        Rectangle bounds = new(GetMessageX(message, width), 
-                                               (int) message.Y, width, (int) message.GetHeight(_spriteFont, width, _spriteFont.LineSpacing));
+                        Rectangle bounds = new(GetMessageX(message, width), (int) message.Y, width, (int) message.GetHeight(Font, width));
 
                             // Dibuja el avatar
                             if (avatar is not null)
@@ -236,19 +224,19 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
     /// </summary>
     private void DrawMessage(Scenes.Rendering.RenderingManager renderingManager, MobileMessage message, Rectangle bounds)
     {
-        if (_spriteFont is not null)
+        if (Font is not null)
         {
             int y = bounds.Y + PaddingMessage.Top;
-            int height = (int) (_spriteFont.LineSpacing * 0.8f);
+            int height = (int) Font.GetLineSpacing();
 
                 // Escribe el nombre del remitente
                 if (message.Sender.ShowName)
                 {
-                    Vector2 size = _spriteFont.MeasureString(message.Sender.Name);
+                    Vector2 size = Font.MeasureString(message.Sender.Name);
 
                         // Dibuja el nombre
-                        renderingManager.TextRenderer.DrawString(_spriteFont, message.Sender.Name, 
-                                                                 new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.NameForecolor);
+                        renderingManager.SpriteTextRenderer.DrawString(Font, message.Sender.Name, 
+                                                                       new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.NameForecolor);
                         // Incrementa la posición
                         y += (int) size.Y + 2;
                 }
@@ -256,7 +244,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
                 foreach (string line in message.Lines)
                 {
                     // Escribe el texto
-                    renderingManager.TextRenderer.DrawString(_spriteFont, line, new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.Forecolor);
+                    renderingManager.SpriteTextRenderer.DrawString(Font, line, new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.Forecolor);
                     // Pasa a la siguiente línea
                     y += height;
                 }
@@ -266,7 +254,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
     /// <summary>
     ///     Nombre de la fuente
     /// </summary>
-    public string? Font { get; set; }
+    public Common.Sprites.SpriteTextDefinition? Font { get; set; }
 
     /// <summary>
     ///     Altura del mensaje en pantalla

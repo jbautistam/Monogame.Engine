@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
 namespace Bau.Libraries.BauGame.Engine.Managers.Debugger;
 
@@ -14,7 +14,6 @@ public class DebugManager(EngineManager manager)
     private float _fps;
     private int _frameCount = 0;
     private float _elapsedTime = 0f;
-    private bool _initialized;
 
     /// <summary>
     ///     Log de un mensaje
@@ -74,11 +73,8 @@ public class DebugManager(EngineManager manager)
         if (Manager.EngineSettings.DebugMode)
         {
             // Obtiene la fuente
-            if (!_initialized && !string.IsNullOrWhiteSpace(Manager.EngineSettings.DebugFont) && DebugFont is null)
-            {
-                DebugFont = GameEngine.Instance.ResourcesManager.GlobalContentManager.LoadAsset<SpriteFont>(Manager.EngineSettings.DebugFont);
-                _initialized = true;
-            }
+            if (!string.IsNullOrWhiteSpace(Manager.EngineSettings.DebugFont) && DebugFont is null)
+                DebugFont = new SpriteTextDefinition(Manager.EngineSettings.DebugFont);
             // Incrementa el tiempo y el número de frames
             _elapsedTime += gameContext.DeltaTime;
             _frameCount++;
@@ -114,19 +110,24 @@ public class DebugManager(EngineManager manager)
                 // Muestra los mensajes
                 foreach ((string message, Color? color) in _messages)
                 {
-                    renderingManager.TextRenderer.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugColor);
-                    position.Y += DebugFont.LineSpacing;
+                    renderingManager.SpriteTextRenderer.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugColor);
+                    position.Y += DebugFont.GetLineSpacing();
                 }
                 // Muestra las estadísticas
                 position = renderingManager.Scene.Camera.WorldToScreenRelative(OverlayPosition);
-                renderingManager.TextRenderer.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugOverlayColor);
-                position.Y += DebugFont.LineSpacing;
-                renderingManager.TextRenderer.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, Manager.EngineSettings.DebugOverlayColor);
-                position.Y += DebugFont.LineSpacing;
-                renderingManager.TextRenderer.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, Manager.EngineSettings.DebugOverlayColor);
-                position.Y += DebugFont.LineSpacing;
+                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugOverlayColor);
+                position.Y += DebugFont.GetLineSpacing();
+                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, Manager.EngineSettings.DebugOverlayColor);
+                position.Y += DebugFont.GetLineSpacing();
+                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, Manager.EngineSettings.DebugOverlayColor);
+                position.Y += DebugFont.GetLineSpacing();
         }
     }
+
+    /// <summary>
+    ///     Fuente de depuración
+    /// </summary>
+    public SpriteTextDefinition? DebugFont { get; private set; }
 
     /// <summary>
     ///     Número máximo de mensajes de log
@@ -144,20 +145,7 @@ public class DebugManager(EngineManager manager)
     public Vector2 OverlayPosition { get; set; } = new(0.9f, 0.8f);
 
     /// <summary>
-    ///     Fuente de depuración
-    /// </summary>
-    public SpriteFont? DebugFont { get; private set; }
-
-    /// <summary>
     ///     Manager principal
     /// </summary>
     public EngineManager Manager { get; } = manager;
 }
-
-/*
-// Textura blanca de 1x1 para dibujar formas
-public static Texture2D Pixel { get; private set; }
-// En LoadContent():
-Pixel = new Texture2D(GraphicsDevice, 1, 1);
-Pixel.SetData(new[] { Color.White });
-*/

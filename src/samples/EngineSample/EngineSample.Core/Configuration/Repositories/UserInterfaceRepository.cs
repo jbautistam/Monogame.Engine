@@ -46,6 +46,7 @@ internal class UserInterfaceRepository
 	private const string TagVertical = "Vertical";
 	private const string TagSpeed = "Speed";
 	private const string TagLineSpacing = "LineSpacing";
+	private const string TagTextScale = "TextScale";
 	private const string TagMode = "Mode";
 	private const string TagVisible = "Visible";
 	private const string TagCursor = "Cursor";
@@ -160,7 +161,7 @@ internal class UserInterfaceRepository
 			// Asigna las propiedades
 			AssignGeneralAttributes(option, rootML);
 			option.Text = rootML.Attributes[TagText].Value.TrimIgnoreNull();
-			option.Font = rootML.Attributes[TagFont].Value.TrimIgnoreNull();
+			option.Font = GetFont(rootML);
 			// Devuelve la opción cargada
 			return option;
 	}
@@ -174,7 +175,7 @@ internal class UserInterfaceRepository
 
 			// Asigna los valores
 			AssignGeneralAttributes(label, rootML);
-			label.Font = rootML.Attributes[TagFont].Value.TrimIgnoreNull();
+			label.Font = GetFont(rootML);
 			label.Text = rootML.Attributes[TagText].Value.TrimIgnoreNull();
 			label.HorizontalAlignment = rootML.Attributes[TagHorizontal].Value.GetEnum(UiLabel.HorizontalAlignmentType.Left);
 			label.VerticalAlignment = rootML.Attributes[TagVertical].Value.GetEnum(UiLabel.VerticalAlignmentType.Top);
@@ -316,9 +317,8 @@ internal class UserInterfaceRepository
 
 			// Asigna los valores
 			AssignGeneralAttributes(typeWriter, rootML);
-			typeWriter.Font = rootML.Attributes[TagFont].Value.TrimIgnoreNull();
+			typeWriter.Font = GetFont(rootML);
 			typeWriter.Speed = (float) rootML.Attributes[TagSpeed].Value.GetDouble(0.01);
-			typeWriter.LineSpacing = (float) rootML.Attributes[TagLineSpacing].Value.GetDouble(1);
 			typeWriter.Mode = rootML.Attributes[TagMode].Value.GetEnum(UiTypeWriterLabel.WriteMode.Characters);
 			typeWriter.Text = rootML.Value.TrimIgnoreNull();
 			// Devuelve el cuadro de texto
@@ -431,6 +431,18 @@ internal class UserInterfaceRepository
 		component.Tag = rootML.Attributes[TagTag].Value.TrimIgnoreNull();
 		component.ZIndex = rootML.Attributes[TagZIndex].Value.GetInt(0);
 		component.Visible = rootML.Attributes[TagVisible].Value.GetBool(true);
+	}
+
+	/// <summary>
+	///		Lee los datos de la fuente de un nodo
+	/// </summary>
+	public SpriteTextDefinition GetFont(MLNode rootML)
+	{
+		return new SpriteTextDefinition(rootML.Attributes[TagFont].Value.TrimIgnoreNull())
+						{
+							LineSpacing = (float) rootML.Attributes[TagLineSpacing].Value.GetDouble(1),
+							TextScale = (float) rootML.Attributes[TagTextScale].Value.GetDouble(1)
+						};
 	}
 
 	/// <summary>

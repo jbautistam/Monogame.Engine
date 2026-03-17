@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats;
 
@@ -26,17 +26,17 @@ internal class MobileMessage(MobileSender sender, string text, float timeToShow)
     /// <summary>
     ///     Calcula la altura en pantalla
     /// </summary>
-    internal float GetHeight(SpriteFont? spriteFont, int width, float lineSpacing)
+    internal float GetHeight(SpriteTextDefinition? font, int width)
     {
-        if (!IsDirty || spriteFont is null)
+        if (!IsDirty || font is null)
             return _height;
         else
         {
             // Calcula las líneas
             Lines.Clear();
-            Lines.AddRange(new StringFontHelper().WrapText(spriteFont, Text, 1, width));
+            Lines.AddRange(new StringFontHelper().WrapText(font, Text, width));
             // Calcula la altura
-            _height = ComputeHeight(spriteFont, Lines.Count + (Sender.ShowName ? 1 : 0), lineSpacing);
+            _height = ComputeHeight(font, Lines.Count + (Sender.ShowName ? 1 : 0), font.GetLineSpacing());
             // Indica que se ha calculado anteriormente el alto
             IsDirty = false;
             // Devuelve la altura calculada
@@ -44,9 +44,9 @@ internal class MobileMessage(MobileSender sender, string text, float timeToShow)
         }
 
         // Calcula la altura de todas las líneas
-        float ComputeHeight(SpriteFont spriteFont, int lines, float lineSpacing)
+        float ComputeHeight(SpriteTextDefinition font, int lines, float lineSpacing)
         {
-            Vector2 size = spriteFont.MeasureString("A");
+            Vector2 size = font.MeasureString("A");
 
                 // Devuelve la altura de las líneas
                 return size.Y * lines + lines * lineSpacing;

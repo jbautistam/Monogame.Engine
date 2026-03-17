@@ -25,63 +25,63 @@
 		<Item Row = "1" Column = "1">
 			<Gallery Id = "Gallery" Rows="4" Columns="4" VisibleRows="2" VisibleColumns="2">
 				<Item Row = "0" Column = "0">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "0, 0" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "0, 0" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 					<Image Texture = "james-avatar" Region = "" Horizontal = "Center" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "0" Column = "1">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "0, 1" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "0, 1" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 					<Image Texture = "narrator-avatar" Region = "" Horizontal = "Center" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "0" Column = "2">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "0, 2" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "0, 2" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 					<Image Texture = "sylvie-avatar" Region = "" Horizontal = "Center" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "0" Column = "3">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "0, 3" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "0, 3" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 					<Image Texture = "james-sad" Region = "" Horizontal = "Center" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
 				</Item>
 
 				<Item Row = "1" Column = "0">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "1, 0" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "1, 0" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 					<Image Texture = "sylvie-smile" Region = "" Horizontal = "Center" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "1" Column = "1">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "1, 1" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "1, 1" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 					<Image Texture = "james-smile" Region = "" Horizontal = "Center" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "1" Column = "2">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "1, 2" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "1, 2" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "1" Column = "3">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "1, 3" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "1, 3" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 				</Item>
 
 				<Item Row = "2" Column = "0">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "2, 0" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "2, 0" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "2" Column = "1">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "2, 1" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "2, 1" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 					<Image Texture = "sylvie-sad" Region = "" Horizontal = "Center" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "2" Column = "2">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "2, 2" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "2, 2" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "2" Column = "3">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "2, 3" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "2, 3" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 					<Image Texture = "narrator-smile" Region = "" Horizontal = "Center" Stretch = "true" PreserveAspectRatio = "true" Position = "0, 0, 1, 1" />
 				</Item>
 
 				<Item Row = "3" Column = "0">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "3, 0" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "3, 0" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "3" Column = "1">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "3, 1" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "3, 1" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "3" Column = "2">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "3, 2" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "3, 2" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 				</Item>
 				<Item Row = "3" Column = "3">
-					<Label Style = "TextStyle" Font = "Fonts/Hud" Text = "3, 3" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
+					<Label Style = "TextStyle" ZIndex = "2" Font = "Fonts/Hud" Text = "3, 3" Horizontal = "Center" Vertical = "Bottom" Position = "0, 0, 1, 1" />
 				</Item>
 			</Gallery>
 		</Item>

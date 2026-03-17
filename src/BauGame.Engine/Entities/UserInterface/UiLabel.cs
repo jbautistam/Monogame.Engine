@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 
@@ -42,17 +42,15 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
         /// <summary>Justificada al tamaño</summary>
         Stretch
     }
-    // Variables privadas
-    private bool _isInitialized;
 
     /// <summary>
     ///     Cálculo del layout del elemento
     /// </summary>
     protected override void ComputeScreenBoundsSelf()
     {
-        if (AutoSize && SpriteFont is not null && !string.IsNullOrEmpty(Text))
+        if (AutoSize && Font is not null && !string.IsNullOrEmpty(Text))
         {
-            Vector2 textSize = SpriteFont.MeasureString(Text);
+            Vector2 textSize = Font.MeasureString(Text);
 
                 // Si no está ajustado, se calculan los límites
                 if (Position.Dock == UiPosition.DockType.None)
@@ -70,14 +68,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// </summary>
     protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
-        if (!_isInitialized)
-        {
-            // Carga la fuente
-            if (!string.IsNullOrWhiteSpace(Font))
-                SpriteFont = Layer.Scene.LoadSceneAsset<SpriteFont>(Font);
-            // Indica que ya está inicializado
-            _isInitialized = true;
-        }
+        Font?.Update(gameContext);
     }
 
     /// <summary>
@@ -88,19 +79,19 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
         // Dibuja el estilo
         Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja el texto
-        if (!string.IsNullOrEmpty(Text) && SpriteFont is not null)
+        if (!string.IsNullOrEmpty(Text) && Font is not null)
         {
             if (WrapText)
-                DrawWrappedText(renderingManager, Text, SpriteFont);
+                DrawWrappedText(renderingManager, Text, Font);
             else
-                DrawSimpleText(renderingManager, Text, SpriteFont);
+                DrawSimpleText(renderingManager, Text, Font);
         }
     }
 
     /// <summary>
     ///     Dibuja el texto en una línea
     /// </summary>
-    private void DrawSimpleText(Scenes.Rendering.RenderingManager renderingManager, string text, SpriteFont font)
+    private void DrawSimpleText(Scenes.Rendering.RenderingManager renderingManager, string text, SpriteTextDefinition font)
     {
         Vector2 textSize = font.MeasureString(text);
         Vector2 textPosition = new(Position.ContentBounds.X, Position.ContentBounds.Y);
@@ -133,13 +124,13 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                     break;
             }
             // Dibuja el texto
-            renderingManager.TextRenderer.DrawString(font, text, textPosition, style.Color * style.Opacity);
+            renderingManager.SpriteTextRenderer.DrawString(font, text, textPosition, style.Color * style.Opacity);
     }
 
     /// <summary>
     ///     Dibuja el texto en varias líneas
     /// </summary>
-    private void DrawWrappedText(Scenes.Rendering.RenderingManager renderingManager, string text, SpriteFont font)
+    private void DrawWrappedText(Scenes.Rendering.RenderingManager renderingManager, string text, SpriteTextDefinition font)
     {
         string[] words = text.Split(' ');
         string line = "";
@@ -160,11 +151,11 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                             Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
                                 // Dibuja la línea actual y empieza una nueva
-                                renderingManager.TextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                                renderingManager.SpriteTextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
                                 // Pasa a la siguiente palabra
                                 line = word;
                                 // Incrementa la posición y
-                                yPosition += font.LineSpacing * LineSpacing;
+                                yPosition += font.GetLineSpacing();
                         }
                         else
                             line = testLine;
@@ -177,11 +168,11 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
             {
                 Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
-                    renderingManager.TextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                    renderingManager.SpriteTextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
             }
 
         // Comprueba si la coordenada y está fuera de los límites
-        bool IsOutLimits(float y) => y > Position.ContentBounds.Bottom - font.LineSpacing;
+        bool IsOutLimits(float y) => y > Position.ContentBounds.Bottom - font.GetLineSpacing();
     }
 
     /// <summary>
@@ -200,14 +191,9 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     public VerticalAlignmentType VerticalAlignment { get; set; } = VerticalAlignmentType.Top;
 
     /// <summary>
-    ///     Nombre de la fuente
+    ///     Datos del texto
     /// </summary>
-    public string? Font { get; set; }
-
-    /// <summary>
-    ///     Fuente del texto
-    /// </summary>
-    private SpriteFont? SpriteFont { get; set; }
+    public SpriteTextDefinition? Font { get; set; }
 
     /// <summary>
     ///     Indica si se deben ajustar los tamaños
@@ -218,9 +204,4 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     ///     Indica si se debe partir el texto
     /// </summary>
     public bool WrapText { get; set; }
-
-    /// <summary>
-    ///     Espaciado de líneas
-    /// </summary>
-    public float LineSpacing { get; set; } = 1.2f;
 }

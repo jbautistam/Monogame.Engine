@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
+using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
 namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 
@@ -10,9 +10,6 @@ namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 /// </summary>
 public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiElement(menu.Layer, position)
 {
-    // Variables privadas
-    private bool _isInitialized;
-
     /// <summary>
     ///     Cálculo del layout del elemento
     /// </summary>
@@ -25,14 +22,7 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     /// </summary>
     protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
-        if (!_isInitialized)
-        {
-            // Carga la fuente
-            if (!string.IsNullOrWhiteSpace(Font))
-                SpriteFont = Layer.Scene.LoadSceneAsset<SpriteFont>(Font);
-            // Indica que ya está inicializado
-            _isInitialized = true;
-        }
+        Font?.Update(gameContext);
     }
 
     /// <summary>
@@ -40,9 +30,9 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     /// </summary>
     public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-        if (!string.IsNullOrEmpty(Text) && SpriteFont is not null)
+        if (!string.IsNullOrEmpty(Text) && Font is not null)
         {
-            Vector2 textSize = SpriteFont.MeasureString(Text);
+            Vector2 textSize = Font.MeasureString(Text);
             Vector2 textPosition = new(Position.ContentBounds.X + (Position.ContentBounds.Width - textSize.X) / 2, 
                                        Position.ContentBounds.Y + (Position.ContentBounds.Height - textSize.Y) / 2);
             UiStyle? style = GetStyle();
@@ -50,7 +40,7 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
                 // Dibuja la textura de fondo si existe
                 Layer.DrawStyle(renderingManager, Style, State, Position.Bounds, gameContext);
                 // Dibuja el texto
-                renderingManager.TextRenderer.DrawString(SpriteFont, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
+                renderingManager.SpriteTextRenderer.DrawString(Font, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
         }
     }
 
@@ -83,12 +73,7 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     /// <summary>
     ///     Nombre de la fuente
     /// </summary>
-    public string? Font { get; set; }
-
-    /// <summary>
-    ///     Fuente del texto
-    /// </summary>
-    private SpriteFont? SpriteFont { get; set; }
+    public SpriteTextDefinition? Font { get; set; }
 
     /// <summary>
     ///     Indica si el cursor está sobre el botón
