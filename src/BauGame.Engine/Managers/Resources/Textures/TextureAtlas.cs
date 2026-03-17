@@ -47,9 +47,8 @@ public class TextureAtlas(TextureManager textureManager, string id, string asset
                             string name = $"{row.ToString()},{column.ToString()}";
 
                                 // Añade las regiones al diccionario
-                                Regions.Add(name, new TextureRegion(name)
+                                Regions.Add(name, new TextureRegion(this, name)
                                                             {
-                                                                Texture = texture,
                                                                 Region = new Rectangle(columnWidth * column, rowHeight * row, columnWidth, rowHeight)
                                                             }
                                            );

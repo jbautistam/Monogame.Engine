@@ -31,24 +31,23 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
 
             if (region is not null)
             {
+                Entities.Common.Sprites.SpriteDefinition sprite = new(region.Texture.Id, region.Name);
                 float worldScreenWidth = renderingManager.Scene.Camera.ScreenViewport.Width / renderingManager.Scene.Camera.Zoom;
                 float worldScreenHeight = renderingManager.Scene.Camera.ScreenViewport.Height / renderingManager.Scene.Camera.Zoom;
 
                     if (!Tiled)
                     {
-                        Vector2 scale = new(worldScreenWidth / region.Texture.Width, worldScreenHeight / region.Texture.Height);
+                        Vector2 scale = new(worldScreenWidth / region.Region.Width, worldScreenHeight / region.Region.Height);
                         Vector2 backgroundPosition = renderingManager.Scene.Camera.Position - new Vector2(worldScreenWidth / 2f, worldScreenHeight / 2f);
 
                             // Dibujamos el fondo escalado para cubrir toda la pantalla visible
-                            renderingManager.TexturesRenderer.Draw(region.Texture, backgroundPosition, null, Vector2.Zero, scale, 
-                                                                   Microsoft.Xna.Framework.Graphics.SpriteEffects.None,
-                                                                   Color, 0f, 0);
+                            renderingManager.SpriteRenderer.Draw(sprite, backgroundPosition, Vector2.Zero, scale, 0, Color);
                     }
                     else
                     {
                         // Calculamos cuántos tiles necesitamos
-                        int tileWidth = region.Texture.Width;
-                        int tileHeight = region.Texture.Height;
+                        int tileWidth = region.Region.Width;
+                        int tileHeight = region.Region.Height;
                         int startX = (int) (renderingManager.Scene.Camera.Position.X - worldScreenWidth / 2f) / tileWidth * tileWidth;
                         int startY = (int) (renderingManager.Scene.Camera.Position.Y - worldScreenHeight / 2f) / tileHeight * tileHeight;
                         int endX = startX + (int) worldScreenWidth + tileWidth;
@@ -57,7 +56,7 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
                             // Dibuja los diferentes tiles
                             for (int x = startX; x < endX; x += tileWidth)
                                 for (int y = startY; y < endY; y += tileHeight)
-                                    renderingManager.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
+                                    renderingManager.SpriteRenderer.Draw(sprite, new Vector2(x, y), Vector2.Zero, Vector2.One, 0, Color);
                     }
             }
     }

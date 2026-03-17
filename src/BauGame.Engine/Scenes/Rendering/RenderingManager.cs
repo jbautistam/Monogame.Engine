@@ -16,7 +16,7 @@ public class RenderingManager
 		Scene = scene;
 		Device = GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice;
 		FiguresRenderer = new Renderers.FiguresRenderer(this);
-		TexturesRenderer = new Renderers.TexturesRenderer(this);
+		//TexturesRenderer = new Renderers.TexturesRenderer(this);
 		SpriteRenderer = new Renderers.SpriteRenderer(this);
 		SpriteTextRenderer = new Renderers.SpriteTextRenderer(this);
 	}
@@ -113,10 +113,10 @@ public class RenderingManager
 	/// </summary>
 	public Renderers.FiguresRenderer FiguresRenderer { get; }
 
-	/// <summary>
-	///		Renderer para texturas
-	/// </summary>
-	public Renderers.TexturesRenderer TexturesRenderer { get; }
+	///// <summary>
+	/////		Renderer para texturas
+	///// </summary>
+	//public Renderers.TexturesRenderer TexturesRenderer { get; }
 
 	/// <summary>
 	///		Renderer para <see cref="Entities.Common.Sprites.SpriteDefinition"/>

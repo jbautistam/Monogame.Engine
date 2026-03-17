@@ -16,9 +16,8 @@ public class TextureFull(TextureManager textureManager, string id, string asset)
 
 			// Obtiene la textura
 			if (texture is not null)
-				return new TextureRegion(NormalizeName(name))
+				return new TextureRegion(this, NormalizeName(name))
 								{
-									Texture = texture,
 									Region = new Microsoft.Xna.Framework.Rectangle(0, 0, texture.Width, texture.Height)
 								};
 			else

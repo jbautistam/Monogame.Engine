@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
@@ -33,25 +32,22 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
             // Si tenemos una textura
             if (region is not null)
             {
+                Entities.Common.Sprites.SpriteDefinition sprite = new(region.Texture.Id, region.Name);
                 float worldScreenWidth = renderingManager.Scene.Camera.ScreenViewport.Width / renderingManager.Scene.Camera.Zoom;
                 float worldScreenHeight = renderingManager.Scene.Camera.ScreenViewport.Height / renderingManager.Scene.Camera.Zoom;
-
-                // La capa se mueve más lento → posición "atrasada"
                 Vector2 layerPosition = renderingManager.Scene.Camera.Position * SpeedMultiplier;
-
-                int tileWidth = region.Texture.Width;
-                int tileHeight = region.Texture.Height;
-
-                int startX = (int) (layerPosition.X - worldScreenWidth / 2f) / tileWidth * tileWidth;
-                int startY = (int) (layerPosition.Y - worldScreenHeight / 2f) / tileHeight * tileHeight;
-
+                int tileWidth = region.Region.Width;
+                int tileHeight = region.Region.Height;
+                int startX = (int) (layerPosition.X - 0.5f * worldScreenWidth) / tileWidth * tileWidth;
+                int startY = (int) (layerPosition.Y - 0.5f * worldScreenHeight) / tileHeight * tileHeight;
                 int endX = startX + (int) worldScreenWidth + tileWidth;
                 int endY = startY + (int) worldScreenHeight + tileHeight;
 
-                // Dibuja las partes del fondo
-                for (int x = startX; x < endX; x += tileWidth)
-                    for (int y = startY; y < endY; y += tileHeight)
-                        renderingManager.TexturesRenderer.Draw(region.Texture, new Vector2(x, y), Color);
+                    // Dibuja las partes del fondo
+                    for (int x = startX; x < endX; x += tileWidth)
+                        for (int y = startY; y < endY; y += tileHeight)
+                            renderingManager.SpriteRenderer.Draw(sprite, new Vector2(x, y), new Vector2(region.Region.Center.X, region.Region.Center.Y), 
+                                                                 Vector2.One, 0, Color);
             }
     }
 

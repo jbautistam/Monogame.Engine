@@ -16,9 +16,8 @@ public class TextureSpriteSheet(TextureManager textureManager, string id, string
         Texture2D? texture = GetTexture();
 
             if (texture is not null)
-                return new TextureRegion(NormalizeName(name))
+                return new TextureRegion(this, NormalizeName(name))
                                 {
-                                    Texture = texture,
                                     Region = Regions.Get(NormalizeName(name))
                                 };
             else
