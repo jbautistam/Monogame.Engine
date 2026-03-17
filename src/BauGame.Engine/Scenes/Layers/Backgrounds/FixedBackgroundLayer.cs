@@ -25,11 +25,11 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    protected override void DrawSelf(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
         TextureRegion? region = GetTextureRegion("background");
 
-            if (region is not null && renderingManager.Scene.Camera is not null)
+            if (region is not null)
             {
                 float worldScreenWidth = renderingManager.Scene.Camera.ScreenViewport.Width / renderingManager.Scene.Camera.Zoom;
                 float worldScreenHeight = renderingManager.Scene.Camera.ScreenViewport.Height / renderingManager.Scene.Camera.Zoom;

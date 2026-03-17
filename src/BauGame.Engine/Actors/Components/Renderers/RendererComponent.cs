@@ -132,7 +132,7 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
     {
 		TextureRegion? region = GetRegion(Region);
 
-			if (region is not null && renderingManager.Scene.Camera is not null)
+			if (region is not null)
 			{
 				Vector2 position;
 

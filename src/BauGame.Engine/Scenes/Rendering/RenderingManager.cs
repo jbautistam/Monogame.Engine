@@ -51,7 +51,7 @@ public class RenderingManager
 	public void BeginDrawWorld()
 	{
 		Clear();
-        BeginDraw(Scene.Camera?.GetMatrixDrawWorld());
+        BeginDraw(Scene.Camera.GetMatrixDrawWorld());
 	}
 
     /// <summary>

@@ -152,8 +152,8 @@
     <Compile Include="Scenes\Cameras\CameraDirector.cs" />
     <Compile Include="Scenes\Rendering\Renderers\SpriteRenderer.cs" />
     <Compile Include="Scenes\Rendering\Renderers\SpriteTextRenderer.cs" />
-    <Compile Include="Scenes\Rendering\Renderers\TexturesRenderer.cs" />
     <Compile Include="Scenes\Rendering\Renderers\TextRenderer.cs" />
+    <Compile Include="Scenes\Rendering\Renderers\TexturesRenderer.cs" />
     <Compile Include="Scenes\Rendering\Renderers\FiguresRenderer.cs" />
     <Compile Include="Scenes\Cameras\CameraTargetsManager.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\BackgroundState.cs" />

@@ -107,7 +107,7 @@ public class DebugManager(EngineManager manager)
     /// </summary>
     public void DrawLogStrings(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
-        if (Manager.EngineSettings.DebugMode && DebugFont is not null && renderingManager.Scene.Camera is not null)
+        if (Manager.EngineSettings.DebugMode && DebugFont is not null)
         {
             Vector2 position = renderingManager.Scene.Camera.WorldToScreenRelative(LogPosition);
 

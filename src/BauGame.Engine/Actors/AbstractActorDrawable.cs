@@ -65,7 +65,7 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 	/// </summary>
     public void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-		if (renderingManager.Scene.Camera is not null && renderingManager.Scene.Camera.IsAtView(Transform.Bounds))
+		if (renderingManager.Scene.Camera.IsAtView(Transform.Bounds))
 		{
 			// Dibuja los componentes
 			Components.Draw(renderingManager, gameContext);
@@ -87,7 +87,7 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 		// Finaliza el trabajo con el actor
 		EndActor(gameContext);
 		// Quita el actor de la lista de objetivos de la cámara
-		Layer.Scene.Camera?.TargetsManager.Remove(this);
+		Layer.Scene.Camera.TargetsManager.Remove(this);
 	}
 
 	/// <summary>

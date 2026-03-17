@@ -115,7 +115,7 @@ public class PlayerActor : AbstractActorDrawable
 					Shoot(gameContext);
 				}
 				// Añade el actor a la lista de objetivos de la cámara
-				Layer.Scene.Camera?.TargetsManager.Add(this);
+				Layer.Scene.Camera.TargetsManager.Add(this);
 		}
 		// Actualiza las propiedades de animación
 		UpdateAnimation(_speed, _health.IsDead);

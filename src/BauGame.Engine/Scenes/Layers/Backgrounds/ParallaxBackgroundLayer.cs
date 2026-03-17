@@ -31,7 +31,7 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
         TextureRegion? region = GetTextureRegion("background");
 
             // Si tenemos una textura
-            if (region is not null && renderingManager.Scene.Camera is not null)
+            if (region is not null)
             {
                 float worldScreenWidth = renderingManager.Scene.Camera.ScreenViewport.Width / renderingManager.Scene.Camera.Zoom;
                 float worldScreenHeight = renderingManager.Scene.Camera.ScreenViewport.Height / renderingManager.Scene.Camera.Zoom;

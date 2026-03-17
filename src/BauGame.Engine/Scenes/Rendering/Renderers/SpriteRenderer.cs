@@ -44,7 +44,7 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	/// </summary>
 	public void Draw(SpriteDefinition? sprite, Vector2 position, Vector2 origin, Vector2 scale, float rotation, Color color)
 	{
-		if (sprite is not null)
+		if (sprite is not null && RenderingManager.SpriteBatch is not null)
 		{
 			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(RenderingManager.Scene);
 
@@ -56,8 +56,8 @@ public class SpriteRenderer(RenderingManager renderingManager)
 									  new Rectangle((int) position.X, (int) position.Y, textureConfiguration.Region.Width, textureConfiguration.Region.Height),
 									  origin, scale, rotation, color);
 					else
-						RenderingManager.TexturesRenderer.Draw(textureConfiguration.Texture, position, textureConfiguration.Region, 
-																	origin, scale, sprite.SpriteEffect, color, rotation, 1);
+						RenderingManager.SpriteBatch.Draw(textureConfiguration.Texture, position, textureConfiguration.Region,
+														  color, rotation, origin, scale, sprite.SpriteEffect, 0);
 				}
 		}
 	}
@@ -67,7 +67,7 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	/// </summary>
 	public void Draw(SpriteDefinition? sprite, Rectangle destination, Vector2 origin, float rotation, Color color)
 	{
-		if (sprite is not null)
+		if (sprite is not null && RenderingManager.SpriteBatch is not null)
 		{
 			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(RenderingManager.Scene);
 
@@ -78,8 +78,8 @@ public class SpriteRenderer(RenderingManager renderingManager)
 						DrawNineSlice(sprite, textureConfiguration.Texture, textureConfiguration.Region, textureConfiguration.NineSliceConfiguration,
 									  destination, origin, new Vector2(1, 1), rotation, color);
 					else
-						RenderingManager.TexturesRenderer.Draw(textureConfiguration.Texture, destination, textureConfiguration.Region, 
-															   origin, color, rotation, sprite.SpriteEffect, 0);
+						RenderingManager.SpriteBatch.Draw(textureConfiguration.Texture, destination, textureConfiguration.Region, color,
+														  rotation, origin, sprite.SpriteEffect, 0);
 				}
 		}
 	}
@@ -89,14 +89,14 @@ public class SpriteRenderer(RenderingManager renderingManager)
     /// </summary>
     public void Draw(SpriteDefinition? sprite, DrawMode mode, Rectangle destination, Vector2 origin, RectangleF window, float rotation, Color color)
     {
-		if (sprite is not null)
+		if (sprite is not null && RenderingManager.SpriteBatch is not null)
 		{
 			TextureConfigurationManager.TextureResolved? textureConfiguration = sprite.LoadAsset(RenderingManager.Scene);
 
 				if (textureConfiguration is not null)
-					RenderingManager.TexturesRenderer.Draw(textureConfiguration.Texture, 
-														   ComputeTargetRectangle(mode, destination, textureConfiguration.Region, window),
-														   textureConfiguration.Region, origin, color, rotation, sprite.SpriteEffect, 0);
+					RenderingManager.SpriteBatch.Draw(textureConfiguration.Texture, 
+													  ComputeTargetRectangle(mode, destination, textureConfiguration.Region, window),
+													  textureConfiguration.Region, color, rotation, origin, sprite.SpriteEffect, 0);
 		}
     }
 
@@ -199,7 +199,8 @@ public class SpriteRenderer(RenderingManager renderingManager)
 		// Dibuja una sección de la imagen
 		void DrawSlice(Texture2D texture, Rectangle source, int x, int y, int width, int height, Color color)
 		{
-			RenderingManager.TexturesRenderer.Draw(texture, new Rectangle(x, y, width, height), source, color);
+			if (RenderingManager.SpriteBatch is not null)
+				RenderingManager.SpriteBatch.Draw(texture, new Rectangle(x, y, width, height), source, color);
 		}
     }    
 

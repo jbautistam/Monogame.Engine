@@ -11,6 +11,7 @@ public abstract class AbstractScene
     {
         Name = name;
         WorldDefinition = worldDefinition ?? new Entities.Common.WorldDefinitionModel(5_000, 5_000, 10, 10);
+        Camera = new Cameras.Camera2D(this, GetViewPort());
         LayerManager = new Layers.LayerManager(this);
         PhysicsManager = new Physics.PhysicsManager(this);
         MessagesManager = new Messages.MessagesManager(this);
@@ -33,7 +34,7 @@ public abstract class AbstractScene
     {   
         // Actualiza los datos de la escena
         PhysicsManager.Update(gameContext);
-        Camera?.Update(gameContext);
+        Camera.Update(gameContext);
         MessagesManager.Update(gameContext);
         // Actualiza la escena
         return UpdateScene(gameContext);
@@ -49,27 +50,24 @@ public abstract class AbstractScene
     /// </summary>
     public void Draw(Managers.GameContext gameContext)
     {
-        if (Camera is not null)
-        {
-		    // Comienza el dibujo
-            RenderingManager.BeginDrawWorld();
-            // Dibuja las capas de fondo / partida
-            foreach (Layers.AbstractLayer layer in LayerManager.Layers)
-                if (layer.Enabled && layer.Type != Layers.AbstractLayer.LayerType.UserInterface)
-                    layer.Draw(RenderingManager, gameContext);
-		    // Dibuja la capa de log
-            GameEngine.Instance.DebugManager.DrawLogFigures(RenderingManager, gameContext);
-		    // Comienza el dibujo de la interface de usuario
-            RenderingManager.BeginDrawUI();
-            // Dibuja las capas de interface de usuario
-            foreach (Layers.AbstractLayer layer in LayerManager.Layers)
-                if (layer.Enabled && layer.Type == Layers.AbstractLayer.LayerType.UserInterface)
-                    layer.Draw(RenderingManager, gameContext);
-            // Dibuja la capa de log
-            GameEngine.Instance.DebugManager.DrawLogStrings(RenderingManager, gameContext);
-		    // Finaliza el dibujo
-            RenderingManager.End();
-        }
+		// Comienza el dibujo
+        RenderingManager.BeginDrawWorld();
+        // Dibuja las capas de fondo / partida
+        foreach (Layers.AbstractLayer layer in LayerManager.Layers)
+            if (layer.Enabled && layer.Type != Layers.AbstractLayer.LayerType.UserInterface)
+                layer.Draw(RenderingManager, gameContext);
+		// Dibuja la capa de log
+        GameEngine.Instance.DebugManager.DrawLogFigures(RenderingManager, gameContext);
+		// Comienza el dibujo de la interface de usuario
+        RenderingManager.BeginDrawUI();
+        // Dibuja las capas de interface de usuario
+        foreach (Layers.AbstractLayer layer in LayerManager.Layers)
+            if (layer.Enabled && layer.Type == Layers.AbstractLayer.LayerType.UserInterface)
+                layer.Draw(RenderingManager, gameContext);
+        // Dibuja la capa de log
+        GameEngine.Instance.DebugManager.DrawLogStrings(RenderingManager, gameContext);
+		// Finaliza el dibujo
+        RenderingManager.End();
     }
 
     /// <summary>
@@ -77,9 +75,6 @@ public abstract class AbstractScene
     /// </summary>
     public void Start()
     {
-        // Inicializa la cámara
-        Camera = new Cameras.Camera2D(this, GetViewPort());
-        // Arranca la escena
         StartScene();
     }
 
@@ -119,7 +114,7 @@ public abstract class AbstractScene
     /// <summary>
     ///     Cámara de la escena
     /// </summary>
-    public Cameras.Camera2D? Camera { get; private set; }
+    public Cameras.Camera2D Camera { get; private set; }
 
     /// <summary>
     ///     Definición del mundo

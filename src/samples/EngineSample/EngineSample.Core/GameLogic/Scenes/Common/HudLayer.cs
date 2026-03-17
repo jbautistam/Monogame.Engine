@@ -112,7 +112,7 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 			if (lblLives is not null)
 				lblLives.Text = GetMessageText("Lives", "0");
 			// Cambia la etiqueta de la posición de cámara
-			if (lblCameraPosition is not null && Scene.Camera is not null)
+			if (lblCameraPosition is not null)
 				lblCameraPosition.Text = $"{Scene.Camera.Position.X:0,00},{Scene.Camera.Position.Y:0,00}";
 			// Cambia la etiqueta de la posición del jugador
 			if (lblPlayerPosition is not null)

@@ -42,7 +42,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
 	/// </summary>
 	protected override void UpdateSelf(GameContext gameContext)
 	{
-        if (Enabled && Scene.Camera is not null)
+        if (Enabled)
         {
             // Ajusta los límites del interface de usuario
             Bounds = new(0, 0, Scene.Camera.ScreenViewport.Width, Scene.Camera.ScreenViewport.Height);
