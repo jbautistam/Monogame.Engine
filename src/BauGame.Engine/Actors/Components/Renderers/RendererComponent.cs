@@ -1,6 +1,5 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
 using Bau.Libraries.BauGame.Engine.Entities.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

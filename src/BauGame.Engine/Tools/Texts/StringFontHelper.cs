@@ -1,6 +1,6 @@
 ﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats;
+namespace Bau.Libraries.BauGame.Engine.Tools.Texts;
 
 /// <summary>
 ///		Herramientas de tratamiento de texto
@@ -10,7 +10,7 @@ public class StringFontHelper
     /// <summary>
     ///     Divide el texto de un mensaje para que quepa en el ancho
     /// </summary>
-    public List<string> WrapText(SpriteTextDefinition font, string text, float maxLineWidth)
+    public List<string> WrapText(SpriteTextDefinition font, string? text, float maxLineWidth)
     {
         List<string> lines = [];
 

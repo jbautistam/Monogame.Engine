@@ -3,7 +3,7 @@
 /// <summary>
 ///		Definición de un personaje
 /// </summary>
-public class CharacterDefinition(string name, CharacterDefinition.CharacterType type, int logicalLayer)
+public class CharacterDefinition(string name, CharacterDefinition.CharacterType type, int logicalLayer, int logicalZOrder)
 {
 	/// <summary>
 	///		Tipo de actor
@@ -55,7 +55,17 @@ public class CharacterDefinition(string name, CharacterDefinition.CharacterType 
 	/// <summary>
 	///		Capa lógica
 	/// </summary>
-	public int LogicalLayer { get; } = logicalLayer;
+	public int LogicalLayer { get; set; } = logicalLayer;
+
+	/// <summary>
+	///		ZOrder lógico
+	/// </summary>
+	public int LogicalZOrder { get; set; } = logicalZOrder;
+
+	/// <summary>
+	///		ZOrder calculado
+	/// </summary>
+	public int ZOrder => 1_000 * LogicalLayer + LogicalZOrder;
 
 	/// <summary>
 	///		Expresiones del personaje

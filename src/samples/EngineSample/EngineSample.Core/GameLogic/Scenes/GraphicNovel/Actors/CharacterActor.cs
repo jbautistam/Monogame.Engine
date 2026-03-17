@@ -6,7 +6,7 @@ namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Actors;
 ///		Actor que representa un personaje
 /// </summary>
 public class CharacterActor(Bau.Libraries.BauGame.Engine.Scenes.Layers.AbstractLayer layer, int logicalLayer, int logicalZOrder, CharacterDefinition definition) 
-					: Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable(layer, 1_000 * logicalLayer + logicalZOrder)
+					: Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable(layer, definition.ZOrder)
 {
 	/// <summary>
 	///		Arranca el actor

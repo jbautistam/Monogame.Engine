@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Managers;
 
@@ -19,20 +18,8 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     protected override void ComputeScreenBoundsSelf()
 	{
         // Carga los datos de la fuente
-        if (Font is not null && !string.IsNullOrEmpty(Text))
-        {   
-            List<string> lines = new Popups.MobileChats.StringFontHelper().WrapText(Font, Text, Position.ContentBounds.Width);
-            float contentHeight = 0f;
-
-                // Calcula el tamaño de las líneas            
-                foreach (string line in lines)
-                {
-                    Vector2 size = Font.MeasureString(line);
-
-                        if (contentHeight < Position.ContentBounds.Height)
-                            contentHeight += size.Y + Font.GetLineSpacing();
-                }
-        }
+        if (Font is not null && !string.IsNullOrEmpty(TextParameters.Text))
+            TextParameters.Bounds = Position.ContentBounds;
         // Carga los datos del fondo del bocadillo
         if (BubbleSprite is not null)
         {
@@ -67,14 +54,11 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     /// </summary>
 	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
-        if (!string.IsNullOrWhiteSpace(Text))
-        {
-            // Dibuja el bocadillo
-            if (BubbleSprite is not null)
-                renderingManager.SpriteRenderer.Draw(BubbleSprite, _bubbleBounds, Vector2.Zero, 0, BubbleColor);
-            // Dibuja el texto
-            DrawText(renderingManager);
-        }
+        // Dibuja el bocadillo
+        if (BubbleSprite is not null)
+            renderingManager.SpriteRenderer.Draw(BubbleSprite, _bubbleBounds, Vector2.Zero, 0, BubbleColor);
+        // Dibuja el texto
+        DrawText(renderingManager);
 	}
 
     /// <summary>
@@ -83,80 +67,18 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     private void DrawText(Scenes.Rendering.RenderingManager renderingManager)
     {
         if (Font is not null)
-        {
-            List<string> lines = new Popups.MobileChats.StringFontHelper().WrapText(Font, Text, Position.ContentBounds.Width);
-            float lineHeight = Font.GetLineSpacing();
-            float textHeight = lines.Count * lineHeight;
-            float startY;
-
-                // Quita el último espaciado de las líneas
-                textHeight -= lineHeight - Font.GetLineSpacing();
-                // Calcula la posición inicial dependiendo de la alineación
-                switch (VerticalAlignment)
-                {
-                    case UiLabel.VerticalAlignmentType.Center: 
-                            startY = Position.ContentBounds.Y + (Position.ContentBounds.Height - textHeight) / 2f; 
-                        break;
-                    case UiLabel.VerticalAlignmentType.Bottom: 
-                            startY = Position.ContentBounds.Y + Position.ContentBounds.Height - textHeight; 
-                        break;
-                    default: 
-                            startY = Position.ContentBounds.Y; 
-                        break;
-                }
-                // Dibuja las líneas
-                for (int index = 0; index < lines.Count; index++)
-                {
-                    string line = lines[index];
-                    Vector2 size = Font.MeasureString(line);
-                    float x;
-                    float y = startY + (index * lineHeight);
-                
-                        // Posición X según alineación
-                        switch (HorizontalAlignment)
-                        {
-                            case UiLabel.HorizontalAlignmentType.Center: 
-                                    x = Position.ContentBounds.X + (Position.ContentBounds.Width - size.X) / 2f; 
-                                break;
-                            case UiLabel.HorizontalAlignmentType.Right: 
-                                    x = Position.ContentBounds.X + Position.ContentBounds.Width - size.X; 
-                                break;
-                            default:
-                                    x = Position.ContentBounds.X; 
-                                break;
-                        }
-                        // Calcula la coordenada Y
-                        y = Math.Min(y, y + textHeight - lineHeight);
-                        // Dibuja el texto
-                        renderingManager.SpriteTextRenderer.DrawString(Font, line, new Vector2(x, y), Color);
-                }
-        }
+            renderingManager.SpriteTextRenderer.DrawString(Font, TextParameters);
     }
-
-    /// <summary>
-    ///     Texto
-    /// </summary>
-    public string Text { get; set; } = default!;
 
     /// <summary>
     ///     Fuente
     /// </summary>
     public Common.Sprites.SpriteTextDefinition? Font { get; set; }
-        
-    /// <summary>
-    ///     Alineación horizontal
-    /// </summary>
-    public UiLabel.HorizontalAlignmentType HorizontalAlignment { get; set; } = UiLabel.HorizontalAlignmentType.Center;
 
     /// <summary>
-    ///     Alineación vertical
+    ///     Parámetros de texto
     /// </summary>
-    public UiLabel.VerticalAlignmentType VerticalAlignment { get; set; } = UiLabel.VerticalAlignmentType.Center;
-
-    /// <summary>
-    ///     Color del texto
-    /// </summary>
-    public Color Color { get; set; } = Color.Black;
+    public Common.Sprites.SpriteTextParameters TextParameters { get; set; } = new();
 
     /// <summary>
     ///     Sprite con el bocadillo

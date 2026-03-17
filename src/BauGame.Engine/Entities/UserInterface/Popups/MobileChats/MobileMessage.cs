@@ -34,7 +34,7 @@ internal class MobileMessage(MobileSender sender, string text, float timeToShow)
         {
             // Calcula las líneas
             Lines.Clear();
-            Lines.AddRange(new StringFontHelper().WrapText(font, Text, width));
+            Lines.AddRange(new Tools.Texts.StringFontHelper().WrapText(font, Text, width));
             // Calcula la altura
             _height = ComputeHeight(font, Lines.Count + (Sender.ShowName ? 1 : 0), font.GetLineSpacing());
             // Indica que se ha calculado anteriormente el alto

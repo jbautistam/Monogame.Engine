@@ -88,10 +88,10 @@ public class SpriteTextDefinition
 	/// <summary>
 	///		Espaciado entre líneas
 	/// </summary>
-	public float LineSpacing { private get; set; } = 1.2f;
+	public float LineSpacing { private get; set; } = 1;
 
     /// <summary>
     ///     Escala del texto
     /// </summary>
-    public float TextScale { get; set; } = 1.0f;
+    public float TextScale { get; set; } = 1;
 }

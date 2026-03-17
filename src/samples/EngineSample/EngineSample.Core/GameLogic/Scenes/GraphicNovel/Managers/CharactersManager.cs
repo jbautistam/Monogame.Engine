@@ -25,7 +25,7 @@ public class CharacterManager : AbstractActor
 	/// </summary>
 	public CharacterDefinition Add(string name, CharacterDefinition.CharacterType type, int logicalLayer)
 	{
-		CharacterDefinition character = new(name, type, logicalLayer);
+		CharacterDefinition character = new(name, type, logicalLayer, GetLogicalZOrder(logicalLayer));
 
 			// Añade el personaje al diccionario
 			Characters.Add(name, character);
@@ -47,7 +47,7 @@ public class CharacterManager : AbstractActor
 
 					if (definition is not null)
 					{
-						CharacterActor characterActor = new(Layer, definition.LogicalLayer, GetZOrder(definition), definition);
+						CharacterActor characterActor = new(Layer, definition.LogicalLayer, GetLogicalZOrder(definition.LogicalLayer), definition);
 
 							// Asigna el Id al actor
 							characterActor.Id = actorId;
@@ -62,23 +62,21 @@ public class CharacterManager : AbstractActor
 	}
 
 	/// <summary>
-	///		Obtiene el ZOrder
+	///		Obtiene el ZOrder lógico dentro de la capa
 	/// </summary>
-	private int GetZOrder(CharacterDefinition definition)
+	private int GetLogicalZOrder(int logicalLayer)
 	{
-		int zindex = 0;
+		int zOrder = 0;
 
 			// Busca el ZOrder máximo
 			foreach (AbstractActor actor in Layer.Actors.Enumerate())
-			{
-				int actorZOrder = actor.ZOrder % definition.LogicalLayer;
-
-					// Guarda el Zorder máximo
-					if (actorZOrder > zindex)
-						zindex = actorZOrder;
-			}
+				if (actor is CharacterActor character && character.LogicalLayer == logicalLayer)
+				{
+					if (character.Definition.LogicalZOrder > zOrder)
+						zOrder = character.Definition.LogicalZOrder;
+				}
 			// Devuelve el ZOrder localizado
-			return zindex;
+			return zOrder;
 	}
 
 	/// <summary>

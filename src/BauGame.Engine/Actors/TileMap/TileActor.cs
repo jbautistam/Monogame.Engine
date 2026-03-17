@@ -1,5 +1,4 @@
 ﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 
 namespace Bau.Libraries.BauGame.Engine.Actors.TileMap;
 

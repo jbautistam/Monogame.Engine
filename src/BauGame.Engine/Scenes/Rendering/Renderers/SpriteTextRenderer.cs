@@ -20,6 +20,62 @@ public class SpriteTextRenderer(RenderingManager renderingManager)
 				RenderingManager.SpriteBatch.DrawString(spriteFont, text, position, color);
 	}
 
+	/// <summary>
+	///		Escribe una cadena
+	/// </summary>
+	public void DrawString(SpriteTextDefinition? sprite, SpriteTextParameters parameters)
+	{
+        if (sprite is not null)
+        {
+            List<string> lines = parameters.GetLines(sprite);
+            float lineHeight = sprite.GetLineSpacing();
+            float textHeight = lines.Count * lineHeight;
+            float startY;
+
+                // Quita el último espaciado de las líneas
+                textHeight -= lineHeight - sprite.GetLineSpacing();
+                // Calcula la posición inicial dependiendo de la alineación
+                switch (parameters.VerticalAlignment)
+                {
+                    case Entities.UserInterface.UiLabel.VerticalAlignmentType.Center: 
+                            startY = parameters.Bounds.Y + 0.5f * (parameters.Bounds.Height - textHeight); 
+                        break;
+                    case Entities.UserInterface.UiLabel.VerticalAlignmentType.Bottom: 
+                            startY = parameters.Bounds.Y + parameters.Bounds.Height - textHeight; 
+                        break;
+                    default: 
+                            startY = parameters.Bounds.Y; 
+                        break;
+                }
+                // Dibuja las líneas
+                for (int index = 0; index < lines.Count; index++)
+                {
+                    string line = lines[index];
+                    Vector2 size = sprite.MeasureString(line);
+                    float x;
+                    float y = startY + (index * lineHeight);
+                
+                        // Posición X según alineación
+                        switch (parameters.HorizontalAlignment)
+                        {
+                            case Entities.UserInterface.UiLabel.HorizontalAlignmentType.Center:
+                                    x = parameters.Bounds.X + 0.5f * (parameters.Bounds.Width - size.X);
+                                break;
+                            case Entities.UserInterface.UiLabel.HorizontalAlignmentType.Right:
+                                    x = parameters.Bounds.X + parameters.Bounds.Width - size.X;
+                                break;
+                            default:
+                                    x = parameters.Bounds.X;
+                                break;
+                        }
+                        // Calcula la coordenada Y
+                        y = Math.Min(y, y + textHeight - lineHeight);
+                        // Dibuja el texto
+                        DrawString(sprite, line, new Vector2(x, y), parameters.Color);
+                }
+        }
+	}
+
     /// <summary>
     ///     Manager de representación
     /// </summary>

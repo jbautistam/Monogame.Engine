@@ -155,13 +155,6 @@
     <Compile Include="Scenes\Rendering\Renderers\FiguresRenderer.cs" />
     <Compile Include="Scenes\Cameras\CameraTargetsManager.cs" />
     <Compile Include="Scenes\Layers\Backgrounds\BackgroundState.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\Effects\AbstractBackgroundEffect.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\Effects\DriftEffect.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\Effects\EffectsList.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\Effects\PulseEffect.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\Effects\ShakeBackgroundEffect.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\Effects\WaveBackgroundEffect.cs" />
-    <Compile Include="Scenes\Layers\Backgrounds\Effects\ZoomEffect.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceGalleryBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceImageBuilder.cs" />
     <Compile Include="Scenes\Layers\Builders\UserInterface\UserInterfaceGridBuilder.cs" />

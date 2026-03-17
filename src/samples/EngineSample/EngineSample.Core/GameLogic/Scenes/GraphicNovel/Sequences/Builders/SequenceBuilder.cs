@@ -316,7 +316,6 @@ public class SequenceBuilder
 		return this;
 	}
 
-
 	/// <summary>
 	///		Añade un comando para cambiar la orientación del sprite
 	/// </summary>
@@ -326,6 +325,39 @@ public class SequenceBuilder
 		Commands.Add(new SpriteEffectsCommand(_actor, GetAndUpdateStart(duration, start), duration)
 								{
 									SpriteEffects = spriteEffects
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para cambiar la capa lógica y el índice de un personaje
+	/// </summary>
+	public SequenceBuilder WithZOrderLayerCommand(float duration, int logicalLayer, int logicalZOrder, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new ZOrderLayerCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									LogicalLayer = logicalLayer,
+									LogicalZOrder = logicalZOrder
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor aplicando el efecto de una ola
+	/// </summary>
+	public SequenceBuilder WithWaveCommand(float duration, float amplitudeX, float amplitudeY, float frequency, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new WaveCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									AmplitudeX = amplitudeX,
+									AmplitudeY = amplitudeY,
+									Frequency = frequency
 								}
 					);
 		// Devuelve el generador

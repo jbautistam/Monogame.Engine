@@ -1,11 +1,11 @@
-﻿using Bau.Libraries.LibHelper.Extensors;
+﻿using Microsoft.Xna.Framework;
+using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.BauGame.Engine.Scenes;
 using Bau.Libraries.BauGame.Engine.Scenes.Layers;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.EventArguments;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats;
-using Microsoft.Xna.Framework;
 using Bau.Libraries.BauGame.Engine.Entities.UserInterface.ComicBubbles;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel;
@@ -129,6 +129,9 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 			bubbles.Add(CreateBubble("bubbles-01", "bubble-02", 
 									 "Texto del segundo bocadillo",
 									 new UiPosition(0.5f, 0.4f, 0.2f, 0.2f)));
+			bubbles.Add(CreateBubble("bubbles-01", "bubble-03", 
+									 "Texto del tercer bocadillo",
+									 new UiPosition(0.85f, 0.55f, 0.1f, 0.1f)));
 
 			// Devuelve los bocadillos creados
 			return bubbles;
@@ -140,7 +143,13 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 							{
 								BubbleSprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(asset, region),
 								Font = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteTextDefinition("Fonts/Hud"),
-								Text = text
+								TextParameters = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteTextParameters
+																{
+																	Text = text,
+																	Color = Color.Black,
+																	HorizontalAlignment = UiLabel.HorizontalAlignmentType.Center,
+																	VerticalAlignment = UiLabel.VerticalAlignmentType.Center
+																}
 							};
 		}
 	}
