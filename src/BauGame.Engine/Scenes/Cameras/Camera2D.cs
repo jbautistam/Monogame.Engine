@@ -72,6 +72,11 @@ public class Camera2D
     /// <summary>
     ///     Conversión de coordenadas de mundo a coordenadas de pantalla
     /// </summary>
+    public Vector2 WorldToScreen(Point worldPosition) => WorldToScreen(new Vector2(worldPosition.X, worldPosition.Y));
+
+    /// <summary>
+    ///     Conversión de coordenadas de mundo a coordenadas de pantalla
+    /// </summary>
     public Vector2 WorldToScreen(Vector2 worldPosition)
     {
         // Actualiza las matrices
@@ -85,10 +90,18 @@ public class Camera2D
     /// </summary>
     public Rectangle WorldToScreenRect(RectangleF worldRect)
     {
-        Vector2 origin = WorldToScreen(worldRect.TopLeft);
+        return WorldToScreenRect(new Rectangle((int) worldRect.Top, (int) worldRect.Left, (int) worldRect.Width, (int) worldRect.Height));
+    }
+
+    /// <summary>
+    ///     Convierte coordenadas de mundo a coordenadas de pantalla
+    /// </summary>
+    public Rectangle WorldToScreenRect(Rectangle worldRect)
+    {
+        Vector2 origin = WorldToScreen(worldRect.Location);
 
             // Devuelve el rectángulo convertido
-            return new Rectangle((int) origin.X, (int) origin.Y, (int) worldRect.Width, (int) worldRect.Height);
+            return new Rectangle((int) origin.X, (int) origin.Y, worldRect.Width, worldRect.Height);
     }
 
     /// <summary>

@@ -31,7 +31,7 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 
 			// Posiciona al jugador
 			player.Transform.Bounds.MoveTo(0.5f * Scene.WorldDefinition.WorldBounds.Width, 0.5f * Scene.WorldDefinition.WorldBounds.Height);
-			Scene.Camera.Position = player.Transform.Bounds.TopLeft;
+			Scene.Camera.Position = player.Transform.Bounds.Location;
 			// Añade el jugador a la capa
 			Actors.Add(player);
 	}

@@ -168,7 +168,7 @@ public class RigidBodyComponent(AbstractActorDrawable owner, RigidBodyComponent.
                     // Crea la colisión de salida
                     collision = new KinematicCollisionModel
                                         {
-                                            Position = Owner.Transform.Bounds.TopLeft,
+                                            Position = Owner.Transform.Bounds.Location,
                                             Normal = contact.Normal,
                                             SafeMotion = safeMotion,
                                             Remainder = motion - safeMotion,

@@ -23,7 +23,7 @@ public class ZoomOnPointCommand(string actorId, float startTime, float duration)
             // Guarda los valores iniciales
             _startScale = actor.Renderer.Scale;
             // Punto en coordenadas mundiales al inicio (se mantiene fijo durante el zoom)
-            _start = actor.Transform.Bounds.TopLeft;
+            _start = actor.Transform.Bounds.Location;
             // Calcula la posición final necesaria para mantener ese punto fijo con la escala objetivo
             _target = CalculatePositionForZoom(_start, Scale);
             // Indica que se ha inicializado
@@ -31,7 +31,7 @@ public class ZoomOnPointCommand(string actorId, float startTime, float duration)
         }
         // Interpolar la escala y la posición
         actor.Renderer.Scale = EasingFunctionsHelper.Interpolate(_startScale, Scale, Progress, Easing);
-        actor.Transform.Bounds.TopLeft = EasingFunctionsHelper.Interpolate(_start, _target, Progress, Easing);
+        actor.Transform.Bounds.Location = EasingFunctionsHelper.Interpolate(_start, _target, Progress, Easing);
     }
 
     /// <summary>

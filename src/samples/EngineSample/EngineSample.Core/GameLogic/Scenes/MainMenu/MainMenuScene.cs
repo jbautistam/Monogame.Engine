@@ -33,7 +33,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		UserInterfaceGrid,
 		UserInterfaceGallery,
 		DebugMode,
-		Quit = 40
+		Quit
 	}
 	// Variables privadas
 	private UiMenu? _menu;
@@ -45,7 +45,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	{
 		// Añade la capa
 		LayerManager.Clear();
-		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", 1));
+		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", null, 1));
 		LayerManager.AddLayer(CreateHudLayer());
 		// Arranca las capas
 		LayerManager.Start();

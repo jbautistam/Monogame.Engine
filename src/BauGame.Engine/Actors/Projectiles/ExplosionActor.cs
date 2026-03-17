@@ -79,7 +79,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDr
     /// <summary>
     ///     Verifica si una posición está dentro del radio de explosión
     /// </summary>
-    public bool IsInRange(Vector2 targetPosition) => Vector2.Distance(Transform.Bounds.TopLeft, targetPosition) <= Properties?.Radius;
+    public bool IsInRange(Vector2 targetPosition) => Vector2.Distance(Transform.Bounds.Location, targetPosition) <= Properties?.Radius;
 
     /// <summary>
     ///     Calcular daño basado en distancia (daño decreciente)
@@ -91,7 +91,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDr
             // Calcula el daño sobre un objetivo
             if (Properties is not null)
             {
-                float distance = Vector2.Distance(Transform.Bounds.TopLeft, targetPosition);
+                float distance = Vector2.Distance(Transform.Bounds.Location, targetPosition);
 
                     if (distance <= Properties.Radius) 
                     {
@@ -114,7 +114,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDr
             // Calcula la dirección
             if (Properties is not null && Properties.AppliesForce && Properties.ForceStrength > 0)
             {
-                direction = targetPosition - Transform.Bounds.TopLeft;
+                direction = targetPosition - Transform.Bounds.Location;
                 float distance = direction.Length();
         
                 if (distance < Properties.Radius && distance != 0)

@@ -41,7 +41,7 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
         // Inicializa los valores
         if (!_initialized)
         {
-            _start = actor.Transform.Bounds.TopLeft;
+            _start = actor.Transform.Bounds.Location;
             _to = ToWorld(To);
             _initialized = true;
         }
@@ -99,14 +99,14 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
     {
         // Entra rápido, frena con fricción
         if (t < 0.7f)
-            actor.Transform.Bounds.TopLeft = EasingFunctionsHelper.Interpolate(_start, _to, t / 0.7f, EasingFunctionsHelper.EasingType.QuadOut);
+            actor.Transform.Bounds.Location = EasingFunctionsHelper.Interpolate(_start, _to, t / 0.7f, EasingFunctionsHelper.EasingType.QuadOut);
         else
         {
             float localT = (t - 0.7f) / 0.3f;
             float overshoot = MathF.Sin(localT * MathF.PI) * 20 * (1 - localT);
 
                 // Cambia la posición
-                actor.Transform.Bounds.TopLeft = _to + new Vector2(overshoot, 0);
+                actor.Transform.Bounds.Location = _to + new Vector2(overshoot, 0);
         }
     }
 
@@ -119,7 +119,7 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
         float yOffset = EasingFunctions.QuadIn(t) * (_to.Y - _start.Y);
 
             // Mueve el actor
-            actor.Transform.Bounds.TopLeft = new Vector2(_start.X + xOffset, _start.Y + yOffset);
+            actor.Transform.Bounds.Location = new Vector2(_start.X + xOffset, _start.Y + yOffset);
             // Escala al impactar (achatamiento)
             if (t > 0.9f)
             {
@@ -143,7 +143,7 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
                 float localT = t * 2;
 
                     // Cambia la posición
-                    actor.Transform.Bounds.TopLeft = Vector2.Lerp(Vector2.Lerp(_start, midPoint, localT),
+                    actor.Transform.Bounds.Location = Vector2.Lerp(Vector2.Lerp(_start, midPoint, localT),
                                                                   Vector2.Lerp(midPoint, _to, localT),
                                                                   EasingFunctions.QuadOut(localT));
             }
@@ -152,7 +152,7 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
                 float localT = (t - 0.5f) * 2;
 
                     // Cambia la posición
-                    actor.Transform.Bounds.TopLeft = Vector2.Lerp(Vector2.Lerp(midPoint, _to, localT),
+                    actor.Transform.Bounds.Location = Vector2.Lerp(Vector2.Lerp(midPoint, _to, localT),
                                                                   _to,
                                                                   EasingFunctions.QuadIn(localT));
             }
@@ -170,7 +170,7 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
             if (t < fadeOutEnd)
             {
                 actor.Renderer.Opacity = 1 - t / fadeOutEnd;
-                actor.Transform.Bounds.TopLeft = _start;
+                actor.Transform.Bounds.Location = _start;
             }
             else if (t < fadeInStart)
                 actor.Renderer.Opacity = 0;
@@ -181,7 +181,7 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
 
                     // Cambia opacidad y posición
                     actor.Renderer.Opacity = localT;
-                    actor.Transform.Bounds.TopLeft = _to;
+                    actor.Transform.Bounds.Location = _to;
                     // Escala para materializarse en el destino
                     actor.Renderer.Scale = new Vector2(scale, scale);
             }
@@ -192,7 +192,7 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
     /// </summary>
     private void ApplyEmerging(AbstractActorDrawable actor, float t)
     {
-        actor.Transform.Bounds.TopLeft = Vector2.Lerp(_start, _to, EasingFunctions.BackOut(t));
+        actor.Transform.Bounds.Location = Vector2.Lerp(_start, _to, EasingFunctions.BackOut(t));
         actor.Renderer.Opacity = MathHelper.Clamp(t * 2, 0, 1);
     }
 
@@ -205,7 +205,7 @@ public class CinematicEntranceCommand(string actorId, float startTime, float dur
         Vector2 basePos = Vector2.Lerp(_start, _to, EasingFunctions.QuadIn(t));
 
             // Cambia posición y rotación
-            actor.Transform.Bounds.TopLeft = basePos + new Vector2(sway, 0);
+            actor.Transform.Bounds.Location = basePos + new Vector2(sway, 0);
             actor.Transform.Rotation = sway * 0.02f;
     }
 

@@ -39,7 +39,7 @@ public class OrbitCommand(string actorId, float startTime, float duration) : Abs
         float currentAngle = StartAngle + angleDiff * EasingFunctionsHelper.Apply(Progress, Easing);
         
             // Asigna la posición
-            actor.Transform.Bounds.TopLeft = CalculatePosition(currentAngle);
+            actor.Transform.Bounds.Location = CalculatePosition(currentAngle);
             // Rota el sprite para mirar hacia la dirección de movimiento
             actor.Transform.Rotation = _baseRotation + currentAngle + MathHelper.PiOver2;
 

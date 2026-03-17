@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 
 /// <summary>
 ///     Background con movimiento parallax
 /// </summary>
-public class ParallaxBackgroundLayer(AbstractScene scene, string name, string texture, int sortOrder, float speedMultiplier) : AbstractBackgroundLayer(scene, name, texture, sortOrder)
+public class ParallaxBackgroundLayer(AbstractScene scene, string name, string asset, string? region, int sortOrder, float speedMultiplier) 
+                    : AbstractBackgroundLayer(scene, name, asset, region, sortOrder)
 {
     /// <summary>
     ///     Actualiza la capa para físicas
@@ -18,7 +18,7 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
     /// <summary>
     ///     Actualiza la capa de fondo
     /// </summary>
-	protected override void UpdateSelf(Managers.GameContext gameContext)
+	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
 	}
 
@@ -27,17 +27,15 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
     /// </summary>
     protected override void DrawSelf(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-        TextureRegion? region = GetTextureRegion("background");
+        Entities.Common.Size size = Sprite.GetSize();
 
-            // Si tenemos una textura
-            if (region is not null)
+            if (size.Width > 0 && size.Height > 0)
             {
-                Entities.Common.Sprites.SpriteDefinition sprite = new(region.Texture.Id, region.Name);
                 float worldScreenWidth = renderingManager.Scene.Camera.ScreenViewport.Width / renderingManager.Scene.Camera.Zoom;
                 float worldScreenHeight = renderingManager.Scene.Camera.ScreenViewport.Height / renderingManager.Scene.Camera.Zoom;
                 Vector2 layerPosition = renderingManager.Scene.Camera.Position * SpeedMultiplier;
-                int tileWidth = region.Region.Width;
-                int tileHeight = region.Region.Height;
+                int tileWidth = (int) size.Width;
+                int tileHeight = (int) size.Height;
                 int startX = (int) (layerPosition.X - 0.5f * worldScreenWidth) / tileWidth * tileWidth;
                 int startY = (int) (layerPosition.Y - 0.5f * worldScreenHeight) / tileHeight * tileHeight;
                 int endX = startX + (int) worldScreenWidth + tileWidth;
@@ -46,7 +44,7 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string te
                     // Dibuja las partes del fondo
                     for (int x = startX; x < endX; x += tileWidth)
                         for (int y = startY; y < endY; y += tileHeight)
-                            renderingManager.SpriteRenderer.Draw(sprite, new Vector2(x, y), new Vector2(region.Region.Center.X, region.Region.Center.Y), 
+                            renderingManager.SpriteRenderer.Draw(Sprite, new Vector2(x, y), new Vector2(0.5f * tileWidth, 0.5f * tileHeight),
                                                                  Vector2.One, 0, Color);
             }
     }

@@ -223,7 +223,7 @@ public class RectangleF(float x, float y, float width, float height)
     /// <summary>
     ///     Devuelve la posición superior / izquierda
     /// </summary>
-    public Vector2 TopLeft
+    public Vector2 Location
     {
         get { return new Vector2(X, Y); }
         set 

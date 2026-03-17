@@ -68,12 +68,12 @@ public class ProjectileActor : AbstractActorDrawable
                 RemoveProjectile(true);
             else
             {
-                Vector2 previousPosition = Transform.Bounds.TopLeft;
+                Vector2 previousPosition = Transform.Bounds.Location;
         
                     // Actualizar posición
                     Transform.Bounds.Translate(Velocity * gameContext.DeltaTime);
                     // Calcula la distancia recorrida en este frame
-                    CurrentDistance += Vector2.Distance(previousPosition, Transform.Bounds.TopLeft);
+                    CurrentDistance += Vector2.Distance(previousPosition, Transform.Bounds.Location);
                     // Comprueba si se superó la distancia máxima
                     if (CurrentDistance >= Properties.MaxDistance)
                         RemoveProjectile(Properties.ShowExplosionWhenEndDistance);

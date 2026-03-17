@@ -1,47 +1,43 @@
 ﻿using Microsoft.Xna.Framework;
+using Bau.Libraries.BauGame.Engine.Managers;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 
 /// <summary>
 ///		Base para las capas de fondos
 /// </summary>
-public abstract class AbstractBackgroundLayer(AbstractScene scene, string name, string texture, int sortOrder) : AbstractLayer(scene, name, LayerType.Background, sortOrder)
+public abstract class AbstractBackgroundLayer : AbstractLayer
 {
+	public AbstractBackgroundLayer(AbstractScene scene, string name, string asset, string? region, int sortOrder) : base(scene, name, LayerType.Background, sortOrder)
+	{
+		Sprite = new Entities.Common.Sprites.SpriteDefinition(asset, region);
+	}
+
 	/// <summary>
 	///		Inicia el fondo
 	/// </summary>
 	protected override void StartLayer()
 	{
-        Background = GameEngine.Instance.ResourcesManager.TextureManager.Assets.Get(Texture);
+		Sprite.LoadAsset(Scene);
 	}
 
 	/// <summary>
-	///		Obtiene la región de la textura
+	///		Actualiza los datos de la capa
 	/// </summary>
-	protected Managers.Resources.Textures.TextureRegion? GetTextureRegion(string? name)
+	protected override void UpdateSelf(GameContext gameContext)
 	{
-		// Obtiene la región adecuada
-		if (Background is not null)
-		{
-			// Normaliza la cadena
-			if (string.IsNullOrWhiteSpace(name))
-				name = string.Empty;
-			// Devuelve la región adecuada
-			return Background.GetRegion(name);
-		}
-		// Si ha llegado hasta aquí es porque no ha encontrado nada
-		return null;
+		Sprite.Update(gameContext);
 	}
+
+	/// <summary>
+	///		Actualiza la capa
+	/// </summary>
+	protected abstract void UpdateLayer(GameContext gameContext);
 	
 	/// <summary>
     ///     Nombre de la textura
     /// </summary>
-    public string Texture { get; } = texture;
-
-    /// <summary>
-	///		Textura del fondo
-	/// </summary>
-    protected Managers.Resources.Textures.AbstractTexture? Background { get; private set; }
+    public Entities.Common.Sprites.SpriteDefinition Sprite { get; }
 
 	/// <summary>
 	///		Indica si se debe rotar la textura con la cámara

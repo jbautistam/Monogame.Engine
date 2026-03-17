@@ -32,7 +32,7 @@ public class TranslateCommand(string actorId, float startTime, float duration) :
         // Guarda la posición inicial
         if (!_initialized)
         {
-            _start = ToRelative(actor.Transform.Bounds.TopLeft);
+            _start = ToRelative(actor.Transform.Bounds.Location);
             _target = Target;
             if (Mode == MovementMode.Relative)
                 _target = _start + Target;
@@ -40,9 +40,9 @@ public class TranslateCommand(string actorId, float startTime, float duration) :
         }
         // Calcula la posición interplada
         if (Mode == MovementMode.ToPointInmediate)
-            actor.Transform.Bounds.TopLeft = _target;
+            actor.Transform.Bounds.Location = _target;
         else
-            actor.Transform.Bounds.TopLeft = ToWorld(EasingFunctionsHelper.Interpolate(_start, _target, Progress, Easing));
+            actor.Transform.Bounds.Location = ToWorld(EasingFunctionsHelper.Interpolate(_start, _target, Progress, Easing));
     }
 
     /// <summary>

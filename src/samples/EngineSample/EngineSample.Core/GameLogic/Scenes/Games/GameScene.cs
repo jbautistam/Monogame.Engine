@@ -28,8 +28,8 @@ internal class GameScene(string name) : AbstractScene(name, new Bau.Libraries.Ba
 		_hudLayer = new Common.HudLayer(this, Constants.LayerHud, 1);
 		LayerManager.AddLayer(_hudLayer);
 		// Añade la capa
+		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", null, 1));
 		LayerManager.AddLayer(new GameLayer(this, SceneName, 1));
-		LayerManager.AddLayer(new FixedBackgroundLayer(this, "background", "bg-layer-0", 1));
 		// Crea los datos de físicas
 		CreatePhysics();
 		// Arranca las capas

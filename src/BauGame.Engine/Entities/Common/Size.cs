@@ -1,4 +1,6 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.Common;
+﻿using Microsoft.Xna.Framework;
+
+namespace Bau.Libraries.BauGame.Engine.Entities.Common;
 
 /// <summary>
 ///		Estructura con los datos de tamaño
@@ -19,4 +21,9 @@ public struct Size(float width, float height)
 	///		Alto
 	/// </summary>
 	public float Height { get; } = height;
+
+	/// <summary>
+	///		Centro
+	/// </summary>
+	public Vector2 Center => new(0.5f * Width, 0.5f * Height);
 }

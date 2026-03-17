@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
 using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Bau.Libraries.BauGame.Engine.Managers.Resources;
 

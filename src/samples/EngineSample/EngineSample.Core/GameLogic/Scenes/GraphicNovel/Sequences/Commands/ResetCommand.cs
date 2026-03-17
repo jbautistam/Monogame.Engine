@@ -12,7 +12,7 @@ public class ResetCommand(string actorId, float startTime, float duration) : Abs
     /// </summary>
     protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
     {
-        actor.Transform.Bounds.TopLeft = ToWorld(Position);
+        actor.Transform.Bounds.Location = ToWorld(Position);
         actor.Renderer.Scale = Scale;
         actor.Renderer.Opacity = Opacity;
         actor.Renderer.SpriteEffects = SpriteEffects;

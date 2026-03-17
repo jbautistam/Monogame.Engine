@@ -19,7 +19,7 @@ public abstract class AbstractTexture(TextureManager textureManager, string id, 
 		// Carga la textura
 		if (!_isLoaded)
 		{
-			_texture = TextureManager.ResourcesManager.GlobalContentManager.LoadAsset<Texture2D>(Asset2);
+			_texture = TextureManager.ResourcesManager.GlobalContentManager.LoadAsset<Texture2D>(Asset);
 			_isLoaded = true;
 		}
 		// Devuelve la textura cargada
@@ -55,5 +55,5 @@ public abstract class AbstractTexture(TextureManager textureManager, string id, 
 	/// <summary>
 	///		Ruta de la textura
 	/// </summary>
-	public string Asset2 { get; } = asset;
+	public string Asset { get; } = asset;
 }

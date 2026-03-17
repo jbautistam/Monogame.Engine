@@ -20,8 +20,8 @@ internal class UserInterfaceGalleryScene(string name) : AbstractScene(name, new 
 	{
 		// Añade la capa
 		LayerManager.Clear();
+		LayerManager.AddLayer(new FixedBackgroundLayer(this, "Background", "bg-layer-2", null, 1));
 		LayerManager.AddLayer(new UserInterfaceGalleryLayer(this, SceneName, 1));
-		LayerManager.AddLayer(new FixedBackgroundLayer(this, "Background", "bg-layer-2", 1));
 		// Arranca las capas
 		LayerManager.Start();
 	}

@@ -102,7 +102,7 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 																	Animation = "explosion-animation",
 																	ZOrder = ZOrder
 																},
-												   Transform.Bounds.TopLeft);
+												   Transform.Bounds.Location);
 			// Envía el mensaje de fin para añadir la puntuación
 			Layer.Scene.MessagesManager.SendMessage(this, PlayerActor.PlayerName, Constants.MessageEnemyKilled, "Meteor eliminated", 50);
 			// Lanza un powerup
@@ -124,7 +124,7 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 			PowerUpActor powerUp = new(Layer, "powerup");
 
 				// Asigna la posición y la dirección
-				powerUp.Transform.Bounds.MoveTo(Transform.Bounds.TopLeft);
+				powerUp.Transform.Bounds.MoveTo(Transform.Bounds.Location);
 				powerUp.Direction = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandomDirection();
 				powerUp.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 				// Añade el meteoro al buffer de la pantalla

@@ -2,7 +2,6 @@
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
 using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
 using Bau.Libraries.BauGame.Engine.Entities.Common;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -137,12 +136,9 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 				Vector2 position;
 
 					// Calcula la posición dependiendo de si las coordenadas son relativas
-					if (ScaleToViewPort)
-						position = renderingManager.Scene.Camera.WorldToScreenRelative(Actor.Transform.Bounds.TopLeft);
-					else
-						position = Actor.Transform.BoundsCentered.TopLeft;
+					position = Actor.Transform.BoundsCentered.Location;
 					// Dibuja el actor
-					region.Draw(renderingManager, position, Actor.Transform.Center, CalculateScale(renderingManager.Scene.Camera.ScreenViewport, region.Region),
+					region.Draw(renderingManager, position, Actor.Transform.Center, Scale,
 								SpriteEffects, Opacity * Color, Actor.Transform.Rotation);
 			}
     }
@@ -158,27 +154,6 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 			return Animator.GetTexture(_textureSprite);
 		else
 			return _textureSprite.GetRegion(region);
-	}
-
-	/// <summary>
-	///		Calcula la escala
-	/// </summary>
-	private Vector2 CalculateScale(Viewport screenViewport, Rectangle region)
-	{
-		if (!ScaleToViewPort)
-			return Scale;
-		else
-		{
-			float scaleX = (float) screenViewport.Width / region.Width;
-			float scaleY = (float) screenViewport.Height / region.Height;
-			float scale = Math.Min(scaleX, scaleY);
-    
-				// Redondear hacia abajo para mantener píxeles enteros
-				if (ScaleToViewPortPerfect)
-					scale = (float) Math.Floor(scale);
-				// Devuelve la escala
-				return new Vector2(scale, scale);
-		}
 	}
 
 	/// <summary>
@@ -257,17 +232,7 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	/// <summary>
 	///		Escalado
 	/// </summary>
-	public Vector2 Scale { get; set; } = new(1, 1);
-
-	/// <summary>
-	///		Indica si se tiene que escalar a las coordenadas del ViewPort
-	/// </summary>
-	public bool ScaleToViewPort { get; set; }
-
-	/// <summary>
-	///		Indica si se tiene que escalar a las coordenadas del ViewPort de forma perfecta
-	/// </summary>
-	public bool ScaleToViewPortPerfect { get; set; }
+	public Vector2 Scale { get; set; } = Vector2.One;
 
 	/// <summary>
 	///		Efectos asociados a la representación

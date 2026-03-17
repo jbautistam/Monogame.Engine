@@ -90,7 +90,7 @@ public class AgentSteeringManager(BrainComponent brain, Actors.Steering.FlockSte
 	/// <summary>
 	///		Obtiene la posición
 	/// </summary>
-	public Vector2 Position => Brain.Owner.Transform.Bounds.TopLeft;
+	public Vector2 Position => Brain.Owner.Transform.Bounds.Location;
 
     /// <summary>
     ///     Velocidad máxima

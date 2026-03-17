@@ -47,7 +47,7 @@ public class CameraTargetsManager
             foreach (Actors.AbstractActorDrawable actor in _targets)
                 if (actor.Enabled)
                 {
-                    desiredTarget += actor.Transform.Bounds.TopLeft;
+                    desiredTarget += actor.Transform.Bounds.Location;
                     count++;
                 }
             // Si hay algún objetivo, el punto deseado está en el medio de todos los objetivos

@@ -24,13 +24,13 @@ public class JumpCommand(string actorId, float startTime, float duration) : Abst
             // Recoge el valor inicial
             if (!_initialized)
             {
-                _start = actor.Transform.Bounds.TopLeft;
+                _start = actor.Transform.Bounds.Location;
                 _initialized = true;
             }
             // Calcula la nueva posición horizontal
             horizontal = EasingFunctionsHelper.Interpolate(_start, new Vector2(_start.X + target.X, _start.Y), t, Easing);
             // Cambia la posición
-            actor.Transform.Bounds.TopLeft = new Vector2(horizontal.X, horizontal.Y - 4 * t * (1 - t) * target.Y);
+            actor.Transform.Bounds.Location = new Vector2(horizontal.X, horizontal.Y - 4 * t * (1 - t) * target.Y);
     }
 
     /// <summary>

@@ -1,12 +1,12 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
 
 /// <summary>
 ///     Fondo fijo
 /// </summary>
-public class FixedBackgroundLayer(AbstractScene scene, string name, string texture, int sortOrder) : AbstractBackgroundLayer(scene, name, texture, sortOrder)
+public class FixedBackgroundLayer(AbstractScene scene, string name, string asset, string? region, int sortOrder) 
+                    : AbstractBackgroundLayer(scene, name, asset, region, sortOrder)
 {
     /// <summary>
     ///     Actualiza la capa para físicas
@@ -18,7 +18,7 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
     /// <summary>
     ///     Actualiza la capa de fondo
     /// </summary>
-	protected override void UpdateSelf(Managers.GameContext gameContext)
+	protected override void UpdateLayer(Managers.GameContext gameContext)
 	{
 	}
 
@@ -27,27 +27,25 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
     /// </summary>
     protected override void DrawSelf(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-        TextureRegion? region = GetTextureRegion("background");
+        Entities.Common.Size size = Sprite.GetSize();
 
-            if (region is not null)
+            if (size.Width > 0 && size.Height > 0)
             {
-                Entities.Common.Sprites.SpriteDefinition sprite = new(region.Texture.Id, region.Name);
                 float worldScreenWidth = renderingManager.Scene.Camera.ScreenViewport.Width / renderingManager.Scene.Camera.Zoom;
                 float worldScreenHeight = renderingManager.Scene.Camera.ScreenViewport.Height / renderingManager.Scene.Camera.Zoom;
 
                     if (!Tiled)
                     {
-                        Vector2 scale = new(worldScreenWidth / region.Region.Width, worldScreenHeight / region.Region.Height);
+                        Vector2 scale = new(worldScreenWidth / size.Width, worldScreenHeight / size.Height);
                         Vector2 backgroundPosition = renderingManager.Scene.Camera.Position - new Vector2(worldScreenWidth / 2f, worldScreenHeight / 2f);
 
                             // Dibujamos el fondo escalado para cubrir toda la pantalla visible
-                            renderingManager.SpriteRenderer.Draw(sprite, backgroundPosition, Vector2.Zero, scale, 0, Color);
+                            renderingManager.SpriteRenderer.Draw(Sprite, backgroundPosition, Vector2.Zero, scale, 0, Color);
                     }
                     else
                     {
-                        // Calculamos cuántos tiles necesitamos
-                        int tileWidth = region.Region.Width;
-                        int tileHeight = region.Region.Height;
+                        int tileWidth = (int) size.Width;
+                        int tileHeight = (int) size.Height;
                         int startX = (int) (renderingManager.Scene.Camera.Position.X - worldScreenWidth / 2f) / tileWidth * tileWidth;
                         int startY = (int) (renderingManager.Scene.Camera.Position.Y - worldScreenHeight / 2f) / tileHeight * tileHeight;
                         int endX = startX + (int) worldScreenWidth + tileWidth;
@@ -56,7 +54,7 @@ public class FixedBackgroundLayer(AbstractScene scene, string name, string textu
                             // Dibuja los diferentes tiles
                             for (int x = startX; x < endX; x += tileWidth)
                                 for (int y = startY; y < endY; y += tileHeight)
-                                    renderingManager.SpriteRenderer.Draw(sprite, new Vector2(x, y), Vector2.Zero, Vector2.One, 0, Color);
+                                    renderingManager.SpriteRenderer.Draw(Sprite, new Vector2(x, y), Vector2.Zero, Vector2.One, 0, Color);
                     }
             }
     }

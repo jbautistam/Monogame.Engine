@@ -146,8 +146,7 @@ public class SpriteRenderer(RenderingManager renderingManager)
 				width = (int) (container.Height * sourceAspect);
 			}
 			// Devuelve el rectángulo buscado
-			return new Rectangle(container.X + (container.Width - width) / 2, container.Y + (container.Height - height) / 2, 
-								 width, height);
+			return new Rectangle(container.X + (container.Width - width) / 2, container.Y + (container.Height - height) / 2, width, height);
     }
 
 	/// <summary>

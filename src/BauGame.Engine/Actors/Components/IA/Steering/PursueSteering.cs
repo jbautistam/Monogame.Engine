@@ -16,7 +16,7 @@ public class PursueSteering : AbstractSteeringBehavior
             return Vector2.Zero;
         else
         {
-            Vector2 targetPos = Actor.Transform.Bounds.TopLeft;
+            Vector2 targetPos = Actor.Transform.Bounds.Location;
             Vector2 toTarget = targetPos - agentSteeringManager.Position;
             float lookAheadTime = toTarget.Length() / agentSteeringManager.MaxSpeed;
             Vector2 predictedPos = targetPos + agentSteeringManager.Velocity * lookAheadTime;

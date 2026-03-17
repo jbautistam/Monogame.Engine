@@ -39,14 +39,14 @@ public class DramaticPoseCommand(string actorId, float startTime, float duration
             // Inicializa los datos si es necesario
             if (!_initialized)
             {
-                _start = actor.Transform.Bounds.TopLeft;
+                _start = actor.Transform.Bounds.Location;
                 _target = _start + ToWorld(Offset);
                 _startScale = actor.Renderer.Scale;
                 _startRotation = actor.Transform.Rotation;
                 _initialized = true;
             }
             // Interpola los datos
-            actor.Transform.Bounds.TopLeft = EasingFunctionsHelper.Interpolate(_start, _target, Progress, easing);
+            actor.Transform.Bounds.Location = EasingFunctionsHelper.Interpolate(_start, _target, Progress, easing);
             actor.Renderer.Scale = EasingFunctionsHelper.Interpolate(_startScale, Scale, Progress, easing);
             actor.Transform.Rotation = EasingFunctionsHelper.Interpolate(_startRotation, Rotation, Progress, easing);
             // Añade los efectos adicionales

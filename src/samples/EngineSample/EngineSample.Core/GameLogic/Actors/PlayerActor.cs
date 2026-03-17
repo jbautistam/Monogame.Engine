@@ -207,7 +207,7 @@ public class PlayerActor : AbstractActorDrawable
 				if (Moving == MoveMode.RightToLeft)
 					address = new Vector2(-1, 0);
 				// Dispara el arma
-				_shooter.Shoot(slot, Transform.Bounds.TopLeft, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
+				_shooter.Shoot(slot, Transform.Bounds.Location, address, 0, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
 		}
 	}
 
@@ -241,7 +241,7 @@ public class PlayerActor : AbstractActorDrawable
 			// Crea los mensajes
 			messages.Add(new MessageModel(this, "PlayerPosition", Constants.LayerHud)
 								{
-									Message = $"{Transform.Bounds.TopLeft.X:0}-{Transform.Bounds.TopLeft.Y:0}"
+									Message = $"{Transform.Bounds.Location.X:0}-{Transform.Bounds.Location.Y:0}"
 								}
 						);
 			messages.Add(new MessageModel(this, "Score", Constants.LayerHud)

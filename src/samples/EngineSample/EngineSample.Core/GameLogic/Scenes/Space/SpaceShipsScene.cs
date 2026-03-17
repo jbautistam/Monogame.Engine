@@ -33,9 +33,9 @@ internal class SpaceShipsScene(string name) : AbstractScene(name, new Bau.Librar
 		// Añade la capa
 		LayerManager.AddLayer(new Layers.SpaceShipGameLayer(this, SceneName, 1));
 		// Crea las capas con los fondos
-		LayerManager.AddLayer(new FixedBackgroundLayer(this, "fixed-bg", "bg-space-04", 1));
-		LayerManager.AddLayer(new ParallaxBackgroundLayer(this, "parallax-bg-01", "parallax-01", 2, 0.1f));
-		LayerManager.AddLayer(new ParallaxBackgroundLayer(this, "parallax-bg-02", "parallax-02", 3, 0.7f));
+		LayerManager.AddLayer(new FixedBackgroundLayer(this, "fixed-bg", "bg-space-04", null, 1));
+		LayerManager.AddLayer(new ParallaxBackgroundLayer(this, "parallax-bg-01", "parallax-01", null, 2, 0.1f));
+		LayerManager.AddLayer(new ParallaxBackgroundLayer(this, "parallax-bg-02", "parallax-02", null, 3, 0.7f));
 		// Crea los datos de físicas
 		CreatePhysics();
 		// Arranca las capas

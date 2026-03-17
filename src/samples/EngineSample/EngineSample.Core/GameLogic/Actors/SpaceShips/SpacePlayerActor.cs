@@ -219,7 +219,7 @@ public class SpacePlayerActor : AbstractActorDrawable
 		// Lanza el proyectil
 		void Shoot(string slot)
 		{
-			_shooter.Shoot(slot, Transform.Bounds.TopLeft, Transform.Rotation, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
+			_shooter.Shoot(slot, Transform.Bounds.Location, Transform.Rotation, Scenes.Games.GameScene.PhysicsPlayerProjectileLayer);
 		}
 	}
 
@@ -253,7 +253,7 @@ public class SpacePlayerActor : AbstractActorDrawable
 			// Crea los mensajes
 			messages.Add(new MessageModel(this, "PlayerPosition", Constants.LayerHud)
 								{
-									Message = $"{Transform.Bounds.TopLeft.X:0}-{Transform.Bounds.TopLeft.Y:0}"
+									Message = $"{Transform.Bounds.Location.X:0}-{Transform.Bounds.Location.Y:0}"
 								}
 						);
 			messages.Add(new MessageModel(this, "Score", Constants.LayerHud)

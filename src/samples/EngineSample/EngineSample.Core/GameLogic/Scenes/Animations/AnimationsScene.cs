@@ -20,8 +20,8 @@ internal class AnimationsScene(string name) : AbstractScene(name, new Bau.Librar
 	{
 		// Añade la capa
 		LayerManager.Clear();
+		LayerManager.AddLayer(new FixedBackgroundLayer(this, "Background", "bg-layer-1", null, 1));
 		LayerManager.AddLayer(new AnimationsLayer(this, SceneName, 1));
-		LayerManager.AddLayer(new FixedBackgroundLayer(this, "Background", "bg-layer-1", 1));
 		// Arranca las capas
 		LayerManager.Start();
 	}
