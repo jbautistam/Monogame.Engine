@@ -24,6 +24,7 @@ public class SpriteTextDefinition
 	/// </summary>
 	public void Update(GameContext gameContext)
 	{
+		LoadAsset();
 	}
 
 	/// <summary>

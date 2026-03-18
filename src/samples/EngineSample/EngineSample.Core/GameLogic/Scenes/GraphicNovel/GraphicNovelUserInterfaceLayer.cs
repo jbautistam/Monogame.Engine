@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.LibHelper.Extensors;
+using Bau.BauEngine.Entities.Sprites;
 using Bau.BauEngine.Scenes;
 using Bau.BauEngine.Scenes.Layers;
 using Bau.BauEngine.Entities.UserInterface;
@@ -56,9 +57,9 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 		UiMobileChat chat = new(this, new UiPosition(0.1f, 0.1f, 0.4f, 0.4f))
 								{
 									Style = "MenuStyle",
-									Font = new Bau.BauEngine.Entities.Sprites.SpriteTextDefinition("Fonts/Hud"),
-									MessageSpacing = 20,
-									SpriteWriting = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("Tiles/BlockA3", string.Empty)
+									Font = new SpriteTextDefinition("Fonts/Hud"),
+									MessageSpacing = 10,
+									SpriteWriting = new SpriteDefinition("Tiles/BlockA3", string.Empty)
 								};
 
 			// Añade los participantes
@@ -69,27 +70,31 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 											IsPlayer = false,
 											NameForecolor = Color.AliceBlue,
 											Forecolor = Color.Navy,
-											SpriteBackground = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("Tiles/BlockA3", string.Empty),
+											SpriteBackground = new SpriteDefinition("Tiles/BlockA3", string.Empty),
 											BackgroundColor = Color.Yellow,
-											Avatar = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("james-avatar", null)
+											Avatar = new SpriteDefinition("james-avatar", null)
 										}
 								);
 			chat.AddParticipant(new MobileSender()
 										{
+											ShowName = true,
 											Name = "Sylvie",
 											IsPlayer = false,
 											Forecolor = Color.Red,
+											NameForecolor = Color.Navy,
 											BackgroundColor = Color.Green,
-											Avatar = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("sylvie-avatar", null)
+											Avatar = new SpriteDefinition("sylvie-avatar", null)
 										}
 								);
 			chat.AddParticipant(new MobileSender()
 										{
+											ShowName = true,
 											Name = "Narrator",
 											IsPlayer = true,
 											Forecolor = Color.Red,
+											NameForecolor = Color.Navy,
 											BackgroundColor = Color.Green,
-											Avatar = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("narrator-avatar", null)
+											Avatar = new SpriteDefinition("narrator-avatar", null)
 										}
 								);
 			// Añade mensajes
@@ -140,15 +145,15 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 		{
 			 return new UiComicBubble(this, position)
 							{
-								BubbleSprite = new Bau.BauEngine.Entities.Sprites.SpriteDefinition(asset, region),
-								Font = new Bau.BauEngine.Entities.Sprites.SpriteTextDefinition("Fonts/Hud"),
-								TextParameters = new Bau.BauEngine.Entities.Sprites.SpriteTextParameters
-																{
-																	Text = text,
-																	Color = Color.Black,
-																	HorizontalAlignment = UiLabel.HorizontalAlignmentType.Center,
-																	VerticalAlignment = UiLabel.VerticalAlignmentType.Center
-																}
+								BubbleSprite = new SpriteDefinition(asset, region),
+								Font = new SpriteTextDefinition("Fonts/Hud"),
+								TextParameters = new SpriteTextParameters
+															{
+																Text = text,
+																Color = Color.Black,
+																HorizontalAlignment = UiLabel.HorizontalAlignmentType.Center,
+																VerticalAlignment = UiLabel.VerticalAlignmentType.Center
+															}
 							};
 		}
 	}

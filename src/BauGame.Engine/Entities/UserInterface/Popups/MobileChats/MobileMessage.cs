@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Bau.BauEngine.Entities.Sprites;
+﻿using Bau.BauEngine.Entities.Sprites;
 
 namespace Bau.BauEngine.Entities.UserInterface.Popups.MobileChats;
 
 /// <summary>
 ///		Mensaje del móvil
 /// </summary>
-internal class MobileMessage(MobileSender sender, string text, float timeToShow)
+internal class MobileMessage(MobileSender sender, float timeToShow)
 {
     /// <summary>
     ///     Estado del mensaje
@@ -20,38 +19,6 @@ internal class MobileMessage(MobileSender sender, string text, float timeToShow)
         /// <summary>Está esperando a aparecer</summary>
         Waiting
     }
-    // Variables privadas
-    private float _height;
-
-    /// <summary>
-    ///     Calcula la altura en pantalla
-    /// </summary>
-    internal float GetHeight(SpriteTextDefinition? font, int width)
-    {
-        if (!IsDirty || font is null)
-            return _height;
-        else
-        {
-            // Calcula las líneas
-            Lines.Clear();
-            Lines.AddRange(new Tools.Texts.StringFontHelper().WrapText(font, Text, width));
-            // Calcula la altura
-            _height = ComputeHeight(font, Lines.Count + (Sender.ShowName ? 1 : 0), font.GetLineSpacing());
-            // Indica que se ha calculado anteriormente el alto
-            IsDirty = false;
-            // Devuelve la altura calculada
-            return _height;
-        }
-
-        // Calcula la altura de todas las líneas
-        float ComputeHeight(SpriteTextDefinition font, int lines, float lineSpacing)
-        {
-            Vector2 size = font.MeasureString("A");
-
-                // Devuelve la altura de las líneas
-                return size.Y * lines + lines * lineSpacing;
-        }
-    }
 
     /// <summary>
     ///     Datos del emisor del mensaje
@@ -59,14 +26,9 @@ internal class MobileMessage(MobileSender sender, string text, float timeToShow)
     internal MobileSender Sender { get; } = sender;
 
     /// <summary>
-    ///     Texto del mensaje
+    ///     Parámetros de dibujo
     /// </summary>
-    internal string Text { get; } = text;
-
-    /// <summary>
-    ///     Líneas del texto
-    /// </summary>
-    internal List<string> Lines { get; } = [];
+	internal SpriteTextParameters Parameters { get; } = new();
 
     /// <summary>
     ///     Tiempo que hay que esperar para mostrarlo
@@ -93,11 +55,6 @@ internal class MobileMessage(MobileSender sender, string text, float timeToShow)
                 return StatusType.Waiting;
         }
     }
-
-    /// <summary>
-    ///     Posición del mensaje en pantalla
-    /// </summary>
-    internal float Y { get; set; }
 
     /// <summary>
     ///     Indica si se han modificado los datos

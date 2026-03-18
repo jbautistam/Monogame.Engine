@@ -12,6 +12,14 @@ public class SpriteTextRenderer(RenderingManager renderingManager)
 	/// <summary>
 	///		Escribe una cadena
 	/// </summary>
+	public void DrawString(SpriteTextDefinition? sprite, string text, Point position, Color color)
+    {
+        DrawString(sprite, text, new Vector2(position.X, position.Y), color);
+    }
+
+	/// <summary>
+	///		Escribe una cadena
+	/// </summary>
 	public void DrawString(SpriteTextDefinition? sprite, string text, Vector2 position, Color color)
 	{
 		SpriteFont? spriteFont = sprite?.LoadAsset();

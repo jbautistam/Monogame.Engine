@@ -37,8 +37,10 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
             // Crea el mensaje si viene de un participante conocido
             if (participant is not null)
             {
-                MobileMessage message = new(participant, text, timeToShow);
+                MobileMessage message = new(participant, timeToShow);
 
+                    // Asigna los datos al mensaje
+                    message.Parameters.Text = text;
                     // Calcula el tiempo que va a tardar en mostrarse
                     message.Start = Math.Max(0.5f, timeToShow) + ComputePreviousTime();
                     // Añade el mensaje a la lista
@@ -78,35 +80,13 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
     /// </summary>
 	protected override void UpdateSelf(GameContext gameContext)
 	{
-        // Carga la fuente
+        // Actualiza la fuente
         Font?.Update(gameContext);
         // Modifica el tiempo de presentación de los mensajes
         foreach (MobileMessage message in _messages)
             message.Start -= gameContext.DeltaTime;
-        // Calcula la posición de los mensajes
-        ComputeMessagesPosition();
         // Elimina los mensajes anteriores
         RemoveOldMessages();
-    }
-
-    /// <summary>
-    ///     Calcula la posición de los mensajes
-    /// </summary>
-    private void ComputeMessagesPosition()
-    {
-        float y = Position.ContentBounds.Bottom - MessageSpacing;
-
-            // Recorre los mensajes calculando la posición
-            for (int index = _messages.Count - 1; index >= 0; index--)
-                if (_messages[index].Status != MobileMessage.StatusType.Waiting)
-                {
-                    // Calcula la posición y
-                    y -= _messages[index].GetHeight(Font, GetMaxBubbleWidth());
-                    // Asigna la posición Y al mensaje
-                    _messages[index].Y = y;
-                    // Quita la separación entre mensajes
-                    y -= MessageSpacing;
-                }
     }
 
     /// <summary>
@@ -115,7 +95,8 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
     private void RemoveOldMessages()
     {
         for (int index = _messages.Count - 1; index >= 0; index--)
-            if (_messages[index].Status != MobileMessage.StatusType.Waiting && _messages[index].Y < Position.ContentBounds.Top)
+            if (_messages[index].Status == MobileMessage.StatusType.Showing && _messages[index].Parameters.Bounds.Y > 0 && 
+                    _messages[index].Parameters.Bounds.Y - AvatarSize < Position.ContentBounds.Top)
                 _messages.RemoveAt(index);
     }
 
@@ -130,36 +111,71 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
             Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
             // Dibuja los mensajes
             if (Font is not null)
-                foreach (MobileMessage message in _messages)
-                    if (message.Status != MobileMessage.StatusType.Waiting)
-                    {
-                        Sprites.SpriteDefinition? avatar = GetAvatar(message);
-                        Rectangle avatarBounds = ComputeAvatarBounds(avatar, message.Sender.IsPlayer, message.Y);
-                        Rectangle bounds = new(GetMessageX(message, width), (int) message.Y, width, (int) message.GetHeight(Font, width));
+            {
+                int y = Position.ContentBounds.Bottom - MessageSpacing;
 
-                            // Dibuja el avatar
-                            if (avatar is not null)
-                                renderingManager.SpriteRenderer.Draw(avatar, avatarBounds, Vector2.Zero, 0, Color.White);
-                            // Dibuja el contenido del mensaje
-                            if (message.Status == MobileMessage.StatusType.Writing && !message.Sender.IsPlayer)
-                                DrawWritting(renderingManager, bounds, gameContext);
-                            else
-                            {
-                                // Dibuja el rectángulo de fondo
-                                DrawBackground(renderingManager, message.Sender, bounds);
-                                // Dibuja el texto del mensaje
-                                DrawMessage(renderingManager, message, bounds);
-                            }
-                    }
+                    for (int index = _messages.Count - 1; index >= 0; index--)
+                        if (y - AvatarSize > Position.ContentBounds.Top)
+                        {
+                            MobileMessage message = _messages[index];
+                            int x = GetMessageX(message, width);
 
-        // Obtiene la coordenada X donde se debe mostrar un mensaje
-        int GetMessageX(MobileMessage message, int messageWidth)
-        {
-            if (message.Sender.IsPlayer)
-                return Position.ContentBounds.Right - AvatarSize - messageWidth - 3;
-            else
-                return AvatarSize + Position.ContentBounds.Left + 3;
-        }
+                                if (message.Status != MobileMessage.StatusType.Waiting)
+                                {
+                                    Sprites.SpriteDefinition? avatar = GetAvatar(message);
+                                    Rectangle avatarBounds = ComputeAvatarBounds(avatar, message.Sender.IsPlayer, y);
+
+                                        // Dibuja el avatar
+                                        if (avatar is not null)
+                                            renderingManager.SpriteRenderer.Draw(avatar, avatarBounds, Vector2.Zero, 0, Color.White);
+                                        // Dibuja el contenido del mensaje
+                                        if (message.Status == MobileMessage.StatusType.Writing && !message.Sender.IsPlayer)
+                                        {
+                                            // Dibuja el icono de escribiendo
+                                            DrawWritting(renderingManager, x, y, gameContext);
+                                            // Decrementa la coordenada Y
+                                            y -= AvatarSize + MessageSpacing;
+                                        }
+                                        else
+                                        {
+                                            Rectangle background;
+                                            Vector2 size = Vector2.Zero;
+
+                                                // Calcula los parámetros de mensaje
+                                                message.Parameters.ComputeBounds(Font, x, y, width);
+                                                // Calcula el rectángulo de fondo
+                                                background = new Rectangle(message.Parameters.Bounds.X - 5, message.Parameters.Bounds.Y - 5,
+                                                                           message.Parameters.Bounds.Width + 10, 
+                                                                           message.Parameters.Bounds.Height + 10);
+                                                if (message.Sender.ShowName)
+                                                {
+                                                    // Obtiene el tamaño de la cadena
+                                                    size = Font.MeasureString(message.Sender.Name);
+                                                    // Cambia el fondo del rectángulo
+                                                    background = new Rectangle(background.X, background.Y - (int) size.Y - MessageSpacing,
+                                                                               background.Width,
+                                                                               background.Height + (int) size.Y + MessageSpacing);
+                                                }
+                                                // Dibuja el rectángulo de fondo
+                                                DrawBackground(renderingManager, message.Sender, background);
+                                                // Dibuja la cabecera
+                                                if (message.Sender.ShowName)
+                                                    renderingManager.SpriteTextRenderer.DrawString(Font, message.Sender.Name, 
+                                                                                                   new Vector2(background.Location.X + 5, background.Location.Y + 5), 
+                                                                                                   message.Sender.NameForecolor);
+                                                // Dibuja el texto del mensaje
+                                                //message.Parameters.Bounds = new Rectangle(message.Parameters.Bounds.X,
+                                                //                                          message.Parameters.Bounds.Y + (int) size.Y + MessageSpacing,
+                                                //                                          message.Parameters.Bounds.Width,
+                                                //                                          message.Parameters.Bounds.Height);
+                                                renderingManager.SpriteTextRenderer.DrawString(Font, message.Parameters);
+                                                // Quita la altura del mensaje
+                                                y -= background.Height + MessageSpacing;
+                                        }
+
+                                }
+                        }
+                }
 
         // Calcula la posición del avatar
         Rectangle ComputeAvatarBounds(Sprites.SpriteDefinition? avatar, bool isPlayer, float y)
@@ -167,13 +183,24 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
             if (avatar is not null)
             {
                 if (isPlayer)
-                    return new Rectangle(Position.ContentBounds.Right - AvatarSize, (int) y, AvatarSize, AvatarSize);
+                    return new Rectangle(Position.ContentBounds.Right - AvatarSize, (int) y - AvatarSize, AvatarSize, AvatarSize);
                 else
-                    return new Rectangle(Position.ContentBounds.X + 1, (int) y, AvatarSize, AvatarSize);
+                    return new Rectangle(Position.ContentBounds.X + 1, (int) y - AvatarSize, AvatarSize, AvatarSize);
             }
             else
                 return new Rectangle(Position.ContentBounds.X + 1, (int) y, 0, 0);
         }
+    }
+
+    /// <summary>
+    ///     Obtiene la coordenada X donde se debe mostrar un mensaje
+    /// </summary>
+    private int GetMessageX(MobileMessage message, int messageWidth)
+    {
+        if (message.Sender.IsPlayer)
+            return Position.ContentBounds.Right - AvatarSize - messageWidth - 3;
+        else
+            return AvatarSize + Position.ContentBounds.Left + 3;
     }
 
 	/// <summary>
@@ -190,12 +217,12 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
 	/// <summary>
 	///     Dibuja el icono de "escribiendo"
 	/// </summary>
-	private void DrawWritting(Scenes.Rendering.RenderingManager renderingManager, Rectangle bounds, GameContext gameContext)
+	private void DrawWritting(Scenes.Rendering.RenderingManager renderingManager, int x, int y, GameContext gameContext)
     {
         if (SpriteWriting is not null)
         {
             TweenResult<float> result = TweenCalculator.CalculateFloat(_typingElapsed, 2, 0, 1, Tools.MathTools.Easing.EasingFunctionsHelper.EasingType.Linear);
-            Rectangle position = new(bounds.X, bounds.Y, (int) Math.Min(bounds.Width, SpriteWriting.GetSize().Width), AvatarSize);
+            Rectangle position = new(x, y - AvatarSize, AvatarSize, AvatarSize);
 
                 // Dibuja la textura
                 if (SpriteWriting is not null)
@@ -220,38 +247,6 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
 	}
 
     /// <summary>
-    ///     Dibuja las líneas del mensaje
-    /// </summary>
-    private void DrawMessage(Scenes.Rendering.RenderingManager renderingManager, MobileMessage message, Rectangle bounds)
-    {
-        if (Font is not null)
-        {
-            int y = bounds.Y + PaddingMessage.Top;
-            int height = (int) Font.GetLineSpacing();
-
-                // Escribe el nombre del remitente
-                if (message.Sender.ShowName)
-                {
-                    Vector2 size = Font.MeasureString(message.Sender.Name);
-
-                        // Dibuja el nombre
-                        renderingManager.SpriteTextRenderer.DrawString(Font, message.Sender.Name, 
-                                                                       new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.NameForecolor);
-                        // Incrementa la posición
-                        y += (int) size.Y + 2;
-                }
-                // Escribe las líneas
-                foreach (string line in message.Lines)
-                {
-                    // Escribe el texto
-                    renderingManager.SpriteTextRenderer.DrawString(Font, line, new Vector2(bounds.X + PaddingMessage.Left, y), message.Sender.Forecolor);
-                    // Pasa a la siguiente línea
-                    y += height;
-                }
-        }
-    }
-
-    /// <summary>
     ///     Nombre de la fuente
     /// </summary>
     public Sprites.SpriteTextDefinition? Font { get; set; }
@@ -264,12 +259,12 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
     /// <summary>
     ///     Tamaño del avatar en pixels
     /// </summary>
-    public int AvatarSize { get; set; } = 32;
+    public int AvatarSize { get; set; } = 40;
 
     /// <summary>
-    ///     Espaciado de los mensajes
+    ///     Espaciado entre mensajes
     /// </summary>
-    public float MessageSpacing { get; set; } = 0.02f;
+    public int MessageSpacing { get; set; } = 2;
 
     /// <summary>
     ///     Padding del mensaje de texto

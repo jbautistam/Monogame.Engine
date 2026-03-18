@@ -71,22 +71,46 @@ public class SpriteTextParameters
     /// <summary>
     ///     Obtiene la altura total de las líneas
     /// </summary>
+    public float GetHeight(SpriteTextDefinition font, int width)
+    {
+        // Cambia el rectángulo
+        if (width != Bounds.Width)
+            Bounds = new Rectangle(Bounds.X, Bounds.Y, width, Bounds.Height);
+        // Obtiene la altura
+        return GetHeight(font);
+    }
+
+    /// <summary>
+    ///     Obtiene la altura total de las líneas
+    /// </summary>
     public float GetHeight(SpriteTextDefinition font)
     {
         List<string> lines = GetLines(font);
-        float contentHeight = 0f;
+        float contentHeight = 0;
 
-            // Calcula el tamaño de las líneas            
+            // Calcula el tamaño de las líneas
             foreach (string line in lines)
             {
                 Vector2 size = font.MeasureString(line);
 
-                    if (contentHeight < Bounds.Width)
-                        contentHeight += size.Y + font.GetLineSpacing();
+                    contentHeight = size.Y + font.GetLineSpacing();
             }
             // Devuelve la altura
             return contentHeight;
     }
+
+    /// <summary>
+    ///     Calcula los límites del rectángulo
+    /// </summary>
+	public void ComputeBounds(SpriteTextDefinition font, int x, int y, int width)
+	{
+        int height = (int) GetHeight(font, width);
+
+            // Cambia los límites
+            Bounds = new Rectangle(x, y - height, width, height);
+            // Indica que ya se han calculado los límites
+            _isDirty = false;
+	}
 
 	/// <summary>
 	///		Texto de los parámetros
