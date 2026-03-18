@@ -1,6 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Actors.Components.Renderers;
+using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.TileMap;
+namespace Bau.BauEngine.Actors.TileMap;
 
 /// <summary>
 ///     Definición de un patrón
@@ -21,10 +22,10 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 			if (definition is not null)
 			{
 				// Añade la textura
-				Renderer.Sprite = new Entities.Common.Sprites.SpriteDefinition(definition.Texture, definition.Region);
+				Renderer.Sprite = new Entities.Sprites.SpriteDefinition(definition.Texture, definition.Region);
 				// Añade la animación
-				if (!string.IsNullOrWhiteSpace(definition.Animation))
-					Renderer.Animator.SetAnimation(definition.Animation, true);
+				if (!string.IsNullOrWhiteSpace(definition.Animation) && Renderer is RendererAnimatorComponent animator)
+					animator.Animator.SetAnimation(definition.Animation, true);
 				// Inicializa el renderer
 				Renderer.Start();
 			}

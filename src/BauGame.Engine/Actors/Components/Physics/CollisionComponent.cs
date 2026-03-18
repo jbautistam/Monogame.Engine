@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Cameras;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
+namespace Bau.BauEngine.Actors.Components.Physics;
 
 /// <summary>
 ///		Componente para el manejo de colisiones
 /// </summary>
-public class CollisionComponent(AbstractActorDrawable owner, int physicLayerId) : AbstractComponent(owner, false)
+public class CollisionComponent(AbstractActorDrawable owner, int physicLayerId) : AbstractComponent(owner), Interfaces.IActorDrawable
 {
 	/// <summary>
 	///		Inicia el componente
@@ -35,7 +35,7 @@ public class CollisionComponent(AbstractActorDrawable owner, int physicLayerId) 
 	/// <summary>
 	///		Dibuja el componente
 	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+	public void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 		if (GameEngine.Instance.EngineSettings.DebugMode)
 			foreach (AbstractCollider collider in Colliders)

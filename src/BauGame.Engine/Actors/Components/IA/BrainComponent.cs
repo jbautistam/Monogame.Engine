@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes.Cameras;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA;
+namespace Bau.BauEngine.Actors.Components.IA;
 
 /// <summary>
 ///		Componente que maneja los parámetros de una IA
@@ -13,7 +13,7 @@ public class BrainComponent : AbstractComponent
 	// Variables privadas
 	private Health.HealthComponent? _health;
 
-	public BrainComponent(AbstractActorDrawable owner) : base(owner, false)
+	public BrainComponent(AbstractActorDrawable owner) : base(owner)
 	{
 		StatesMachineManager = new FiniteStateMachines.StatesMachineManager(this);
 		AgentSteeringManager = new Steering.AgentSteeringManager(this, null);
@@ -106,14 +106,6 @@ public class BrainComponent : AbstractComponent
 			collision?.ToggleEnabled(false);
 			// Elimina el actor
 			Owner.Layer.Actors.MarkToDestroy(Owner, gameContext.GetTotalTime(TimeSpan.FromSeconds(5)));
-	}
-
-	/// <summary>
-	///		Dibuja el componente
-	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
-	{
-		// ... en este caso no hace nada
 	}
 
 	/// <summary>

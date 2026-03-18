@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Managers.Audio.EventArguments;
+﻿namespace Bau.BauEngine.Managers.Audio.EventArguments;
 
 /// <summary>
 ///		Argumentos de evento de sincronización

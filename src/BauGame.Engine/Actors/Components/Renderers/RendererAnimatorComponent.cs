@@ -1,49 +1,25 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Bau.BauEngine.Managers;
+using Bau.BauEngine.Managers.Resources.Animations;
+using Bau.BauEngine.Entities.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
+namespace Bau.BauEngine.Actors.Components.Renderers;
 
 /// <summary>
-///		Componente para representación de un actor
+///		Componente para representación de un actor con animación
 /// </summary>
-public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(actor, true), Interfaces.IActorDrawable
+public class RendererAnimatorComponent(AbstractActorDrawable actor) : AbstractRendererComponent(actor), Interfaces.IActorDrawable
 {
 	/// <summary>
 	///		Inicia el componente
 	/// </summary>
-	public override void Start()
+	protected override void StartSelf()
 	{
-	}
-
-	/// <summary>
-	///		Actualiza las físicas
-	/// </summary>
-	public override void UpdatePhysics(GameContext gameContext)
-	{
-		// ... no hace nada, sólo implementa la interface
 	}
 
 	/// <summary>
 	///		Arranca la carga de los datos de la definición
 	/// </summary>
-	public override void Update(GameContext gameContext)
-	{
-		// Carga los datos del sprite
-		Sprite?.LoadAsset(Actor.Layer.Scene);
-		// Actualiza la animación
-		UpdateAnimator(gameContext);
-		// Actualiza los efectos
-		foreach (Effects.AbstractRendererEffect effect in Effects)
-			effect.Update(gameContext);
-	}
-
-	/// <summary>
-	///		Actualiza el componente de animación
-	/// </summary>
-	private void UpdateAnimator(GameContext gameContext)
+	protected override void UpdateSelf(GameContext gameContext)
 	{
 		// Busca la animación correspondiente dependiendo de las propiedades de animación
 		if (AnimatorBlenderProperties is not null)
@@ -71,7 +47,7 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 		if (Animator.SetAnimation(animation, loop))
 		{
 			// Crea el sprite
-			Sprite = new Entities.Common.Sprites.SpriteDefinition(texture, Animator.GetDefaultRegion());
+			Sprite = new SpriteDefinition(texture, Animator.GetDefaultRegion());
 			// Indica que está animando
 			Animator.IsPlaying = true;
 		}
@@ -101,14 +77,12 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+    protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
 		if (Sprite is not null)
 		{
 			// Obtiene la región adecuada para la animación
 			Sprite.Region = GetRegion();
-			// Cambia la posición
-			Sprite.SpriteEffect = SpriteEffects;
 			// Dibuja el sprite
 			renderingManager.SpriteRenderer.Draw(Sprite, Actor.Transform.BoundsCentered.Location, Actor.Transform.Center, Scale, Actor.Transform.Rotation, Opacity * Color);
 		}
@@ -126,58 +100,12 @@ public class RendererComponent(AbstractActorDrawable actor) : AbstractComponent(
 	}
 
 	/// <summary>
-	///		Obtiene el tamaño
-	/// </summary>
-	public Size GetSize()
-	{
-		if (Sprite is not null)
-			return Sprite.GetSize();
-		else
-			return new Size(0, 0);
-	}
-
-	/// <summary>
 	///		Detiene el componente
 	/// </summary>
-	public override void End()
+	protected override void EndSelf()
 	{
 		// ... no hace nada, sólo implementa la interface
 	}
-
-	/// <summary>
-	///		Actor
-	/// </summary>
-	public AbstractActorDrawable Actor { get; } = actor;
-
-	/// <summary>
-	///		Sprite
-	/// </summary>
-	public Entities.Common.Sprites.SpriteDefinition? Sprite { get; set; }
-
-	/// <summary>
-	///		Efectos de dibujo
-	/// </summary>
-	public SpriteEffects SpriteEffects { get; set; } = SpriteEffects.None;
-
-	/// <summary>
-	///		Color
-	/// </summary>
-	public Color Color { get; set; } = Color.White;
-
-	/// <summary>
-	///		Opacidad
-	/// </summary>
-	public float Opacity { get; set; } = 1.0f;
-
-	/// <summary>
-	///		Escalado
-	/// </summary>
-	public Vector2 Scale { get; set; } = Vector2.One;
-
-	/// <summary>
-	///		Efectos asociados a la representación
-	/// </summary>
-	public List<Effects.AbstractRendererEffect> Effects { get; } = [];
 
 	/// <summary>
 	///		Componente de animación

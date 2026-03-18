@@ -3,16 +3,18 @@
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
 
 /// <summary>
-///     Resetea la posición y la opacidad de un actor (instantáneo)
+///     Resetea los datos de un actor
 /// </summary>
 public class ResetCommand(string actorId, float startTime, float duration) : AbstractSequenceCommand(actorId, startTime, duration)
 {
     /// <summary>
     ///     Aplica el comando
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         actor.Transform.Bounds.Location = ToWorld(Position);
+        actor.Transform.OriginPoint = Bau.BauEngine.Actors.Components.Transforms.TransformComponent.OriginPointType.Center;
+        actor.Transform.Rotation = Rotation;
         actor.Renderer.Scale = Scale;
         actor.Renderer.Opacity = Opacity;
         actor.Renderer.SpriteEffects = SpriteEffects;
@@ -32,6 +34,11 @@ public class ResetCommand(string actorId, float startTime, float duration) : Abs
     ///     Escala
     /// </summary>
     public Vector2 Scale { get; set; } = Vector2.One;
+
+    /// <summary>
+    ///     Rotación
+    /// </summary>
+    public required float Rotation { get; init; }
 
     /// <summary>
     ///     Efectos del sprite

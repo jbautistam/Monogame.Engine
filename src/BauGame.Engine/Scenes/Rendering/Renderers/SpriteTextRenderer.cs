@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Bau.BauEngine.Entities.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Renderers;
+namespace Bau.BauEngine.Scenes.Rendering.Renderers;
 
 /// <summary>
 ///     Clase para dibujo de un <see cref="SpriteTextDefinition"/>

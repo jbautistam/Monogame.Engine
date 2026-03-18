@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Audio.Sources;
+namespace Bau.BauEngine.Managers.Audio.Sources;
 
 /// <summary>
 ///     Origen de audio con un efecto de sonido

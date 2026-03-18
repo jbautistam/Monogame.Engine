@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Resources;
+namespace Bau.BauEngine.Managers.Resources;
 
 /// <summary>
 ///		Manager para "texturas

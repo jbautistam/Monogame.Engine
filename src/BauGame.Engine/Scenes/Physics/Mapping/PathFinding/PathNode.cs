@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics.Mapping.PathFinding;
+namespace Bau.BauEngine.Scenes.Physics.Mapping.PathFinding;
 
 /// <summary>
 ///     Nodo de una ruta para los cálculos de búsqueda

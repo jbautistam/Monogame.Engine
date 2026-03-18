@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.BauEngine.Entities.Common;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Definitions;
+namespace Bau.BauEngine.Scenes.Cameras.Definitions;
 
 /// <summary>
 ///     Datos de estado de la cámara

@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.Common.Collections;
+﻿namespace Bau.BauEngine.Entities.Common.Collections;
 
 /// <summary>
 ///		Lista que permite añadir y borrar elementos de forma segura

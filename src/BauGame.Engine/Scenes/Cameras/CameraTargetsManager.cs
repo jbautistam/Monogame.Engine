@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+namespace Bau.BauEngine.Scenes.Cameras;
 
 /// <summary>
 ///		Manager para objetivos de una cámara

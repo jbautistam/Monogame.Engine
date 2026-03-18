@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Timers;
+﻿namespace Bau.BauEngine.Scenes.Timers;
 
 /// <summary>
 ///     Manager para temporizadores

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Files;
+namespace Bau.BauEngine.Managers.Files;
 
 /// <summary>
 ///		Manager del storage (TitleContainer) de Monogame (sólo lectura)

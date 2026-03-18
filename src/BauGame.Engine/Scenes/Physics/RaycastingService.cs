@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors;
+﻿using Bau.BauEngine.Actors;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
+namespace Bau.BauEngine.Scenes.Physics;
 
 /// <summary>
 ///		Métodos para raycasting

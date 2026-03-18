@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.Steering;
+namespace Bau.BauEngine.Actors.Components.IA.Steering;
 
 /// <summary>
 ///     Calculo de movimiento para un comportamiento de bandada

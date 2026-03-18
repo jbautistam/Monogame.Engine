@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+using Bau.BauEngine.Entities.Sprites;
+using Bau.BauEngine.Scenes.Layers;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///     Control de barra de progreso para el interface de usuario

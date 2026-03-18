@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
+namespace Bau.BauEngine.Actors.Projectiles;
 
 public class ExplosionCollision(ExplosionActor owner)
 {

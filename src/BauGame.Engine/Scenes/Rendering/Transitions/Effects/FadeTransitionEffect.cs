@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Transitions.Effects;
+namespace Bau.BauEngine.Scenes.Rendering.Transitions.Effects;
 
 /// <summary>
 ///     Efecto de transición fade

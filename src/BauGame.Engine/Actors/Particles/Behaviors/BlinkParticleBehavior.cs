@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Particles.Behaviors;
+﻿namespace Bau.BauEngine.Actors.Particles.Behaviors;
 
 /// <summary>
 ///     Comportamiento de parpadeo de una partícula

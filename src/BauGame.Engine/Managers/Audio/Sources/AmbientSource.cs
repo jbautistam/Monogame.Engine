@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Audio.Sources;
+namespace Bau.BauEngine.Managers.Audio.Sources;
 
 /// <summary>
 ///     Ambiente procedural (lluvia, viento, etc.)

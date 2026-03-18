@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.BauEngine.Entities.Common;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Definitions;
+namespace Bau.BauEngine.Scenes.Cameras.Definitions;
 
 /// <summary>
 ///     Cámara de mundo

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Routes;
+namespace Bau.BauEngine.Scenes.Layers.Games.Routes;
 
 /// <summary>
 ///     Ruta de puntos

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter.TextItems;
+namespace Bau.BauEngine.Entities.UserInterface.TypeWriter.TextItems;
 
 /// <summary>
 ///		Generador de comandos para la máquina de escribir

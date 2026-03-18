@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+﻿using Bau.BauEngine.Entities.Common;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
+namespace Bau.BauEngine.Actors.Components.Physics;
 
 /// <summary>
 ///		Base para los colider

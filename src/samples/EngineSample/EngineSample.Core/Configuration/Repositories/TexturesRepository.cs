@@ -1,10 +1,10 @@
 ﻿using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
-using Bau.Libraries.BauGame.Engine.Managers.Resources;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
+using Bau.BauEngine.Managers.Resources;
+using Bau.BauEngine.Managers.Resources.Animations;
 using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+using Bau.BauEngine.Managers.Resources.Textures.Configuration;
+using Bau.BauEngine.Entities.UserInterface;
 
 namespace EngineSample.Core.Configuration.Repositories;
 

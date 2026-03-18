@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Interfaces;
+﻿namespace Bau.BauEngine.Entities.UserInterface.Interfaces;
 
 /// <summary>
 ///		Interface para los componentes que pueden contener elementos

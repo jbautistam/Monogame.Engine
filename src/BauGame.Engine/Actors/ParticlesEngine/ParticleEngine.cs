@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine;
+namespace Bau.BauEngine.Actors.ParticlesEngine;
 
 /// <summary>
 ///		Motor de partículas

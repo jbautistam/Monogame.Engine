@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Shooting;
+namespace Bau.BauEngine.Actors.Components.Shooting;
 
 /// <summary>
 ///     Clase con los datos de un arma

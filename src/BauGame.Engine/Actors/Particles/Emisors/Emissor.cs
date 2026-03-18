@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+﻿using Bau.BauEngine.Entities.Common;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Particles.Emisors;
+namespace Bau.BauEngine.Actors.Particles.Emisors;
 
 /// <summary>
 ///		Clase con los datos de un emisor de partículas

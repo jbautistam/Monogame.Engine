@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Services;
+namespace Bau.BauEngine.Managers.Services;
 
 /// <summary>
 ///		Servicios de MonoGame necesarios para el motor

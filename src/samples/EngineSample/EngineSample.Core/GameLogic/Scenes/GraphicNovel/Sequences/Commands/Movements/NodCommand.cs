@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Movements;
 
 /// <summary>
 ///     Nod - asentimiento (rotación oscilante)
@@ -14,7 +14,7 @@ public class NodCommand(string actorId, float startTime, float duration) : Abstr
     /// <summary>
     ///     Aplica el comando al actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         // Inicializa los datos
         if (!_initialized)

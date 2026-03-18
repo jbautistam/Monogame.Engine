@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics.Mapping.PathFinding;
+namespace Bau.BauEngine.Scenes.Physics.Mapping.PathFinding;
 
 /// <summary>
 ///     Servicio de búsqueda de rutas con el algoritmo A*

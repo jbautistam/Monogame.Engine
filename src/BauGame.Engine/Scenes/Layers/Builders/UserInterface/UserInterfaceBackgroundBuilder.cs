@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
+﻿using Bau.BauEngine.Entities.UserInterface.Backgrounds;
+using Bau.BauEngine.Entities.UserInterface.Styles;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+namespace Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador de fondos
@@ -12,7 +12,7 @@ public class UserInterfaceBackgroundBuilder
 	{
 		Background = new UiBackground(style)
 						{
-							Sprite = new Entities.Common.Sprites.SpriteDefinition(texture, region)
+							Sprite = new Entities.Sprites.SpriteDefinition(texture, region)
 						};
 	}
 

@@ -1,4 +1,4 @@
-﻿namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+﻿namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Characters;
 
 /// <summary>
 ///     Cambia el ZOrder del actor (instantáneo)
@@ -8,7 +8,7 @@ public class SpriteEffectsCommand(string actorId, float startTime, float duratio
     /// <summary>
     ///     Aplica el comando sobre el actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         actor.Renderer.SpriteEffects = SpriteEffects;
     }

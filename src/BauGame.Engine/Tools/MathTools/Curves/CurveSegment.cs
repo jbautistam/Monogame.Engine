@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Curves;
+﻿namespace Bau.BauEngine.Tools.MathTools.Curves;
 
 public class CurveSegment(AbstractCurve curve, float duration, Easing.EasingFunctionsHelper.EasingType? type)
 {

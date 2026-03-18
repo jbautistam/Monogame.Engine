@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+﻿using Bau.BauEngine.Tools.MathTools.Easing;
 
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Modifiers;
+namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 
 /// <summary>
 ///     Modificador del color de la partícula a lo largo del tiempo

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Managers.Resources;
-using Bau.Libraries.BauGame.Engine.Tools.Extensors;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Managers.Resources;
+using Bau.BauEngine.Tools.Extensors;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+namespace Bau.BauEngine.Entities.Sprites;
 
 /// <summary>
 ///		Definición de textura
@@ -49,12 +49,12 @@ public class SpriteDefinition
 	/// <summary>
 	///		Obtiene el tamaño
 	/// </summary>
-	public Size GetSize()
+	public Common.Size GetSize()
 	{
 		if (_textureConfiguration is null)
-			return new Size(0, 0);
+			return new Common.Size(0, 0);
 		else
-			return new Size(_textureConfiguration.Region.Width, _textureConfiguration.Region.Height);
+			return new Common.Size(_textureConfiguration.Region.Width, _textureConfiguration.Region.Height);
 	}
 
 	/// <summary>

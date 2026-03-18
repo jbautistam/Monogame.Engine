@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+using Bau.BauEngine.Entities.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Debugger;
+namespace Bau.BauEngine.Managers.Debugger;
 
 /// <summary>
 ///     Manager para información de depuración

@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Behaviors;
+﻿namespace Bau.BauEngine.Scenes.Cameras.Behaviors;
 
 /// <summary>
 ///     Base de los comportamientos de cámara

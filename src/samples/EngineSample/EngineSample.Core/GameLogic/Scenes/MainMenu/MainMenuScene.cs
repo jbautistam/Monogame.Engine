@@ -1,9 +1,9 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine;
+﻿using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Scenes.Layers.Backgrounds;
+using Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine;
 
 namespace EngineSample.Core.GameLogic.Scenes.MainMenu;
 
@@ -109,14 +109,14 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// <summary>
 	///		Actualiza la escena
 	/// </summary>
-	protected override AbstractScene? UpdateScene(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override AbstractScene? UpdateScene(Bau.BauEngine.Managers.GameContext gameContext)
 	{
 		AbstractScene nextScene = this;
 
 			// Actualiza los actores
 			LayerManager.Update(gameContext);
 			// Sale del juego si se ha pulsado el botón de Scape
-			if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaulQuitAction))
+			if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaulQuitAction))
 				GameEngine.Instance.Exit();
 			// Devuelve la nueva escena
 			if (_menu is not null)
@@ -190,7 +190,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 
 			// Reproduce uno de los sonidos aleatoriamente
 			GameEngine.Instance.AudioManager.PlaySong(sounds[new Random().Next(sounds.Count)], 
-													  Bau.Libraries.BauGame.Engine.Managers.Audio.AudioManager.TransitionType.CrossFade, 
+													  Bau.BauEngine.Managers.Audio.AudioManager.TransitionType.CrossFade, 
 													  (float) TimeSpan.FromSeconds(5).TotalMilliseconds);
 	}
 

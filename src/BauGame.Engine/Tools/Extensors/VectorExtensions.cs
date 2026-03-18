@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Tools.Extensors;
+namespace Bau.BauEngine.Tools.Extensors;
 
 /// <summary>
 ///		Funciones de cálculo de vectores

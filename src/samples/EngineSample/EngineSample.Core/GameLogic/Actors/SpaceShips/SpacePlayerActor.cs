@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Shooting;
-using Bau.Libraries.BauGame.Engine.Scenes.Messages;
+using Bau.BauEngine;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Actors.Components.Health;
+using Bau.BauEngine.Actors.Components.Physics;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Actors.Components.Shooting;
+using Bau.BauEngine.Scenes.Messages;
+using Bau.BauEngine.Actors.Components.Renderers;
 
 namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 
@@ -48,7 +49,7 @@ public class SpacePlayerActor : AbstractActorDrawable
 										Health = 100,
 										Lives = 3,
 										InvulnerabilityTime = 3,
-										InvulnerabilityEffect = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
+										InvulnerabilityEffect = new Bau.BauEngine.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
 																		{
 																			Colors = [ Color.Green, Color.Red, Color.Navy ],
 																			TimeBetweenColor = 0.5f
@@ -57,7 +58,8 @@ public class SpacePlayerActor : AbstractActorDrawable
 			// Inicializa el shooter
 			_shooter = new ShooterComponent(this);
 			// Inicializa las propiedades de animación
-			Renderer.AnimatorBlenderProperties = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.AnimatorBlenderProperties("SpacePlayer");
+			if (Renderer is RendererAnimatorComponent animator)
+				animator.AnimatorBlenderProperties = new Bau.BauEngine.Actors.Components.Renderers.AnimatorBlenderProperties("SpacePlayer");
 			// Añade los componentes creados a la lista
 			Components.Add(collision);
 			Components.Add(_health);
@@ -155,13 +157,13 @@ public class SpacePlayerActor : AbstractActorDrawable
 	/// </summary>
 	private void UpdateAnimation(Vector2 speed, bool isDead)
 	{
-		if (Renderer.AnimatorBlenderProperties is not null)
+		if (Renderer is RendererAnimatorComponent animator && animator.AnimatorBlenderProperties is not null)
 		{
 			if (speed.X != 0 || speed.Y != 0)
-				Renderer.AnimatorBlenderProperties.Add("speed", 1);
+				animator.AnimatorBlenderProperties.Add("speed", 1);
 			else
-				Renderer.AnimatorBlenderProperties.Add("speed", 0);
-			Renderer.AnimatorBlenderProperties.Add("died", isDead);
+				animator.AnimatorBlenderProperties.Add("speed", 0);
+			animator.AnimatorBlenderProperties.Add("died", isDead);
 		}
 	}
 
@@ -171,14 +173,14 @@ public class SpacePlayerActor : AbstractActorDrawable
 	private void Move(GameContext gameContext)
 	{
 		// Cambia la rotación
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionLeft))
+		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionLeft))
 			Transform.Rotation -= RotationSpeed * gameContext.DeltaTime;
-		else if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionRight))
+		else if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionRight))
 			Transform.Rotation += RotationSpeed * gameContext.DeltaTime;
 		// Normaliza la rotación para evitar la acumulación
 		Transform.Rotation = MathHelper.WrapAngle(Transform.Rotation); //TODO ... ¿no se podría cambiar el field de la propiedad?
 		// Acelera / decelera (después de rotar)
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionUp))
+		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionUp))
 		{
             // Acelera en la dirección a la que apunta el jugador
             Velocity += new Vector2((float) Math.Cos(Transform.Rotation), (float) Math.Sin(Transform.Rotation)) * Acceleration;
@@ -186,7 +188,7 @@ public class SpacePlayerActor : AbstractActorDrawable
             if (Velocity.Length() > MaximumSpeed)
                 Velocity = Vector2.Normalize(Velocity) * MaximumSpeed;
 		}
-		else if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionDown))
+		else if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionDown))
 		{
             if (Velocity.Length() > Deceleration)
                 Velocity -= new Vector2((float) Math.Cos(Transform.Rotation), (float) Math.Sin(Transform.Rotation)) * Deceleration;
@@ -274,7 +276,7 @@ public class SpacePlayerActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

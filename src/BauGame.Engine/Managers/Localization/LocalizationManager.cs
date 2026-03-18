@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Localization;
+namespace Bau.BauEngine.Managers.Localization;
 
 /// <summary>
 ///     Controla los datos de localización del juego, incluyendo la recuperación de las culturas admitidas y configuración de

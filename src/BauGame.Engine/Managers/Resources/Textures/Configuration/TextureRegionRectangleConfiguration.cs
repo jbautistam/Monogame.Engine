@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+﻿using Bau.BauEngine.Entities.UserInterface;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
+namespace Bau.BauEngine.Managers.Resources.Textures.Configuration;
 
 /// <summary>
 ///		Configuración de una región para una textura

@@ -1,6 +1,6 @@
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
+namespace Bau.BauEngine.Actors.Components.IA.FiniteStateMachines;
 
 /// <summary>
 ///     Estado inactivo

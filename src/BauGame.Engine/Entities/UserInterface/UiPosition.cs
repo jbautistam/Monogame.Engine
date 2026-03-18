@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///		Posición y tamaño de los controles

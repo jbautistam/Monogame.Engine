@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors;
+﻿namespace Bau.BauEngine.Actors;
 
 /// <summary>
 ///		Clase abstracta para la definición de actores

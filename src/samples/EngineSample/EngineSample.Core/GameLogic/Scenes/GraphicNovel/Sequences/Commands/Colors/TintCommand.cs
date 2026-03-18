@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Colors;
 
 /// <summary>
 ///     Comando para cambiar el color de un actor
@@ -15,7 +15,7 @@ public class TintCommand(string actorId, float startTime, float duration) : Abst
     /// <summary>
     ///     Aplica el comando sobre el actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         // Guarda el valor inicial
         if (!_initialized)

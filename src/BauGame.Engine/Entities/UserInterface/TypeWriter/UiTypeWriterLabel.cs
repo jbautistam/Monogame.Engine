@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Bau.BauEngine.Entities.Sprites;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Entities.UserInterface.TypeWriter.TextItems;
 
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter.TextItems;
-
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
+namespace Bau.BauEngine.Entities.UserInterface.TypeWriter;
 
 /// <summary>
 ///     Control de texto para una etiqueta que escribe como una máquina de escribir

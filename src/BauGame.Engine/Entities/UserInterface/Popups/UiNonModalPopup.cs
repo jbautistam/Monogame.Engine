@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups;
+﻿namespace Bau.BauEngine.Entities.UserInterface.Popups;
 
 /// <summary>
 ///     Cuadro de diálogo no modal

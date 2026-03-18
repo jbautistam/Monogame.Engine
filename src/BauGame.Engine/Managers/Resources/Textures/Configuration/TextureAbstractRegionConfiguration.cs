@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
+﻿namespace Bau.BauEngine.Managers.Resources.Textures.Configuration;
 
 /// <summary>
 ///		Configuración abstracta de una región para una textura

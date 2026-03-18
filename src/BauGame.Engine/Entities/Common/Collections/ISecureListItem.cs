@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.Common.Collections;
+﻿namespace Bau.BauEngine.Entities.Common.Collections;
 
 /// <summary>
 ///		Interface que deben cumplir los elementos para añadirse a una <see cref="SecureList"/>

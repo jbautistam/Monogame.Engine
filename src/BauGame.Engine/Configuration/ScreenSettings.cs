@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Configuration;
+﻿namespace Bau.BauEngine.Configuration;
 
 /// <summary>
 ///     Configuración de pantalla

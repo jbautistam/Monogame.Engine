@@ -1,12 +1,12 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Physics;
+﻿using Bau.BauEngine.Scenes.Physics;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.RigidBodies;
+namespace Bau.BauEngine.Actors.Components.RigidBodies;
 
 /// <summary>
 ///     Componente para manejo de un rigidbody
 /// </summary>
-public class RigidBodyComponent(AbstractActorDrawable owner, RigidBodyComponent.BodyType type) : AbstractComponent(owner, false)
+public class RigidBodyComponent(AbstractActorDrawable owner, RigidBodyComponent.BodyType type) : AbstractComponent(owner)
 {
     /// <summary>
     ///     Tipo de movimiento asociado al componente
@@ -59,14 +59,6 @@ public class RigidBodyComponent(AbstractActorDrawable owner, RigidBodyComponent.
     {
         if (Type == BodyType.Dynamic)
             Owner.Transform.Bounds.Translate(Velocity * gameContext.DeltaTime);
-    }
-
-	/// <summary>
-	///		Dibuja el componente
-	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
-    {
-        // ... no hace nada, sólo implementa la interface
     }
 
 	/// <summary>

@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
-using Bau.Libraries.BauGame.Engine.Tools.Extensors;
+﻿using Bau.BauEngine.Entities.Common;
+using Bau.BauEngine.Tools.Extensors;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Tools;
+namespace Bau.BauEngine.Tools;
 
 /// <summary>
 ///		Funciones para modificación de propiedades

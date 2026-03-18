@@ -1,11 +1,11 @@
 ﻿using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Grids;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Galleries;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Entities.Sprites;
+using Bau.BauEngine.Entities.UserInterface.TypeWriter;
+using Bau.BauEngine.Entities.UserInterface.Grids;
+using Bau.BauEngine.Entities.UserInterface.Galleries;
 
 namespace EngineSample.Core.Configuration.Repositories;
 

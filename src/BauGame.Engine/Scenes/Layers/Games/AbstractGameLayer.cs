@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Scenes.Cameras;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
+namespace Bau.BauEngine.Scenes.Layers.Games;
 
 /// <summary>
 ///		Clase abstracta para la capa de juego

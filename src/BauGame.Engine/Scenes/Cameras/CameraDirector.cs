@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras.Definitions;
+using Bau.BauEngine.Scenes.Cameras.Definitions;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+namespace Bau.BauEngine.Scenes.Cameras;
 
 /// <summary>
 ///     Director de cámaras de una escena

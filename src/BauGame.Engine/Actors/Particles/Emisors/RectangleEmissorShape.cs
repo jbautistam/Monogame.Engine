@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Particles.Emisors;
+namespace Bau.BauEngine.Actors.Particles.Emisors;
 
 /// <summary>
 ///     Emisor sobre un rectángulo

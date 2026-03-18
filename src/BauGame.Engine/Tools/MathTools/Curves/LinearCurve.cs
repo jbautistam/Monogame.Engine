@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Curves;
+namespace Bau.BauEngine.Tools.MathTools.Curves;
 
 /// <summary>
 ///     Línea recta normalizada: (0,0) a (1,0) horizontal

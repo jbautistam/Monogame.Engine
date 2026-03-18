@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.Common.Pools;
+﻿namespace Bau.BauEngine.Entities.Common.Pools;
 
 /// <summary>
 ///     Interface para los elementos que se pueden introducir en un pool

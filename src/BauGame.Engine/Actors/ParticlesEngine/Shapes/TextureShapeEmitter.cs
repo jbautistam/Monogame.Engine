@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Shapes;
+namespace Bau.BauEngine.Actors.ParticlesEngine.Shapes;
 
 /// <summary>
 ///     Emisor de partículas a partir de una textura
@@ -75,6 +75,6 @@ public class TextureShapeEmitter(string texture, string? region) : AbstractShape
     /// <summary>
     ///     Definición del sprite
     /// </summary>
-    public Entities.Common.Sprites.SpriteDefinition Sprite { get; } = new(texture, region);
+    public Entities.Sprites.SpriteDefinition Sprite { get; } = new(texture, region);
 }
 

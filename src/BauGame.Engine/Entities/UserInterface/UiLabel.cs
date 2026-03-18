@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Entities.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///     Control de texto para una etiqueta

@@ -1,9 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
+namespace Bau.BauEngine.Actors.Components.Physics;
 
-public class RigidbodyComponent(AbstractActorDrawable owner) : AbstractComponent(owner, false)
+public class RigidbodyComponent(AbstractActorDrawable owner) : AbstractComponent(owner)
 {
     // Variables privadas
     private Vector2 _forceAccumulator = Vector2.Zero;
@@ -110,13 +109,6 @@ public class RigidbodyComponent(AbstractActorDrawable owner) : AbstractComponent
             // Devuelve el valor que indica si está sobre un suelo
             return isGrounded;
     }
-
-    /// <summary>
-    ///     Dibuja el componente (en este caso no hace nada)
-    /// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
-	{
-	}
 
     /// <summary>
     ///     Termina la ejecución del componente (en este caso no hace nada

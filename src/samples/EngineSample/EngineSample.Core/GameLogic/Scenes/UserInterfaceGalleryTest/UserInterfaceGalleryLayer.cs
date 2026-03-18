@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Galleries;
+﻿using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Entities.UserInterface.Galleries;
 
 namespace EngineSample.Core.GameLogic.Scenes.UserInterfaceGalleryTest;
 
@@ -33,7 +33,7 @@ public class UserInterfaceGalleryLayer(AbstractScene scene, string name, int sor
 	/// <summary>
 	///		Actualiza el interface de usuario
 	/// </summary>
-	protected override void UpdateUserInterface(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateUserInterface(Bau.BauEngine.Managers.GameContext gameContext)
 	{
 	}
 

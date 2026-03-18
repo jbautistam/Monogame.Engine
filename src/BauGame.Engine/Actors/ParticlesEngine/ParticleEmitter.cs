@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine;
+namespace Bau.BauEngine.Actors.ParticlesEngine;
 
 /// <summary>
 ///     Emisor de partículas

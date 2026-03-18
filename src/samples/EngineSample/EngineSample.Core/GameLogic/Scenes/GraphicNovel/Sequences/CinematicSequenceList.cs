@@ -1,11 +1,11 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences;
 
 /// <summary>
 ///     Secuencia cinemática
 /// </summary>
-public class CinematicSequenceList(Managers.CharacterManager characterManager) : Bau.Libraries.BauGame.Engine.Entities.Common.Collections.SecureList<CinematicSequence>
+public class CinematicSequenceList(Managers.CharacterManager characterManager) : Bau.BauEngine.Entities.Common.Collections.SecureList<CinematicSequence>
 {
     /// <summary>
     ///     Añade una secuencia con una lista de comandos

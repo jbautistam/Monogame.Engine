@@ -1,12 +1,11 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Shooting;
+namespace Bau.BauEngine.Actors.Components.Shooting;
 
 /// <summary>
 ///     Componente para manejar armas
 /// </summary>
-public class ShooterComponent(AbstractActorDrawable owner) : AbstractComponent(owner, false)
+public class ShooterComponent(AbstractActorDrawable owner) : AbstractComponent(owner)
 {
 	/// <summary>
 	///		Inicia el componente
@@ -120,13 +119,6 @@ public class ShooterComponent(AbstractActorDrawable owner) : AbstractComponent(o
             if (weaponSlot is not null)
                 weaponSlot.SelectedWeapon?.Reload();
     }
-
-    /// <summary>
-    ///     Dibuja el componente (no hace nada, simplemente implementa la interface)
-    /// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
-	{
-	}
 
     /// <summary>
     ///     Finaliza el componente (no hace nada, simplemente implementa la interface)

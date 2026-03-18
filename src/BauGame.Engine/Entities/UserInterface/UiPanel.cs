@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///     Componente del interface de usuario para un panel

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Tools.MathTools.Tween;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats;
+namespace Bau.BauEngine.Entities.UserInterface.Popups.MobileChats;
 
 /// <summary>
 ///		Componente para mostrar una conversación de móvil
@@ -133,7 +133,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
                 foreach (MobileMessage message in _messages)
                     if (message.Status != MobileMessage.StatusType.Waiting)
                     {
-                        Common.Sprites.SpriteDefinition? avatar = GetAvatar(message);
+                        Sprites.SpriteDefinition? avatar = GetAvatar(message);
                         Rectangle avatarBounds = ComputeAvatarBounds(avatar, message.Sender.IsPlayer, message.Y);
                         Rectangle bounds = new(GetMessageX(message, width), (int) message.Y, width, (int) message.GetHeight(Font, width));
 
@@ -162,7 +162,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
         }
 
         // Calcula la posición del avatar
-        Rectangle ComputeAvatarBounds(Common.Sprites.SpriteDefinition? avatar, bool isPlayer, float y)
+        Rectangle ComputeAvatarBounds(Sprites.SpriteDefinition? avatar, bool isPlayer, float y)
         {
             if (avatar is not null)
             {
@@ -179,7 +179,7 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
 	/// <summary>
 	///     Obtiene el avatar de un mensaje
 	/// </summary>
-	private Common.Sprites.SpriteDefinition? GetAvatar(MobileMessage message)
+	private Sprites.SpriteDefinition? GetAvatar(MobileMessage message)
     {
         if (message.Sender is not null)
             return message.Sender.Avatar;
@@ -254,12 +254,12 @@ public class UiMobileChat(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPosi
     /// <summary>
     ///     Nombre de la fuente
     /// </summary>
-    public Common.Sprites.SpriteTextDefinition? Font { get; set; }
+    public Sprites.SpriteTextDefinition? Font { get; set; }
 
     /// <summary>
     ///     Altura del mensaje en pantalla
     /// </summary>
-    public Common.Sprites.SpriteDefinition? SpriteWriting { get; set; }
+    public Sprites.SpriteDefinition? SpriteWriting { get; set; }
 
     /// <summary>
     ///     Tamaño del avatar en pixels

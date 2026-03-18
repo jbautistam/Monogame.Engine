@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+namespace Bau.BauEngine.Tools.MathTools.Easing;
 
 /// <summary>
 ///     Funciones de easing

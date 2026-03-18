@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Timers;
+﻿namespace Bau.BauEngine.Scenes.Timers;
 
 /// <summary>
 ///     Datos de un temporizador

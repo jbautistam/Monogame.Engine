@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes;
+﻿namespace Bau.BauEngine.Scenes;
 
 /// <summary>
 ///     Manager de escenas

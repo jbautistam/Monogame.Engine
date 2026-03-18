@@ -1,7 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Actors.Components.Renderers;
+using Bau.BauEngine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
+namespace Bau.BauEngine.Actors.Projectiles;
 
 /// <summary>
 ///     Actor para presentación de explosiones
@@ -21,12 +22,12 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDr
         // Actualiza los datos de posición
         Transform.Bounds = new Entities.Common.RectangleF(position.X, position.Y, 0, 0);
         // Actualiza los datos de dibujo
-        Renderer.Sprite = new Entities.Common.Sprites.SpriteDefinition(properties.Texture, properties.Region);
+        Renderer.Sprite = new Entities.Sprites.SpriteDefinition(properties.Texture, properties.Region);
         Renderer.Opacity = 1;
-        if (!string.IsNullOrWhiteSpace(Properties.Animation))
+        if (!string.IsNullOrWhiteSpace(Properties.Animation) && Renderer is RendererAnimatorComponent animator)
         {
-            Renderer.Animator.Reset();
-            Renderer.StartAnimation(Renderer.Sprite.Asset, Properties.Animation, false);
+            animator.Animator.Reset();
+            animator.StartAnimation(Renderer.Sprite.Asset, Properties.Animation, false);
         }
         // Inicializa las variables y activa la explosión
         _currentTime = 0f;
@@ -64,7 +65,13 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDr
         bool HasEndDuration() => Properties?.Duration > 0 && _currentTime > Properties.Duration;
 
         // Comprueba si ha finalizado la explosión por la animación
-        bool HasEndAnimation() => (Properties?.HasAnimation ?? false) && !Renderer.Animator.IsPlaying;
+        bool HasEndAnimation()
+        {
+             if ((Properties?.HasAnimation ?? false) && Renderer is RendererAnimatorComponent animator)
+                return !animator.Animator.IsPlaying;
+            else
+                return false;
+        }
 	}
 
     /// <summary>

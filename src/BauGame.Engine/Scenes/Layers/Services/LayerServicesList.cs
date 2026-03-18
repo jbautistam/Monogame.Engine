@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Services;
+﻿namespace Bau.BauEngine.Scenes.Layers.Services;
 
 /// <summary>
 ///		Colección de servicios de una capa

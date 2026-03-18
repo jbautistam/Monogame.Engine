@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers.Resources.Animations;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
+﻿using Bau.BauEngine.Managers.Resources.Animations;
+using Bau.BauEngine.Managers.Resources.Textures;
+using Bau.BauEngine.Managers.Resources.Textures.Configuration;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
+namespace Bau.BauEngine.Actors.Components.Renderers;
 
 /// <summary>
 ///		Componente de animación

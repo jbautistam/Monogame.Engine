@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter.TextItems;
+﻿namespace Bau.BauEngine.Entities.UserInterface.TypeWriter.TextItems;
 
 /// <summary>
 ///		Comando de la máquina para esperar un tiempo

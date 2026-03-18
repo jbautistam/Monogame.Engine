@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Definitions;
+namespace Bau.BauEngine.Scenes.Cameras.Definitions;
 
 /// <summary>
 ///     Configuración de un viewport relativo donde se va a colocar la cámara

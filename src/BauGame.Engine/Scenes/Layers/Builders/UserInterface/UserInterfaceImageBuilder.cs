@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+﻿using Bau.BauEngine.Entities.UserInterface;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+namespace Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador de etiquetas
@@ -11,7 +11,7 @@ public class UserInterfaceImageBuilder : AbstractElementUserInterfaceBuilder<UiI
 	public UserInterfaceImageBuilder(AbstractUserInterfaceLayer layer, string asset, string? region, float x, float y, float width, float height)
 	{
 		Item = new UiImage(layer, new UiPosition(x, y, width, height));
-		Item.Sprite = new Entities.Common.Sprites.SpriteDefinition(asset, region);
+		Item.Sprite = new Entities.Sprites.SpriteDefinition(asset, region);
 	}
 
 	/// <summary>

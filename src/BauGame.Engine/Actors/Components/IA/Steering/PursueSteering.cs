@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.Steering;
+namespace Bau.BauEngine.Actors.Components.IA.Steering;
 
 /// <summary>
 ///     Comportamiento para perseguir un objetivo

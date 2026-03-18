@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
+﻿using Bau.BauEngine.Actors;
+using Bau.BauEngine.Actors.Components.Physics;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics.Mapping;
+namespace Bau.BauEngine.Scenes.Physics.Mapping;
 
 /// <summary>
 ///     Grid espacial

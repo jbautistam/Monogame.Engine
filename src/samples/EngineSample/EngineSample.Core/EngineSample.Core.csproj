@@ -24,7 +24,6 @@
     <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Class1.cs" />
     <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Commands\CurveMoveCommand.cs" />
     <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Commands\OriginCommand.cs" />
-    <Compile Remove="GameLogic\Scenes\GraphicNovel\Sequences\Commands\RotateCommand.cs" />
     <Compile Remove="GameLogic\Actors\SpaceShips\Rotation.cs" />
     <Compile Remove="GameLogic\Scenes\BackgroundLayer.cs" />
     <Compile Remove="GameLogic\Scenes\TilesSample\TileMapManager.cs" />
@@ -41,7 +40,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BauGame.Engine\BauGame.Engine.csproj" />
+    <ProjectReference Include="..\..\..\BauGame.Engine\BauEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Settings\textures-tiles.xml">

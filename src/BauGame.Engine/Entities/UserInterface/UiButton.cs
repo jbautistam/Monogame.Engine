@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///     Control botón para el interface

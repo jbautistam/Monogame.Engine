@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.Common;
+namespace Bau.BauEngine.Entities.Common;
 
 /// <summary>
 ///		Clase con los datos del mundo

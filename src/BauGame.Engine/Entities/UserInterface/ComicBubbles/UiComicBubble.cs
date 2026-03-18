@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.ComicBubbles;
+namespace Bau.BauEngine.Entities.UserInterface.ComicBubbles;
 
 /// <summary>
 ///     Componente de interface de usuario para mostrar un tenxto en una burbuja de cómic
@@ -73,17 +73,17 @@ public class UiComicBubble(AbstractUserInterfaceLayer layer, UiPosition position
     /// <summary>
     ///     Fuente
     /// </summary>
-    public Common.Sprites.SpriteTextDefinition? Font { get; set; }
+    public Sprites.SpriteTextDefinition? Font { get; set; }
 
     /// <summary>
     ///     Parámetros de texto
     /// </summary>
-    public Common.Sprites.SpriteTextParameters TextParameters { get; set; } = new();
+    public Sprites.SpriteTextParameters TextParameters { get; set; } = new();
 
     /// <summary>
     ///     Sprite con el bocadillo
     /// </summary>
-    public Common.Sprites.SpriteDefinition? BubbleSprite { get; set; }
+    public Sprites.SpriteDefinition? BubbleSprite { get; set; }
 
     /// <summary>
     ///     Color del bocadillo

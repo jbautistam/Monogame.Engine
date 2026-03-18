@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Zooms;
 
 /// <summary>
 ///     Comando que realiza zoom centrado en un punto específico del actor
@@ -15,7 +15,7 @@ public class ZoomOnPointCommand(string actorId, float startTime, float duration)
     /// <summary>
     ///     Aplica el comando
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         // Guarda los datos iniciales
         if (!_initialized)

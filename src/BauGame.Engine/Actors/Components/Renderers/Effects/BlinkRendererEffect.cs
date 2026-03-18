@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
+namespace Bau.BauEngine.Actors.Components.Renderers.Effects;
 
 /// <summary>
 ///		Efecto de parpadero
 /// </summary>
-public class BlinkRendererEffect(RendererComponent renderer, float? duration) : AbstractRendererEffect(renderer, duration)
+public class BlinkRendererEffect(AbstractRendererComponent renderer, float? duration) : AbstractRendererEffect(renderer, duration)
 {
 	// Variables privadas
 	private Color? _rendererColor;

@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
-using Bau.Libraries.BauGame.Engine.Tools.Extensors;
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Actors.Components.Physics;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Actors.Components.Health;
+using Bau.BauEngine.Scenes.Layers.Games;
+using Bau.BauEngine.Tools.Extensors;
+using Bau.BauEngine.Managers;
 
 namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 
@@ -24,8 +24,8 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 		// Inicializa las propiedades
 		Name = name;
 		// Configura el renderer
-		Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("enemies", 
-																									$"Ship {Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 14):00}");
+		Renderer.Sprite = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("enemies", 
+																							 $"Ship {Bau.BauEngine.Tools.Randomizer.GetRandom(1, 14):00}");
 		// Configura las colisiones
 		_collision = new(this, Scenes.Space.SpaceShipsScene.PhysicsNpcLayer);
 		_collision.Colliders.Add(new CircleCollider(_collision, null));
@@ -95,7 +95,7 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 		{
 			// Añade una explosión
 			if (Layer is AbstractGameLayer gameLayer)
-				gameLayer.ExplosionsManager.Create(new Bau.Libraries.BauGame.Engine.Actors.Projectiles.ExplosionProperties()
+				gameLayer.ExplosionsManager.Create(new Bau.BauEngine.Actors.Projectiles.ExplosionProperties()
 																{
 																	Texture = "explosion",
 																	Region = "default",
@@ -119,14 +119,14 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 	/// </summary>
 	private void SpawnPowerUp()
 	{
-		if (Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0, 10) > 2)
+		if (Bau.BauEngine.Tools.Randomizer.GetRandom(0, 10) > 2)
 		{
 			PowerUpActor powerUp = new(Layer, "powerup");
 
 				// Asigna la posición y la dirección
 				powerUp.Transform.Bounds.MoveTo(Transform.Bounds.Location);
-				powerUp.Direction = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandomDirection();
-				powerUp.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
+				powerUp.Direction = Bau.BauEngine.Tools.Randomizer.GetRandomDirection();
+				powerUp.RotationSpeed = Bau.BauEngine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 				// Añade el meteoro al buffer de la pantalla
 				Layer.Actors.MarkToDestroy(powerUp, TimeSpan.FromMilliseconds(1));
 		}
@@ -135,7 +135,7 @@ public class SpaceShipEnemyActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

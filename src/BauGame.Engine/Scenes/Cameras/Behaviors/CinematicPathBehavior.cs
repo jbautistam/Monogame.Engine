@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Behaviors;
+namespace Bau.BauEngine.Scenes.Cameras.Behaviors;
 
 /// <summary>
 ///     Comportamiento para seguir una ruta con la cámara

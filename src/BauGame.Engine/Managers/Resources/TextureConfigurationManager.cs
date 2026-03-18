@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Managers.Resources.Textures.Configuration;
+using Bau.BauEngine.Scenes.Cameras;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Resources;
+namespace Bau.BauEngine.Managers.Resources;
 
 /// <summary>
 ///		Manager para configuración de texturas

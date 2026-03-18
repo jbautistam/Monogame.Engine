@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Entities.UserInterface.Styles;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///     Clase base para un elemento de interface de usuario

@@ -1,10 +1,9 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.BauEngine.Entities.Common;
+using Bau.BauEngine.Entities.Sprites;
+using Bau.BauEngine.Scenes.Layers;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///     Control para mostrar una imagen

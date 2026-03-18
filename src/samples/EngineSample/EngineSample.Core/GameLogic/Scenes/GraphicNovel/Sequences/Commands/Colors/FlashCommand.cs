@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Colors;
 
 /// <summary>
 ///     Comando de flash: destello blanco momentáneo
@@ -10,7 +10,7 @@ public class FlashCommand(string actorId, float startTime, float duration) : Abs
     /// <summary>
     ///     Aplica el comando sobre el actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         float intensity;
         

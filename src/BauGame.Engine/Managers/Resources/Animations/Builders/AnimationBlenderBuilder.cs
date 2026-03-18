@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Managers.Resources.Animations.Builders;
+﻿namespace Bau.BauEngine.Managers.Resources.Animations.Builders;
 
 /// <summary>
 ///		Generador para <see cref="AnimationBlender"/>

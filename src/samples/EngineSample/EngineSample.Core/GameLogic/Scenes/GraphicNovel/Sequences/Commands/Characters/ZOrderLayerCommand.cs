@@ -1,4 +1,4 @@
-﻿namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+﻿namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Characters;
 
 /// <summary>
 ///     Cambia la capa de un personaje
@@ -8,7 +8,7 @@ public class ZOrderLayerCommand(string actorId, float startTime, float duration)
     /// <summary>
     ///     Aplica el comando sobre el actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         if (actor is Actors.CharacterActor character)
         {

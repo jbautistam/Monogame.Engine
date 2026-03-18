@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.Steering;
+namespace Bau.BauEngine.Actors.Components.IA.Steering;
 
 /// <summary>
 ///     Comportamiento de un movimiento de separación de un punto

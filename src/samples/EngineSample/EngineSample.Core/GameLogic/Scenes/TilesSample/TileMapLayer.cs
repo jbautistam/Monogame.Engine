@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors.TileMap;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.BauEngine.Actors.TileMap;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
 
 namespace EngineSample.Core.GameLogic.Scenes.TilesSample;
 
@@ -70,7 +70,7 @@ internal class TileMapLayer(AbstractScene scene, string name, int physicsLayer, 
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		// ... no hace nada, sólo implementa la interface
 	}

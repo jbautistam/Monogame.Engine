@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Managers.Audio.Sources;
+using Bau.BauEngine.Managers.Audio.Sources;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Audio.Transitions;
+namespace Bau.BauEngine.Managers.Audio.Transitions;
 
 /// <summary>
 ///     Transición de fade simultáneo de A a B

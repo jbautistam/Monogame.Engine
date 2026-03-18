@@ -1,11 +1,9 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Health;
+﻿namespace Bau.BauEngine.Actors.Components.Health;
 
 /// <summary>
 ///		Componente de salud
 /// </summary>
-public class HealthComponent(AbstractActorDrawable owner) : AbstractComponent(owner, false)
+public class HealthComponent(AbstractActorDrawable owner) : AbstractComponent(owner)
 {
 	// Variables privadas
 	private float _invulnerability = 0;
@@ -75,13 +73,6 @@ public class HealthComponent(AbstractActorDrawable owner) : AbstractComponent(ow
 			if (_invulnerability <= 0 && InvulnerabilityEffect is not null)
 				InvulnerabilityEffect.Stop();
 		}
-	}
-
-	/// <summary>
-	///		Dibuja el compoente (no hace nada, sólo implementa el interface)
-	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
-	{
 	}
 
 	/// <summary>

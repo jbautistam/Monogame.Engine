@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.EventArguments;
+﻿namespace Bau.BauEngine.Entities.UserInterface.EventArguments;
 
 /// <summary>
 ///		Argumentos de los eventos de modificación de un valor

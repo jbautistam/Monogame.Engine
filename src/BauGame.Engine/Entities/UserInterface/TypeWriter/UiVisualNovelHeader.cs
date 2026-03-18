@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Scenes.Cameras;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
+namespace Bau.BauEngine.Entities.UserInterface.TypeWriter;
 
 /// <summary>
 ///		Cabecera para un <see cref="UiVisualNovelDialog"/>

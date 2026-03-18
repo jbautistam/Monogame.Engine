@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.BauEngine.Actors;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes.Layers;
 using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Actors;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Managers;
@@ -47,10 +47,11 @@ public class CharacterManager : AbstractActor
 
 					if (definition is not null)
 					{
-						CharacterActor characterActor = new(Layer, definition.LogicalLayer, GetLogicalZOrder(definition.LogicalLayer), definition);
+						AbstractCharacterActor characterActor = CreateActor(Layer, definition);
 
 							// Asigna el Id al actor
 							characterActor.Id = actorId;
+							characterActor.ZOrder = characterActor.GetZOrder();
 							// Añade el actor a la lista
 							Layer.Actors.Add(characterActor);
 							// y lo asigna a la salida
@@ -59,6 +60,20 @@ public class CharacterManager : AbstractActor
 			}
 			// Devuelve el actor creado
 			return actor;
+	}
+
+	/// <summary>
+	///		Crea el personaje del tipo adecuado
+	/// </summary>
+	private AbstractCharacterActor CreateActor(AbstractLayer layer, CharacterDefinition definition)
+	{
+		switch (definition.Type)
+		{
+			case CharacterDefinition.CharacterType.Background:
+				return new BackgroundActor(layer, definition, definition.LogicalLayer, GetLogicalZOrder(definition.LogicalLayer));
+			default:
+				return new CharacterActor(layer, definition, definition.LogicalLayer, GetLogicalZOrder(definition.LogicalLayer));
+		}
 	}
 
 	/// <summary>
@@ -113,7 +128,7 @@ public class CharacterManager : AbstractActor
 	/// <summary>
 	///		Personajes
 	/// </summary>
-	private Bau.Libraries.BauGame.Engine.Entities.Common.DictionaryModel<CharacterDefinition> Characters { get; } = new();
+	private Bau.BauEngine.Entities.Common.DictionaryModel<CharacterDefinition> Characters { get; } = new();
 
 	/// <summary>
 	///		Comandos

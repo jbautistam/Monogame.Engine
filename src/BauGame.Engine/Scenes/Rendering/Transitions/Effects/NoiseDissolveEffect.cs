@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Transitions.Effects;
+namespace Bau.BauEngine.Scenes.Rendering.Transitions.Effects;
 
 /// <summary>
 ///     Efecto de barras

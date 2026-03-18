@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+﻿using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Entities.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+namespace Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador de menús

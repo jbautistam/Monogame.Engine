@@ -1,5 +1,5 @@
 ﻿
-namespace Bau.Libraries.BauGame.Engine.Actors.Components;
+namespace Bau.BauEngine.Actors.Components;
 
 /// <summary>
 ///		Colección de componentes
@@ -48,8 +48,8 @@ public class ComponentCollectionModel(AbstractActor owner)
 	internal void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 		foreach (AbstractComponent component in Items)
-			if (component.Enabled && (component.Drawable || GameEngine.Instance.EngineSettings.DebugMode))
-				component.Draw(renderingManager, gameContext);
+			if (component.Enabled && component is Interfaces.IActorDrawable componentDrawable)
+				componentDrawable.Draw(renderingManager, gameContext);
 	}
 
 	/// <summary>

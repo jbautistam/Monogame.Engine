@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Managers.Files;
+﻿namespace Bau.BauEngine.Managers.Files;
 
 /// <summary>
 ///     Manager del sistema de archivos local (lectura y escritura)

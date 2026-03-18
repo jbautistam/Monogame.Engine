@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+﻿using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Colors;
 
 /// <summary>
 ///     Cambia la opacidad del actor
@@ -14,7 +14,7 @@ public class FadeCommand(string actorId, float startTime, float duration) : Abst
     /// <summary>
     ///     Aplica el comando al actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         // Obtiene la opacidad inicial del actor
         if (!_initialized)

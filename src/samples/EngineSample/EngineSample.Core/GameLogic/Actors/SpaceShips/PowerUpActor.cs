@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Actors.Components.Physics;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Actors.Components.Health;
+using Bau.BauEngine.Managers;
 
 namespace EngineSample.Core.GameLogic.Actors.SpaceShips;
 
@@ -38,9 +38,9 @@ public class PowerUpActor : AbstractActorDrawable
 	{
 		// Inicializa las propiedades
 		Name = name;
-		Type = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom<PowerUpType>();
+		Type = Bau.BauEngine.Tools.Randomizer.GetRandom<PowerUpType>();
 		// Configura el renderer
-		Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("bonus", GetRegion(Type));
+		Renderer.Sprite = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("bonus", GetRegion(Type));
 		// Configura las colisiones
 		_collision = new(this, Scenes.Space.SpaceShipsScene.PhysicsPowerUpLayer);
 		_collision.Colliders.Add(new CircleCollider(_collision, null));
@@ -130,7 +130,7 @@ public class PowerUpActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

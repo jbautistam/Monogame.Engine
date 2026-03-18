@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.LibHelper.Extensors;
-using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.EventArguments;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.ComicBubbles;
+using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Entities.UserInterface.TypeWriter;
+using Bau.BauEngine.Entities.UserInterface.EventArguments;
+using Bau.BauEngine.Entities.UserInterface.Popups.MobileChats;
+using Bau.BauEngine.Entities.UserInterface.ComicBubbles;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel;
 
@@ -56,22 +56,22 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 		UiMobileChat chat = new(this, new UiPosition(0.1f, 0.1f, 0.4f, 0.4f))
 								{
 									Style = "MenuStyle",
-									Font = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteTextDefinition("Fonts/Hud"),
+									Font = new Bau.BauEngine.Entities.Sprites.SpriteTextDefinition("Fonts/Hud"),
 									MessageSpacing = 20,
-									SpriteWriting = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("Tiles/BlockA3", string.Empty)
+									SpriteWriting = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("Tiles/BlockA3", string.Empty)
 								};
 
 			// Añade los participantes
 			chat.AddParticipant(new MobileSender()
 										{
+											ShowName = true,
 											Name = "James",
 											IsPlayer = false,
-											ShowName = true,
 											NameForecolor = Color.AliceBlue,
 											Forecolor = Color.Navy,
-											SpriteBackground = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("Tiles/BlockA3", string.Empty),
+											SpriteBackground = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("Tiles/BlockA3", string.Empty),
 											BackgroundColor = Color.Yellow,
-											Avatar = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("james-avatar", null)
+											Avatar = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("james-avatar", null)
 										}
 								);
 			chat.AddParticipant(new MobileSender()
@@ -80,7 +80,7 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 											IsPlayer = false,
 											Forecolor = Color.Red,
 											BackgroundColor = Color.Green,
-											Avatar = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("sylvie-avatar", null)
+											Avatar = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("sylvie-avatar", null)
 										}
 								);
 			chat.AddParticipant(new MobileSender()
@@ -89,7 +89,7 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 											IsPlayer = true,
 											Forecolor = Color.Red,
 											BackgroundColor = Color.Green,
-											Avatar = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition("narrator-avatar", null)
+											Avatar = new Bau.BauEngine.Entities.Sprites.SpriteDefinition("narrator-avatar", null)
 										}
 								);
 			// Añade mensajes
@@ -132,7 +132,6 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 			bubbles.Add(CreateBubble("bubbles-01", "bubble-03", 
 									 "Texto del tercer bocadillo",
 									 new UiPosition(0.85f, 0.55f, 0.1f, 0.1f)));
-
 			// Devuelve los bocadillos creados
 			return bubbles;
 
@@ -141,9 +140,9 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 		{
 			 return new UiComicBubble(this, position)
 							{
-								BubbleSprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(asset, region),
-								Font = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteTextDefinition("Fonts/Hud"),
-								TextParameters = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteTextParameters
+								BubbleSprite = new Bau.BauEngine.Entities.Sprites.SpriteDefinition(asset, region),
+								Font = new Bau.BauEngine.Entities.Sprites.SpriteTextDefinition("Fonts/Hud"),
+								TextParameters = new Bau.BauEngine.Entities.Sprites.SpriteTextParameters
 																{
 																	Text = text,
 																	Color = Color.Black,
@@ -157,7 +156,7 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 	/// <summary>
 	///		Actualiza el interface de usuario
 	/// </summary>
-	protected override void UpdateUserInterface(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateUserInterface(Bau.BauEngine.Managers.GameContext gameContext)
 	{
 	}
 
@@ -240,10 +239,10 @@ public class GraphicNovelUserInterfaceLayer(AbstractScene scene, string name, in
 			if (name.Equals("sound", StringComparison.CurrentCultureIgnoreCase))
 			{
 				if (parameters.TryGetValue("name", out string? song))
-					Bau.Libraries.BauGame.Engine.GameEngine.Instance.AudioManager.PlaySong(song, Bau.Libraries.BauGame.Engine.Managers.Audio.AudioManager.TransitionType.Fade, 8);
+					Bau.BauEngine.GameEngine.Instance.AudioManager.PlaySong(song, Bau.BauEngine.Managers.Audio.AudioManager.TransitionType.Fade, 8);
 			}
 			else if (name.Equals("soundoff", StringComparison.CurrentCultureIgnoreCase))
-				Bau.Libraries.BauGame.Engine.GameEngine.Instance.AudioManager.Stop();
+				Bau.BauEngine.GameEngine.Instance.AudioManager.Stop();
 	}
 
 	/// <summary>

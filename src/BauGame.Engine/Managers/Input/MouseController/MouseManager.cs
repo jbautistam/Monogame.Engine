@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Input.MouseController;
+namespace Bau.BauEngine.Managers.Input.MouseController;
 
 /// <summary>
 ///     Manager de entradas de ratón

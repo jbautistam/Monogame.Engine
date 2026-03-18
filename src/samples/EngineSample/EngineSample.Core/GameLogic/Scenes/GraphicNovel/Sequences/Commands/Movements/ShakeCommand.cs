@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Movements;
 
 /// <summary>
 ///     Shake: sacudida con amortiguación
@@ -14,7 +14,7 @@ public class ShakeCommand(string actorId, float startTime, float duration) : Abs
     /// <summary>
     ///     Aplica el comando al actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         float currentIntensity = Intensity * (1 - Progress);
         float angle = Progress * MathHelper.TwoPi * Oscillations;

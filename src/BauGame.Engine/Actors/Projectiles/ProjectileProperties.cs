@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
+﻿namespace Bau.BauEngine.Actors.Projectiles;
 
 /// <summary>
 ///     Clase con las propiedades de un proyectil

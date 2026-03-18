@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
+﻿namespace Bau.BauEngine.Actors.Components.IA.FiniteStateMachines;
 
 /// <summary>
 ///		Propiedades del estado

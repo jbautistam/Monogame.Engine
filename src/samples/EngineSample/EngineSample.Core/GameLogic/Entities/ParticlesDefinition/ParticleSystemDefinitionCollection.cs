@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine;
-using Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Modifiers;
-using Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Shapes;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Actors.ParticlesEngine;
+using Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
+using Bau.BauEngine.Actors.ParticlesEngine.Shapes;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
 namespace EngineSample.Core.GameLogic.Actors.Entities.ParticlesDefinition;
 
@@ -25,7 +25,7 @@ public class ParticleSystemDefinitionCollection
 	/// <summary>
 	///		Crea un sistema de partículas
 	/// </summary>
-	public ParticleEngine? Create(Bau.Libraries.BauGame.Engine.Scenes.Layers.AbstractLayer layer, string name, Vector2 position, int? zOrder)
+	public ParticleEngine? Create(Bau.BauEngine.Scenes.Layers.AbstractLayer layer, string name, Vector2 position, int? zOrder)
 	{
 		if (Definitions.TryGetValue(name, out ParticleSystemDefinitionModel? system))
 			return Create(layer, system, position, zOrder);
@@ -36,7 +36,7 @@ public class ParticleSystemDefinitionCollection
 	/// <summary>
 	///		Crea un sistema de partículas
 	/// </summary>
-	public ParticleEngine? Create(Bau.Libraries.BauGame.Engine.Scenes.Layers.AbstractLayer layer, 
+	public ParticleEngine? Create(Bau.BauEngine.Scenes.Layers.AbstractLayer layer, 
 								  ParticleSystemDefinitionModel system, Vector2 position, int? zOrder)
 	{
 		ParticleEngine engine = new(layer, zOrder);

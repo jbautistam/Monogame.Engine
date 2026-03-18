@@ -1,10 +1,10 @@
 ﻿
-namespace Bau.Libraries.BauGame.Engine.Actors.Components;
+namespace Bau.BauEngine.Actors.Components;
 
 /// <summary>
 ///		Datos base de un componente
 /// </summary>
-public abstract class AbstractComponent(AbstractActorDrawable owner, bool isDrawable)
+public abstract class AbstractComponent(AbstractActorDrawable owner)
 {
 	/// <summary>
 	///		Inicializa el componente
@@ -22,12 +22,6 @@ public abstract class AbstractComponent(AbstractActorDrawable owner, bool isDraw
 	public abstract void Update(Managers.GameContext gameContext);
 
 	/// <summary>
-	///		Dibuja los datos del componente
-	/// </summary>
-	//TODO: esto se debería poder quitar
-	public abstract void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
-
-	/// <summary>
 	///		Finaliza el trabajo con el componente
 	/// </summary>
 	public abstract void End();
@@ -41,9 +35,4 @@ public abstract class AbstractComponent(AbstractActorDrawable owner, bool isDraw
 	///		Indica si el componente está activo
 	/// </summary>
 	public bool Enabled { get; set; } = true;
-
-	/// <summary>
-	///		Indica si el componente se puede dibujar
-	/// </summary>
-	public bool Drawable { get; } = isDrawable;
 }

@@ -1,7 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.BauEngine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Actors.Components.Renderers;
 
 namespace EngineSample.Core.GameLogic.Scenes.Animations.Actors;
 
@@ -30,8 +31,9 @@ public class AnimationActor : AbstractActorDrawable
 	/// </summary>
 	protected override void StartActor()
 	{
-		Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(Texture, null);
-		Renderer.StartAnimation(Texture, Animation, false);
+		Renderer.Sprite = new Bau.BauEngine.Entities.Sprites.SpriteDefinition(Texture, null);
+		if (Renderer is RendererAnimatorComponent animator)
+			animator.StartAnimation(Texture, Animation, false);
 	}
 
 	/// <summary>
@@ -39,7 +41,8 @@ public class AnimationActor : AbstractActorDrawable
 	/// </summary>
 	public void Play()
 	{
-		Renderer.Reset(Texture, Animation);
+		if (Renderer is RendererAnimatorComponent animator)
+			animator.Reset(Texture, Animation);
 	}
 
 	/// <summary>
@@ -52,7 +55,7 @@ public class AnimationActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

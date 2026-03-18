@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics;
+namespace Bau.BauEngine.Scenes.Physics;
 
 /// <summary>
 ///		Managers de físicas

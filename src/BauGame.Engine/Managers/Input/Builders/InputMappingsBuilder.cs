@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers.Input.MouseController;
+﻿using Bau.BauEngine.Managers.Input.MouseController;
 using Microsoft.Xna.Framework.Input;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Input.Builders;
+namespace Bau.BauEngine.Managers.Input.Builders;
 
 /// <summary>
 ///		Clase para generación de <see cref="InputMappings"/>

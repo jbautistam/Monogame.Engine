@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.LibHelper.Extensors;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+using Bau.BauEngine.Entities.UserInterface;
 
 namespace EngineSample.Core.Configuration.Repositories;
 
@@ -12,7 +12,7 @@ internal class RepositoryHelper
 	/// <summary>
 	///		Carga un color
 	/// </summary>
-	internal Color GetColor(string value, Color defaultColor) => Bau.Libraries.BauGame.Engine.Tools.Conversors.ColorConversor.Parse(value, defaultColor);
+	internal Color GetColor(string value, Color defaultColor) => Bau.BauEngine.Tools.Conversors.ColorConversor.Parse(value, defaultColor);
 
 	/// <summary>
 	///		Carga un margen de una cadena

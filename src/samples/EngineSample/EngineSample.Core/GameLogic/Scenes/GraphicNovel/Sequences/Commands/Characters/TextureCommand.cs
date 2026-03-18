@@ -1,4 +1,4 @@
-﻿namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+﻿namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Characters;
 
 /// <summary>
 ///     Cambio de textura (instantáneo, no tiene interpolación)
@@ -8,10 +8,10 @@ public class TextureCommand(string actorId, float startTime, float duration) : A
     /// <summary>
     ///     Aplica el comando al actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         if (!string.IsNullOrWhiteSpace(Texture))
-            actor.Renderer.Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(Texture, Region);
+            actor.Renderer.Sprite = new Bau.BauEngine.Entities.Sprites.SpriteDefinition(Texture, Region);
     }
 
     /// <summary>

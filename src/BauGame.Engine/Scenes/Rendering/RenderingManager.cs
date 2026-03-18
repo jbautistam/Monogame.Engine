@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering;
+namespace Bau.BauEngine.Scenes.Rendering;
 
 /// <summary>
 ///		Manager para rendering

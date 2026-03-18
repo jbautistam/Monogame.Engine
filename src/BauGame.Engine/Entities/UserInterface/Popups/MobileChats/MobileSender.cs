@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups.MobileChats;
+namespace Bau.BauEngine.Entities.UserInterface.Popups.MobileChats;
 
 /// <summary>
 ///     Datos del emisor de un mensaje
@@ -46,12 +46,12 @@ public class MobileSender
     /// <summary>
     ///     Avatar
     /// </summary>
-    public Common.Sprites.SpriteDefinition? Avatar { get; set; }
+    public Sprites.SpriteDefinition? Avatar { get; set; }
 
     /// <summary>
     ///     Textura del fondo
     /// </summary>
-	public Common.Sprites.SpriteDefinition? SpriteBackground { get; set; }
+	public Sprites.SpriteDefinition? SpriteBackground { get; set; }
 
     /// <summary>
     ///     Color de fondo

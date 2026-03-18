@@ -1,9 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Managers;
+using Bau.BauEngine.Entities.Sprites;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///     Componente para mostrar una barra de valores

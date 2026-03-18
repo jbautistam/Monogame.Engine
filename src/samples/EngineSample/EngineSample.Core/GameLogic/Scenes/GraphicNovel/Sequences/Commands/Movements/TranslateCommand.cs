@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Movements;
 
 /// <summary>
 ///     Mueve un actor automáticamente a una posición
@@ -27,7 +27,7 @@ public class TranslateCommand(string actorId, float startTime, float duration) :
     /// <summary>
     ///     Aplica el comando
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         // Guarda la posición inicial
         if (!_initialized)

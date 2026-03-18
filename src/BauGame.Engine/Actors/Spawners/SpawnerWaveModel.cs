@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Spawners;
+namespace Bau.BauEngine.Actors.Spawners;
 
 /// <summary>
 ///     Ola de enemigos a lanzar

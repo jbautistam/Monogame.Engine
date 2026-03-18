@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+namespace Bau.BauEngine.Entities.Sprites;
 
 /// <summary>
 ///		Parametros de un texto

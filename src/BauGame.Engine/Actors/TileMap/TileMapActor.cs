@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.TileMap;
+namespace Bau.BauEngine.Actors.TileMap;
 
 /// <summary>
 ///		Actor para definir un mapa de tiles

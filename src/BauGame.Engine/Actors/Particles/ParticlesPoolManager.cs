@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes.Cameras;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
+namespace Bau.BauEngine.Actors.Particles;
 
 /// <summary>
 ///		Comportamiento de un spawner

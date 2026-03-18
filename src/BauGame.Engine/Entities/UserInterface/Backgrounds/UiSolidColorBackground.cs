@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
+namespace Bau.BauEngine.Entities.UserInterface.Backgrounds;
 
 /// <summary>
 ///     Fondo de color sólido

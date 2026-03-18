@@ -1,9 +1,9 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
+﻿namespace Bau.BauEngine.Actors.Components.Renderers.Effects;
 
 /// <summary>
 ///		Efectos asociados al dibujo
 /// </summary>
-public abstract class AbstractRendererEffect(RendererComponent renderer, float? duration)
+public abstract class AbstractRendererEffect(AbstractRendererComponent renderer, float? duration)
 {
 	// Variables privadas
 	private float _ellapsed;
@@ -50,7 +50,7 @@ public abstract class AbstractRendererEffect(RendererComponent renderer, float? 
 	/// <summary>
 	///		Componente de dibujo
 	/// </summary>
-	public RendererComponent Renderer { get; } = renderer;
+	public AbstractRendererComponent Renderer { get; } = renderer;
 
 	/// <summary>
 	///		Duración del efecto

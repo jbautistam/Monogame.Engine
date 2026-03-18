@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
+namespace Bau.BauEngine.Scenes.Layers;
 
 /// <summary>
 ///     Manager para las capas de una escena

@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Services.Particles;
+namespace Bau.BauEngine.Scenes.Layers.Services.Particles;
 
 /// <summary>
 ///		Manager del motor de partículas

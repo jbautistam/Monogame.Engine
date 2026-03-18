@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.Steering;
+namespace Bau.BauEngine.Actors.Components.IA.Steering;
 
 /// <summary>
 ///     Manager de los componentes de movimiento

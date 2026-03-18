@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
+﻿namespace Bau.BauEngine.Actors.Components.IA.FiniteStateMachines;
 
 /// <summary>
 ///		Clase base para los estados de una máquina de estados

@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Managers.Audio.AudioSystems;
+﻿namespace Bau.BauEngine.Managers.Audio.AudioSystems;
 
 /// <summary>
 ///		Clase abstracta para los diferentes sistemas de audio

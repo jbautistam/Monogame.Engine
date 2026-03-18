@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+using Bau.BauEngine.Entities.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
+namespace Bau.BauEngine.Entities.UserInterface.Backgrounds;
 
 /// <summary>
 ///		Componente de fondo

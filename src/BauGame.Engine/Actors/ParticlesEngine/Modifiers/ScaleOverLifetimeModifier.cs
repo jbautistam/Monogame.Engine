@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+﻿using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Modifiers;
+namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 
 /// <summary>
 ///     Modificador de la escala a partir del tiempo de vida de la partícula

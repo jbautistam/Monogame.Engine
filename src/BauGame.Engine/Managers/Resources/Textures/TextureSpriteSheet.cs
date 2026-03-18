@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
+namespace Bau.BauEngine.Managers.Resources.Textures;
 
 /// <summary>
 ///     Definición de un sprite sheet sobre una textura

@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Routes;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes.Layers.Games.Routes;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
+namespace Bau.BauEngine.Actors.Components.IA.FiniteStateMachines;
 
 /// <summary>
 ///     Estado que permite patrullar a un actor

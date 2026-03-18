@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Precomputed;
+﻿namespace Bau.BauEngine.Tools.MathTools.Precomputed;
 
 /// <summary>
 ///     Clase con funciones matemáticas precompiladas

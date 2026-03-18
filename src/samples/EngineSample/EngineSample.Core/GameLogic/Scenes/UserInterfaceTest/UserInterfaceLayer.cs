@@ -1,10 +1,10 @@
 ﻿using Bau.Libraries.LibHelper.Extensors;
-using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Scenes.Messages;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.EventArguments;
+using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Scenes.Messages;
+using Bau.BauEngine.Entities.UserInterface.TypeWriter;
+using Bau.BauEngine.Entities.UserInterface.EventArguments;
 
 namespace EngineSample.Core.GameLogic.Scenes.UserInterfaceTest;
 
@@ -49,7 +49,7 @@ public class UserInterfaceLayer(AbstractScene scene, string name, int sortOrder)
 	/// <summary>
 	///		Actualiza el interface de usuario
 	/// </summary>
-	protected override void UpdateUserInterface(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateUserInterface(Bau.BauEngine.Managers.GameContext gameContext)
 	{
 		UiLabel? lblScore = GetItem<UiLabel>("lblScore");
 		UiLabel? lblLives = GetItem<UiLabel>("lblLives");
@@ -173,10 +173,10 @@ public class UserInterfaceLayer(AbstractScene scene, string name, int sortOrder)
 			if (name.Equals("sound", StringComparison.CurrentCultureIgnoreCase))
 			{
 				if (parameters.TryGetValue("name", out string? song))
-					Bau.Libraries.BauGame.Engine.GameEngine.Instance.AudioManager.PlaySong(song, Bau.Libraries.BauGame.Engine.Managers.Audio.AudioManager.TransitionType.Fade, 8);
+					Bau.BauEngine.GameEngine.Instance.AudioManager.PlaySong(song, Bau.BauEngine.Managers.Audio.AudioManager.TransitionType.Fade, 8);
 			}
 			else if (name.Equals("soundoff", StringComparison.CurrentCultureIgnoreCase))
-				Bau.Libraries.BauGame.Engine.GameEngine.Instance.AudioManager.Stop();
+				Bau.BauEngine.GameEngine.Instance.AudioManager.Stop();
 	}
 
 	/// <summary>

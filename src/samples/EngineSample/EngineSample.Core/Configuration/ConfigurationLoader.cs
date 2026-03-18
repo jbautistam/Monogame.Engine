@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+﻿using Bau.BauEngine;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Entities.UserInterface.Styles;
+using Bau.BauEngine.Entities.UserInterface;
 
 namespace EngineSample.Core.Configuration;
 

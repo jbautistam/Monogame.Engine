@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Managers.Audio.Sources;
+﻿namespace Bau.BauEngine.Managers.Audio.Sources;
 
 /// <summary>
 ///		Evento lanzados por el origen de sonido

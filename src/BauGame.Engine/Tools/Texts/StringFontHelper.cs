@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+﻿using Bau.BauEngine.Entities.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Tools.Texts;
+namespace Bau.BauEngine.Tools.Texts;
 
 /// <summary>
 ///		Herramientas de tratamiento de texto

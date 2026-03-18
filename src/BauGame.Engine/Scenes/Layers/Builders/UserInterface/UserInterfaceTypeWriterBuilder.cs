@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
+﻿using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Entities.Sprites;
+using Bau.BauEngine.Entities.UserInterface.TypeWriter;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+namespace Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador para etiquetas con efecto de máquina de escribir

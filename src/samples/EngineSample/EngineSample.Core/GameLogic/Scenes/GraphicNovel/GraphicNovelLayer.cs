@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
+using Bau.BauEngine;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Layers.Games;
 using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Actors;
 using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Managers;
 using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Cinematics;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Movements;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel;
 
@@ -19,6 +20,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	private const int LogicalBackgroundLayer = 1;
 	private const int LogicalCharactersLayer = 10;
 	private const int LogicalFirstPlaneLayer = 20;
+	private const string Background = "background-kitchen";
 	// Variables privadas
 	private CharacterManager? _characterManager;
 
@@ -27,6 +29,9 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// </summary>
 	protected override void StartGameLayer()
 	{
+		// Limpia los actores
+		Actors.Clear();
+		// Crea los personajes
 		CreateCharacters();
 	}
 
@@ -38,7 +43,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 		// Crea el manager de personajes
 		_characterManager = new(this);
 		// Crea los personajes
-		CreateBackground(_characterManager, "background-01", "vn-background-01", LogicalBackgroundLayer);
+		CreateBackground(_characterManager, Background, "vn-background-01", LogicalBackgroundLayer);
 		CreateBackground(_characterManager, "background-kitchen", "vn-background-kitchen-01", LogicalBackgroundLayer);
 		CreateBackground(_characterManager, "background-kitchen-table", "vn-background-kitchen-01-table", LogicalFirstPlaneLayer);
 		CreateCharacter(_characterManager, "sylvie");
@@ -47,7 +52,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 		// Añade el manager de personajes
 		Actors.Add(_characterManager);
 		// Crea el fondo
-		CreateBackgroundStartSequence("background-kitchen");
+		CreateBackgroundStartSequence(Background);
 	}
 
 	/// <summary>
@@ -97,7 +102,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.C))
 			CreateCombinedSequence();
 		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.B))
-			CreateBackgroundMoveSequence("background-01");
+			CreateBackgroundMoveSequence(Background);
 		else if (GameEngine.Instance.InputManager.KeyboardManager.JustReleased(Microsoft.Xna.Framework.Input.Keys.F))
 			CreateFirstPlaneSequence("background-kitchen-table");
 	}
@@ -145,9 +150,13 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 					.WithMove(3, TranslateCommand.MovementMode.To, new Vector2(0, 0))
 					.WithMove(3, TranslateCommand.MovementMode.To, new Vector2(0.2f, 0.2f))
 					.WithFade(3, 0.5f)
-					.WithZoomOnPoint(3, new Vector2(0.5f, 0.5f), new Vector2(1.3f, 1.3f))
 					.WithFade(5, 1)
-					.WithMove(3, TranslateCommand.MovementMode.To, new Vector2(0, 0));
+					.WithMove(3, TranslateCommand.MovementMode.To, new Vector2(0, 0))
+					.WithRotation(3, Bau.BauEngine.Actors.Components.Transforms.TransformComponent.OriginPointType.Center, null, 360)
+					.WithReset(0.1f, Vector2.Zero, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1)
+					.WithZoomOnPoint(3, new Vector2(0.5f, 0.5f), new Vector2(2, 2))
+					.WithZoomOnPoint(3, new Vector2(0.5f, 0.5f), new Vector2(1, 1))
+					.WithShake(3, 4, 20, true, true);
 			// Añade la secuencia al manager
 			_characterManager?.Sequences.Add(builder.Build());
 	}
@@ -174,7 +183,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 				   .WithExpression(3, "sad")
 				   .WithZoomOnPoint(3, new Vector2(0.5f, 0.5f), new Vector2(1.5f, 1.5f))
 				   .WithZoomOnPoint(1, new Vector2(0.5f, 0.5f), new Vector2(1, 1))
-				   .WithEntrance(5, CinematicEntranceCommand.EntranceType.Teleport, new Vector2(0.4f, 0), 0.7f, 0.2f)
+				   .WithEntrance(5, EntranceCommand.EntranceType.Teleport, new Vector2(0.4f, 0), 0.7f, 0.2f)
 				   .WithSpriteEffects(3, Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally)
 				   .WithSpriteEffects(3, Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipVertically);
 			// Añade la secuencia al manager
@@ -257,7 +266,7 @@ public class GraphicNovelLayer(AbstractScene scene, string name, int sortOrder) 
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawGameLayer(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawGameLayer(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
 	}

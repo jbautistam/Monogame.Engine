@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Movements;
 
 /// <summary>
 ///     Pulso - latido: escala oscilante
@@ -15,7 +15,7 @@ public class PulseCommand(string actorId, float startTime, float duration) : Abs
     /// <summary>
     ///     Aplica el comando al actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         float sine = MathF.Sin(Progress * MathHelper.TwoPi * Pulses);
         float pulse = (sine + 1) / 2 * Amplitude * (1 - EasingFunctionsHelper.Apply(Progress, Easing));

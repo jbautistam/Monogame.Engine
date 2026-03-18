@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Intervals;
+namespace Bau.BauEngine.Tools.MathTools.Intervals;
 
 /// <summary>
 ///     Rango entre dos vectores

@@ -1,9 +1,10 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+﻿using Bau.BauEngine.Actors.Components.Health;
+using Bau.BauEngine.Actors.Components.Physics;
+using Bau.BauEngine.Actors.Components.Renderers;
+using Bau.BauEngine.Scenes.Layers;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Projectiles;
+namespace Bau.BauEngine.Actors.Projectiles;
 
 /// <summary>
 ///     Clase con los datos de un proyectil
@@ -40,11 +41,11 @@ public class ProjectileActor : AbstractActorDrawable
         Transform.Bounds = new Entities.Common.RectangleF(position.X, position.Y, 0, 0);
         Transform.Rotation = rotation;
         // Inicializa los datos de dibujo
-        Renderer.Sprite = new Entities.Common.Sprites.SpriteDefinition(Properties.Texture, Properties.Region);
-        if (!string.IsNullOrWhiteSpace(Properties.Animation))
+        Renderer.Sprite = new Entities.Sprites.SpriteDefinition(Properties.Texture, Properties.Region);
+        if (!string.IsNullOrWhiteSpace(Properties.Animation) && Renderer is RendererAnimatorComponent animator)
         {
-            Renderer.Animator.Reset();
-            Renderer.StartAnimation(Renderer.Sprite.Asset, Properties.Animation, false);
+            animator.Animator.Reset();
+            animator.StartAnimation(Renderer.Sprite.Asset, Properties.Animation, false);
         }
         // Inicializa el resto de propiedades
         CurrentDistance = 0f;

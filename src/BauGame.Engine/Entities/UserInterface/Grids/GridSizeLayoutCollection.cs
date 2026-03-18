@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Grids;
+﻿namespace Bau.BauEngine.Entities.UserInterface.Grids;
 
 /// <summary>
 ///     Lista de filas o columnas del grid

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Shapes;
+namespace Bau.BauEngine.Actors.ParticlesEngine.Shapes;
 
 /// <summary>
 ///		Figura abstracta para emisores

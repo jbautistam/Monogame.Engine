@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes;
+namespace Bau.BauEngine.Scenes;
 
 /// <summary>
 ///		Clase base para la escena

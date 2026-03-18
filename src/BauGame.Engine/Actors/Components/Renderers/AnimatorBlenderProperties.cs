@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers;
+﻿namespace Bau.BauEngine.Actors.Components.Renderers;
 
 /// <summary>
 ///		Propiedades del componente para el mezclador de animaciones

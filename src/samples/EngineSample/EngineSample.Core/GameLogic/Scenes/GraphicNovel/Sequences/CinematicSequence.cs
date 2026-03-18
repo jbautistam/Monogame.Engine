@@ -1,12 +1,12 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Actors;
+﻿using Bau.BauEngine.Managers;
+using Bau.BauEngine.Actors;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences;
 
 /// <summary>
 ///     Secuencia cinemática
 /// </summary>
-public class CinematicSequence(CinematicSequenceList cinematicSequenceList) : Bau.Libraries.BauGame.Engine.Entities.Common.Collections.ISecureListItem
+public class CinematicSequence(CinematicSequenceList cinematicSequenceList) : Bau.BauEngine.Entities.Common.Collections.ISecureListItem
 {
     // Variables privadas
     private float _elapsedTime = 0;

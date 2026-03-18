@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Audio.Transitions;
+namespace Bau.BauEngine.Managers.Audio.Transitions;
 
 /// <summary>
 ///     Sistema para un transiciones fade out: un sonido va del volumen inicial a cero

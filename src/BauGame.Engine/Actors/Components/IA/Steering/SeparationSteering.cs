@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.Extensors;
+using Bau.BauEngine.Tools.Extensors;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.IA.Steering;
+namespace Bau.BauEngine.Actors.Components.IA.Steering;
 
 /// <summary>
 ///     Comportamiento para separase del resto de los agentes

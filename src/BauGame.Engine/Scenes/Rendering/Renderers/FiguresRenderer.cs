@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Renderers;
+namespace Bau.BauEngine.Scenes.Rendering.Renderers;
 
 /// <summary>
 ///		Clase de presentación para figuras

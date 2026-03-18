@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.TypeWriter;
+﻿using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Entities.UserInterface.TypeWriter;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+namespace Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador para avatares de un cuadro de diálogo de una visual novel
@@ -21,7 +21,7 @@ public class UserInterfaceVisuaNovelAvatarBuilder : AbstractElementUserInterface
 		UiImage image = new(Item.Layer, new UiPosition(0, 0, 1, 1));
 
 			// Crea la definición de la imagen
-			image.Sprite = new Entities.Common.Sprites.SpriteDefinition(asset, region);
+			image.Sprite = new Entities.Sprites.SpriteDefinition(asset, region);
 			image.Style = style;
 			// Asigna el avatar
 			Item.Avatar = image;

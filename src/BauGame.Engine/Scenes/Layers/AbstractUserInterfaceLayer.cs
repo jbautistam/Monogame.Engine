@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Popups;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.EventArguments;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Entities.UserInterface.Popups;
+using Bau.BauEngine.Entities.UserInterface.Styles;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Entities.UserInterface.EventArguments;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
+namespace Bau.BauEngine.Scenes.Layers;
 
 /// <summary>
 ///     Clase base para las definiciones de capas de interface de usuario

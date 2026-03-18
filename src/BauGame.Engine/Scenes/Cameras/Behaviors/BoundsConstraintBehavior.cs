@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+﻿using Bau.BauEngine.Entities.Common;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Behaviors;
+namespace Bau.BauEngine.Scenes.Cameras.Behaviors;
 
 /// <summary>
 ///     Comportamiento para limitar la cámara a las coordenadas del mundo

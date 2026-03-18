@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Particles.Effects;
+namespace Bau.BauEngine.Actors.Particles.Effects;
 
 /// <summary>
 ///		Efecto para emisión de un sistema de partículas de una explosión

@@ -1,10 +1,10 @@
-﻿using Bau.Libraries.LibHelper.Extensors;
+﻿using Microsoft.Xna.Framework;
+using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
-using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+using Bau.BauEngine.Entities.UserInterface.Styles;
+using Bau.BauEngine.Entities.UserInterface.Backgrounds;
+using Bau.BauEngine.Entities.UserInterface.Borders;
+using Bau.BauEngine.Entities.Sprites;
 
 namespace EngineSample.Core.Configuration.Repositories;
 
@@ -37,7 +37,7 @@ internal class StylesRepository
 	/// <summary>
 	///		Carga los estilos a partir de un texto XML
 	/// </summary>
-	internal UiStylesCollection Load(Bau.Libraries.BauGame.Engine.Scenes.Layers.AbstractUserInterfaceLayer layer, string xml)
+	internal UiStylesCollection Load(Bau.BauEngine.Scenes.Layers.AbstractUserInterfaceLayer layer, string xml)
 	{
 		UiStylesCollection styles = new(layer);
 		MLFile fileML = new Bau.Libraries.LibMarkupLanguage.Services.XML.XMLParser().ParseText(xml);

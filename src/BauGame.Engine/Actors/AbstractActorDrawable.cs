@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors;
+namespace Bau.BauEngine.Actors;
 
 /// <summary>
 ///		Clase abstracta para la definición de actores
@@ -9,7 +9,7 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 {
 	protected AbstractActorDrawable(Scenes.Layers.AbstractLayer layer, int? zOrder) : base(layer, zOrder)
 	{
-		Renderer = new Components.Renderers.RendererComponent(this);
+		Renderer = new Components.Renderers.RendererAnimatorComponent(this);
 	}
 
 	/// <summary>
@@ -98,5 +98,5 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 	/// <summary>
 	///		Objeto de representación
 	/// </summary>
-	public Components.Renderers.RendererComponent Renderer { get; }
+	public Components.Renderers.AbstractRendererComponent Renderer { get; protected set; }
 }

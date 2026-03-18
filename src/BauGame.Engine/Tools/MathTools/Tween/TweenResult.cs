@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
+﻿namespace Bau.BauEngine.Tools.MathTools.Tween;
 
 /// <summary>
 ///     Resultado de un cálculo de una función tween

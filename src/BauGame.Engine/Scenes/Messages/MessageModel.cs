@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Messages;
+namespace Bau.BauEngine.Scenes.Messages;
 
 /// <summary>
 ///		Mensajes enviados entre actores o capas

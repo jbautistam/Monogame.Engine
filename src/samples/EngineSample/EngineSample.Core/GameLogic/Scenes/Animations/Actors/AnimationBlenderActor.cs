@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Actors.Components.Renderers;
 
 namespace EngineSample.Core.GameLogic.Scenes.Animations.Actors;
 
@@ -23,7 +24,8 @@ public class AnimationBlenderActor : AbstractActorDrawable
 
 	public AnimationBlenderActor(AbstractLayer layer, string groupAnimation) : base(layer, 0)
 	{
-		Renderer.AnimatorBlenderProperties = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.AnimatorBlenderProperties(groupAnimation);
+		if (Renderer is RendererAnimatorComponent animator)
+			animator.AnimatorBlenderProperties = new AnimatorBlenderProperties(groupAnimation);
 	}
 
 	/// <summary>
@@ -53,13 +55,13 @@ public class AnimationBlenderActor : AbstractActorDrawable
 	private void UpdateAnimation(Vector2 speed, bool isDead)
 	{
 		// Asigna las propiedades
-		if (Renderer.AnimatorBlenderProperties is not null)
+		if (Renderer is RendererAnimatorComponent animator && animator.AnimatorBlenderProperties is not null)
 		{
 			if (speed.X != 0 || speed.Y != 0)
-				Renderer.AnimatorBlenderProperties.Add("speed", 1);
+				animator.AnimatorBlenderProperties.Add("speed", 1);
 			else
-				Renderer.AnimatorBlenderProperties.Add("speed", 0);
-			Renderer.AnimatorBlenderProperties.Add("died", isDead);
+				animator.AnimatorBlenderProperties.Add("speed", 0);
+			animator.AnimatorBlenderProperties.Add("died", isDead);
 		}
 		// Cambia la orientación del sprite
 		if (Moving == MoveMode.LeftToRight)
@@ -71,7 +73,7 @@ public class AnimationBlenderActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

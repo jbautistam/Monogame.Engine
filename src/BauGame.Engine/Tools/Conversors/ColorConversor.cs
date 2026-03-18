@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Tools.Conversors;
+namespace Bau.BauEngine.Tools.Conversors;
 
 /// <summary>
 ///     Conversión de colores

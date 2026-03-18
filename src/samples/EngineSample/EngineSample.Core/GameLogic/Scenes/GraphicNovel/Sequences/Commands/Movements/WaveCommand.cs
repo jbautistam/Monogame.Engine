@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Movements;
 
 /// <summary>
 ///     Efecto de una onda
@@ -8,13 +8,13 @@ namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
 public class WaveCommand(string actorId, float startTime, float duration) : AbstractSequenceCommand(actorId, startTime, duration)
 {
     // Variables privadas
-    private float _phaseX = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0, (float) Math.PI * 2);
-    private float _phaseY = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0, (float) Math.PI * 2 + 1.3f);
+    private float _phaseX = Bau.BauEngine.Tools.Randomizer.GetRandom(0, (float) Math.PI * 2);
+    private float _phaseY = Bau.BauEngine.Tools.Randomizer.GetRandom(0, (float) Math.PI * 2 + 1.3f);
     
     /// <summary>
     ///     Aplica el comando al actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         float angle = Progress * Frequency * MathHelper.TwoPi;
 

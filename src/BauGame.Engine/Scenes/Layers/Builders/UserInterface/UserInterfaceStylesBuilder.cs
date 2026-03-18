@@ -1,10 +1,10 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Backgrounds;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
+﻿using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Entities.UserInterface.Borders;
+using Bau.BauEngine.Entities.UserInterface.Backgrounds;
+using Bau.BauEngine.Entities.UserInterface.Styles;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+namespace Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Interface de generación de estilos
@@ -36,7 +36,7 @@ public class UserInterfaceStylesBuilder
 		if (LastStyle is not null)
 			LastStyle.Background = new UiBackground(LastStyle)
 											{
-												Sprite = new Entities.Common.Sprites.SpriteDefinition(texture, region),
+												Sprite = new Entities.Sprites.SpriteDefinition(texture, region),
 												Color = color ?? Color.White,
 												Opacity = opacity
 											};
@@ -86,7 +86,7 @@ public class UserInterfaceStylesBuilder
 		if (LastStyle is not null)
 			LastStyle.Border = new UiTextureBorder(LastStyle)
 													{
-														Sprite = new Entities.Common.Sprites.SpriteDefinition(asset, region),
+														Sprite = new Entities.Sprites.SpriteDefinition(asset, region),
 														Thickness = thickness,
 														Opacity = opacity
 													};

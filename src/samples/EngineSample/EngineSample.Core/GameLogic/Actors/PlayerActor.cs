@@ -1,14 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Shooting;
-using Bau.Libraries.BauGame.Engine.Scenes.Messages;
+using Bau.BauEngine;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Actors.Components.Health;
+using Bau.BauEngine.Actors.Components.Physics;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Actors.Components.Shooting;
+using Bau.BauEngine.Scenes.Messages;
+using Bau.BauEngine.Actors.Components.Renderers;
 
 namespace EngineSample.Core.GameLogic.Actors;
 
@@ -50,7 +51,7 @@ public class PlayerActor : AbstractActorDrawable
 										Health = 100,
 										Lives = 3,
 										InvulnerabilityTime = 3,
-										InvulnerabilityEffect = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
+										InvulnerabilityEffect = new Bau.BauEngine.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
 																		{
 																			Colors = [ Color.Green, Color.Red, Color.Navy ],
 																			TimeBetweenColor = 0.5f
@@ -59,7 +60,8 @@ public class PlayerActor : AbstractActorDrawable
 			// Inicializa el shooter
 			_shooter = new ShooterComponent(this);
 			// Inicializa las propiedades de animación
-			Renderer.AnimatorBlenderProperties = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.AnimatorBlenderProperties("Player");
+			if (Renderer is RendererAnimatorComponent animator)
+				animator.AnimatorBlenderProperties = new AnimatorBlenderProperties("Player");
 			// Añade los componentes creados a la lista
 			Components.Add(collision);
 			Components.Add(_health);
@@ -146,13 +148,13 @@ public class PlayerActor : AbstractActorDrawable
 	private void UpdateAnimation(Vector2 speed, bool isDead)
 	{
 		// Asigna las propiedades
-		if (Renderer.AnimatorBlenderProperties is not null)
+		if (Renderer is RendererAnimatorComponent animator && animator.AnimatorBlenderProperties is not null)
 		{
 			if (speed.X != 0 || speed.Y != 0)
-				Renderer.AnimatorBlenderProperties.Add("speed", 1);
+				animator.AnimatorBlenderProperties.Add("speed", 1);
 			else
-				Renderer.AnimatorBlenderProperties.Add("speed", 0);
-			Renderer.AnimatorBlenderProperties.Add("died", isDead);
+				animator.AnimatorBlenderProperties.Add("speed", 0);
+			animator.AnimatorBlenderProperties.Add("died", isDead);
 		}
 		// Cambia la orientación del sprite
 		if (Moving == MoveMode.LeftToRight)
@@ -169,13 +171,13 @@ public class PlayerActor : AbstractActorDrawable
 		// Inicializa la velocidad
 		_speed = new Vector2();
 		// Mueve el jugador con el teclado
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionUp))
+		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionUp))
 			_speed.Y = -Velocity;
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionDown))
+		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionDown))
 			_speed.Y = Velocity;
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionLeft))
+		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionLeft))
 			_speed.X = -Velocity;
-		if (GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaultActionRight))
+		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionRight))
 			_speed.X = Velocity;
 		// Coloca el jugador
 		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
@@ -257,7 +259,7 @@ public class PlayerActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

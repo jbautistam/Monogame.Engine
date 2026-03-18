@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
+namespace Bau.BauEngine.Actors.Particles;
 
 /// <summary>
 ///     Actor con un manager de un sistema de partículas

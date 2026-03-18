@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Intervals;
+using Bau.BauEngine.Tools.MathTools.Intervals;
 using EngineSample.Core.GameLogic.Actors.Entities.ParticlesDefinition;
-using Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Shapes;
+using Bau.BauEngine.Actors.ParticlesEngine.Shapes;
 
 namespace EngineSample.Core.Configuration.Repositories;
 

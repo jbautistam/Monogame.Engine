@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
+﻿using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Behaviors;
+namespace Bau.BauEngine.Scenes.Cameras.Behaviors;
 
 /// <summary>
 ///		Lista de comportamientos de cámara

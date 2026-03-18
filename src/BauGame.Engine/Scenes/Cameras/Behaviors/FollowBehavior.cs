@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.Extensors;
+using Bau.BauEngine.Tools.Extensors;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Behaviors;
+namespace Bau.BauEngine.Scenes.Cameras.Behaviors;
 
 /// <summary>
 ///     Comportamiento de cámara para seguir un objetivo

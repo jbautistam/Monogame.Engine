@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Input;
+namespace Bau.BauEngine.Managers.Input;
 
 /// <summary>
 ///     Mapeo de entradas a acciones

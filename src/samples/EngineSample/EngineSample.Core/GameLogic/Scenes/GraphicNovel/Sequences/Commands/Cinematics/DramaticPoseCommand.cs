@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Cinematics;
 
 /// <summary>
 ///     Comando para presentar una pose dramática con estilo
@@ -32,7 +32,7 @@ public class DramaticPoseCommand(string actorId, float startTime, float duration
     /// <summary>
     ///     Aplica el comando al actor
     /// </summary>
-    protected override void ApplySelf(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+    protected override void ApplySelf(Bau.BauEngine.Actors.AbstractActorDrawable actor)
     {
         EasingFunctionsHelper.EasingType easing = GetStyleEasing();
 
@@ -67,7 +67,7 @@ public class DramaticPoseCommand(string actorId, float startTime, float duration
         }
 
         // Aplica los efectos adicionales de la pose seleccionada
-        void ApplyStyleEffects(Bau.Libraries.BauGame.Engine.Actors.AbstractActorDrawable actor)
+        void ApplyStyleEffects(Bau.BauEngine.Actors.AbstractActorDrawable actor)
         {
             switch (Pose)
             {

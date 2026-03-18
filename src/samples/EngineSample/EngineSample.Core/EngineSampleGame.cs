@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Bau.Libraries.BauGame.Engine;
-using Bau.Libraries.BauGame.Engine.Managers.Input;
-using Bau.Libraries.BauGame.Engine.Managers.Input.Builders;
+using Bau.BauEngine;
+using Bau.BauEngine.Managers.Input;
+using Bau.BauEngine.Managers.Input.Builders;
 
 namespace EngineSample.Core;
 
@@ -13,7 +13,7 @@ public class EngineSampleGame : Game
 {
 	public EngineSampleGame()
 	{
-		Bau.Libraries.BauGame.Engine.Configuration.EngineSettings settings = new()
+		Bau.BauEngine.Configuration.EngineSettings settings = new()
 																				{
 																					ContentRoot = "Content",
 																					DefaultFont = "fonts/hud"
@@ -55,7 +55,7 @@ public class EngineSampleGame : Game
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene(GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene(GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName));
 		// Prepara la escena
-		GameEngine.Instance.SceneManager.ChangeScene("MainMenu", new Bau.Libraries.BauGame.Engine.Managers.GameContext());
+		GameEngine.Instance.SceneManager.ChangeScene("MainMenu", new Bau.BauEngine.Managers.GameContext());
 		// Prepara los mapeos
 		CreateMappings(GameEngine.Instance.InputManager);
 	}
@@ -82,7 +82,7 @@ public class EngineSampleGame : Game
 			builder.WithAction(InputMappings.DefaultIntroAction, true)
 						.WithKeyboard(InputMappings.Status.JustPressed, Keys.Enter)
 				   .WithAction(InputMappings.DefaultMouseClickAction, true)
-						.WithMouse(InputMappings.Status.JustPressed, Bau.Libraries.BauGame.Engine.Managers.Input.MouseController.MouseStatus.MouseButton.Left)
+						.WithMouse(InputMappings.Status.JustPressed, Bau.BauEngine.Managers.Input.MouseController.MouseStatus.MouseButton.Left)
 				   .WithAction(InputMappings.DefaulQuitAction, true)
 						.WithKeyboard(InputMappings.Status.JustPressed, Keys.Escape)
 				   .WithAction(InputMappings.DefaultActionUp, false)

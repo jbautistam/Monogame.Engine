@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Tools.MathTools.Easing;
+using Bau.BauEngine.Managers;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
 

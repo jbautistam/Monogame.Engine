@@ -1,13 +1,13 @@
-﻿using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
+﻿using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Scenes.Layers.Backgrounds;
 
 namespace EngineSample.Core.GameLogic.Scenes.Games;
 
 /// <summary>
 ///		Escena de la partida
 /// </summary>
-internal class GameScene(string name) : AbstractScene(name, new Bau.Libraries.BauGame.Engine.Entities.Common.WorldDefinitionModel(2_000, 2_000, 200, 200))
+internal class GameScene(string name) : AbstractScene(name, new Bau.BauEngine.Entities.Common.WorldDefinitionModel(2_000, 2_000, 200, 200))
 {
 	// Constantes públicas
 	public const string SceneName = "Game";
@@ -49,15 +49,15 @@ internal class GameScene(string name) : AbstractScene(name, new Bau.Libraries.Ba
 	/// <summary>
 	///		Actualiza la escena
 	/// </summary>
-	protected override AbstractScene? UpdateScene(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override AbstractScene? UpdateScene(Bau.BauEngine.Managers.GameContext gameContext)
 	{
 		AbstractScene nextScene = this;
 
 			// Actualiza los actores y el interface de usuario
 			LayerManager.Update(gameContext);
 			// Sale de la partida si se ha pulsado el botón de Scape o el Back del GamePad
-			if (Bau.Libraries.BauGame.Engine.GameEngine.Instance.InputManager.IsAction(Bau.Libraries.BauGame.Engine.Managers.Input.InputMappings.DefaulQuitAction))
-				nextScene = Bau.Libraries.BauGame.Engine.GameEngine.Instance.SceneManager.GetScene(MainMenu.MainMenuScene.SceneName) ?? this;
+			if (Bau.BauEngine.GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaulQuitAction))
+				nextScene = Bau.BauEngine.GameEngine.Instance.SceneManager.GetScene(MainMenu.MainMenuScene.SceneName) ?? this;
 			// Devuelve la nueva escena
 			return nextScene;
 	}

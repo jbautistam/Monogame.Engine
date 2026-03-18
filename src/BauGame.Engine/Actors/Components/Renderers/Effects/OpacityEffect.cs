@@ -1,11 +1,11 @@
-﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
+﻿using Bau.BauEngine.Tools.MathTools.Tween;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects;
+namespace Bau.BauEngine.Actors.Components.Renderers.Effects;
 
 /// <summary>
 ///		Efecto de cambio de transparrencia
 /// </summary>
-public class OpacityEffect(RendererComponent renderer, float? duration) : AbstractRendererEffect(renderer, duration)
+public class OpacityEffect(RendererAnimatorComponent renderer, float? duration) : AbstractRendererEffect(renderer, duration)
 {
 	// Variables privadas
 	private float? _rendererOpacity;

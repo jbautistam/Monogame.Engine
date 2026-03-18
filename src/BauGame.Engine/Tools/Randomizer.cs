@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Tools;
+namespace Bau.BauEngine.Tools;
 
 /// <summary>
 ///		Funciones para generación de valores aleatorios

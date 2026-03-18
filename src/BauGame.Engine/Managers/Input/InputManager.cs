@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Input;
+namespace Bau.BauEngine.Managers.Input;
 
 /// <summary>
 ///     Manager de entradas de teclado, ratón, etc...

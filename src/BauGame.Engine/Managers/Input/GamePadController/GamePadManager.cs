@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Input.GamePadController;
+namespace Bau.BauEngine.Managers.Input.GamePadController;
 
 /// <summary>
 ///     Manager de entradas de gamepad

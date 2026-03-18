@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Intervals;
+﻿namespace Bau.BauEngine.Tools.MathTools.Intervals;
 
 /// <summary>
 ///     Rango de valores decimales

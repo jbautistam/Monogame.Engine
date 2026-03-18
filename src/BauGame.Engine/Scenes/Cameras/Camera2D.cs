@@ -1,9 +1,9 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
+﻿using Bau.BauEngine.Managers;
+using Bau.BauEngine.Entities.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+namespace Bau.BauEngine.Scenes.Cameras;
 
 /// <summary>
 ///     Control de cámara
@@ -105,7 +105,7 @@ public class Camera2D
     }
 
     /// <summary>
-    ///     Conversión de coordenadas relativas a coordenadas de patalla
+    ///     Conversión de coordenadas relativas a coordenadas de pantalla
     /// </summary>
     public Vector2 WorldToScreenRelative(Vector2 relativePosition)
     {

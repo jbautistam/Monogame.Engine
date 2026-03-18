@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+namespace Bau.BauEngine.Entities.Sprites;
 
 /// <summary>
 ///		Definición de fuente

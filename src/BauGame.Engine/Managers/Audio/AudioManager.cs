@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Audio;
+namespace Bau.BauEngine.Managers.Audio;
 
 /// <summary>
 ///     Manager de audio

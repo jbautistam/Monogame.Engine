@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.Common;
+﻿namespace Bau.BauEngine.Entities.Common;
 
 /// <summary>
 ///     Base para los diccionarios

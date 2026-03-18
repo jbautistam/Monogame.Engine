@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Audio.Transitions;
+namespace Bau.BauEngine.Managers.Audio.Transitions;
 
 /// <summary>
 ///		Clase base para las transiciones de audio

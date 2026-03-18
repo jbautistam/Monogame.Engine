@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Transitions;
+namespace Bau.BauEngine.Scenes.Rendering.Transitions;
 
 public class TransitionManager
 {

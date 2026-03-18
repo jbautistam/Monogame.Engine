@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+﻿using Bau.BauEngine.Tools.MathTools.Easing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Transitions.Effects;
+namespace Bau.BauEngine.Scenes.Rendering.Transitions.Effects;
 
 /// <summary>
 ///     Clase abstracta para los efectos de transición

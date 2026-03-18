@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Grids;
+namespace Bau.BauEngine.Entities.UserInterface.Grids;
 
 /// <summary>
 ///     Representa un elemento hijo dentro del grid

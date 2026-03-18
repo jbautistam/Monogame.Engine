@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Cinematics;
 
 /// <summary>
 ///     Comando para una entrada cinematográfica en la escena
 /// </summary>
-public class CinematicEntranceCommand(string actorId, float startTime, float duration) : AbstractSequenceCommand(actorId, startTime, duration)
+public class EntranceCommand(string actorId, float startTime, float duration) : AbstractSequenceCommand(actorId, startTime, duration)
 {
     /// <summary>
     ///     Tipo de entrada en la escena

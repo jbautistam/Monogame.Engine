@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Tools.Extensors;
+﻿namespace Bau.BauEngine.Tools.Extensors;
 
 /// <summary>
 ///		Extensores de <see cref="string"/>

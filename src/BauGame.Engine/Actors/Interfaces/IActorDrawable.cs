@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.Interfaces;
+﻿namespace Bau.BauEngine.Actors.Interfaces;
 
 /// <summary>
 ///		Interface que deben cumplir los actores que se pueden dibujar

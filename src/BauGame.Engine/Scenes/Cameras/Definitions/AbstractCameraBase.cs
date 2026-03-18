@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Entities.Common;
+using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Cameras.Definitions;
+namespace Bau.BauEngine.Scenes.Cameras.Definitions;
 
 /// <summary>
 ///     Clase base para las cámaras

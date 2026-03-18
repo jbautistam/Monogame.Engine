@@ -1,11 +1,11 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Entities.Common;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Managers.Resources.Textures;
+using Bau.BauEngine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
+namespace Bau.BauEngine.Actors.Particles;
 
 /// <summary>
 ///     Definición de una partícula

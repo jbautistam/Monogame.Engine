@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Physics.Mapping;
+namespace Bau.BauEngine.Scenes.Physics.Mapping;
 
 /// <summary>
 ///     Grid de un mapa

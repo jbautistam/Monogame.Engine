@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors;
+﻿using Bau.BauEngine.Actors;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers;
+namespace Bau.BauEngine.Scenes.Layers;
 
 /// <summary>
 ///     Clase base para las definiciones de capas

@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes.Cameras;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Galleries;
+namespace Bau.BauEngine.Entities.UserInterface.Galleries;
 
 /// <summary>
 ///		Elemento de un <see cref="UiGallery"/>

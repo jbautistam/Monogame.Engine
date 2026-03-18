@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Intervals;
+using Bau.BauEngine.Tools.MathTools.Intervals;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine;
+namespace Bau.BauEngine.Actors.ParticlesEngine;
 
 /// <summary>
 ///     Perfil de emisión de partículas

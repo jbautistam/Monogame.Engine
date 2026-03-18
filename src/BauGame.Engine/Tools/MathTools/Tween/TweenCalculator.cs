@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Tween;
+namespace Bau.BauEngine.Tools.MathTools.Tween;
 
 /// <summary>
 ///     Funciones de cálculo de valores tween

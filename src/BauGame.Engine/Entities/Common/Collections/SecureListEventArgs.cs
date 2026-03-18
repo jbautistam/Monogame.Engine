@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Entities.Common.Collections;
+﻿namespace Bau.BauEngine.Entities.Common.Collections;
 
 /// <summary>
 ///		Argumentos de los eventos de <see cref="SecureList"/>

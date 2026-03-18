@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+﻿using Bau.BauEngine.Entities.UserInterface;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+namespace Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador de <see cref="UiProgressBar"/>
@@ -62,7 +62,7 @@ public class UserInterfaceProgressBarBuilder : AbstractElementUserInterfaceBuild
 	public UserInterfaceProgressBarBuilder WithBackgroundBar(string texture, string? region)
 	{
 		// Asigna la textura
-		Item.Background = new Entities.Common.Sprites.SpriteDefinition(texture, region);
+		Item.Background = new Entities.Sprites.SpriteDefinition(texture, region);
 		// Devuelve el generador
 		return this;
 	}
@@ -73,7 +73,7 @@ public class UserInterfaceProgressBarBuilder : AbstractElementUserInterfaceBuild
 	public UserInterfaceProgressBarBuilder WithBar(string texture, string? region)
 	{
 		// Asigna la textura
-		Item.Bar = new Entities.Common.Sprites.SpriteDefinition(texture, region);
+		Item.Bar = new Entities.Sprites.SpriteDefinition(texture, region);
 		// Devuelve el generador
 		return this;
 	}

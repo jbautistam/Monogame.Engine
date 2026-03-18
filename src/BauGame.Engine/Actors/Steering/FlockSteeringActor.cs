@@ -1,8 +1,8 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors.Components.IA.Steering;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Actors.Components.IA.Steering;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes.Cameras;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Steering;
+namespace Bau.BauEngine.Actors.Steering;
 
 /// <summary>
 ///     Manager para los componentes de movimiento de una bandada

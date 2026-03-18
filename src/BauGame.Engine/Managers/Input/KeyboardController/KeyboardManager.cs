@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Input.KeyboardController;
+namespace Bau.BauEngine.Managers.Input.KeyboardController;
 
 /// <summary>
 ///     Manager de entradas de teclado

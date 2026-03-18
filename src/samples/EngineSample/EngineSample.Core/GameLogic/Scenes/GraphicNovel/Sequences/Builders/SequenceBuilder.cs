@@ -1,6 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+using Bau.BauEngine.Actors.Components.Transforms;
 using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Cinematics;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Zooms;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Movements;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Colors;
+using EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Characters;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Builders;
 
@@ -47,10 +52,21 @@ public class SequenceBuilder
 	public SequenceBuilder WithReset(float duration, Vector2 position, Microsoft.Xna.Framework.Graphics.SpriteEffects spriteEffects, 
 									 float opacity, float? start = null)
 	{
+		return WithReset(duration, position, Vector2.One, 0, spriteEffects, opacity, start);
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor directamente a una posición
+	/// </summary>
+	public SequenceBuilder WithReset(float duration, Vector2 position, Vector2 scale, float rotation, 
+									 Microsoft.Xna.Framework.Graphics.SpriteEffects spriteEffects, float opacity, float? start = null)
+	{
 		// Añade el comando
 		Commands.Add(new ResetCommand(_actor, GetAndUpdateStart(duration, start), duration)
 								{
 									Position = position,
+									Scale = scale,
+									Rotation = rotation,
 									Opacity = opacity,
 									SpriteEffects = spriteEffects
 								}
@@ -169,22 +185,6 @@ public class SequenceBuilder
 	}
 
 	/// <summary>
-	///		Añade un comando para cambiar la escala al mundo
-	/// </summary>
-	public SequenceBuilder WithScaleToWorld(float duration, Vector2 scale, bool uniform, float? start = null)
-	{
-		// Añade el comando
-		Commands.Add(new ScaleToWorldCommand(_actor, GetAndUpdateStart(duration, start), duration)
-									{
-										Scale = scale,
-										Uniform = uniform
-									}
-						);
-		// Devuelve el generador
-		return this;
-	}
-
-	/// <summary>
 	///		Añade un comando para hacer una sacudida
 	/// </summary>
 	public SequenceBuilder WithShake(float duration, float intensity, int oscillations, bool horizontal, bool vertical, float? start = null)
@@ -282,11 +282,11 @@ public class SequenceBuilder
 	/// <summary>
 	///		Añade un comando para una entrada cinemática
 	/// </summary>
-	public SequenceBuilder WithEntrance(float duration, CinematicEntranceCommand.EntranceType type, Vector2 to, 
+	public SequenceBuilder WithEntrance(float duration, EntranceCommand.EntranceType type, Vector2 to, 
 										float impactPause, float anticipation, float? start = null)
 	{
 		// Añade el comando
-		Commands.Add(new CinematicEntranceCommand(_actor, GetAndUpdateStart(duration, start), duration)
+		Commands.Add(new EntranceCommand(_actor, GetAndUpdateStart(duration, start), duration)
 								{
 									Type = type,
 									To = to,
@@ -317,6 +317,23 @@ public class SequenceBuilder
 	}
 
 	/// <summary>
+	///		Añade un comando para una reacción a un impatoc en la pose
+	/// </summary>
+	public SequenceBuilder WithImpactReation(float duration, ImpactReactionCommand.ReactionType reaction, Vector2 impact, float force, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new ImpactReactionCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									Reaction = reaction,
+									ImpactSource = impact,
+									Force = force
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
 	///		Añade un comando para cambiar la orientación del sprite
 	/// </summary>
 	public SequenceBuilder WithSpriteEffects(float duration, Microsoft.Xna.Framework.Graphics.SpriteEffects spriteEffects, float? start = null)
@@ -334,7 +351,7 @@ public class SequenceBuilder
 	/// <summary>
 	///		Añade un comando para cambiar la capa lógica y el índice de un personaje
 	/// </summary>
-	public SequenceBuilder WithZOrderLayerCommand(float duration, int logicalLayer, int logicalZOrder, float? start = null)
+	public SequenceBuilder WithZOrderLayer(float duration, int logicalLayer, int logicalZOrder, float? start = null)
 	{
 		// Añade el comando
 		Commands.Add(new ZOrderLayerCommand(_actor, GetAndUpdateStart(duration, start), duration)
@@ -350,7 +367,7 @@ public class SequenceBuilder
 	/// <summary>
 	///		Añade un comando para mover el actor aplicando el efecto de una ola
 	/// </summary>
-	public SequenceBuilder WithWaveCommand(float duration, float amplitudeX, float amplitudeY, float frequency, float? start = null)
+	public SequenceBuilder WithWave(float duration, float amplitudeX, float amplitudeY, float frequency, float? start = null)
 	{
 		// Añade el comando
 		Commands.Add(new WaveCommand(_actor, GetAndUpdateStart(duration, start), duration)
@@ -358,6 +375,139 @@ public class SequenceBuilder
 									AmplitudeX = amplitudeX,
 									AmplitudeY = amplitudeY,
 									Frequency = frequency
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor aplicando el efecto de flotabilidad
+	/// </summary>
+	public SequenceBuilder WithBuoyancy(float duration, float baseHeight, float amplitude, float frequency, float drift, float phase, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new BuoyancyCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									BaseHeight = baseHeight,
+									Amplitude = amplitude,
+									Frequency = frequency,
+									Drift = drift,
+									Phase = phase
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor aplicando el efecto de una ola
+	/// </summary>
+	public SequenceBuilder WithPendulum(float duration, Vector2 pivot, float length, float endAngle, int oscillations, float damping, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new PendulumCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									Pivot = pivot,
+									Length = length,
+									EndAngle = endAngle,
+									Oscillations = oscillations,
+									Damping = damping
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor aplicando el efecto de una ola
+	/// </summary>
+	public SequenceBuilder WithRotation(float duration, TransformComponent.OriginPointType originPoint, Vector2? origin, float rotation, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new RotateCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									OriginPoint = originPoint,
+									Origin = origin,
+									Rotation = rotation
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor aplicando el efecto de una ola
+	/// </summary>
+	public SequenceBuilder WithImpactReaction(float duration, ImpactReactionCommand.ReactionType type, Vector2 impactSource, float force, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new ImpactReactionCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									Reaction = type,
+									ImpactSource = impactSource,
+									Force = force
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor utilizando la órbita
+	/// </summary>
+	public SequenceBuilder WithOrbit(float duration, Vector2 center, float radiusX, float radiusY, float startAngle, 
+									 float endAngle, bool clockwise, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new OrbitCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									Center = center,
+									RadiusX = radiusX,
+									RadiusY = radiusY,
+									StartAngle = startAngle,
+									EndAngle = endAngle,
+									Clockwise = clockwise
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor utilizando la órbita
+	/// </summary>
+	public SequenceBuilder WithSpiralOrbit(float duration, Vector2 center, float startRadius, float endRadius, 
+										   int turns, bool inward, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new SpiralOrbitCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									Center = center,
+									StartRadius = startRadius,
+									EndRadius = endRadius,
+									Turns = turns,
+									Inward = inward
+								}
+					);
+		// Devuelve el generador
+		return this;
+	}
+
+	/// <summary>
+	///		Añade un comando para mover el actor utilizando la órbita
+	/// </summary>
+	public SequenceBuilder WithSpiralOrbit(float duration, PatrolCommand.PatrolType type, List<Vector2> waypoints, float waitTime, float speed, 
+										   bool rotateToTarget, float? start = null)
+	{
+		// Añade el comando
+		Commands.Add(new PatrolCommand(_actor, GetAndUpdateStart(duration, start), duration)
+								{
+									Type = type,
+									Waypoints = waypoints,
+									WaitTime = waitTime,
+									Speed = speed,
+									RotateToTarget = rotateToTarget
 								}
 					);
 		// Devuelve el generador

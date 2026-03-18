@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
+namespace Bau.BauEngine.Managers.Resources.Textures.Configuration;
 
 /// <summary>
 ///		Configuración para una textura

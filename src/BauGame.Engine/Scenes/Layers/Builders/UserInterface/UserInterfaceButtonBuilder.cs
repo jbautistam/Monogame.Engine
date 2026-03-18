@@ -1,6 +1,6 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
+﻿using Bau.BauEngine.Entities.UserInterface;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
+namespace Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 
 /// <summary>
 ///		Generador de botones

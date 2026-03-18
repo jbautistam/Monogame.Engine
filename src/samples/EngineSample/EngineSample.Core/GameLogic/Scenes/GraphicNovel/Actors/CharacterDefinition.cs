@@ -23,7 +23,7 @@ public class CharacterDefinition(string name, CharacterDefinition.CharacterType 
 	{
 		Expressions.Add(new CharacterExpressionDefinition(name)
 									{
-										Sprite = new Bau.Libraries.BauGame.Engine.Entities.Common.Sprites.SpriteDefinition(asset, region)
+										Sprite = new Bau.BauEngine.Entities.Sprites.SpriteDefinition(asset, region)
 									}
 						);
 	}

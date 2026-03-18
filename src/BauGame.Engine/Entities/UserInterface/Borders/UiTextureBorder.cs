@@ -1,8 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Bau.BauEngine.Entities.Sprites;
 
-namespace Bau.Libraries.BauGame.Engine.Entities.UserInterface.Borders;
+namespace Bau.BauEngine.Entities.UserInterface.Borders;
 
 /// <summary>
 ///     Borde con textura

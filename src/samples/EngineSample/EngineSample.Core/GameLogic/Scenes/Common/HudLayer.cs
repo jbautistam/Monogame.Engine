@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Builders.UserInterface;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface;
-using Bau.Libraries.BauGame.Engine.Scenes.Messages;
-using Bau.Libraries.BauGame.Engine.Entities.UserInterface.Styles;
+using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Scenes.Messages;
+using Bau.BauEngine.Entities.UserInterface.Styles;
 
 namespace EngineSample.Core.GameLogic.Scenes.Common;
 
@@ -98,7 +98,7 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 	/// <summary>
 	///		Actualiza el interface de usuario
 	/// </summary>
-	protected override void UpdateUserInterface(Bau.Libraries.BauGame.Engine.Managers.GameContext gameContext)
+	protected override void UpdateUserInterface(Bau.BauEngine.Managers.GameContext gameContext)
 	{
 		UiLabel? lblScore = GetItem<UiLabel>("lblScore");
 		UiLabel? lblLives = GetItem<UiLabel>("lblLives");

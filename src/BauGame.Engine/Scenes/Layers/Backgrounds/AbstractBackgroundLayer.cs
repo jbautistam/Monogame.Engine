@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Managers;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
+namespace Bau.BauEngine.Scenes.Layers.Backgrounds;
 
 /// <summary>
 ///		Base para las capas de fondos
@@ -10,7 +10,7 @@ public abstract class AbstractBackgroundLayer : AbstractLayer
 {
 	public AbstractBackgroundLayer(AbstractScene scene, string name, string asset, string? region, int sortOrder) : base(scene, name, LayerType.Background, sortOrder)
 	{
-		Sprite = new Entities.Common.Sprites.SpriteDefinition(asset, region);
+		Sprite = new Entities.Sprites.SpriteDefinition(asset, region);
 	}
 
 	/// <summary>
@@ -37,7 +37,7 @@ public abstract class AbstractBackgroundLayer : AbstractLayer
 	/// <summary>
     ///     Nombre de la textura
     /// </summary>
-    public Entities.Common.Sprites.SpriteDefinition Sprite { get; }
+    public Entities.Sprites.SpriteDefinition Sprite { get; }
 
 	/// <summary>
 	///		Indica si se debe rotar la textura con la cámara

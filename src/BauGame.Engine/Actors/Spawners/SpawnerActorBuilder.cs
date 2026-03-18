@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors.Particles.Emisors;
+﻿using Bau.BauEngine.Actors.Particles.Emisors;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Spawners;
+namespace Bau.BauEngine.Actors.Spawners;
 
 /// <summary>
 ///		Generador de <see cref="SpawnerActor"/>

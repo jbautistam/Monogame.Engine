@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauGame.Engine", "src\BauGame.Engine\BauGame.Engine.csproj", "{0B29708A-5982-6539-886C-ADA030183B14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauEngine", "src\BauGame.Engine\BauEngine.csproj", "{0B29708A-5982-6539-886C-ADA030183B14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineSample.Core", "src\samples\EngineSample\EngineSample.Core\EngineSample.Core.csproj", "{A8088058-8725-51A9-B3CF-F90D86149C28}"
 EndProject

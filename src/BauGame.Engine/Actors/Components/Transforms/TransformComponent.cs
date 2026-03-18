@@ -1,13 +1,42 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
+using Bau.BauEngine.Entities.Common;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Components.Transforms;
+namespace Bau.BauEngine.Actors.Components.Transforms;
 
 /// <summary>
 ///		Componente de transformación
 /// </summary>
 public class TransformComponent(AbstractActor owner)
 {
+    /// <summary>
+    ///     Punto de origen de la rotación
+    /// </summary>
+    public enum OriginPointType
+    {
+        /// <summary>Sin punto de origen</summary>
+        None,
+        /// <summary>El centro</summary>
+        Center,
+        /// <summary>La esquina superior izquierda</summary>
+        TopLeft,
+        /// <summary>El centro de la línea superior</summary>
+        TopCenter,
+        /// <summary>La esquina superior derecha</summary>
+        TopRight,
+        /// <summary>El centro de la línea izquierda</summary>
+        CenterLeft,
+        /// <summary>El centro de la línea derecha</summary>
+        CenterRight,
+        /// <summary>La esquina superior izquierda</summary>
+        BottomLeft,
+        /// <summary>El centro de la línea inferior</summary>
+        BottomCenter,
+        /// <summary>La esquina superior derecha</summary>
+        BottomRight
+    }
+    // Variables privadas
+    private Vector2? _center;
+
 	/// <summary>
 	///		Clona los datos del componente
 	/// </summary>
@@ -95,10 +124,37 @@ public class TransformComponent(AbstractActor owner)
 	/// </summary>
 	public RectangleF Bounds { get; set; } = new(0, 0, 0, 0);
 
+    /// <summary>
+    ///     Punto de origen
+    /// </summary>
+    public OriginPointType OriginPoint { get; set; } = OriginPointType.None;
+
 	/// <summary>
 	///		Centro del elemento
 	/// </summary>
-	public Vector2 Center => new(0.5f * Bounds.Width, 0.5f * Bounds.Height);
+	public Vector2 Center
+    {
+        get 
+        {
+            if (_center is null)
+                return OriginPoint switch
+                            {
+                                OriginPointType.TopLeft => Vector2.Zero,
+                                OriginPointType.TopCenter => new Vector2(0.5f * Bounds.Width, 0),
+                                OriginPointType.TopRight => new Vector2(Bounds.Width, 0),
+                                OriginPointType.CenterLeft => new Vector2(0, 0.5f * Bounds.Height),
+                                OriginPointType.CenterRight => new Vector2(Bounds.Width, 0.5f * Bounds.Height),
+                                OriginPointType.BottomLeft => new Vector2(0, Bounds.Height),
+                                OriginPointType.BottomCenter => new Vector2(0.5f * Bounds.Width, Bounds.Height),
+                                OriginPointType.BottomRight => new Vector2(Bounds.Width, Bounds.Height),
+                                OriginPointType.Center => new Vector2(0.5f * Bounds.Width, 0.5f * Bounds.Height),
+                                _ => new Vector2(0.5f * Bounds.Width, 0.5f * Bounds.Height)
+                            };
+            else
+                return _center ?? Vector2.Zero;
+        }
+        set { _center = value; }
+    }
 
 	/// <summary>
 	///		Rotación

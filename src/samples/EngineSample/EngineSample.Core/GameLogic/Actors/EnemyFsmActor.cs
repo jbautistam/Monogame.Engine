@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
-using Bau.Libraries.BauGame.Engine.Actors.Components.IA;
-using Bau.Libraries.BauGame.Engine.Actors.Components.IA.FiniteStateMachines;
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Actors.Components.Physics;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Actors.Components.Health;
+using Bau.BauEngine.Actors.Components.IA;
+using Bau.BauEngine.Actors.Components.IA.FiniteStateMachines;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Actors.Components.Renderers;
 
 namespace EngineSample.Core.GameLogic.Actors;
 
@@ -34,7 +35,7 @@ public class EnemyFsmActor : AbstractActorDrawable
 									Health = 100,
 									Lives = 1,
 									InvulnerabilityTime = 3,
-									InvulnerabilityEffect = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
+									InvulnerabilityEffect = new Bau.BauEngine.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
 																	{
 																		Colors = [ Color.Green, Color.Red, Color.Navy ],
 																		TimeBetweenColor = 0.5f
@@ -47,7 +48,8 @@ public class EnemyFsmActor : AbstractActorDrawable
 		Components.Add(_health);
 		Components.Add(_brain);
 		// Inicializa las propiedades de animación
-		Renderer.AnimatorBlenderProperties = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.AnimatorBlenderProperties(Name);
+		if (Renderer is RendererAnimatorComponent animator)
+			animator.AnimatorBlenderProperties = new Bau.BauEngine.Actors.Components.Renderers.AnimatorBlenderProperties(Name);
 		// Añade la etiqueta
 		Tags.Add(Constants.TagEnemy);
 	}
@@ -107,13 +109,13 @@ public class EnemyFsmActor : AbstractActorDrawable
 	private void UpdateAnimation(Vector2 speed, bool isDead)
 	{
 		// Asigna las propiedades
-		if (Renderer.AnimatorBlenderProperties is not null)
+		if (Renderer is RendererAnimatorComponent animator && animator.AnimatorBlenderProperties is not null)
 		{
 			if (speed.X != 0 || speed.Y != 0)
-				Renderer.AnimatorBlenderProperties.Add("speed", 1);
+				animator.AnimatorBlenderProperties.Add("speed", 1);
 			else
-				Renderer.AnimatorBlenderProperties.Add("speed", 0);
-			Renderer.AnimatorBlenderProperties.Add("died", isDead);
+				animator.AnimatorBlenderProperties.Add("speed", 0);
+			animator.AnimatorBlenderProperties.Add("died", isDead);
 		}
 		// Cambia la orientación del sprite
 		if (speed.X > 0)
@@ -133,7 +135,7 @@ public class EnemyFsmActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

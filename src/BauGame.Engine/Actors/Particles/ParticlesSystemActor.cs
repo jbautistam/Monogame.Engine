@@ -1,9 +1,9 @@
-﻿using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
+﻿using Bau.BauEngine.Managers.Resources.Textures;
+using Bau.BauEngine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
+namespace Bau.BauEngine.Actors.Particles;
 
 /// <summary>
 ///     Manager de un sistema de partículas

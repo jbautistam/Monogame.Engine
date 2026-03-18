@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Backgrounds;
+namespace Bau.BauEngine.Scenes.Layers.Backgrounds;
 
 /// <summary>
 ///     Parámetros del fondo dinámico

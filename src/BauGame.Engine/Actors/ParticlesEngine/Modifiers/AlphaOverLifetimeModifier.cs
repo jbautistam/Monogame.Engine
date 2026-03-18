@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
+using Bau.BauEngine.Tools.MathTools.Easing;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Modifiers;
+namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 
 /// <summary>
 ///     Modificador del tiempo del alfa de la partícula a partir del tiempo de vida

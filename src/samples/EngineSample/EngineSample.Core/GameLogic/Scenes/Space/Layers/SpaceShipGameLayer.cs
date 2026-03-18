@@ -1,9 +1,9 @@
-﻿using Bau.Libraries.BauGame.Engine.Actors.Spawners;
-using Bau.Libraries.BauGame.Engine.Managers;
-using Bau.Libraries.BauGame.Engine.Scenes;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers.Games;
-using Bau.Libraries.BauGame.Engine.Tools.Extensors;
+﻿using Bau.BauEngine.Actors.Spawners;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers.Games;
+using Bau.BauEngine.Tools.Extensors;
 using EngineSample.Core.GameLogic.Actors.SpaceShips;
 
 namespace EngineSample.Core.GameLogic.Scenes.Space.Layers;
@@ -74,13 +74,13 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 	/// </summary>
 	private void SpawnEnemySpaceShip(SpawnerWaveModel.FactoryParameters parameters)
 	{
-		int random = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 11);
+		int random = Bau.BauEngine.Tools.Randomizer.GetRandom(1, 11);
 		SpaceShipEnemyActor meteor = new(this, "spaceship");
 
 			// Asigna la posición y la dirección
 			meteor.Transform.Bounds.MoveTo(parameters.Position);
 			meteor.Direction = parameters.Position.DirectionTo(Scene.WorldDefinition.WorldBounds.Center.X, Scene.WorldDefinition.WorldBounds.Center.Y);
-			meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
+			meteor.RotationSpeed = Bau.BauEngine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 			// Añade el enemigo al buffer de la pantalla
 			Actors.Add(meteor);
 	}
@@ -90,20 +90,20 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 	/// </summary>
 	private void SpawnMeteor(SpawnerWaveModel.FactoryParameters parameters)
 	{
-		int random = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 11);
+		int random = Bau.BauEngine.Tools.Randomizer.GetRandom(1, 11);
 		MeteorActor meteor = new(this, "meteor", GetMeteorSize(), "meteors", $"meteor_{random:00}", SpaceShipsScene.PhysicsNpcLayer);
 
 			// Asigna la posición y la dirección
 			meteor.Transform.Bounds.MoveTo(parameters.Position);
 			meteor.Direction = parameters.Position.DirectionTo(Scene.WorldDefinition.WorldBounds.Center.X, Scene.WorldDefinition.WorldBounds.Center.Y);
-			meteor.RotationSpeed = Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
+			meteor.RotationSpeed = Bau.BauEngine.Tools.Randomizer.GetRandom(0.3f, 0.7f);
 			// Añade el meteoro al buffer de la pantalla
 			Actors.Add(meteor);
 
 		// Obtiene el tamaño del meteoro
 		MeteorActor.MeteorSize GetMeteorSize()
 		{
-			return Bau.Libraries.BauGame.Engine.Tools.Randomizer.GetRandom(1, 10) switch
+			return Bau.BauEngine.Tools.Randomizer.GetRandom(1, 10) switch
 						{
 							> 7 => MeteorActor.MeteorSize.Big,
 							> 3 => MeteorActor.MeteorSize.Medium,
@@ -130,7 +130,7 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawGameLayer(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawGameLayer(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 		// ... no hace nada, los actores ya se han modificado y esta capa no necesita nada más
 	}

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Modifiers;
+namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 
 /// <summary>
 ///     Clase abstracta para los modificadores de partículas

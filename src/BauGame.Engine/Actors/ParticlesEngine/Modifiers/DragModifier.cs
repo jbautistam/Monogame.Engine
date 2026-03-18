@@ -1,4 +1,4 @@
-﻿namespace Bau.Libraries.BauGame.Engine.Actors.ParticlesEngine.Modifiers;
+﻿namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 
 /// <summary>
 ///     Modfica la velocidad de la partícula dependiendo de la fricción

@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Entities.Common;
-using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
-using Bau.Libraries.BauGame.Engine.Managers.Resources;
-using Bau.Libraries.BauGame.Engine.Managers.Resources.Textures.Configuration;
+using Bau.BauEngine.Entities.Common;
+using Bau.BauEngine.Entities.Sprites;
+using Bau.BauEngine.Managers.Resources;
+using Bau.BauEngine.Managers.Resources.Textures.Configuration;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Rendering.Renderers;
+namespace Bau.BauEngine.Scenes.Rendering.Renderers;
 
 /// <summary>
 ///     Clase para dibujo de un <see cref="SpriteDefinition"/>

@@ -1,4 +1,4 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common.Sprites;
+﻿using Bau.BauEngine.Entities.Sprites;
 
 namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Actors;
 

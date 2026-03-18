@@ -1,7 +1,7 @@
-﻿using Bau.Libraries.BauGame.Engine.Entities.Common;
+﻿using Bau.BauEngine.Entities.Common;
 using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Actors.Particles;
+namespace Bau.BauEngine.Actors.Particles;
 
 /// <summary>
 ///		Propiedades para el lanzamiento de una partícula

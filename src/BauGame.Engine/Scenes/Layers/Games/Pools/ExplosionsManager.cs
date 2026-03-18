@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Actors.Projectiles;
+using Bau.BauEngine.Actors.Projectiles;
 
-namespace Bau.Libraries.BauGame.Engine.Scenes.Layers.Games.Pools;
+namespace Bau.BauEngine.Scenes.Layers.Games.Pools;
 
 /// <summary>
 ///     Managers para explosiones

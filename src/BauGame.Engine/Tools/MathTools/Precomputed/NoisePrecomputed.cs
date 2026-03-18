@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bau.Libraries.BauGame.Engine.Tools.MathTools.Precomputed;
+namespace Bau.BauEngine.Tools.MathTools.Precomputed;
 
 /// <summary>
 ///     Tabla de ruido (valores aleatorios) precalculada

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Bau.Libraries.BauGame.Engine.Actors;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Physics;
-using Bau.Libraries.BauGame.Engine.Scenes.Cameras;
-using Bau.Libraries.BauGame.Engine.Scenes.Layers;
-using Bau.Libraries.BauGame.Engine.Actors.Components.Health;
-using Bau.Libraries.BauGame.Engine.Managers;
+using Bau.BauEngine.Actors;
+using Bau.BauEngine.Actors.Components.Physics;
+using Bau.BauEngine.Scenes.Cameras;
+using Bau.BauEngine.Scenes.Layers;
+using Bau.BauEngine.Actors.Components.Health;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Actors.Components.Renderers;
 
 namespace EngineSample.Core.GameLogic.Actors;
 
@@ -30,7 +31,7 @@ public class EnemyActor : AbstractActorDrawable
 									Health = 100,
 									Lives = 1,
 									InvulnerabilityTime = 3,
-									InvulnerabilityEffect = new Bau.Libraries.BauGame.Engine.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
+									InvulnerabilityEffect = new Bau.BauEngine.Actors.Components.Renderers.Effects.BlinkRendererEffect(Renderer, null)
 																	{
 																		Colors = [ Color.Green, Color.Red, Color.Navy ],
 																		TimeBetweenColor = 0.5f
@@ -61,7 +62,8 @@ public class EnemyActor : AbstractActorDrawable
 			// Desactiva la colisión
 			_collision.ToggleEnabled(false);
 			// Cambia la animación
-			Renderer.StartAnimation("monsterA-die", "monsterA-die-animation", false);
+			if (Renderer is RendererAnimatorComponent animator)
+				animator.StartAnimation("monsterA-die", "monsterA-die-animation", false);
 			// Indica que ya se ha tratado el "justdead"
 			_health.JustDead = false;
 			// Destruye el actor
@@ -86,10 +88,13 @@ public class EnemyActor : AbstractActorDrawable
 		// Mueve el actor
 		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
 		// Asigna la animación
-		if (_speed.X == 0 && _speed.Y == 0)
-			Renderer.StartAnimation("monsterA-idle", "monsterA-idle-animation", false);
-		else
-			Renderer.StartAnimation("monsterA-run", "monsterA-run-animation", true);
+		if (Renderer is RendererAnimatorComponent animator)
+		{
+			if (_speed.X == 0 && _speed.Y == 0)
+				animator.StartAnimation("monsterA-idle", "monsterA-idle-animation", false);
+			else
+				animator.StartAnimation("monsterA-run", "monsterA-run-animation", true);
+		}
 		// Cambia la orientación del sprite
 		if (_speed.X > 0)
 			Renderer.SpriteEffects = SpriteEffects.FlipHorizontally;
@@ -100,7 +105,7 @@ public class EnemyActor : AbstractActorDrawable
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Bau.Libraries.BauGame.Engine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Bau.BauEngine.Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
 	}
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.Libraries.BauGame.Engine.Tools.MathTools.Easing;
-using Bau.Libraries.BauGame.Engine.Actors;
+using Bau.BauEngine.Tools.MathTools.Easing;
+using Bau.BauEngine.Actors;
 
-namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands;
+namespace EngineSample.Core.GameLogic.Scenes.GraphicNovel.Sequences.Commands.Movements;
 
 /// <summary>
 ///		Comando para describir una órbita
