@@ -1,7 +1,7 @@
-﻿using Bau.BauEngine.Actors.Spawners;
+﻿using Bau.BauEngine.Actors.ParticlesEngine.Emitters.Shapes;
+using Bau.BauEngine.Actors.Spawners;
 using Bau.BauEngine.Managers;
 using Bau.BauEngine.Scenes;
-using Bau.BauEngine.Scenes.Cameras;
 using Bau.BauEngine.Scenes.Layers.Games;
 using Bau.BauEngine.Tools.Extensors;
 using EngineSample.Core.GameLogic.Actors.SpaceShips;
@@ -45,9 +45,11 @@ public class SpaceShipGameLayer(AbstractScene scene, string name, int sortOrder)
 
 			// Crea las diferentes olas
 			builder
-					.WithCircleSpawner(0, 0, MathF.Max(Scene.WorldDefinition.WorldBounds.Width, Scene.WorldDefinition.WorldBounds.Height), true, 1)
+					.WithCircleSpawner(0, 0, MathF.Max(Scene.WorldDefinition.WorldBounds.Width, Scene.WorldDefinition.WorldBounds.Height),
+									   AbstractShapeEmitter.EmissionLocationMode.Border, AbstractShapeEmitter.EmissionDirectionMode.Outward, 1)
 						.WithWave("enemy", CreateEnemy)
-					.WithCircleSpawner(0, 0, MathF.Max(Scene.WorldDefinition.WorldBounds.Width, Scene.WorldDefinition.WorldBounds.Height), true, 1)
+					.WithCircleSpawner(0, 0, MathF.Max(Scene.WorldDefinition.WorldBounds.Width, Scene.WorldDefinition.WorldBounds.Height), 
+									   AbstractShapeEmitter.EmissionLocationMode.Border, AbstractShapeEmitter.EmissionDirectionMode.Outward, 1)
 						.WithWave("meteors", CreateEnemy);
 			// Añade el spawner a la capa
 			Actors.Add(builder.Build());

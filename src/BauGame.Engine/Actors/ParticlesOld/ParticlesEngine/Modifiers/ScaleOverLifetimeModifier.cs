@@ -1,5 +1,4 @@
 ﻿using Bau.BauEngine.Tools.MathTools.Easing;
-using Bau.BauEngine.Actors.ParticlesEngine.Particles;
 
 namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 

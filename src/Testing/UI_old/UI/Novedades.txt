@@ -1,3 +1,0 @@
-﻿# Motor de partículas
-
-Directorio ParticlesEngine

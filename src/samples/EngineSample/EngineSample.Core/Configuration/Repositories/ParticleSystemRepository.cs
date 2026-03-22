@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
+using Bau.BauEngine.Actors.ParticlesEngine.Emitters.Shapes;
+using Bau.BauEngine.Managers.Resources.ParticlesDefinition;
 using Bau.BauEngine.Tools.MathTools.Intervals;
-using EngineSample.Core.GameLogic.Actors.Entities.ParticlesDefinition;
-using Bau.BauEngine.Actors.ParticlesEngine.Shapes;
 
 namespace EngineSample.Core.Configuration.Repositories;
 
@@ -19,8 +19,6 @@ internal class ParticleSystemRepository
 	private const string TagType = "Type";
 	private const string TagEmitter = "Emitter";
 	private const string TagMaximumParticles = "Maximum";
-	private const string TagTexture = "Texture";
-	private const string TagRegion = "Region";
 	private const string TagPosition = "Position";
     private const string TagStart = "Start";
     private const string TagDuration = "Duration";
@@ -40,12 +38,16 @@ internal class ParticleSystemRepository
 	private const string TagSpeedMax = "SpeedMax";
     private const string TagColorMin = "ColorMin";
 	private const string TagColorMax = "ColorMax";
+    private const string TagOpacityMin = "OpacityMin";
+	private const string TagOpacityMax = "OpacityMax";
 	private const string TagLocation = "Location";
 	private const string TagDirectionMode = "DirectionMode";
 	private const string TagFixedDirection = "FixedDirection";
 	private const string TagParameter = "Parameter";
 	private const string TagValue = "Value";
 	private const string TagModifier = "Modifier";
+	private const string TagTexture = "Texture";
+	private const string TagRegion = "Region";
 	// Tipo de parámetro
 	private enum ParameterType
 	{
@@ -54,24 +56,15 @@ internal class ParticleSystemRepository
 		Color,
 		Vector
 	}
-
-    /// <summary>
-    ///     Parámetros del emisor
-    /// </summary>
-    public Dictionary<string, object> Parameters { get; } = new(StringComparer.CurrentCultureIgnoreCase);
-
-    /// <summary>
-    ///     Modificadores
-    /// </summary>
-    public List<ParticleSystemModifierDefinitionModel> Modifiers { get; } = [];
-
+	// Variables privadas
+	private RepositoryHelper _helper = new();
 
 	/// <summary>
 	///		Carga los sistemas de partículas de un archivo XML
 	/// </summary>
-	internal ParticleSystemDefinitionCollection Load(string xml)
+	internal List<ParticleSystemDefinitionModel> Load(string xml)
 	{
-		ParticleSystemDefinitionCollection systems = new();
+		List<ParticleSystemDefinitionModel> systems = [];
 		MLFile? fileML = new Bau.Libraries.LibMarkupLanguage.Services.XML.XMLParser().ParseText(xml);
 
 			// Carga los datos
@@ -80,9 +73,8 @@ internal class ParticleSystemRepository
 					if (rootML.Name == TagRoot)
 						foreach (MLNode nodeML in rootML.Nodes)
 							if (nodeML.Name == TagSystem)
-								systems.Add(nodeML.Attributes[TagName].Value.TrimIgnoreNull(),
-											LoadSystem(nodeML));
-			// Devuelve los sistemas
+								systems.Add(LoadSystem(nodeML));
+			// Devuelve los sistemas cargados
 			return systems;
 	}
 
@@ -91,7 +83,7 @@ internal class ParticleSystemRepository
 	/// </summary>
 	private ParticleSystemDefinitionModel LoadSystem(MLNode rootML)
 	{
-		ParticleSystemDefinitionModel system = new();
+		ParticleSystemDefinitionModel system = new(rootML.Attributes[TagName].Value.TrimIgnoreNull());
 
 			// Carga los emisores
 			foreach (MLNode nodeML in rootML.Nodes)
@@ -108,10 +100,8 @@ internal class ParticleSystemRepository
 	{
 		ParticleSystemEmitterDefinitionModel emitter = new(rootML.Attributes[TagType].Value.GetEnum(ParticleSystemEmitterDefinitionModel.EmitterShapeType.Point));
 
-			// Carga los dato
-			emitter.Texture = rootML.Attributes[TagTexture].Value.TrimIgnoreNull();
-			emitter.Region = rootML.Attributes[TagRegion].Value.TrimIgnoreNull();
-			emitter.Position = GetVector(rootML.Attributes[TagPosition].Value.TrimIgnoreNull());
+			// Carga los datos
+			emitter.Position = _helper.GetVector(rootML.Attributes[TagPosition].Value.TrimIgnoreNull());
 			emitter.MaximumParticles = rootML.Attributes[TagMaximumParticles].Value.GetInt(1_000);
 			emitter.Start = (float) rootML.Attributes[TagStart].Value.GetDouble(0);
 			emitter.Duration = (float) rootML.Attributes[TagDuration].Value.GetDouble(1);
@@ -123,9 +113,14 @@ internal class ParticleSystemRepository
 			emitter.RotationSpeed = GetFloatInterval(rootML, TagRotationSpeedMin, TagRotationSpeedMax, 0);
 			emitter.Speed = GetFloatInterval(rootML, TagSpeedMin, TagSpeedMax, 1);
 			emitter.Color = GetColorInterval(rootML, TagColorMin, TagColorMax, Color.White);
-			emitter.Location = rootML.Attributes[TagLocation].Value.GetEnum(AbstractShapeEmitter.EmissionLocation.Surface);
+			emitter.Opacity = GetFloatInterval(rootML, TagOpacityMin, TagOpacityMax, 1);
+			emitter.Location = rootML.Attributes[TagLocation].Value.GetEnum(AbstractShapeEmitter.EmissionLocationMode.Surface);
 			emitter.DirectionMode = rootML.Attributes[TagDirectionMode].Value.GetEnum(AbstractShapeEmitter.EmissionDirectionMode.Outward);
-			emitter.FixedDirection = GetVector(rootML.Attributes[TagFixedDirection].Value);
+			emitter.FixedDirection = _helper.GetVector(rootML.Attributes[TagFixedDirection].Value);
+			// Crea el sprite
+			if (!string.IsNullOrWhiteSpace(rootML.Attributes[TagTexture].Value))
+				emitter.Sprite = new Bau.BauEngine.Entities.Sprites.SpriteDefinition(rootML.Attributes[TagTexture].Value.TrimIgnoreNull(),
+																					 rootML.Attributes[TagRegion].Value.TrimIgnoreNull());
 			// Carga los parámetros
 			LoadParameters(rootML, emitter.Parameters);
 			// Carga los modificadores
@@ -183,12 +178,12 @@ internal class ParticleSystemRepository
 		foreach (MLNode nodeML in rootML.Nodes)
 			if (nodeML.Name == TagParameter)
 			{
-				string name = rootML.Attributes[TagName].Value.TrimIgnoreNull();
+				string name = nodeML.Attributes[TagName].Value.TrimIgnoreNull();
 
 					if (!string.IsNullOrWhiteSpace(name))
 					{
-						object? value = Convert(rootML.Attributes[TagType].Value.GetEnum(ParameterType.String),
-												rootML.Attributes[TagValue].Value.TrimIgnoreNull());
+						object? value = Convert(nodeML.Attributes[TagType].Value.GetEnum(ParameterType.String),
+												nodeML.Attributes[TagValue].Value.TrimIgnoreNull());
 
 							if (value is not null)
 							{
@@ -206,20 +201,20 @@ internal class ParticleSystemRepository
 			return type switch
 					{
 						ParameterType.Decimal => (float?) value.GetDouble(),
-						ParameterType.Color => GetColor(value),
-						ParameterType.Vector => GetVector(value),
+						ParameterType.Color => _helper.GetColor(value, Color.White),
+						ParameterType.Vector => _helper.GetVector(value),
 						_ => value
 					};
 		}
 	}
 
-	/// <summary>
-	///		Obtiene un vector de una cadena
-	/// </summary>
-	private Vector2 GetVector(string value) => Vector2.Zero;
+    /// <summary>
+    ///     Parámetros del emisor
+    /// </summary>
+    public Dictionary<string, object> Parameters { get; } = new(StringComparer.CurrentCultureIgnoreCase);
 
-	/// <summary>
-	///		Obtiene un color de una cadena
-	/// </summary>
-	private Color GetColor(string value) => Color.White;
+    /// <summary>
+    ///     Modificadores
+    /// </summary>
+    public List<ParticleSystemModifierDefinitionModel> Modifiers { get; } = [];
 }

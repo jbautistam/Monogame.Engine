@@ -12,6 +12,7 @@ public class ResourcesManager
 		TextureConfigurationManager = new TextureConfigurationManager(this);
 		GlobalContentManager = new ContentDisposableManager(this);
 		AnimationManager = new Animations.AnimationManager(this);
+        ParticlesResourcesManagers = new ParticlesResourceManager(this);
 	}
 
 	/// <summary>
@@ -38,4 +39,9 @@ public class ResourcesManager
 	///		Manager para las definiciones de animaciones
 	/// </summary>
 	public Animations.AnimationManager AnimationManager { get; }
+
+    /// <summary>
+    ///     Manager con las definiciones de los sistemas de partículas
+    /// </summary>
+    public ParticlesResourceManager ParticlesResourcesManagers { get; }
 }

@@ -1,5 +1,6 @@
-﻿using Bau.BauEngine.Managers;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Bau.BauEngine.Actors.ParticlesEngine.Emitters.Shapes;
+using Bau.BauEngine.Managers;
 
 namespace Bau.BauEngine.Actors.Spawners;
 
@@ -18,9 +19,9 @@ public class SpawnerActor(Scenes.Layers.AbstractLayer layer) : AbstractActor(lay
     /// <summary>
     ///     Añade un generador
     /// </summary>
-    public SpawnerWaveModel AddSpawner(Vector2 position, Particles.Emisors.AbstractEmissorShape emissor, float triggerTime)
+    public SpawnerWaveModel AddSpawner(Vector2 position, AbstractShapeEmitter emitter, float triggerTime)
     {
-        SpawnerWaveModel spawnerWave = new(position, emissor, triggerTime);
+        SpawnerWaveModel spawnerWave = new(position, emitter, triggerTime);
 
             // Añade el generador
             SpawnerWaves.Add(spawnerWave);

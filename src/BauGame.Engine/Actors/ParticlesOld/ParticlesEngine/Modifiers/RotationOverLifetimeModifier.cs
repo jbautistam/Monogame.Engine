@@ -1,6 +1,4 @@
-﻿using Bau.BauEngine.Actors.ParticlesEngine.Particles;
-
-namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
+﻿namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 
 /// <summary>
 ///     Modificador de la rotación de la partícula

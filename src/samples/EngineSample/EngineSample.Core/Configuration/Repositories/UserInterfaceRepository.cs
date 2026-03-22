@@ -3,7 +3,6 @@ using Bau.Libraries.LibMarkupLanguage;
 using Bau.BauEngine.Entities.UserInterface;
 using Bau.BauEngine.Scenes.Layers;
 using Bau.BauEngine.Entities.Sprites;
-using Bau.BauEngine.Entities.UserInterface.TypeWriter;
 using Bau.BauEngine.Entities.UserInterface.Grids;
 using Bau.BauEngine.Entities.UserInterface.Galleries;
 
@@ -23,10 +22,6 @@ internal class UserInterfaceRepository
 	private const string TagProgressBar = "ProgressBar";
 	private const string TagButton = "Button";
 	private const string TagSlideBar = "SlideBar";
-	private const string TagVisualDialog = "VisualDialog";
-	private const string TagHeader = "Header";
-	private const string TagtAvatar = "Avatar";
-	private const string TagTypeWriter = "TypeWriter";
 	private const string TagPosition = "Position";
 	private const string TagStyle = "Style";
 	private const string TagTag = "Tag";
@@ -44,13 +39,9 @@ internal class UserInterfaceRepository
 	private const string TagMaximum = "Maximum";
 	private const string TagHorizontal = "Horizontal";
 	private const string TagVertical = "Vertical";
-	private const string TagSpeed = "Speed";
 	private const string TagLineSpacing = "LineSpacing";
 	private const string TagTextScale = "TextScale";
-	private const string TagMode = "Mode";
 	private const string TagVisible = "Visible";
-	private const string TagCursor = "Cursor";
-	private const string TagFlash = "Flash";
 	private const string TagGrid = "Grid";
 	private const string TagItem = "Item";
 	private const string TagRows = "Rows";
@@ -115,9 +106,6 @@ internal class UserInterfaceRepository
 						break;
 					case TagButton:
 							items.Add(LoadButton(layer, nodeML));
-						break;
-					case TagVisualDialog:
-							items.Add(LoadVisualDialog(layer, nodeML));
 						break;
 					case TagGrid:
 							items.Add(LoadGrid(layer, nodeML));
@@ -270,104 +258,6 @@ internal class UserInterfaceRepository
 				}
 			// Devuelve el control
 			return slideBar;
-	}
-
-	/// <summary>
-	///		Carga los datos de un diálogo para una visual novel
-	/// </summary>
-	private UiVisualNovelDialog LoadVisualDialog(AbstractUserInterfaceLayer layer, MLNode rootML)
-	{
-		UiVisualNovelDialog dialog = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
-
-			// Asigna los valores
-			AssignGeneralAttributes(dialog, rootML);
-			// Carga el contenido
-			foreach (MLNode nodeML in rootML.Nodes)
-				switch (nodeML.Name)
-				{
-					case TagTypeWriter:
-							dialog.TypeWriter = LoadVisualDialogTypeWriter(layer, nodeML);
-						break;
-					case TagHeader:
-							dialog.Header = LoadVisualDialogHeader(layer, nodeML);
-						break;
-					case TagtAvatar:
-							if (dialog.LeftAvatar is null)
-								dialog.LeftAvatar = LoadVisualDialogAvatar(layer, nodeML);
-							else
-								dialog.RightAvatar = LoadVisualDialogAvatar(layer, nodeML);
-						break;
-					case TagCursor:
-							dialog.CursorFlashDuration = (float) nodeML.Attributes[TagFlash].Value.GetDouble(2);
-							foreach (MLNode childML in nodeML.Nodes)
-								if (childML.Name == TagImage)
-									dialog.Cursor = LoadImage(layer, childML);
-						break;
-				}
-			// Devuelve el cuadro de diálogo
-			return dialog;
-	}
-
-	/// <summary>
-	///		Carga los datos de un cuadro de texto de diálogo para una visual novel
-	/// </summary>
-	private UiTypeWriterLabel LoadVisualDialogTypeWriter(AbstractUserInterfaceLayer layer, MLNode rootML)
-	{
-		UiTypeWriterLabel typeWriter = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
-
-			// Asigna los valores
-			AssignGeneralAttributes(typeWriter, rootML);
-			typeWriter.Font = GetFont(rootML);
-			typeWriter.Speed = (float) rootML.Attributes[TagSpeed].Value.GetDouble(0.01);
-			typeWriter.Mode = rootML.Attributes[TagMode].Value.GetEnum(UiTypeWriterLabel.WriteMode.Characters);
-			typeWriter.Text = rootML.Value.TrimIgnoreNull();
-			// Devuelve el cuadro de texto
-			return typeWriter;
-	}
-
-	/// <summary>
-	///		Carga los datos de un cuadro de texto de diálogo para una visual novel
-	/// </summary>
-	private UiVisualNovelHeader LoadVisualDialogHeader(AbstractUserInterfaceLayer layer, MLNode rootML)
-	{
-		UiVisualNovelHeader header = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
-
-			// Asigna los valores
-			AssignGeneralAttributes(header, rootML);
-			// Carga el contenido
-			foreach (MLNode nodeML in rootML.Nodes)
-				switch (nodeML.Name)
-				{
-					case TagLabel:
-							header.Label = LoadLabel(layer, nodeML);
-						break;
-					case TagImage:
-							header.Image = LoadImage(layer, nodeML);
-						break;
-				}
-			// Devuelve el cuadro de texto
-			return header;
-	}
-
-	/// <summary>
-	///		Carga los datos de un avatar para una visual novel
-	/// </summary>
-	private UiVisualNovelAvatar LoadVisualDialogAvatar(AbstractUserInterfaceLayer layer, MLNode rootML)
-	{
-		UiVisualNovelAvatar avatar = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
-
-			// Asigna los valores
-			AssignGeneralAttributes(avatar, rootML);
-			// Carga el contenido
-			foreach (MLNode nodeML in rootML.Nodes)
-				switch (nodeML.Name)
-				{
-					case TagImage:
-							avatar.Avatar = LoadImage(layer, nodeML);
-						break;
-				}
-			// Devuelve el avatar
-			return avatar;
 	}
 
 	/// <summary>

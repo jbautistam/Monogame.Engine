@@ -25,11 +25,9 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		Play,
 		TilesSample,
 		SpaceShips,
-		GraphicNovel,
 		Animations,
 		Music,
 		Effect,
-		UserInterface,
 		UserInterfaceGrid,
 		UserInterfaceGallery,
 		DebugMode,
@@ -57,7 +55,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	private UserInterfaceLayer CreateHudLayer()
 	{
 		UserInterfaceLayer uiLayer = new(this, MenuLayer, 1);
-		Configuration.ConfigurationLoader loader = new();
+		Configuration.ResourcesLoader loader = new(Bau.BauEngine.GameEngine.Instance);
 
 			// Carga los estilos
 			uiLayer.Styles = loader.LoadStyles(uiLayer, "Settings/VisualNovel/Styles.xml");
@@ -91,9 +89,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 			builder.WithOption((int) MenuOption.Play, "Play", DefaultFont, MenuOptionsStyle, 0.2f, 0, 0.6f, 1)
 					.WithOption((int) MenuOption.SpaceShips, "SpaceShips", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.TilesSample, "Tiles sample", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.GraphicNovel, "Graphic novel", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Animations, "Animations", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.UserInterface, "User interface", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.UserInterfaceGrid, "UI Grid", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.UserInterfaceGallery, "Gallery", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Music, "Music", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
@@ -131,14 +127,8 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 					case MenuOption.SpaceShips:
 							nextScene = GetNewScene(Space.SpaceShipsScene.SceneName);
 						break;
-					case MenuOption.GraphicNovel:
-							nextScene = GetNewScene(GraphicNovel.GraphicNovelScene.SceneName);
-						break;
 					case MenuOption.Animations:
 							nextScene = GetNewScene(Animations.AnimationsScene.SceneName);
-						break;
-					case MenuOption.UserInterface:
-							nextScene = GetNewScene(UserInterfaceTest.UserInterfaceScene.SceneName);
 						break;
 					case MenuOption.UserInterfaceGrid:
 							nextScene = GetNewScene(UserInterfaceGridTest.UserInterfaceGridScene.SceneName);

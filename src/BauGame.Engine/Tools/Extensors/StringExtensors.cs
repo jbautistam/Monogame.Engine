@@ -19,4 +19,16 @@ public static class StringExtensors
 		else
 			return first!.Equals(second, comparison);
 	}
+
+	/// <summary>
+	///		Obtiene un valor enumerado a partir de una cadena
+	/// </summary>
+	// TODO: esto debería ir a un extensor de cadenas
+	public static TypeEnum GetEnum<TypeEnum>(this string value, TypeEnum defaultValue) where TypeEnum : struct
+	{
+		if (Enum.TryParse<TypeEnum>(value, ignoreCase: true, out var result))
+			return result;
+		else
+			return defaultValue;
+	}
 }

@@ -121,7 +121,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
     /// <summary>
     ///     Lanza un evento de ejecución
     /// </summary>
-	internal void RaiseCommandExecute(CommandEventArgs commandEventArgs)
+	public void RaiseCommandExecute(CommandEventArgs commandEventArgs)
 	{
         CommandExecute?.Invoke(this, commandEventArgs);
 	}
@@ -129,7 +129,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
     /// <summary>
     ///     Lanza un evento de pulsación sobre un componente
     /// </summary>
-	internal void RaiseCommandClick(ClickEventArgs clickEventArgs)
+	public void RaiseCommandClick(ClickEventArgs clickEventArgs)
 	{
 		Click?.Invoke(this, clickEventArgs);
 	}
@@ -137,7 +137,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
     /// <summary>
     ///     Lanza un evento de modificación de un valor
     /// </summary>
-	internal void RaiseValueChanged(ValueChangedEventArgs valueChangedEventArgs)
+	public void RaiseValueChanged(ValueChangedEventArgs valueChangedEventArgs)
 	{
 		ValueChanged?.Invoke(this, valueChangedEventArgs);
 	}

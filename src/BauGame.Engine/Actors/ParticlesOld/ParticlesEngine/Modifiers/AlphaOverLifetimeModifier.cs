@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.BauEngine.Actors.ParticlesEngine.Particles;
 using Bau.BauEngine.Tools.MathTools.Easing;
 
 namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;

@@ -1,4 +1,5 @@
-﻿using Bau.BauEngine.Managers;
+﻿using Bau.BauEngine.Actors.ParticlesEngine.Emitters.Shapes;
+using Bau.BauEngine.Managers;
 using Microsoft.Xna.Framework;
 
 namespace Bau.BauEngine.Actors.Spawners;
@@ -6,7 +7,7 @@ namespace Bau.BauEngine.Actors.Spawners;
 /// <summary>
 ///     Ola de enemigos a lanzar
 /// </summary>
-public class SpawnerWaveModel(Vector2 position, Particles.Emisors.AbstractEmissorShape emissor, float triggerTime)
+public class SpawnerWaveModel(Vector2 position, AbstractShapeEmitter emitter, float triggerTime)
 {
     // Registros públicos
     public record FactoryParameters(string Name, Vector2 Position, Vector2 Direction);
@@ -39,7 +40,12 @@ public class SpawnerWaveModel(Vector2 position, Particles.Emisors.AbstractEmisso
     {
         // Lanza los elementos de la ola
         foreach ((string name, Action<FactoryParameters> action) in ActorFactories)
-            action(new FactoryParameters(name, emissor.GetEmissionPosition(Position), Tools.Randomizer.GetRandomDirection()));
+        {
+			AbstractShapeEmitter.EmissionData emission = Emitter.GetEmissionData(null);
+
+                // Crea la acción
+                action(new FactoryParameters(name, emission.Position, emission.Direction));
+        }   
         // Indica que ya se ha lanzado
         _elapsed = 0;
     }
@@ -52,7 +58,7 @@ public class SpawnerWaveModel(Vector2 position, Particles.Emisors.AbstractEmisso
     /// <summary>
     ///     Emisor para lanzamiento
     /// </summary>
-    public Particles.Emisors.AbstractEmissorShape emissor { get; } = emissor;
+    public AbstractShapeEmitter Emitter { get; } = emitter;
 
     /// <summary>
     ///     Tiempo de lanzamiento

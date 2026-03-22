@@ -18,7 +18,7 @@ public class UserInterfaceGalleryLayer(AbstractScene scene, string name, int sor
 	/// </summary>
 	protected override void StartLayer()
 	{
-		Configuration.ConfigurationLoader loader = new();
+		Configuration.ResourcesLoader loader = new(Bau.BauEngine.GameEngine.Instance);
 
 			// Carga los etilos
 			Styles = loader.LoadStyles(this, "Settings/VisualNovel/Styles.xml");
