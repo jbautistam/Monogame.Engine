@@ -50,16 +50,10 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
             Styles.Update(gameContext);
             // Actualiza el interface de usuario (antes de actualizar los elementos)
             UpdateUserInterface(gameContext);
-            // Actualizar layout de elementos raíz
-            foreach (UiElement element in Items)
-            {
-                // Si han cambiado los límites de la pantalla, invalida el elemento
-                if (_invalidateTransforms)
-                    element.Invalidate();
-                // Actualiza el elemento
-                if (element.Visible)
-                    element.Update(gameContext);
-            }
+            // Actualiza los elementos
+            if (_invalidateTransforms)
+                Items.Invalidate();
+            Items.Update(gameContext);
             // Indica que los límites de pantalla no han cambiado
             _invalidateTransforms = false;
         }
@@ -76,7 +70,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
 	protected override void DrawSelf(Rendering.RenderingManager renderingManager, GameContext gameContext)
 	{
         if (Enabled)
-            foreach (UiElement item in Items)
+            foreach (UiElement item in Items.Enumerate())
                 if (item.Visible)
                     item.Draw(renderingManager, gameContext);
 	}
@@ -96,7 +90,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
     public TypeData? GetItem<TypeData>(string id) where TypeData : UiElement
     {
         // Busca el elemento en la lista o en sus componetes hijo
-        foreach (UiElement item in Items)
+        foreach (UiElement item in Items.Enumerate())
             if (item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase) && item is TypeData converted)
                 return converted;
             else if (item is Entities.UserInterface.Interfaces.IComponentPanel panel)
@@ -171,7 +165,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
     /// <summary>
     ///     Elementos de la interface de usuario
     /// </summary>
-    public List<UiElement> Items { get; } = [];
+    public UiElementList Items { get; } = new();
 
     /// <summary>
     ///     Estilos

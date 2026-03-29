@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Bau.BauEngine.Scenes.Cameras;
 using Bau.BauEngine.Scenes.Layers;
 using Bau.BauEngine.Entities.UserInterface.Styles;
 
@@ -8,10 +7,25 @@ namespace Bau.BauEngine.Entities.UserInterface;
 /// <summary>
 ///     Clase base para un elemento de interface de usuario
 /// </summary>
-public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition position)
+public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition position) : Common.Collections.ISecureListItem
 {
     // Variables privadas
     private bool _transformDirty = true;
+
+    /// <summary>
+    ///     Inicializa el elemento
+    /// </summary>
+    public void Start()
+    {
+        StartSelf();
+    }
+
+    /// <summary>
+    ///     Inicializa el elemento
+    /// </summary>
+    protected virtual void StartSelf()
+    {
+    }
 
     /// <summary>
     ///     Invalida los datos
@@ -85,6 +99,19 @@ public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition pos
     ///     Dibuja el elemento
     /// </summary>
     public abstract void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
+
+    /// <summary>
+    ///     Detiene el elemento
+    /// </summary>
+    public void End(Managers.GameContext gameContext)
+    {
+        EndSelf(gameContext);
+    }
+
+    /// <summary>
+    ///     Detiene el elemento
+    /// </summary>
+    protected virtual void EndSelf(Managers.GameContext gameContext) {}
 
 	/// <summary>
 	///     Manager del elemento
