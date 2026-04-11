@@ -13,6 +13,18 @@ public class TextureShapeEmitter(string texture, string? region) : AbstractShape
     private bool _initialized;
 
     /// <summary>
+    ///     Clona el objeto
+    /// </summary>
+	public override AbstractShapeEmitter Clone()
+	{
+		return new TextureShapeEmitter(Sprite.Asset, Sprite.Region)
+                        {
+                            EmissionLocation = EmissionLocation,
+                            EmissionDirection = EmissionDirection
+                        };
+	}
+
+    /// <summary>
     ///     Obtiene los datos de emisión
     /// </summary>
     public override EmissionData GetEmissionData(EmissionLocationMode location, EmissionDirectionMode directionMode, Vector2? fixedDirection)
@@ -77,4 +89,3 @@ public class TextureShapeEmitter(string texture, string? region) : AbstractShape
     /// </summary>
     public Entities.Sprites.SpriteDefinition Sprite { get; } = new(texture, region);
 }
-

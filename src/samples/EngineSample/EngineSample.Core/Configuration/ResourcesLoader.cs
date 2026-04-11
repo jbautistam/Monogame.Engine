@@ -8,8 +8,17 @@ namespace EngineSample.Core.Configuration;
 /// <summary>
 ///		Clases de carga de configuración
 /// </summary>
-public class ResourcesLoader(EngineManager manager)
+public class ResourcesLoader
 {
+	// Variables privadas
+	private Bau.BauEngine.Repositories.FilesStandardLoader _filesLoader;
+
+	public ResourcesLoader(EngineManager manager)
+	{
+		Manager = manager;
+		_filesLoader = new Bau.BauEngine.Repositories.FilesStandardLoader(manager);
+	}
+
 	/// <summary>
 	///		Carga la configuración
 	/// </summary>
@@ -24,11 +33,11 @@ public class ResourcesLoader(EngineManager manager)
 	/// </summary>
 	private void LoadTexturesSettings()
 	{
-		LoadTexturesSettings("Settings/textures-common.xml");
-		LoadTexturesSettings("Settings/textures-graphics-novel.xml");
-		LoadTexturesSettings("Settings/textures-sample.xml");
-		LoadTexturesSettings("Settings/textures-space.xml");
-		LoadTexturesSettings("Settings/textures-tiles.xml");
+		_filesLoader.LoadTexturesSettings("Settings/textures-common.xml");
+		_filesLoader.LoadTexturesSettings("Settings/textures-graphics-novel.xml");
+		_filesLoader.LoadTexturesSettings("Settings/textures-sample.xml");
+		_filesLoader.LoadTexturesSettings("Settings/textures-space.xml");
+		_filesLoader.LoadTexturesSettings("Settings/textures-tiles.xml");
 	}
 
 	/// <summary>
@@ -36,10 +45,7 @@ public class ResourcesLoader(EngineManager manager)
 	/// </summary>
 	private void LoadParticlesSystem()
 	{
-		string? xml = ReadFile("Settings/Particles.xml");
-			
-			if (!string.IsNullOrWhiteSpace(xml))
-				Manager.ResourcesManager.ParticlesResourcesManagers.AddRange(new Repositories.ParticleSystemRepository().Load(xml));
+		_filesLoader.LoadParticlesSystem("Settings/Particles.xml");
 	}
 
 	/// <summary>
@@ -47,45 +53,19 @@ public class ResourcesLoader(EngineManager manager)
 	/// </summary>
 	public UiStylesCollection LoadStyles(AbstractUserInterfaceLayer layer, string fileName)
 	{
-		string? xml = ReadFile(fileName);
-			
-			if (!string.IsNullOrWhiteSpace(xml))
-				return new Repositories.StylesRepository().Load(layer, xml);
-			else
-				return new UiStylesCollection(layer);
+		return _filesLoader.LoadStyles(layer, fileName);
 	}
 
 	/// <summary>
 	///		Carga los datos de una pantalla
 	/// </summary>
-	public List<UiElement> LoadScreen(AbstractUserInterfaceLayer layer, string fileName)
+	public (UiStylesCollection styles, List<UiElement> components) LoadScreen(AbstractUserInterfaceLayer layer, string fileName)
 	{
-		string? xml = ReadFile(fileName);
-			
-			if (!string.IsNullOrWhiteSpace(xml))
-				return new Repositories.UserInterfaceRepository().Load(layer, xml);
-			else
-				return new List<UiElement>();
+		return _filesLoader.LoadScreen(layer, fileName);
 	}
-
-	/// <summary>
-	///		Carga la configuración de texturas y animación de un archivo
-	/// </summary>
-	private void LoadTexturesSettings(string fileName)
-	{
-		string? xml = ReadFile(fileName);
-			
-			if (!string.IsNullOrWhiteSpace(xml))
-				new Repositories.TexturesRepository().Load(xml, Manager.ResourcesManager);
-	}
-
-	/// <summary>
-	///		Carga la configuración de texturas y animación de un archivo
-	/// </summary>
-	private string? ReadFile(string fileName) => Manager.FilesManager.StorageManager.ReadTextFile($"Content/{fileName}");
 
 	/// <summary>
 	///		Manager principal del motor
 	/// </summary>
-	public EngineManager Manager { get; } = manager;
+	public EngineManager Manager { get; }
 }

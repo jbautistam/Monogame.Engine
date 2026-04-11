@@ -35,9 +35,9 @@ internal class HudLayer(AbstractScene scene, string name, int sortOrder) : Abstr
 
 			// Estilos de las etiquetas
 			builder.WithStyle(HeaderStyle, UiStyle.StyleType.Normal)
-									.WithColor(Color.Red);
+									.WithText("Fonts/hud", Color.Red, 1);
 			builder.WithStyle(TextStyle, UiStyle.StyleType.Normal)
-									.WithColor(Color.White);
+									.WithText("Fonts/hud", Color.White, 1);
 			// Genera los estilos
 			Styles = builder.Build();
 	}

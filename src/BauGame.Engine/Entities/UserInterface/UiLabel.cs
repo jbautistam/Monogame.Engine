@@ -123,7 +123,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                     break;
             }
             // Dibuja el texto
-            renderingManager.SpriteTextRenderer.DrawString(font, text, textPosition, style.Color * style.Opacity);
+            renderingManager.SpriteTextRenderer.DrawString(font, text, textPosition, (style.StyleText?.Color ?? Color.White) * (style.StyleText?.Opacity ?? 1));
     }
 
     /// <summary>
@@ -150,7 +150,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                             Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
                                 // Dibuja la línea actual y empieza una nueva
-                                renderingManager.SpriteTextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                                renderingManager.SpriteTextRenderer.DrawString(font, line, linePosition, (style.StyleText?.Color ?? Color.White) * (style.StyleText?.Opacity ?? 1));
                                 // Pasa a la siguiente palabra
                                 line = word;
                                 // Incrementa la posición y
@@ -167,7 +167,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
             {
                 Vector2 linePosition = new(Position.ContentBounds.X, yPosition);
 
-                    renderingManager.SpriteTextRenderer.DrawString(font, line, linePosition, style.Color * style.Opacity);
+                    renderingManager.SpriteTextRenderer.DrawString(font, line, linePosition, (style.StyleText?.Color ?? Color.White) * (style.StyleText?.Opacity ?? 1));
             }
 
         // Comprueba si la coordenada y está fuera de los límites

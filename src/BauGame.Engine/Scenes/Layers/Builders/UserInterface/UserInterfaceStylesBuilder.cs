@@ -22,7 +22,8 @@ public class UserInterfaceStylesBuilder
 	public UserInterfaceStylesBuilder WithStyle(string name, UiStyle.StyleType type)
 	{
 		// Genera el estilo
-		LastStyle = Styles.Add(name, type, null, null);
+		Styles.Add(name, new UiStyle(Styles, type));
+		LastStyle = Styles.GetStyle(name, type);
 		// Devuelve el generador
 		return this;
 	}
@@ -34,12 +35,13 @@ public class UserInterfaceStylesBuilder
 	{
 		// Genera el estilo
 		if (LastStyle is not null)
-			LastStyle.Background = new UiBackground(LastStyle)
-											{
-												Sprite = new Entities.Sprites.SpriteDefinition(texture, region),
-												Color = color ?? Color.White,
-												Opacity = opacity
-											};
+		{
+			LastStyle.StyleBackground = new UiStyleBackground();
+			LastStyle.StyleBackground.Texture = texture;
+			LastStyle.StyleBackground.Region = region;
+			LastStyle.StyleBackground.Color = color ?? Color.White;
+			LastStyle.StyleBackground.Opacity = opacity;
+		}
 		// Devuelve el generador
 		return this;
 	}
@@ -51,11 +53,11 @@ public class UserInterfaceStylesBuilder
 	{
 		// Asigna el fondo
 		if (LastStyle is not null)
-			LastStyle.Background = new UiSolidColorBackground(LastStyle)
-												{
-													Color = color,
-													Opacity = opacity
-												};
+		{
+			LastStyle.StyleBackground = new UiStyleBackground();
+			LastStyle.StyleBackground.Color = color;
+			LastStyle.StyleBackground.Opacity = opacity;
+		}
 		// Devuelve el generador
 		return this;
 	}
@@ -67,12 +69,12 @@ public class UserInterfaceStylesBuilder
 	{
 		// Asigna el borde
 		if (LastStyle is not null)
-			LastStyle.Border = new UiSolidBorder(LastStyle)
-												{
-													Color = color,
-													Thickness = thickness,
-													Opacity = opacity
-												};
+		{
+			LastStyle.StyleBorder = new UiStyleBorder();
+			LastStyle.StyleBorder.Color = color;
+			LastStyle.StyleBorder.Thickness = thickness;
+			LastStyle.StyleBorder.Opacity = opacity;
+		}
 		// Devuelve el generador
 		return this;
 	}
@@ -84,12 +86,13 @@ public class UserInterfaceStylesBuilder
 	{
 		// Asigna el borde
 		if (LastStyle is not null)
-			LastStyle.Border = new UiTextureBorder(LastStyle)
-													{
-														Sprite = new Entities.Sprites.SpriteDefinition(asset, region),
-														Thickness = thickness,
-														Opacity = opacity
-													};
+		{
+			LastStyle.StyleBorder = new UiStyleBorder();
+			LastStyle.StyleBorder.Texture = asset;
+			LastStyle.StyleBorder.Region = region;
+			LastStyle.StyleBorder.Thickness = thickness;
+			LastStyle.StyleBorder.Opacity = opacity;
+		}
 		// Devuelve el generador
 		return this;
 	}
@@ -101,11 +104,11 @@ public class UserInterfaceStylesBuilder
 	{
 		// Asigna el borde
 		if (LastStyle is not null)
-			LastStyle.Border = new UiRoundedBorder(LastStyle)
-												{
-													Color = color,
-													Radius = radius
-												};
+		{
+			LastStyle.StyleBorder = new UiStyleBorder();
+			LastStyle.StyleBorder.Color = color;
+			LastStyle.StyleBorder.CornerRadius = radius;
+		}
 		// Devuelve el generador
 		return this;
 	}
@@ -117,37 +120,30 @@ public class UserInterfaceStylesBuilder
 	{
 		// Asigna el borde
 		if (LastStyle is not null)
-			LastStyle.Border = new UiShadowBorder(LastStyle)
-												{
-													Color = color,
-													ShadowColor = shadowColor,
-													Offset = offset,
-													BlurRadius = blurRadius
-												};
+		{
+			LastStyle.StyleBorder = new UiStyleBorder();
+			LastStyle.StyleBorder.Color = color;
+			LastStyle.StyleBorder.ShadowColor = shadowColor;
+			LastStyle.StyleBorder.ShadowOffset = offset;
+			LastStyle.StyleBorder.ShadowBlurRadius = blurRadius;
+		}
 		// Devuelve el generador
 		return this;
 	}
 
 	/// <summary>
-	///		Asigna un color
+	///		Asigna un texto
 	/// </summary>
-	public UserInterfaceStylesBuilder WithColor(Color color)
+	public UserInterfaceStylesBuilder WithText(string font, Color color, float opacity)
 	{
 		// Genera el estilo
 		if (LastStyle is not null)
-			LastStyle.Color = color;
-		// Devuelve el generador
-		return this;
-	}
-	
-	/// <summary>
-	///		Asigna la opacidad
-	/// </summary>
-	public UserInterfaceStylesBuilder WithOpacity(float opacity)
-	{
-		// Genera la opacidad
-		if (LastStyle is not null)
-			LastStyle.Opacity = opacity;
+		{
+			LastStyle.StyleText = new UiStyleText();
+			LastStyle.StyleText.Font = font;
+			LastStyle.StyleText.Color = color;
+			LastStyle.StyleText.Opacity = opacity;
+		}
 		// Devuelve el generador
 		return this;
 	}

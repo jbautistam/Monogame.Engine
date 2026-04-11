@@ -6,12 +6,12 @@ using Bau.BauEngine.Entities.Sprites;
 using Bau.BauEngine.Entities.UserInterface.Grids;
 using Bau.BauEngine.Entities.UserInterface.Galleries;
 
-namespace EngineSample.Core.Configuration.Repositories;
+namespace Bau.BauEngine.Repositories.Xml;
 
 /// <summary>
 ///		Repositorio para carga de interface de usuario
 /// </summary>
-internal class UserInterfaceRepository
+public abstract class AbstractUserInterfaceRepository
 {
 	// Constantes privadas
 	private const string TagRoot = "Screen";
@@ -61,24 +61,26 @@ internal class UserInterfaceRepository
 	private const string TagMinimum = "Minimum";
 	private const string TagOrientation = "Orientation";
 	private const string TagClipMode = "ClipMode";
-	// Variables privadas
-	private RepositoryHelper _helper = new();
 
 	/// <summary>
 	///		Carga los estilos a partir de un texto XML
 	/// </summary>
-	internal List<UiElement> Load(AbstractUserInterfaceLayer layer, string xml)
+	public (string? style, List<UiElement>) Load(AbstractUserInterfaceLayer layer, string xml)
 	{
 		List<UiElement> items = [];
-		MLFile fileML = new Bau.Libraries.LibMarkupLanguage.Services.XML.XMLParser().ParseText(xml);
+		string? style = null;
+		MLFile fileML = new Libraries.LibMarkupLanguage.Services.XML.XMLParser().ParseText(xml);
 
 			// Carga los datos
 			if (fileML is not null)
 				foreach (MLNode rootML in fileML.Nodes)
 					if (rootML.Name == TagRoot)
+					{
+						style = rootML.Attributes[TagStyle].Value.TrimIgnoreNull();
 						items.AddRange(LoadItems(layer, rootML.Nodes));
+					}
 			// Devuelve la colección de opciones
-			return items;
+			return (style, items);
 	}
 
 	/// <summary>
@@ -116,17 +118,28 @@ internal class UserInterfaceRepository
 					case TagSlideBar:
 							items.Add(LoadSlideBar(layer, nodeML));
 						break;
+					default:
+							UiElement? item = LoadUiItem(layer, nodeML);
+
+								if (item is not null)
+									items.Add(item);
+						break;
 				}
 			// Devuelve la lista de elementos
 			return items;
 	}
 
 	/// <summary>
+	///		Carga un elemento de interface de usuario particular para el proyecto
+	/// </summary>
+	protected abstract UiElement? LoadUiItem(AbstractUserInterfaceLayer layer, MLNode rootML);
+
+	/// <summary>
 	///		Carga los datos de un menú
 	/// </summary>
-	private UiMenu LoadMenu(AbstractUserInterfaceLayer layer, MLNode rootML)
+	protected UiMenu LoadMenu(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
-		UiMenu menu = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value.TrimIgnoreNull()));
+		UiMenu menu = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value.TrimIgnoreNull()));
 
 			// Carga los datos
 			AssignGeneralAttributes(menu, rootML);
@@ -141,15 +154,14 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Carga los datos de una opción de menú
 	/// </summary>
-	private UiMenuOption LoadOption(UiMenu menu, MLNode rootML)
+	protected UiMenuOption LoadOption(UiMenu menu, MLNode rootML)
 	{
-		UiMenuOption option = new(menu, _helper.GetPosition(rootML.Attributes[TagPosition].Value.TrimIgnoreNull()), 
+		UiMenuOption option = new(menu, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value.TrimIgnoreNull()), 
 								  rootML.Attributes[TagValue].Value.GetInt(0));
 
 			// Asigna las propiedades
 			AssignGeneralAttributes(option, rootML);
 			option.Text = rootML.Attributes[TagText].Value.TrimIgnoreNull();
-			option.Font = GetFont(rootML);
 			// Devuelve la opción cargada
 			return option;
 	}
@@ -157,9 +169,9 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Carga los datos de una etiqueta
 	/// </summary>
-	private UiLabel LoadLabel(AbstractUserInterfaceLayer layer, MLNode rootML)
+	protected UiLabel LoadLabel(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
-		UiLabel label = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
+		UiLabel label = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
 
 			// Asigna los valores
 			AssignGeneralAttributes(label, rootML);
@@ -174,9 +186,9 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Carga los datos de una imagen
 	/// </summary>
-	private UiImage LoadImage(AbstractUserInterfaceLayer layer, MLNode rootML)
+	protected UiImage LoadImage(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
-		UiImage image = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
+		UiImage image = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
 
 			// Asigna los valores
 			AssignGeneralAttributes(image, rootML);
@@ -192,9 +204,9 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Carga los datos de una barra de progreso
 	/// </summary>
-	private UiProgressBar LoadProgressBar(AbstractUserInterfaceLayer layer, MLNode rootML)
+	protected UiProgressBar LoadProgressBar(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
-		UiProgressBar progressBar = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
+		UiProgressBar progressBar = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
 
 			// Asigna los valores
 			AssignGeneralAttributes(progressBar, rootML);
@@ -210,9 +222,9 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Carga los datos de un botón
 	/// </summary>
-	private UiButton LoadButton(AbstractUserInterfaceLayer layer, MLNode rootML)
+	protected UiButton LoadButton(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
-		UiButton button = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
+		UiButton button = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
 
 			// Asigna los valores
 			AssignGeneralAttributes(button, rootML);
@@ -227,9 +239,9 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Carga los datos de una slidebar
 	/// </summary>
-	private UiSlideBar LoadSlideBar(AbstractUserInterfaceLayer layer, MLNode rootML)
+	protected UiSlideBar LoadSlideBar(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
-		UiSlideBar slideBar = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
+		UiSlideBar slideBar = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
 
 			// Asigna las propiedades comunes
 			AssignGeneralAttributes(slideBar, rootML);
@@ -263,16 +275,16 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Carga los datos de un grid
 	/// </summary>
-	private UiGrid LoadGrid(AbstractUserInterfaceLayer layer, MLNode rootML)
+	protected UiGrid LoadGrid(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
-		UiGrid grid = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
+		UiGrid grid = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
 
 			// Asigna los valores
 			AssignGeneralAttributes(grid, rootML);
 			// Carga las definiciones de filas
-			foreach (float height in _helper.GetValues(rootML.Attributes[TagRows].Value.TrimIgnoreNull()))
+			foreach (float height in RepositoryHelper.GetValues(rootML.Attributes[TagRows].Value.TrimIgnoreNull()))
 				grid.Definitions.AddRow(height);
-			foreach (float width in _helper.GetValues(rootML.Attributes[TagColumns].Value.TrimIgnoreNull()))
+			foreach (float width in RepositoryHelper.GetValues(rootML.Attributes[TagColumns].Value.TrimIgnoreNull()))
 				grid.Definitions.AddColumn(width);
 			grid.RowSpacing = rootML.Attributes[TagRowSpacing].Value.GetInt(0);
 			grid.ColumnSpacing = rootML.Attributes[TagColumnSpacing].Value.GetInt(0);
@@ -292,9 +304,9 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Carga los datos de una galería
 	/// </summary>
-	private UiGallery LoadGallery(AbstractUserInterfaceLayer layer, MLNode rootML)
+	protected UiGallery LoadGallery(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
-		UiGallery gallery = new(layer, _helper.GetPosition(rootML.Attributes[TagPosition].Value));
+		UiGallery gallery = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
 
 			// Asigna los valores
 			AssignGeneralAttributes(gallery, rootML);
@@ -314,7 +326,7 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Asigna los atributos generales
 	/// </summary>
-	private void AssignGeneralAttributes(UiElement component, MLNode rootML)
+	protected void AssignGeneralAttributes(UiElement component, MLNode rootML)
 	{
 		component.Id = GetId(rootML.Attributes[TagId].Value.TrimIgnoreNull());
 		component.Style = rootML.Attributes[TagStyle].Value.TrimIgnoreNull();
@@ -326,7 +338,7 @@ internal class UserInterfaceRepository
 	/// <summary>
 	///		Lee los datos de la fuente de un nodo
 	/// </summary>
-	public SpriteTextDefinition GetFont(MLNode rootML)
+	protected SpriteTextDefinition GetFont(MLNode rootML)
 	{
 		return new SpriteTextDefinition(rootML.Attributes[TagFont].Value.TrimIgnoreNull())
 						{
@@ -345,4 +357,9 @@ internal class UserInterfaceRepository
 		else
 			return value;
 	}
+
+	/// <summary>
+	///		Helper para acceso a funciones de interpretación de cadenas en el XML
+	/// </summary>
+	protected RepositoryXmlHelper RepositoryHelper { get; } = new();
 }

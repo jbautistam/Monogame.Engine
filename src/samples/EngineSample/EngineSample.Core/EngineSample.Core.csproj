@@ -14,6 +14,11 @@
     <None Remove="Content\Shaders\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Configuration\Repositories\ParticleSystemRepository.cs" />
+    <Compile Remove="Configuration\Repositories\RepositoryHelper.cs" />
+    <Compile Remove="Configuration\Repositories\StylesRepository.cs" />
+    <Compile Remove="Configuration\Repositories\TexturesRepository.cs" />
+    <Compile Remove="Configuration\Repositories\UserInterfaceRepository.cs" />
     <Compile Remove="GameLogic\Actors\SpaceShips\Rotation.cs" />
     <Compile Remove="GameLogic\Scenes\BackgroundLayer.cs" />
     <Compile Remove="GameLogic\Scenes\TilesSample\TileMapManager.cs" />
@@ -29,6 +34,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BauGame.Engine.Repositories\BauEngine.Repositories.csproj" />
     <ProjectReference Include="..\..\..\BauGame.Engine\BauEngine.csproj" />
   </ItemGroup>
   <ItemGroup>

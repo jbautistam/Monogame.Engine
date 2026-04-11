@@ -46,16 +46,22 @@ public class ParticleEngineActor : AbstractActorDrawable, Entities.Common.Collec
 					if (particle.Enabled)
 					{
 						// Ejecuta los modificadores
-						foreach (Modifiers.AbstractParticleModifier modifier in emitter.Profile.Modifiers)
+						foreach (Modifiers.AbstractParticleModifier modifier in emitter.Modifiers)
 							modifier.Update(particle, gameContext.DeltaTime);
 						// Cambia el tiempo de vida de la partícula e incrementa el número de partículas activas
-						particle.LifeTime += gameContext.DeltaTime;
+						particle.Update(gameContext);
 						enabledParticles++;
 					}
 			// Si todos los emisores están inactivos y no quedan partículas, elimina este actor de la capa
 			if (disabledNumber == Emitters.Count && enabledParticles == 0)
 				Layer.Actors.MarkToDestroy(this, TimeSpan.FromSeconds(2));
 	}
+
+	/// <summary>
+	///		Indica que se debe dibujar aunque su posición esté fuera de cámara: pueden tener los emisores fuera del punto de vista 
+	/// de la cámara pero que haya partículas que se tienen que dibujar
+	/// </summary>
+	protected override bool MustDrawOutOfCamera() => true;
 
 	/// <summary>
 	///		Dibuja el actor: dibuja todas las partículas asociadas a los emisores
@@ -80,15 +86,14 @@ public class ParticleEngineActor : AbstractActorDrawable, Entities.Common.Collec
 													 particle.Rotation, particle.Color * particle.Opacity);
 			else
 			{
-				int thicknes = Math.Min((int) particle.Scale, 1);
+				int thickness = Math.Max((int) particle.Scale, 1);
 
 					// Dibuja un rectángulo representando la partícula
-					renderingManager.FiguresRenderer.DrawRectangle(new Rectangle((int) particle.Position.X, (int) particle.Position.Y, thicknes, thicknes),
+					renderingManager.FiguresRenderer.DrawRectangle(new Rectangle((int) particle.Position.X, (int) particle.Position.Y, thickness, thickness),
 																   particle.Color * particle.Opacity);
 			}													 
 		}
 	}
-
 
 	/// <summary>
 	///		Finaliza el elemento cuando se borra de la lista

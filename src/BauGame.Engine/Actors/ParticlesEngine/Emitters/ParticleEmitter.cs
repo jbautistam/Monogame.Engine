@@ -11,11 +11,12 @@ public class ParticleEmitter
     // Variables privadas
     private float _elapsedTime, _emissionTimer, _currentEmissionInterval;
 
-    public ParticleEmitter(ParticleEngineActor particleEngine, Vector2 position, ParticleEmitterProfile profile)
+    public ParticleEmitter(ParticleEngineActor particleEngine, Vector2 position, ParticleEmitterShape shape, ParticleEmitterProfile profile)
     {
         ParticleEngine = particleEngine;
         Pool = new ParticlePool(this);
         Position = position;
+        EmitterShape = shape;
         Profile = profile;
     }
 
@@ -37,9 +38,9 @@ public class ParticleEmitter
                 if (_emissionTimer >= _currentEmissionInterval)
                 {
                     // Emite las partículas
-                    EmitParticle();
+                    EmitParticle(Profile.ParticlesPerEmission.GetValue());
                     // Recalcula el intervalo de tiempo para la siguiente emisión
-                    _currentEmissionInterval = 1f / Math.Min((float) Tools.Randomizer.Random.NextDouble(), 1);
+                    _currentEmissionInterval = 1f / Profile.EmissionRate.GetValue();
                     _emissionTimer = 0;
                 }
             }
@@ -51,24 +52,29 @@ public class ParticleEmitter
     /// <summary>
     ///     Emite una partícula
     /// </summary>
-    private void EmitParticle()
+    private void EmitParticle(int particles)
     {
-        ParticleModel? particle = Pool.GetNext();
+        for (int index = 0; index < particles; index++)
+        {
+            ParticleModel? particle = Pool.GetNext();
 
-            // Si hay alguna partícula libre
-            if (particle is not null)
-            {
-                Shapes.AbstractShapeEmitter.EmissionData data = Profile.Shape.GetEmissionData(Profile.Location, Profile.DirectionMode, Profile.FixedDirection);
+                // Si hay alguna partícula libre
+                if (particle is not null)
+                {
+                    Shapes.AbstractShapeEmitter.EmissionData data = EmitterShape.Shape.GetEmissionData(EmitterShape.Location, 
+                                                                                                       EmitterShape.DirectionMode, 
+                                                                                                       EmitterShape.FixedDirection);
 
-                    // Asigna la posición y la velocidad inicial
-                    particle.Position = ParticleEngine.Transform.Bounds.Location + Position + data.Position;
-                    particle.Velocity = data.Direction * Profile.Speed.GetValue();
-                    // Actualiza el resto de propiedades
-                    particle.TotalLifeTime = Profile.Lifetime.GetValue();
-                    particle.LifeTime = 0;
-                    particle.Scale = Profile.StartScale.GetValue();
-                    particle.Color = Profile.Color.GetValue();
-            }
+                        // Asigna la posición y la velocidad inicial
+                        particle.Position = ParticleEngine.Transform.Bounds.Location + Position + data.Position;
+                        particle.Velocity = data.Direction * Profile.Speed.GetValue();
+                        // Actualiza el resto de propiedades
+                        particle.TotalLifeTime = Profile.Lifetime.GetValue();
+                        particle.LifeTime = 0;
+                        particle.Scale = Profile.Scale.GetValue();
+                        particle.Color = Profile.Color.GetValue();
+                }
+        }
     }
 
     /// <summary>
@@ -90,6 +96,16 @@ public class ParticleEmitter
     ///     Perfil de emisión de partículas
     /// </summary>
     public ParticleEmitterProfile Profile { get; }
+
+    /// <summary>
+    ///     Forma de emisión de las partículas
+    /// </summary>
+    public ParticleEmitterShape EmitterShape { get; }
+
+    /// <summary>
+    ///     Modificadores
+    /// </summary>
+    public List<Modifiers.AbstractParticleModifier> Modifiers { get; } = [];
 
     /// <summary>
     ///     Indica si está activo

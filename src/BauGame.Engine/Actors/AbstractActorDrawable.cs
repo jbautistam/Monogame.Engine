@@ -65,7 +65,7 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 	/// </summary>
     public void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-		if (renderingManager.Scene.Camera.IsAtView(Transform.Bounds))
+		if (renderingManager.Scene.Camera.IsAtView(Transform.Bounds) || MustDrawOutOfCamera())
 		{
 			// Dibuja los componentes
 			Components.Draw(renderingManager, gameContext);
@@ -73,6 +73,12 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 			DrawSelf(renderingManager, gameContext);
 		}
     }
+
+	/// <summary>
+	///		Indica si se debe dibujar aunque su posición esté fuera de cámara (por ejemplo, los sistemas de partículas
+	///	pueden tener los emisores fuera del punto de vista de la cámara pero partículas que se tienen que dibujar)
+	/// </summary>
+	protected virtual bool MustDrawOutOfCamera() => false;
 
 	/// <summary>
 	///		Dibuja el actor

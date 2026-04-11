@@ -155,45 +155,47 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	private void DrawNineSlice(SpriteDefinition sprite, Texture2D texture, Rectangle region, TextureRegionNineSliceConfiguration nineSlice,
 							   Rectangle destination, Vector2 origin, Vector2 vector2, float rotation, Color color)
 	{
-		Rectangle[] slices = GenerateSlices(texture, nineSlice);
+		Rectangle[] slices = GenerateSlices(region, nineSlice);
         int dx0 = destination.X;
         int dx1 = destination.X + nineSlice.TopLeftWidth;
         int dx2 = destination.Right - nineSlice.TopRightWidth;
         int dy0 = destination.Y;
         int dy1 = destination.Y + nineSlice.TopLeftHeight;
         int dy2 = destination.Bottom - nineSlice.BottomLeftHeight;
-        int centerW = destination.Width - nineSlice.TopLeftWidth - nineSlice.TopRightWidth;
-        int centerH = destination.Height - nineSlice.TopLeftHeight - nineSlice.BottomLeftHeight;
+        int centerWidth = destination.Width - nineSlice.TopLeftWidth - nineSlice.TopRightWidth;
+        int centerHeight = destination.Height - nineSlice.TopLeftHeight - nineSlice.BottomLeftHeight;
         
 			// Escala las esquinas proporcionalmente o las limita si el destino es más pequeño que el tamaño de las esquinas
-			if (centerW < 0)
+			if (centerWidth < 0)
 			{
 				float scale = (float) destination.Width / (nineSlice.TopLeftWidth + nineSlice.TopRightWidth);
 
 					dx1 = destination.X + (int) (nineSlice.TopLeftWidth * scale);
 					dx2 = dx1;
-					centerW = 0;
+					centerWidth = 0;
 			}
-			if (centerH < 0)
+			if (centerHeight < 0)
 			{
 				float scale = (float) destination.Height / (nineSlice.TopLeftHeight + nineSlice.BottomLeftHeight);
 
 					dy1 = destination.Y + (int) (nineSlice.TopLeftHeight * scale);
 					dy2 = dy1;
-					centerH = 0;
+					centerHeight = 0;
 			}
 			// Dibuja la fila superior
 			DrawSlice(texture, slices[0], dx0, dy0, nineSlice.TopLeftWidth, nineSlice.TopLeftHeight, color);
-			DrawSlice(texture, slices[1], dx1, dy0, centerW, nineSlice.TopEdgeHeight, color);
+			DrawSlice(texture, slices[1], dx1, dy0, centerWidth, nineSlice.TopEdgeHeight, color);
 			DrawSlice(texture, slices[2], dx2, dy0, nineSlice.TopRightWidth, nineSlice.TopRightHeight, color);
 			// Dibuja la fila central
-			DrawSlice(texture, slices[3], dx0, dy1, nineSlice.LeftEdgeWidth, centerH, color);
-			DrawSlice(texture, slices[4], dx1, dy1, centerW, centerH, color);
-			DrawSlice(texture, slices[5], dx2, dy1, nineSlice.RightEdgeWidth, centerH, color);
+			DrawSlice(texture, slices[3], dx0, dy1, nineSlice.LeftEdgeWidth, centerHeight, color);
+			DrawSlice(texture, slices[5], dx2, dy1, nineSlice.RightEdgeWidth, centerHeight, color);
 			// Dibuja la fila inferior
 			DrawSlice(texture, slices[6], dx0, dy2, nineSlice.BottomLeftWidth, nineSlice.BottomLeftHeight, color);
-			DrawSlice(texture, slices[7], dx1, dy2, centerW, nineSlice.BottomEdgeHeight, color);
+			DrawSlice(texture, slices[7], dx1, dy2, centerWidth, nineSlice.BottomEdgeHeight, color);
 			DrawSlice(texture, slices[8], dx2, dy2, nineSlice.BottomRightWidth, nineSlice.BottomRightHeight, color);
+			// Dibuja el fondo
+			if (nineSlice.FillBackground && nineSlice.BackgroundOpacity > 0)
+				DrawSlice(texture, slices[4], dx1, dy1, centerWidth, centerHeight, nineSlice.BackgroundColor * nineSlice.BackgroundOpacity);
 
 		// Dibuja una sección de la imagen
 		void DrawSlice(Texture2D texture, Rectangle source, int x, int y, int width, int height, Color color)
@@ -206,10 +208,10 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	/// <summary>
 	///		Genera los trozos correspondientes a una textura de 9 secciones
 	/// </summary>
-    private Rectangle[] GenerateSlices(Texture2D texture, TextureRegionNineSliceConfiguration nineSlice)
+    private Rectangle[] GenerateSlices(Rectangle region, TextureRegionNineSliceConfiguration nineSlice)
     {
-        int width = texture.Width;
-        int height = texture.Height;
+        int width = region.Width;
+        int height = region.Height;
         int x0 = 0;
         int x1 = nineSlice.TopLeftWidth; // También BottomLeft.Width si son diferentes, asumimos consistencia
         int x2 = width - nineSlice.TopRightWidth;

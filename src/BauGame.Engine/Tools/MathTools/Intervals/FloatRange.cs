@@ -13,6 +13,6 @@ public readonly record struct FloatRange(float Min, float Max)
         if (Min == Max)
             return Min;
         else
-            return Min + (float) (Randomizer.Random.NextDouble() * (Max - Min));
+            return Randomizer.GetRandom(Min, Max);
     }
 }

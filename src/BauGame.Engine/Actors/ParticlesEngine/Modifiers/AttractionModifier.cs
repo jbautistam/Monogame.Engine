@@ -9,6 +9,11 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 public class AttractionModifier(Vector2 attractorPosition, float force, float minDistance = 1) : AbstractParticleModifier
 {
     /// <summary>
+    ///     Clona los datos de un modificador
+    /// </summary>
+    public override AbstractParticleModifier Clone() => new AttractionModifier(new Vector2(attractorPosition.X, attractorPosition.Y), force, minDistance);
+
+    /// <summary>
     ///     Actualiza la velocidad de la partícula
     /// </summary>
     protected override void UpdateSelf(ParticleModel particle, float deltaTime, float normalizedAge)

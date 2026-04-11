@@ -1,5 +1,4 @@
-﻿using Bau.BauEngine.Scenes.Cameras;
-using Bau.BauEngine.Scenes.Layers;
+﻿using Bau.BauEngine.Scenes.Layers;
 using Microsoft.Xna.Framework;
 
 namespace Bau.BauEngine.Entities.UserInterface.Styles;
@@ -15,39 +14,17 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
 	private UiStyle? _defaultStyle = null;
 
 	/// <summary>
-	///		Invalida los estilos
-	/// </summary>
-	public void Invalidate()
-	{
-		Dirty = true;
-	}
-
-	/// <summary>
 	///		Añade un estilo
 	/// </summary>
 	public void Add(string key, UiStyle style)
 	{
-		Styles.Add(GetKey(key, style.Type), style);
-	}
-
-	/// <summary>
-	///		Crea un estilo
-	/// </summary>
-	public UiStyle Add(string key, UiStyle.StyleType type, Backgrounds.UiBackground? background, Borders.UiAbstractBorder? border, 
-					   Color? color = null, float opacity = 1)
-	{
-		UiStyle style = new(this, type)
-							{
-								Background = background,
-								Border = border,
-								Color = color ?? Color.White,
-								Opacity = opacity
-							};
-
-			// Añade el estilo a la colección
-			Styles.Add(GetKey(key, type), style);
-			// Devuelve el estilo creado
-			return style;
+		// Normaliza la clave
+		key = GetKey(key, style.Type);
+		// Añade / modifica el estilo
+		if (Styles.ContainsKey(key))
+			Styles[key] = style;
+		else
+			Styles.Add(key, style);
 	}
 
 	/// <summary>
@@ -94,11 +71,8 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
     /// </summary>
     public void Update(Managers.GameContext gameContext)
     {
-        // Actualiza el elemento
 		foreach (KeyValuePair<string, UiStyle> keyValue in Styles)
 			keyValue.Value.Update(gameContext);
-		// Indica que ya se ha actualizado
-		Dirty = true;
     }
 
 	/// <summary>
@@ -118,11 +92,6 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
 	public AbstractUserInterfaceLayer Layer { get; } = layer;
 
 	/// <summary>
-	///		Indica si se debe recalcular
-	/// </summary>
-	public bool Dirty { get; private set; } = true;
-
-	/// <summary>
 	///		Estilo predeterminado
 	/// </summary>
 	public UiStyle DefaultStyle
@@ -131,11 +100,7 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
 		{
 			// Crea el estilo predeterminado si no existía
 			if (_defaultStyle is null)
-				_defaultStyle = new UiStyle(this, UiStyle.StyleType.Normal)
-										{
-											Color = Color.White,
-											Opacity = 1
-										};
+				_defaultStyle = new UiStyle(this, UiStyle.StyleType.Normal);
 			// Devuelve el estilo predeterminado
 			return _defaultStyle;
 		}

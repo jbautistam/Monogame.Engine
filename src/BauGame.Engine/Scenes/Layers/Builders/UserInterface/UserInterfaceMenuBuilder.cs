@@ -16,25 +16,16 @@ public class UserInterfaceMenuBuilder : AbstractElementUserInterfaceBuilder<UiMe
 	/// <summary>
 	///		Añade una opción
 	/// </summary>
-	public UserInterfaceMenuBuilder WithOption(int optionId, string text, SpriteTextDefinition font, string style, float x, float y, float width, float height)
+	public UserInterfaceMenuBuilder WithOption(int optionId, string text, string style, float x, float y, float width, float height)
 	{
 		// Crea la opción
 		Item.AddOption(new UiMenuOption(Item, new UiPosition(x, y, width, height), optionId)
 								{
 									Text = text,
-									Style = style,
-									Font = font
+									Style = style
 								}
 						 );	
 		// Devuelve el generador
 		return this;
-	}
-
-	/// <summary>
-	///		Añade una opción
-	/// </summary>
-	public UserInterfaceMenuBuilder WithOption(int optionId, string text, string font, string style, float x, float y, float width, float height)
-	{
-		return WithOption(optionId, text, new SpriteTextDefinition(font), style, x, y, width, height);
 	}
 }

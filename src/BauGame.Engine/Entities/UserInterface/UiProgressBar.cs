@@ -95,7 +95,7 @@ public class UiProgressBar : UiElement
                 target = new Rectangle(target.X + 2, target.Y + 2, target.Width - 4, target.Height - 4);
             // Dibuja la barra de progreso
             if (Bar is not null)
-                renderingManager.SpriteRenderer.Draw(Bar, target, Vector2.Zero, 0, style.Color * style.Opacity);
+                renderingManager.SpriteRenderer.Draw(Bar, target, Vector2.Zero, 0, style.StylePresentation.Color * style.StylePresentation.Opacity);
     }
 
     /// <summary>

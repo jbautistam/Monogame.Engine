@@ -15,7 +15,6 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	// Constantes públicas
 	public const string SceneName = "MainMenu";
 	// Constantes privadas
-	private const string DefaultFont = "Fonts/Hud";
 	private const string MenuLayer = "Menu";
 	private const string MenuStyle = nameof(MenuStyle);
 	private const string MenuOptionsStyle = nameof(MenuOptionsStyle);
@@ -26,6 +25,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		TilesSample,
 		SpaceShips,
 		Animations,
+		Particles,
 		Music,
 		Effect,
 		UserInterfaceGrid,
@@ -55,7 +55,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	private UserInterfaceLayer CreateHudLayer()
 	{
 		UserInterfaceLayer uiLayer = new(this, MenuLayer, 1);
-		Configuration.ResourcesLoader loader = new(Bau.BauEngine.GameEngine.Instance);
+		Configuration.ResourcesLoader loader = new(GameEngine.Instance);
 
 			// Carga los estilos
 			uiLayer.Styles = loader.LoadStyles(uiLayer, "Settings/VisualNovel/Styles.xml");
@@ -86,16 +86,17 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 		UserInterfaceMenuBuilder builder = new(layer, 0.05f, 0.05f, 0.4f, 0.8f);
 
 			// Asigna los elementos al menú
-			builder.WithOption((int) MenuOption.Play, "Play", DefaultFont, MenuOptionsStyle, 0.2f, 0, 0.6f, 1)
-					.WithOption((int) MenuOption.SpaceShips, "SpaceShips", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.TilesSample, "Tiles sample", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Animations, "Animations", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.UserInterfaceGrid, "UI Grid", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.UserInterfaceGallery, "Gallery", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Music, "Music", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Effect, "Effect", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.DebugMode, "Debug mode", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Quit, "Quit", DefaultFont, MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+			builder.WithOption((int) MenuOption.Play, "Play", MenuOptionsStyle, 0.2f, 0, 0.6f, 1)
+					.WithOption((int) MenuOption.SpaceShips, "SpaceShips", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.TilesSample, "Tiles sample", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Animations, "Animations", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Particles, "Particles", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.UserInterfaceGrid, "UI Grid", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.UserInterfaceGallery, "Gallery", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Music, "Music", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Effect, "Effect", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.DebugMode, "Debug mode", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Quit, "Quit", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithStyle(MenuStyle);
 			// Guarda el menú en una variable
 			_menu = builder.Build();
@@ -126,6 +127,9 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 						break;
 					case MenuOption.SpaceShips:
 							nextScene = GetNewScene(Space.SpaceShipsScene.SceneName);
+						break;
+					case MenuOption.Particles:
+							nextScene = GetNewScene(Particles.ParticlesScene.SceneName);
 						break;
 					case MenuOption.Animations:
 							nextScene = GetNewScene(Animations.AnimationsScene.SceneName);

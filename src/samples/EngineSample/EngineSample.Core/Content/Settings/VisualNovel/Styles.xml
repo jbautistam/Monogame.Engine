@@ -3,39 +3,46 @@
 	<!-- Estilos de etiquetas -->
 	<Style Name = "HeaderStyle" Type = "Normal" Color = "Red" />
 	<Style Name = "TextStyle" Type = "Normal" Color = "White" />
-	<!-- Estilo del texto del cuadro de diálogo -->
-	<Style Name = "TypeWriterStyle" Type = "Normal" Padding = "25, 18, 15, 25">
-		<Border Texture = "typewriter-border-01" Region = "typewriter-border" Thickness ="15" />
-		<Background Texture = "images/visualnovel/typewriter-background-01" Region = "" Opacity ="0.5" />
-	</Style>
 	<!-- Estilo de botones -->
-	<Style Name = "ButtonStyle" Type = "Normal" Color = "Green">
-		<Background Texture = "Tiles/BlockA4" Region = "" />
-	</Style>
-	<Style Name = "ButtonStyle" Type = "Selected" Color = "Navy">
-		<Background Texture = "Tiles/BlockA0" Region = "" />
-	</Style>
-	<Style Name = "ButtonStyle" Type = "Hover" Color = "White">
-		<Background Texture = "Tiles/BlockB0" Region = "" />
-	</Style>
-	<Style Name = "ButtonStyle" Type = "Disabled" Color = "Gray">
-		<Background Texture = "Tiles/BlockA3" Region = "" />
+	<Style Name = "ButtonStyle">
+		<Normal>
+			<Background Texture = "Tiles/BlockA4" Region = "" />
+			<Text Font="Fonts/Hud" Color="Green" Opacity ="1" Rotation = "0" />
+		</Normal>
+		<Selected>
+			<Background Texture = "Tiles/BlockA0" Region = "" />
+			<Text Font="Fonts/Hud" Color="Navy" Opacity ="1" Rotation = "0" />
+		</Selected>
+		<Hover>
+			<Background Texture = "Tiles/BlockB0" Region = "" />
+			<Text Font="Fonts/Hud" Color="White" Opacity ="1" Rotation = "0" />
+		</Hover>
+		<Disabled>
+			<Background Texture = "Tiles/BlockA3" Region = "" />
+			<Text Font="Fonts/Hud" Color="Gray" Opacity ="1" Rotation = "0" />
+		</Disabled>
 	</Style>
 	<!-- Estilo de menú -->
 	<Style Name = "MenuStyle" Type = "Normal" Color = "Green">
 		<Background Texture = "sprites/gradient" Region = "" />
 	</Style>
 	<!-- Estilo de las opciones de menú -->
-	<Style Name = "MenuOptionsStyle" Type = "Normal" Color = "Green">
-		<Background Texture = "Tiles/BlockA4" Region = "" />
-	</Style>
-	<Style Name = "MenuOptionsStyle" Type = "Selected" Color = "Navy">
-		<Background Texture = "Tiles/BlockA0" Region = "" />
-	</Style>
-	<Style Name = "MenuOptionsStyle" Type = "Hover" Color = "White">
-		<Background Texture = "Tiles/BlockB0" Region = "" />
-	</Style>
-	<Style Name = "MenuOptionsStyle" Type = "Disabled" Color = "Gray">
-		<Background Texture = "Tiles/BlockA3" Region = "" />
+	<Style Name = "MenuOptionsStyle">
+		<Normal>
+			<Background Texture = "Tiles/BlockA4" Region = "" />
+			<Text Font="Fonts/Hud" Color="Green" Opacity ="1" Rotation = "0" />
+		</Normal>
+		<Selected>
+			<Background Texture = "Tiles/BlockA0" Region = "" />
+			<Text Font="Fonts/Hud" Color="Navy" Opacity ="1" Rotation = "0" />
+		</Selected>
+		<Hover>
+			<Background Texture = "Tiles/BlockB0" Region = "" />
+			<Text Font="Fonts/Hud" Color="White" Opacity ="1" Rotation = "0" />
+		</Hover>
+		<Disabled>
+			<Background Texture = "Tiles/BlockA3" Region = "" />
+			<Text Font="Fonts/Hud" Color="Gray" Opacity ="1" Rotation = "0" />
+		</Disabled>
 	</Style>
 </Styles>

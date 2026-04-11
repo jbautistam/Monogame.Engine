@@ -11,6 +11,20 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 public class ColorOverLifetimeModifier(EasingFunctionsHelper.EasingType easingType = EasingFunctionsHelper.EasingType.Linear) : AbstractParticleModifier
 {
     /// <summary>
+    ///     Clona los datos de un modificador
+    /// </summary>
+    public override AbstractParticleModifier Clone()
+    {
+        ColorOverLifetimeModifier cloned = new(easingType);
+
+            // Añade los colores
+            foreach ((float age, Color color) in Colors)
+                cloned.Colors.Add((age, color));
+            // Devuelve el objeto clonado
+            return cloned;
+    }
+
+    /// <summary>
     ///     Actualiza la partícula
     /// </summary>
     protected override void UpdateSelf(ParticleModel particle, float deltaTime, float normalizedAge)

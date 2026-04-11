@@ -3,7 +3,7 @@
 namespace Bau.BauEngine.Managers.Resources;
 
 /// <summary>
-///		Manager para "texturas
+///		Manager para texturas
 /// </summary>
 public class TextureManager(ResourcesManager resourcesManager)
 {

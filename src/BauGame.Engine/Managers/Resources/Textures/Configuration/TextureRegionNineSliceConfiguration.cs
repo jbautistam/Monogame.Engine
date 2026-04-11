@@ -1,4 +1,6 @@
-﻿namespace Bau.BauEngine.Managers.Resources.Textures.Configuration;
+﻿using Microsoft.Xna.Framework;
+
+namespace Bau.BauEngine.Managers.Resources.Textures.Configuration;
 
 /// <summary>
 ///		Configuración de una textura NineSlice
@@ -49,6 +51,16 @@ public class TextureRegionNineSliceConfiguration
 	///		Indica si se debe rellenar el fondo
 	/// </summary>
 	public bool FillBackground { get; set; }
+
+	/// <summary>
+	///		Color de fondo (si se rellena)
+	/// </summary>
+	public Color BackgroundColor { get; set; } = Color.White;
+
+	/// <summary>
+	///		Opacidad del fondo
+	/// </summary>
+	public float BackgroundOpacity { get; set; } = 1;
 
 	/// <summary>
 	///		Altura del borde superior

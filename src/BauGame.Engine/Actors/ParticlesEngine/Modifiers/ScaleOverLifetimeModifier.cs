@@ -10,6 +10,11 @@ public class ScaleOverLifetimeModifier(float minimum, float maximum,
                                        EasingFunctionsHelper.EasingType easingType = EasingFunctionsHelper.EasingType.Linear) : AbstractParticleModifier
 {
     /// <summary>
+    ///     Clona los datos de un modificador
+    /// </summary>
+    public override AbstractParticleModifier Clone() => new ScaleOverLifetimeModifier(minimum, maximum, easingType);
+
+    /// <summary>
     ///     Actualiza los datos de la partícula
     /// </summary>
     protected override void UpdateSelf(ParticleModel particle, float deltaTime, float normalizedAge)

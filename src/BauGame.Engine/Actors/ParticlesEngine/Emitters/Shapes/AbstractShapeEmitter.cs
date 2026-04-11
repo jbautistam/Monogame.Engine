@@ -73,6 +73,11 @@ public abstract class AbstractShapeEmitter
     }
 
     /// <summary>
+    ///     Clona un objeto
+    /// </summary>
+    public abstract AbstractShapeEmitter Clone();
+
+    /// <summary>
     ///     Ubicación de cómo se emiten las partículas (predefinida)
     /// </summary>
     public EmissionLocationMode EmissionLocation { get; set; } = EmissionLocationMode.Surface;

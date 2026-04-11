@@ -8,6 +8,15 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Particles;
 public class ParticleModel
 {
 	/// <summary>
+	///		Actualiza los datos de la partícula
+	/// </summary>
+	public void Update(Managers.GameContext gameContext)
+	{
+		Position += Velocity;
+		LifeTime += gameContext.DeltaTime;
+	}
+
+	/// <summary>
 	///		Tiempo de vida actual
 	/// </summary>
 	public float LifeTime { get; set; }
@@ -40,17 +49,17 @@ public class ParticleModel
 	/// <summary>
 	///		Escala
 	/// </summary>
-	public float Scale { get; set; }
+	public float Scale { get; set; } = 1;
 
 	/// <summary>
 	///		Color
 	/// </summary>
-	public Color Color { get; set; }
+	public Color Color { get; set; } = Color.White;
 
 	/// <summary>
 	///		Opacidad
 	/// </summary>
-	public float Opacity { get; set; }
+	public float Opacity { get; set; } = 1;
 
 	/// <summary>
 	///		Indica si la partícula está activa

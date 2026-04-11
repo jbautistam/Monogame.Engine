@@ -8,6 +8,11 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 public class RotationOverLifetimeModifier(float rotationSpeed) : AbstractParticleModifier
 {
     /// <summary>
+    ///     Clona los datos de un modificador
+    /// </summary>
+    public override AbstractParticleModifier Clone() => new RotationOverLifetimeModifier(rotationSpeed);
+
+    /// <summary>
     ///     Actualiza la partícula
     /// </summary>
     protected override void UpdateSelf(ParticleModel particle, float deltaTime, float normalizedAge)

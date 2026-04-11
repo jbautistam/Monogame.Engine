@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Bau.BauEngine.Tools.MathTools.Intervals;
+﻿using Bau.BauEngine.Tools.MathTools.Intervals;
 
 namespace Bau.BauEngine.Actors.ParticlesEngine.Emitters;
 
@@ -24,9 +23,14 @@ public class ParticleEmitterProfile
     public float Duration { get; set; }
 
     /// <summary>
-    ///     Número de partículas por segundo
+    ///     Ratio de emisión
     /// </summary>
     public FloatRange EmissionRate { get; set; }
+
+    /// <summary>
+    ///     Número de partículas por emisión
+    /// </summary>
+    public IntRange ParticlesPerEmission { get; set; }
 
     /// <summary>
     ///     Segundos de vida de la partícula (ej: 1.0 a 3.0)
@@ -34,14 +38,9 @@ public class ParticleEmitterProfile
     public FloatRange Lifetime { get; set; }
     
     /// <summary>
-    ///     Tamaño inicial (ej: 0.5 a 1.5)
+    ///     Escala inicial (ej: 0.5 a 1.5)
     /// </summary>
-    public FloatRange StartScale { get; set; }
-
-    /// <summary>
-    ///     Tamaño final (para efecto de desvanecimiento)
-    /// </summary>
-    public FloatRange EndScale { get; set; }
+    public FloatRange Scale { get; set; }
 
     /// <summary>
     ///     Rotación en radianes (ej: 0 a 6.28)
@@ -72,29 +71,4 @@ public class ParticleEmitterProfile
     ///     Opacidad
     /// </summary>
     public FloatRange Opacity { get; set; }
-
-    /// <summary>
-    ///     Figura de emisión
-    /// </summary>
-    public required Shapes.AbstractShapeEmitter Shape { get; init; } 
-
-    /// <summary>
-    ///     Ubicación de la emisión
-    /// </summary>
-    public Shapes.AbstractShapeEmitter.EmissionLocationMode Location { get; set; }
-
-    /// <summary>
-    ///     Dirección de emisión con respecto a la figura
-    /// </summary>
-    public Shapes.AbstractShapeEmitter.EmissionDirectionMode DirectionMode { get; set; }
-
-    /// <summary>
-    ///     Vector de dirección fija (si la dirección es <see cref="Shapes.AbstractShapeEmitter.EmissionDirectionMode.Fixed"/>
-    /// </summary>
-    public Vector2? FixedDirection { get; set; }
-
-    /// <summary>
-    ///     Modificadores
-    /// </summary>
-    public List<Modifiers.AbstractParticleModifier> Modifiers { get; } = [];
 }

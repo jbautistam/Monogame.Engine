@@ -84,6 +84,7 @@
     <Compile Remove="Managers\Audio\AudioSystems\SfxSystem.cs" />
     <Compile Remove="Managers\Audio\AudioSystems\SimpleCurve.cs" />
     <Compile Remove="Managers\Audio\AudioSystems\VoiceSystem.cs" />
+    <Compile Remove="Managers\Resources\ParticlesDefinitions\ParticleSystemModifierDefinitionModel.cs" />
     <Compile Remove="Managers\ScreenManagerBatiburrillo.cs" />
     <Compile Remove="Entities\Common\Pools\PoolManager.cs" />
     <Compile Remove="Managers\Audio\AudioCommands.cs" />

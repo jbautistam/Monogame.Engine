@@ -8,7 +8,7 @@ public class ResourcesManager
 	public ResourcesManager(EngineManager engineManager)
 	{
 		EngineManager = engineManager;
-		TextureManager = new TextureManager(this);
+		//TextureManager = new TextureManager(this);
 		TextureConfigurationManager = new TextureConfigurationManager(this);
 		GlobalContentManager = new ContentDisposableManager(this);
 		AnimationManager = new Animations.AnimationManager(this);
@@ -24,11 +24,6 @@ public class ResourcesManager
 	///		Manager de contenido global
 	/// </summary>
 	public ContentDisposableManager GlobalContentManager { get; }
-
-	/// <summary>
-	///		Manager de definiciones de texturas
-	/// </summary>
-	public TextureManager TextureManager { get; }
 
 	/// <summary>
 	///		Manager para las configuraciones de texturas

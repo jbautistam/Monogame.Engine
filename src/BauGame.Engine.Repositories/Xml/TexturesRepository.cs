@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Bau.BauEngine.Managers.Resources.Textures.Configuration;
 using Bau.BauEngine.Entities.UserInterface;
 
-namespace EngineSample.Core.Configuration.Repositories;
+namespace Bau.BauEngine.Repositories.Xml;
 
 /// <summary>
 ///		Repositorio de configuraciones de texturas y animaciones
@@ -45,8 +45,11 @@ internal class TexturesRepository
 	private const string TagBottomRightWidth = "BottomRightWidth";
 	private const string TagBottomRightHeight = "BottomRightHeight";
 	private const string TagFillBackground = "FillBackground";
+	private const string TagBackgroundColor = "BackgroundColor";
+	private const string TagBackgroundOpacity = "BackgroundOpacity";
+
 	// Variables privadas
-	private RepositoryHelper _helper = new();
+	private RepositoryXmlHelper _helper = new();
 
 	/// <summary>
 	///		Carga texturas y animaciones de un texto XML
@@ -62,7 +65,7 @@ internal class TexturesRepository
 							switch (nodeML.Name)
 							{
 								case TagTexture:
-										LoadTexture(nodeML, resourcesManager.TextureManager);
+										//LoadTexture(nodeML, resourcesManager.TextureManager);
 										LoadTexture(nodeML, resourcesManager.TextureConfigurationManager);
 									break;
 								case TagAnimation:
@@ -72,36 +75,6 @@ internal class TexturesRepository
 										LoadAnimationGroup(nodeML, resourcesManager.AnimationManager);
 									break;
 							}
-	}
-
-	/// <summary>
-	///		Carga una textura (sobre el manager)
-	///	TODO: Esto habrá que quitarlo
-	/// </summary>
-	private void LoadTexture(MLNode rootML, TextureManager texturesManager)
-	{
-		string name = rootML.Attributes[TagName].Value.TrimIgnoreNull();
-		string asset = rootML.Attributes[TagAsset].Value.TrimIgnoreNull();
-		int? rows = rootML.Attributes[TagRows].Value.GetInt();
-		int? columns = rootML.Attributes[TagColumns].Value.GetInt();
-		List<(string name, Rectangle region)> regions = [];
-
-			// Carga las regiones
-			foreach (MLNode nodeML in rootML.Nodes)
-				if (nodeML.Name == TagRegion)
-					regions.Add((nodeML.Attributes[TagName].Value.TrimIgnoreNull(),
-								 new Rectangle(nodeML.Attributes[TagLeft].Value.GetInt(0),
-											   nodeML.Attributes[TagTop].Value.GetInt(0),	
-											   nodeML.Attributes[TagWidth].Value.GetInt(0),
-											   nodeML.Attributes[TagHeight].Value.GetInt(0))
-							    ));
-			// Crea la textura adecuada
-			if (regions.Count != 0)
-				texturesManager.Create(name, asset, regions);
-			else if (rows is not null && columns is not null)
-				texturesManager.Create(name, asset, rows ?? 0, columns ?? 0);
-			else
-				texturesManager.Create(name, asset);
 	}
 
 	/// <summary>
@@ -175,6 +148,8 @@ internal class TexturesRepository
 			configuration.BottomRightWidth = rootML.Attributes[TagBottomRightWidth].Value.GetInt(-1);
 			configuration.BottomRightHeight = rootML.Attributes[TagBottomRightHeight].Value.GetInt(-1);
 			configuration.FillBackground = rootML.Attributes[TagFillBackground].Value.GetBool();
+			configuration.BackgroundColor = _helper.GetColor(rootML.Attributes[TagBackgroundColor].Value, Color.White);
+			configuration.BackgroundOpacity = (float) rootML.Attributes[TagBackgroundOpacity].Value.GetDouble(1);
 			// Devuelve los datos
 			if (configuration.TopLeftWidth > 0 && configuration.TopLeftHeight > 0 && 
 					configuration.TopRightWidth > 0 && configuration.TopRightHeight > 0 && 

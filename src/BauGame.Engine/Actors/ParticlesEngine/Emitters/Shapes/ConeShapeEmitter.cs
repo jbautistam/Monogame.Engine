@@ -8,6 +8,18 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Emitters.Shapes;
 public class ConeShapeEmitter(float radius, float startAngle, float endAngle) : AbstractShapeEmitter
 {
     /// <summary>
+    ///     Clona el objeto
+    /// </summary>
+	public override AbstractShapeEmitter Clone()
+	{
+		return new ConeShapeEmitter(Radius, StartAngle, EndAngle)
+                        {
+                            EmissionLocation = EmissionLocation,
+                            EmissionDirection = EmissionDirection
+                        };
+	}
+
+    /// <summary>
     ///     Obtiene los datos de la siguiente emisión
     /// </summary>
     public override EmissionData GetEmissionData(EmissionLocationMode location, EmissionDirectionMode directionMode, Vector2? fixedDirection)

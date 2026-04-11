@@ -8,6 +8,18 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Emitters.Shapes;
 public class CircleShapeEmitter(float radius) : AbstractShapeEmitter
 {
     /// <summary>
+    ///     Clona el objeto
+    /// </summary>
+	public override AbstractShapeEmitter Clone()
+	{
+		return new CircleShapeEmitter(Radius)
+                        {
+                            EmissionLocation = EmissionLocation,
+                            EmissionDirection = EmissionDirection
+                        };
+	}
+
+    /// <summary>
     ///     Obtiene los datos de emisión de una partícula
     /// </summary>
     public override EmissionData GetEmissionData(EmissionLocationMode location, EmissionDirectionMode directionMode, Vector2? fixedDirection)

@@ -8,6 +8,24 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Emitters.Shapes;
 public class PathEmitter : AbstractShapeEmitter
 {
     /// <summary>
+    ///     Clona el objeto
+    /// </summary>
+	public override AbstractShapeEmitter Clone()
+	{
+		PathEmitter cloned = new()
+                        {
+                            EmissionLocation = EmissionLocation,
+                            EmissionDirection = EmissionDirection
+                        };
+
+            // Clona los puntos
+            foreach (Vector2 point in Points)
+                cloned.Points.AddRange(new Vector2(point.X, point.Y));
+            // Devuelve el objeto clonado
+            return cloned;
+	}
+
+    /// <summary>
     ///     Calcula los datos de emisión
     /// </summary>
     public override EmissionData GetEmissionData(EmissionLocationMode location, EmissionDirectionMode directionMode, Vector2? fixedDirection)

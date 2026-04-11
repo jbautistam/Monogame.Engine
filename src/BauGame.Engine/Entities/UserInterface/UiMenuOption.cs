@@ -21,7 +21,6 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     /// </summary>
     protected override void UpdateSelf(Managers.GameContext gameContext) 
     {
-        Font?.Update(gameContext);
     }
 
     /// <summary>
@@ -29,18 +28,19 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     /// </summary>
     public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-        if (!string.IsNullOrEmpty(Text) && Font is not null)
-        {
-            Vector2 textSize = Font.MeasureString(Text);
-            Vector2 textPosition = new(Position.ContentBounds.X + (Position.ContentBounds.Width - textSize.X) / 2, 
-                                       Position.ContentBounds.Y + (Position.ContentBounds.Height - textSize.Y) / 2);
-            UiStyle? style = GetStyle();
+        UiStyle? style = GetStyle();
 
-                // Dibuja la textura de fondo si existe
-                Layer.DrawStyle(renderingManager, Style, State, Position.Bounds, gameContext);
-                // Dibuja el texto
-                renderingManager.SpriteTextRenderer.DrawString(Font, Text, textPosition, (style?.Color ?? Color.White) * (style?.Opacity ?? 1));
-        }
+            if (!string.IsNullOrEmpty(Text) && style?.Font is not null)
+            {
+                Vector2 textSize = style.Font.MeasureString(Text);
+                Vector2 textPosition = new(Position.ContentBounds.X + (Position.ContentBounds.Width - textSize.X) / 2, 
+                                           Position.ContentBounds.Y + (Position.ContentBounds.Height - textSize.Y) / 2);
+
+                    // Dibuja la textura de fondo si existe
+                    Layer.DrawStyle(renderingManager, Style, State, Position.Bounds, gameContext);
+                    // Dibuja el texto
+                    renderingManager.SpriteTextRenderer.DrawString(style.Font, Text, textPosition, (style?.StyleText?.Color ?? Color.White) * (style?.StyleText?.Opacity ?? 1));
+            }
     }
 
     /// <summary>
@@ -68,11 +68,6 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     ///     Texto
     /// </summary>
     public string? Text { get; set; }
-
-    /// <summary>
-    ///     Nombre de la fuente
-    /// </summary>
-    public SpriteTextDefinition? Font { get; set; }
 
     /// <summary>
     ///     Indica si el cursor está sobre el botón

@@ -48,6 +48,7 @@ public class EngineSampleGame : Game
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.MainMenu.MainMenuScene(GameLogic.Scenes.MainMenu.MainMenuScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Games.GameScene(GameLogic.Scenes.Games.GameScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.TilesSample.TilesScene(GameLogic.Scenes.TilesSample.TilesScene.SceneName, 1));
+		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Particles.ParticlesScene(GameLogic.Scenes.Particles.ParticlesScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Space.SpaceShipsScene(GameLogic.Scenes.Space.SpaceShipsScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Animations.AnimationsScene(GameLogic.Scenes.Animations.AnimationsScene.SceneName));
 		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene(GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName));

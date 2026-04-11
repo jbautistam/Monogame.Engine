@@ -11,6 +11,11 @@ public class AlphaOverLifetimeModifier(int minimum, int maximum,
                                        EasingFunctionsHelper.EasingType easingType = EasingFunctionsHelper.EasingType.Linear) : AbstractParticleModifier
 {
     /// <summary>
+    ///     Clona los datos de un modificador
+    /// </summary>
+    public override AbstractParticleModifier Clone() => new AlphaOverLifetimeModifier(minimum, maximum, easingType);
+
+    /// <summary>
     ///     Actualiza la transparencia de la partícula
     /// </summary>
     protected override void UpdateSelf(ParticleModel particle, float deltaTime, float normalizedAge)

@@ -22,6 +22,11 @@ public abstract class AbstractParticleModifier
     }
 
     /// <summary>
+    ///     Clona los datos de un modificador
+    /// </summary>
+    public abstract AbstractParticleModifier Clone();
+
+    /// <summary>
     ///     Actualiza los datos de la partícula
     /// </summary>
     public void Update(ParticleModel particle, float deltaTime)

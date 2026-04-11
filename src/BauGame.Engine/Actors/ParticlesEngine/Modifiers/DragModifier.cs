@@ -8,6 +8,11 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Modifiers;
 public class DragModifier(float dragCoefficient = 0.95f) : AbstractParticleModifier
 {
     /// <summary>
+    ///     Clona los datos de un modificador
+    /// </summary>
+    public override AbstractParticleModifier Clone() => new DragModifier(dragCoefficient);
+
+    /// <summary>
     ///     Actualiza la velocidad de la partícula
     /// </summary>
     protected override void UpdateSelf(ParticleModel particle, float deltaTime, float normalizedAge)
