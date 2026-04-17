@@ -8,7 +8,6 @@ public class ResourcesManager
 	public ResourcesManager(EngineManager engineManager)
 	{
 		EngineManager = engineManager;
-		//TextureManager = new TextureManager(this);
 		TextureConfigurationManager = new TextureConfigurationManager(this);
 		GlobalContentManager = new ContentDisposableManager(this);
 		AnimationManager = new Animations.AnimationManager(this);

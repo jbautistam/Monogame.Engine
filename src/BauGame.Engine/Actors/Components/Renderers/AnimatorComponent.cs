@@ -1,13 +1,11 @@
 ﻿using Bau.BauEngine.Managers.Resources.Animations;
-using Bau.BauEngine.Managers.Resources.Textures;
-using Bau.BauEngine.Managers.Resources.Textures.Configuration;
 
 namespace Bau.BauEngine.Actors.Components.Renderers;
 
 /// <summary>
 ///		Componente de animación
 /// </summary>
-internal class AnimatorComponent
+public class AnimatorComponent(RendererAnimatorComponent rendererAnimatorComponent)
 {
 	// Variables privadas
 	private float _elapsed;
@@ -33,7 +31,7 @@ internal class AnimatorComponent
 		if (_actualAnimation is null || !_actualAnimation.Name.Equals(animation, StringComparison.CurrentCultureIgnoreCase))
 		{
 			// Obtiene la animación actual
-			_actualAnimation = GameEngine.Instance.ResourcesManager.AnimationManager.Animations.Get(animation);
+			_actualAnimation = RendererAnimatorComponent.Actor.Layer.Scene.SceneManager.EngineManager.ResourcesManager.AnimationManager.Animations.Get(animation);
 			// Marca los datos de inicio
 			_frameIndex = 0;
 			_elapsed = 0;
@@ -108,6 +106,11 @@ internal class AnimatorComponent
 		else
 			return "default";
 	}
+
+	/// <summary>
+	///		Componente de presentación
+	/// </summary>
+	public RendererAnimatorComponent RendererAnimatorComponent { get; } = rendererAnimatorComponent;
 
 	/// <summary>
 	///		Indica si se está ejecutando la animación

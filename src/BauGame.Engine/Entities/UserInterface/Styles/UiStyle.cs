@@ -119,7 +119,7 @@ public class UiStyle(UiStylesCollection stylesParent, UiStyle.StyleType type)
 		if (StyleText is not null)
 			Font = new SpriteTextDefinition(StyleText.Font);
 		else
-			Font = new SpriteTextDefinition(GameEngine.Instance.EngineSettings.DefaultFont);
+			Font = new SpriteTextDefinition(StylesParent.Layer.Scene.SceneManager.EngineManager.EngineSettings.DefaultFont);
 	}
 
     /// <summary>

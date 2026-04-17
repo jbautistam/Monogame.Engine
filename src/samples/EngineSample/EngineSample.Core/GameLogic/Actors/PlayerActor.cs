@@ -171,13 +171,13 @@ public class PlayerActor : AbstractActorDrawable
 		// Inicializa la velocidad
 		_speed = new Vector2();
 		// Mueve el jugador con el teclado
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionUp))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionUp))
 			_speed.Y = -Velocity;
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionDown))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionDown))
 			_speed.Y = Velocity;
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionLeft))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionLeft))
 			_speed.X = -Velocity;
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionRight))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionRight))
 			_speed.X = Velocity;
 		// Coloca el jugador
 		Transform.Bounds.Translate(_speed * gameContext.DeltaTime);
@@ -195,9 +195,9 @@ public class PlayerActor : AbstractActorDrawable
 	/// </summary>
 	private void Shoot(GameContext gameContext)
 	{
-		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootAction))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Constants.InputShootAction))
 			Shoot(SlotPrimary);
-		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootGrenadeAction))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Constants.InputShootGrenadeAction))
 			Shoot(SlotSecondary);
 
 		// Dispara el arma activa en un slot

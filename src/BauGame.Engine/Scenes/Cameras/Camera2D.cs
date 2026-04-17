@@ -24,8 +24,6 @@ public class Camera2D
         Zoom = 1.0f;
         ViewPortCenter = new Vector2(0.5f * ScreenViewport.Width, 0.5f * ScreenViewport.Height);
         Position = new Vector2(0, 0);
-        // Inicializa el manejador de eventos de cambio de tamaño de pantalla
-        GameEngine.Instance.MonogameServicesManager.ViewPortChanged += (sender, args) => UpdateViewPort();
     }
 
     /// <summary>
@@ -52,9 +50,9 @@ public class Camera2D
     /// <summary>
     ///     Actualiza el viewPort (normalmente por un cambio en el tamaño de la pantalla)
     /// </summary>
-    private void UpdateViewPort()
+    public void UpdateViewPort(Viewport viewport)
     {
-        ScreenViewport = GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport;
+        ScreenViewport = viewport;
         _transformMatrix = null;
     }
 

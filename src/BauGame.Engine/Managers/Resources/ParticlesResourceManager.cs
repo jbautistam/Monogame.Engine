@@ -75,7 +75,7 @@ public class ParticlesResourceManager(ResourcesManager resourcesManager)
 	/// <summary>
 	///		Crea la figura del emisor
 	/// </summary>
-	private ParticleEmitterShape CreateShape(ParticleSystemEmitterDefinitionModel emitter) => emitter.EmitterShape.Clone();
+	private ParticleEmitterShape CreateShape(ParticleSystemEmitterDefinitionModel emitter) => emitter.Shape.Clone();
 
 	/// <summary>
 	///		Crea un perfil de emisión de partículas

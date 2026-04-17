@@ -56,11 +56,6 @@ public class ScreenSettings
     public bool WindowAllowUserResizing { get; set; } = true;
 
     /// <summary>
-    ///     Indica si se prefiere multisampling
-    /// </summary>
-    public bool MultiSampling { get; set; } = true;
-
-    /// <summary>
     ///     Direcciones de pantalla permitidas
     /// </summary>
     public Microsoft.Xna.Framework.DisplayOrientation DisplayOrientation { get; set; }

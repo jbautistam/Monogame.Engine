@@ -7,16 +7,21 @@ namespace Bau.BauEngine.Scenes;
 /// </summary>
 public abstract class AbstractScene
 {
-    protected AbstractScene(string name, Entities.Common.WorldDefinitionModel? worldDefinition)
+    protected AbstractScene(SceneManager sceneManager, string name, Entities.Common.WorldDefinitionModel? worldDefinition)
     {
+        // Asigna las propiedades
+        SceneManager = sceneManager;
         Name = name;
         WorldDefinition = worldDefinition ?? new Entities.Common.WorldDefinitionModel(5_000, 5_000, 10, 10);
+        // Asigna los managers
         Camera = new Cameras.Camera2D(this, GetViewPort());
         LayerManager = new Layers.LayerManager(this);
         PhysicsManager = new Physics.PhysicsManager(this);
         MessagesManager = new Messages.MessagesManager(this);
         RenderingManager = new Rendering.RenderingManager(this);
         TimerManager = new Timers.TimerManager(this);
+        // Inicializa el manejador de eventos de cambio de tamaño de pantalla
+        SceneManager.EngineManager.MonogameServicesManager.ViewPortChanged += (sender, args) => UpdateViewPort();
     }
 
     /// <summary>
@@ -24,13 +29,13 @@ public abstract class AbstractScene
     /// </summary>
     public TypeAsset? LoadSceneAsset<TypeAsset>(string asset) where TypeAsset : class
     {
-        return GameEngine.Instance.ResourcesManager.GlobalContentManager.LoadAsset<TypeAsset>(asset);
+        return SceneManager.EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<TypeAsset>(asset);
     }
 
     /// <summary>
     ///     Actualiza la escena
     /// </summary>
-    public AbstractScene? Update(Managers.GameContext gameContext)
+    public string? Update(Managers.GameContext gameContext)
     {   
         // Actualiza los datos de la escena
         PhysicsManager.Update(gameContext);
@@ -43,7 +48,15 @@ public abstract class AbstractScene
     /// <summary>
     ///     Actualiza la escena
     /// </summary>
-    protected abstract AbstractScene? UpdateScene(Managers.GameContext gameContext);
+    protected abstract string? UpdateScene(Managers.GameContext gameContext);
+
+    /// <summary>
+    ///     Cambia la definición del mundo
+    /// </summary>
+	protected void UpdateWorldDefinition(int width, int height)
+	{
+		WorldDefinition = new Entities.Common.WorldDefinitionModel(width, height, WorldDefinition.CellWidth, WorldDefinition.CellHeight);
+	}
 
     /// <summary>
     ///     Dibuja la escena
@@ -57,7 +70,7 @@ public abstract class AbstractScene
             if (layer.Enabled && layer.Type != Layers.AbstractLayer.LayerType.UserInterface)
                 layer.Draw(RenderingManager, gameContext);
 		// Dibuja la capa de log
-        GameEngine.Instance.DebugManager.DrawLogFigures(RenderingManager, gameContext);
+        SceneManager.EngineManager.DebugManager.DrawLogFigures(RenderingManager, gameContext);
 		// Comienza el dibujo de la interface de usuario
         RenderingManager.BeginDrawUI();
         // Dibuja las capas de interface de usuario
@@ -65,7 +78,7 @@ public abstract class AbstractScene
             if (layer.Enabled && layer.Type == Layers.AbstractLayer.LayerType.UserInterface)
                 layer.Draw(RenderingManager, gameContext);
         // Dibuja la capa de log
-        GameEngine.Instance.DebugManager.DrawLogStrings(RenderingManager, gameContext);
+        SceneManager.EngineManager.DebugManager.DrawLogStrings(RenderingManager, gameContext);
 		// Finaliza el dibujo
         RenderingManager.End();
     }
@@ -79,9 +92,25 @@ public abstract class AbstractScene
     }
 
     /// <summary>
+    ///     Actualiza el ViewPort cuando se cambia
+    /// </summary>
+    private void UpdateViewPort()
+    {
+        Camera?.UpdateViewPort(GetViewPort());
+        UpdateViewPortSelf();
+    }
+
+    /// <summary>
+    ///     Rutina para cambiar los datos de la escena cuando se ha cambiado el ViewPort
+    /// </summary>
+    protected virtual void UpdateViewPortSelf()
+    {
+    }
+
+    /// <summary>
     ///     Obtiene el viewport de la escena
     /// </summary>
-    public Viewport GetViewPort() => GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport;
+    public Viewport GetViewPort() => SceneManager.EngineManager.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice.Viewport;
 
     /// <summary>
     ///     Arranca la escena
@@ -94,7 +123,7 @@ public abstract class AbstractScene
     public void End(Managers.GameContext gameContext)
     {
         // Detiene el audio
-        GameEngine.Instance.AudioManager.Stop();
+        SceneManager?.EngineManager.AudioManager.Stop();
         // Finaliza las capas
         LayerManager.End(gameContext);
         // Finaliza la escena
@@ -105,6 +134,11 @@ public abstract class AbstractScene
     ///     Finaliza la escena
     /// </summary>
 	protected abstract void EndScene();
+
+    /// <summary>
+    ///     Manager de scenas
+    /// </summary>
+    public SceneManager SceneManager { get; }
 
 	/// <summary>
 	///		Nombre de la escena

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings WindowTitle="Game">
+	<Engine Font="fonts/hud"/>
+	<Screen MouseVisible="true" FullScreen ="false" Borderless ="false" MultiSampling="false" SynchronizeWithVerticalRetrace="true"
+			BufferWidth ="1200" BufferHeight="720"
+			ViewPortWidth ="1200" ViewPortHeight="720" 
+			AllowUserResizing="true"
+			Orientation="LandscapeLeftAndRight" />
+	<Debug Debugging ="false" Font="fonts/hud" Color="White" OverlayColor="Red" ImageColor="White"/>
+	<Audio MasterVolume = "1" MusicVolume = "1" SoundVolume="1" VoiceVolume ="1" AmbienceVolume="0.6"/>
+</Settings>

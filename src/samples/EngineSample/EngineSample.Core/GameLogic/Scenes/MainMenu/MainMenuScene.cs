@@ -3,14 +3,13 @@ using Bau.BauEngine.Scenes.Layers;
 using Bau.BauEngine.Scenes.Layers.Backgrounds;
 using Bau.BauEngine.Scenes.Layers.Builders.UserInterface;
 using Bau.BauEngine.Entities.UserInterface;
-using Bau.BauEngine;
 
 namespace EngineSample.Core.GameLogic.Scenes.MainMenu;
 
 /// <summary>
 ///		Escena del menú principal
 /// </summary>
-internal class MainMenuScene(string name) : AbstractScene(name, null)
+internal class MainMenuScene(SceneManager sceneManager, string name) : AbstractScene(sceneManager, name, null)
 {
 	// Constantes públicas
 	public const string SceneName = "MainMenu";
@@ -55,7 +54,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	private UserInterfaceLayer CreateHudLayer()
 	{
 		UserInterfaceLayer uiLayer = new(this, MenuLayer, 1);
-		Configuration.ResourcesLoader loader = new(GameEngine.Instance);
+		Configuration.ResourcesLoader loader = new(SceneManager.EngineManager);
 
 			// Carga los estilos
 			uiLayer.Styles = loader.LoadStyles(uiLayer, "Settings/VisualNovel/Styles.xml");
@@ -106,40 +105,31 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 	/// <summary>
 	///		Actualiza la escena
 	/// </summary>
-	protected override AbstractScene? UpdateScene(Bau.BauEngine.Managers.GameContext gameContext)
+	protected override string? UpdateScene(Bau.BauEngine.Managers.GameContext gameContext)
 	{
-		AbstractScene nextScene = this;
-
 			// Actualiza los actores
 			LayerManager.Update(gameContext);
 			// Sale del juego si se ha pulsado el botón de Scape
-			if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaulQuitAction))
-				GameEngine.Instance.Exit();
+			if (SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaulQuitAction))
+				SceneManager.EngineManager.Exit();
 			// Devuelve la nueva escena
 			if (_menu is not null)
 				switch ((MenuOption?) _menu.GetAndResetClickOption())
 				{
 					case MenuOption.Play:
-							nextScene = GetNewScene(Games.GameScene.SceneName);
-						break;
+						return Games.GameScene.SceneName;
 					case MenuOption.TilesSample:
-							nextScene = GetNewScene(TilesSample.TilesScene.SceneName);
-						break;
+						return TilesSample.TilesScene.SceneName;
 					case MenuOption.SpaceShips:
-							nextScene = GetNewScene(Space.SpaceShipsScene.SceneName);
-						break;
+						return Space.SpaceShipsScene.SceneName;
 					case MenuOption.Particles:
-							nextScene = GetNewScene(Particles.ParticlesScene.SceneName);
-						break;
+						return Particles.ParticlesScene.SceneName;
 					case MenuOption.Animations:
-							nextScene = GetNewScene(Animations.AnimationsScene.SceneName);
-						break;
+						return Animations.AnimationsScene.SceneName;
 					case MenuOption.UserInterfaceGrid:
-							nextScene = GetNewScene(UserInterfaceGridTest.UserInterfaceGridScene.SceneName);
-						break;
+						return UserInterfaceGridTest.UserInterfaceGridScene.SceneName;
 					case MenuOption.UserInterfaceGallery:
-							nextScene = GetNewScene(UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName);
-						break;
+						return UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName;
 					case MenuOption.Music:
 							PlaySong();
 						break;
@@ -147,28 +137,14 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 							PlayEffect();
 						break;
 					case MenuOption.DebugMode:
-							GameEngine.Instance.EngineSettings.DebugMode = !GameEngine.Instance.EngineSettings.DebugMode;
+							SceneManager.EngineManager.EngineSettings.DebugSettings.IsDebugging = !SceneManager.EngineManager.EngineSettings.DebugSettings.IsDebugging;
 						break;
 					case MenuOption.Quit:
-							GameEngine.Instance.Exit();
+							SceneManager.EngineManager.Exit();
 						break;
 				}
 			// Devuelve la nueva escena
-			return nextScene;
-	}
-
-	/// <summary>
-	///		Obtiene una escena
-	/// </summary>
-	private AbstractScene GetNewScene(string name)
-	{
-		AbstractScene? nextScene = GameEngine.Instance.SceneManager.GetScene(name);
-
-			// Guarda la escena nueva
-			if (nextScene is not null)
-				return nextScene;
-			else
-				return this;
+			return string.Empty;
 	}
 
 	/// <summary>
@@ -183,9 +159,9 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 							  ];
 
 			// Reproduce uno de los sonidos aleatoriamente
-			GameEngine.Instance.AudioManager.PlaySong(sounds[new Random().Next(sounds.Count)], 
-													  Bau.BauEngine.Managers.Audio.AudioManager.TransitionType.CrossFade, 
-													  (float) TimeSpan.FromSeconds(5).TotalMilliseconds);
+			SceneManager.EngineManager.AudioManager.PlaySong(sounds[new Random().Next(sounds.Count)], 
+															 Bau.BauEngine.Managers.Audio.AudioManager.TransitionType.CrossFade, 
+															 (float) TimeSpan.FromSeconds(5).TotalMilliseconds);
 	}
 
 	/// <summary>
@@ -205,7 +181,7 @@ internal class MainMenuScene(string name) : AbstractScene(name, null)
 								];
 
 			// Reproduce uno de los sonidos aleatoriamente
-			GameEngine.Instance.AudioManager.PlayEffect(sounds[new Random().Next(sounds.Count)]);
+			SceneManager.EngineManager.AudioManager.PlayEffect(sounds[new Random().Next(sounds.Count)]);
 	}
 
 	/// <summary>

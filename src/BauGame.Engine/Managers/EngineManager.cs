@@ -7,25 +7,34 @@ namespace Bau.BauEngine.Managers;
 /// </summary>
 public class EngineManager
 {
-    public EngineManager(Game game, Configuration.EngineSettings engineSettings)
+    public EngineManager(BauEngineGame engineGame, string contentRoot)
     {
-        EngineSettings = engineSettings;
+        // Configura el objeto de la partida
+        EngineGame = engineGame;
+        // Configura el motor
+        EngineSettings = new Configuration.EngineSettings()
+                                        {
+                                            ContentRoot = contentRoot
+                                        };
+	    // Configura los datos predeterminados de la pantalla
+	    EngineSettings.ScreenSettings.FullScreen = false;
+	    EngineSettings.ScreenSettings.Borderless = false;
+	    EngineSettings.ScreenSettings.ScreenBufferWidth = 1_200;
+	    EngineSettings.ScreenSettings.ScreenBufferHeight = 720;
+	    EngineSettings.ScreenSettings.ViewPortWidth = 1_200;
+	    EngineSettings.ScreenSettings.ViewPortHeight = 720;
+	    EngineSettings.ScreenSettings.DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+        // Configura los objetos
         FilesManager = new Files.FilesManager(this);
         InputManager = new Input.InputManager();
         LocalizationManager = new Localization.LocalizationManager();
-        MonogameServicesManager = new Services.MonogameServicesManager(game);
+        MonogameServicesManager = new Services.MonogameServicesManager(this);
         ResourcesManager = new Resources.ResourcesManager(this);
         AudioManager = new Audio.AudioManager(this);
-        SceneManager = new Scenes.SceneManager();
+        SceneManager = new Scenes.SceneManager(this);
         MathFunctions = new Tools.MathTools.Precomputed.PrecomputedFunctions();
         DebugManager = new Debugger.DebugManager(this);
-    }
-
-    /// <summary>
-    ///     Inicializa el motor de juego
-    /// </summary>
-    public void Initialize()
-    {
+        // Inicializa los gráficos
         MonogameServicesManager.Initialize(EngineSettings);
     }
 
@@ -60,13 +69,18 @@ public class EngineManager
     /// </summary>
 	public void Exit()
 	{
-        MonogameServicesManager.Game.Exit();
+        EngineGame.Exit();
 	}
+
+    /// <summary>
+    ///     Juego
+    /// </summary>
+    public BauEngineGame EngineGame { get; }
 
 	/// <summary>
 	///		Configuración global
 	/// </summary>
-	public Configuration.EngineSettings EngineSettings { get; } 
+	public Configuration.EngineSettings EngineSettings { get; }
 
     /// <summary>
     ///     Manager de archivos

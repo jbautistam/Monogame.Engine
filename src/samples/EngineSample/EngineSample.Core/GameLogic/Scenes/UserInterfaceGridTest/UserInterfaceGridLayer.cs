@@ -15,7 +15,7 @@ public class UserInterfaceGridLayer(AbstractScene scene, string name, int sortOr
 	/// </summary>
 	protected override void StartLayer()
 	{
-		Configuration.ResourcesLoader loader = new(Bau.BauEngine.GameEngine.Instance);
+		Configuration.ResourcesLoader loader = new(Scene.SceneManager.EngineManager);
 		(UiStylesCollection styles, List<UiElement> components) = loader.LoadScreen(this, "Settings/VisualNovel/ScreenUserInterfaceGrid.xml");
 
 			// Carga los etilos

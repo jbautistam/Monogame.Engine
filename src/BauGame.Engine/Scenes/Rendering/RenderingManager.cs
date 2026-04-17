@@ -14,7 +14,7 @@ public class RenderingManager
 	public RenderingManager(AbstractScene scene)
 	{
 		Scene = scene;
-		Device = GameEngine.Instance.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice;
+		Device = Scene.SceneManager.EngineManager.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice;
 		FiguresRenderer = new Renderers.FiguresRenderer(this);
 		SpriteRenderer = new Renderers.SpriteRenderer(this);
 		SpriteTextRenderer = new Renderers.SpriteTextRenderer(this);

@@ -78,6 +78,7 @@
     <Compile Remove="Entities\UserInterface\UiCheckBox.cs" />
     <Compile Remove="Entities\UserInterface\UiListBox.cs" />
     <Compile Remove="Entities\UserInterface\UiScrollBar.cs" />
+    <Compile Remove="GameEngine.cs" />
     <Compile Remove="Managers\Audio\AudioEngine.cs" />
     <Compile Remove="Managers\Audio\AudioSystems\AmbienceSystem.cs" />
     <Compile Remove="Managers\Audio\AudioSystems\MusicSystem.cs" />

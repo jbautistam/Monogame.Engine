@@ -37,7 +37,7 @@ public class CollisionComponent(AbstractActorDrawable owner, int physicLayerId) 
 	/// </summary>
 	public void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
-		if (GameEngine.Instance.EngineSettings.DebugMode)
+		if (Owner.Layer.Scene.SceneManager?.EngineManager.EngineSettings.DebugSettings.IsDebugging ?? false)
 			foreach (AbstractCollider collider in Colliders)
 				switch (collider)
 				{

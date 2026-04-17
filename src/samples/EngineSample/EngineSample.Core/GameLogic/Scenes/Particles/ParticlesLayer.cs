@@ -19,7 +19,7 @@ public class ParticlesLayer(AbstractScene scene, string name, int sortOrder) : A
 	/// </summary>
 	protected override void StartGameLayer()
 	{
-		_particlesActor = Bau.BauEngine.GameEngine.Instance.ResourcesManager.ParticlesResourcesManagers.Create(this, "Smoke", new Vector2(100, 100));
+		_particlesActor = Scene.SceneManager.EngineManager.ResourcesManager.ParticlesResourcesManagers.Create(this, "Smoke", new Vector2(100, 100));
 	}
 
 	/// <summary>

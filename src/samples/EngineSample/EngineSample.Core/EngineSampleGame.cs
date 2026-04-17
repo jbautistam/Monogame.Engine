@@ -1,73 +1,40 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Bau.BauEngine;
 using Bau.BauEngine.Managers.Input;
 using Bau.BauEngine.Managers.Input.Builders;
+using Bau.BauEngine.Scenes;
 
 namespace EngineSample.Core;
 
 /// <summary>
 ///		Clase principal del juego
 /// </summary>
-public class EngineSampleGame : Game
+public class EngineSampleGame : BauEngineGame
 {
-	public EngineSampleGame()
+	public EngineSampleGame() : base("Content")
 	{
-		Bau.BauEngine.Configuration.EngineSettings settings = new()
-																				{
-																					ContentRoot = "Content",
-																					DefaultFont = "fonts/hud"
-																				};
-
-			// Configura la pantalla
-			settings.ScreenSettings.FullScreen = false;
-			settings.ScreenSettings.Borderless = false;
-			settings.ScreenSettings.ScreenBufferWidth = 1_200;
-			settings.ScreenSettings.ScreenBufferHeight = 720;
-			settings.ScreenSettings.ViewPortWidth = 1_200;
-			settings.ScreenSettings.ViewPortHeight = 720;
-			settings.ScreenSettings.DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
-			// Instancia el motor del juego
-			GameEngine.Instantiate(this, settings);
-			// Inicializa el motor
-			GameEngine.Instance.Initialize();
 	}
 
 	/// <summary>
 	///		Inicializa el juego incluyendo la configuración de la localización y añadiendo las pantallas iniciales al ScreenManager.
 	/// </summary>
-	protected override void Initialize()
+	protected override void InitializeGame()
 	{
-		// Inicializa el juego
-		base.Initialize();
-		// Indica que está en modo de depuración
-		GameEngine.Instance.EngineSettings.DebugMode = false;
-		GameEngine.Instance.EngineSettings.DebugFont = "Fonts/Hud";
-		GameEngine.Instance.EngineSettings.DebugColor = Color.White;
-		// Añade las escenas
-		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.MainMenu.MainMenuScene(GameLogic.Scenes.MainMenu.MainMenuScene.SceneName));
-		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Games.GameScene(GameLogic.Scenes.Games.GameScene.SceneName));
-		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.TilesSample.TilesScene(GameLogic.Scenes.TilesSample.TilesScene.SceneName, 1));
-		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Particles.ParticlesScene(GameLogic.Scenes.Particles.ParticlesScene.SceneName));
-		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Space.SpaceShipsScene(GameLogic.Scenes.Space.SpaceShipsScene.SceneName));
-		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.Animations.AnimationsScene(GameLogic.Scenes.Animations.AnimationsScene.SceneName));
-		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene(GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName));
-		GameEngine.Instance.SceneManager.AddScene(new GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene(GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName));
+		// Carga la configuración del sistema
+		EngineManager.MonogameServicesManager.Configure(new Configuration.ResourcesLoader(EngineManager).LoadConfiguration());
+		// Carga la configuración de recursos
+		new Configuration.ResourcesLoader(EngineManager).LoadResourcesSettings();
 		// Prepara la escena
-		GameEngine.Instance.SceneManager.ChangeScene("MainMenu", new Bau.BauEngine.Managers.GameContext());
+		EngineManager.SceneManager.ChangeScene("MainMenu", new Bau.BauEngine.Managers.GameContext());
 		// Prepara los mapeos
-		CreateMappings(GameEngine.Instance.InputManager);
+		CreateMappings(EngineManager.InputManager);
 	}
 
 	/// <summary>
 	///		Carga el contenido del juego como texturas y sistemas de partículas
 	/// </summary>
-	protected override void LoadContent()
+	protected override void LoadContentGame()
 	{
-		// Inicializa las texturas y animaciones
-		new Configuration.ResourcesLoader(GameEngine.Instance).Load();
-		// Llama al método base
-		base.LoadContent();
 	}
 
 	/// <summary>
@@ -105,24 +72,29 @@ public class EngineSampleGame : Game
 	}
 
 	/// <summary>
-	///		Actualiza la lógica del juego. Se le llama una vez por frame
+	///		Obtiene una escena
 	/// </summary>
-	protected override void Update(GameTime gameTime)
+	public override AbstractScene GetScene(string scene)
 	{
-		// Actualiza los controladores del motor
-		GameEngine.Instance.Update(gameTime);
-		// Llama al método base de modificación
-		base.Update(gameTime);
-	}
-
-	/// <summary>
-	///		Dibuja los gráficos del juego. Se le llama una vez por frame
-	/// </summary>
-	protected override void Draw(GameTime gameTime)
-	{
-		// Dibuja la escena actual
-		GameEngine.Instance.Draw(gameTime);
-		// Llama al método base de dibujo
-		base.Draw(gameTime);
-	}
+		// Busca la escena adecuada
+		if (!string.IsNullOrWhiteSpace(scene))
+		{
+			if (scene.Equals(GameLogic.Scenes.Games.GameScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+				return new GameLogic.Scenes.Games.GameScene(EngineManager.SceneManager, GameLogic.Scenes.Games.GameScene.SceneName);
+			else if (scene.Equals(GameLogic.Scenes.TilesSample.TilesScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+				return new GameLogic.Scenes.TilesSample.TilesScene(EngineManager.SceneManager, GameLogic.Scenes.TilesSample.TilesScene.SceneName, 1);
+			else if (scene.Equals(GameLogic.Scenes.Particles.ParticlesScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+				return new GameLogic.Scenes.Particles.ParticlesScene(EngineManager.SceneManager, GameLogic.Scenes.Particles.ParticlesScene.SceneName);
+			else if (scene.Equals(GameLogic.Scenes.Space.SpaceShipsScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+				return new GameLogic.Scenes.Space.SpaceShipsScene(EngineManager.SceneManager, GameLogic.Scenes.Space.SpaceShipsScene.SceneName);
+			else if (scene.Equals(GameLogic.Scenes.Animations.AnimationsScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+				return new GameLogic.Scenes.Animations.AnimationsScene(EngineManager.SceneManager, GameLogic.Scenes.Animations.AnimationsScene.SceneName);
+			else if (scene.Equals(GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+				return new GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene(EngineManager.SceneManager, GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName);
+			else if (scene.Equals(GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+				return new GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene(EngineManager.SceneManager, GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName);
+		}
+		// Si ha llegado hasta aquí es porque no hay ninguna escena con ese nombre y devuelve la principal
+		return new GameLogic.Scenes.MainMenu.MainMenuScene(EngineManager.SceneManager, GameLogic.Scenes.MainMenu.MainMenuScene.SceneName);
+	}  
 }

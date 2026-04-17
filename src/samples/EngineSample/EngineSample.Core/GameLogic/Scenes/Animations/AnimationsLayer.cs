@@ -91,15 +91,15 @@ public class AnimationsLayer(AbstractScene scene, string name, int sortOrder) : 
 	/// </summary>
 	protected override void UpdateGameLayer(GameContext gameContext)
 	{
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionUp))
+		if (Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionUp))
 			UpdateAnimationsGroup(new Vector2(0, 0), false);
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionDown))
+		if (Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionDown))
 			UpdateAnimationsGroup(new Vector2(0, 0), true);
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionLeft))
+		if (Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionLeft))
 			UpdateAnimationsGroup(new Vector2(-1, 0), false);
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionRight))
+		if (Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionRight))
 			UpdateAnimationsGroup(new Vector2(1, 0), false);
-		if (GameEngine.Instance.InputManager.KeyboardManager.IsPressed(Microsoft.Xna.Framework.Input.Keys.P))
+		if (Scene.SceneManager.EngineManager.InputManager.KeyboardManager.IsPressed(Microsoft.Xna.Framework.Input.Keys.P))
 			PlayAnimations();
 	}
 

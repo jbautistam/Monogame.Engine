@@ -22,7 +22,7 @@ public class SpriteTextRenderer(RenderingManager renderingManager)
 	/// </summary>
 	public void DrawString(SpriteTextDefinition? sprite, string text, Vector2 position, Color color)
 	{
-		SpriteFont? spriteFont = sprite?.LoadAsset();
+		SpriteFont? spriteFont = sprite?.LoadAsset(RenderingManager.Scene);
 
 			if (spriteFont is not null && RenderingManager.SpriteBatch is not null)
 				RenderingManager.SpriteBatch.DrawString(spriteFont, text, position, color);

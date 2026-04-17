@@ -97,21 +97,21 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     private void TreatInputs()
     {
         // Pasa a la opción anterior
-        if (GameEngine.Instance.InputManager.IsAction(Managers.Input.InputMappings.DefaultActionUp, Managers.Input.InputMappings.Status.JustPressed))
+        if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Managers.Input.InputMappings.DefaultActionUp, Managers.Input.InputMappings.Status.JustPressed))
         {
             _selectedOption--;
             if (_selectedOption < 0)
                 _selectedOption = Options.Count - 1;
         }
         // Pasa a la siguiente opción
-        if (GameEngine.Instance.InputManager.IsAction(Managers.Input.InputMappings.DefaultActionDown, Managers.Input.InputMappings.Status.JustPressed))
+        if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Managers.Input.InputMappings.DefaultActionDown, Managers.Input.InputMappings.Status.JustPressed))
         {
             _selectedOption++;
             if (_selectedOption > Options.Count - 1)
                 _selectedOption = 0;
         }
         // Lanza el evento cuando se ha pulsado el enter
-        if (GameEngine.Instance.InputManager.IsAction(Managers.Input.InputMappings.DefaultIntroAction))
+        if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Managers.Input.InputMappings.DefaultIntroAction))
             TreatClicked(_selectedOption);
     }
 
@@ -148,7 +148,7 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
 	/// </summary>
 	private void TreatMouse()
     {
-        Vector2 mousePosition = GameEngine.Instance.InputManager.MouseManager.MousePosition;
+        Vector2 mousePosition = Layer.Scene.SceneManager.EngineManager.InputManager.MouseManager.MousePosition;
 
             // Indica que no hay ninguna opción seleccionada
             _hoverOption = -1;
@@ -157,7 +157,7 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
                 if (_hoverOption == -1 && Options[index].Visible && Options[index].Position.Bounds.Contains(mousePosition))
                     _hoverOption = index;
             // Comprueba si se ha pulsado sobre la opción seleccionada
-            if (_hoverOption != -1 && GameEngine.Instance.InputManager.IsAction(Managers.Input.InputMappings.DefaultMouseClickAction))
+            if (_hoverOption != -1 && Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Managers.Input.InputMappings.DefaultMouseClickAction))
                 TreatClicked(_hoverOption);
     }
 

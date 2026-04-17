@@ -33,7 +33,7 @@ public class UiButton : UiElement
     {
         if (Enabled)
         {
-            Vector2 mousePosition = GameEngine.Instance.InputManager.MouseManager.MousePosition;
+            Vector2 mousePosition = Layer.Scene.SceneManager.EngineManager.InputManager.MouseManager.MousePosition;
             bool wasHovered = IsHovered;
 
                 // Incrementa el tiempo pasado desde el último click
@@ -46,7 +46,7 @@ public class UiButton : UiElement
                 if (IsHovered)
                 {
                     // Indica si se ha pulsado el elemento
-                    IsPressed = GameEngine.Instance.InputManager.MouseManager.IsPressed(Managers.Input.MouseController.MouseStatus.MouseButton.Left);
+                    IsPressed = Layer.Scene.SceneManager.EngineManager.InputManager.MouseManager.IsPressed(Managers.Input.MouseController.MouseStatus.MouseButton.Left);
                     // Lanza el evento de pulsación
                     if (IsPressed && _timeFromLastClick > 1f)
                     {

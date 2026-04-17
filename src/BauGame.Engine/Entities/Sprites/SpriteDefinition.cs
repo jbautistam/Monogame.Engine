@@ -38,7 +38,7 @@ public class SpriteDefinition
 		if (_isDirty)
 		{
 			// Carga la configuración del asset
-			_textureConfiguration = GameEngine.Instance.ResourcesManager.TextureConfigurationManager.GetTextureRegion(scene, Asset, Region);
+			_textureConfiguration = scene.SceneManager.EngineManager.ResourcesManager.TextureConfigurationManager.GetTextureRegion(scene, Asset, Region);
 			// Indica que se ha cargado con las últimas modificaciones
 			_isDirty = false;
 		}

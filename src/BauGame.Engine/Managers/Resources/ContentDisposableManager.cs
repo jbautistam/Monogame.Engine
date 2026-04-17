@@ -19,7 +19,7 @@ public class ContentDisposableManager(ResourcesManager resourcesManager) : IDisp
         else
 			try
 			{
-				TypeAsset assetContent = GameEngine.Instance.MonogameServicesManager.Content.Load<TypeAsset>(asset);
+				TypeAsset assetContent = ResourcesManager.EngineManager.MonogameServicesManager.Content.Load<TypeAsset>(asset);
 
 					// Añade el contenido al diccionario
 					_loadedAssets.Add(asset, assetContent);
@@ -41,7 +41,7 @@ public class ContentDisposableManager(ResourcesManager resourcesManager) : IDisp
 	{
         // Descarga los assets cargados
         foreach (KeyValuePair<string, object?> asset in _loadedAssets)
-            GameEngine.Instance.MonogameServicesManager.Content.UnloadAsset(asset.Key);
+			ResourcesManager.EngineManager.MonogameServicesManager.Content.UnloadAsset(asset.Key);
         // Limpia el caché de assets
         _loadedAssets.Clear();
 	}

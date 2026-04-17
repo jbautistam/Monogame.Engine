@@ -38,6 +38,9 @@
     <ProjectReference Include="..\..\..\BauGame.Engine\BauEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\Settings\System\system-settings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Settings\textures-tiles.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,4 +1,5 @@
-﻿using Bau.BauEngine.Entities.UserInterface;
+﻿using Bau.BauEngine.Configuration;
+using Bau.BauEngine.Entities.UserInterface;
 using Bau.BauEngine.Entities.UserInterface.Styles;
 using Bau.BauEngine.Managers;
 using Bau.BauEngine.Scenes.Layers;
@@ -15,6 +16,24 @@ public class FilesStandardLoader(EngineManager manager)
 	///		Carga el texto de un archivo de contenido
 	/// </summary>
 	private string? LoadTextFile(string fileName) => Manager.FilesManager.StorageManager.ReadTextFile($"Content/{fileName}");
+
+	/// <summary>
+	///		Carga la configuración de sistema de un archivo: audio, vídeo, depuración
+	/// </summary>
+	public EngineSettings LoadConfiguration(string fileName, EngineSettings defaultSettings)
+	{
+		string? xml = LoadTextFile(fileName);
+
+			if (string.IsNullOrWhiteSpace(xml))
+				return defaultSettings;
+			else
+			{
+				// Carga la configuración
+				new Xml.SettingsRepository().Load(xml, defaultSettings);
+				// Devuelve la configuración cargada
+				return defaultSettings;
+			}
+	}
 
 	/// <summary>
 	///		Carga las configuraciones de texturas y animación

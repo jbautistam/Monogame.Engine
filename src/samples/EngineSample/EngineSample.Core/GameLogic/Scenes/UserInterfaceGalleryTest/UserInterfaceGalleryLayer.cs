@@ -19,7 +19,7 @@ public class UserInterfaceGalleryLayer(AbstractScene scene, string name, int sor
 	/// </summary>
 	protected override void StartLayer()
 	{
-		Configuration.ResourcesLoader loader = new(Bau.BauEngine.GameEngine.Instance);
+		Configuration.ResourcesLoader loader = new(Scene.SceneManager.EngineManager);
 		(UiStylesCollection styles, List<UiElement> components) = loader.LoadScreen(this, "Settings/VisualNovel/ScreenUserInterfaceGallery.xml");
 
 			// Carga los etilos

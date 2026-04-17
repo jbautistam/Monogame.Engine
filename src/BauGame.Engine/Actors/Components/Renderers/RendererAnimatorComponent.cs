@@ -7,8 +7,13 @@ namespace Bau.BauEngine.Actors.Components.Renderers;
 /// <summary>
 ///		Componente para representación de un actor con animación
 /// </summary>
-public class RendererAnimatorComponent(AbstractActorDrawable actor) : AbstractRendererComponent(actor), Interfaces.IActorDrawable
+public class RendererAnimatorComponent : AbstractRendererComponent, Interfaces.IActorDrawable
 {
+	public RendererAnimatorComponent(AbstractActorDrawable actor) : base(actor)
+	{
+		Animator = new AnimatorComponent(this);
+	}
+
 	/// <summary>
 	///		Inicia el componente
 	/// </summary>
@@ -24,11 +29,11 @@ public class RendererAnimatorComponent(AbstractActorDrawable actor) : AbstractRe
 		// Busca la animación correspondiente dependiendo de las propiedades de animación
 		if (AnimatorBlenderProperties is not null)
 		{
-			AnimationBlenderGroupRuleModel? rule = GameEngine.Instance.ResourcesManager.AnimationManager.AnimationBlender.EvaluateRules(AnimatorBlenderProperties);
+			AnimationBlenderGroupRuleModel? rule = Actor.Layer.Scene.SceneManager.EngineManager.ResourcesManager.AnimationManager.AnimationBlender.EvaluateRules(AnimatorBlenderProperties);
 
 				if (rule is not null)
 				{
-					Animation? animation = GameEngine.Instance.ResourcesManager.AnimationManager.Animations.Get(rule.Animation);
+					Animation? animation = Actor.Layer.Scene.SceneManager.EngineManager.ResourcesManager.AnimationManager.Animations.Get(rule.Animation);
 
 						// Arranca la animación
 						if (animation is not null)
@@ -110,7 +115,7 @@ public class RendererAnimatorComponent(AbstractActorDrawable actor) : AbstractRe
 	/// <summary>
 	///		Componente de animación
 	/// </summary>
-	internal AnimatorComponent Animator { get; } = new();
+	public AnimatorComponent Animator { get; }
 
 	/// <summary>
 	///		Propiedades para el mezclador de animaciones

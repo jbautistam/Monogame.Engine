@@ -12,7 +12,7 @@ public class ParticleSystemEmitterDefinitionModel(ParticleEmitterShape shape)
     /// <summary>
     ///     Figura asociada al emisor
     /// </summary>
-    public ParticleEmitterShape EmitterShape { get; } = shape;
+    public ParticleEmitterShape Shape { get; } = shape;
 
     /// <summary>
     ///     Posición del emisor

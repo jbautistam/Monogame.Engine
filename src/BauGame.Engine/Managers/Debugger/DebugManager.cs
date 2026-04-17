@@ -20,7 +20,7 @@ public class DebugManager(EngineManager manager)
     /// </summary>
     public void Log(string message, Color? color = null)
     {
-        if (Manager.EngineSettings.DebugMode)
+        if (Manager.EngineSettings.DebugSettings.IsDebugging)
         {
             // Encola el mensaje
             _messages.Enqueue(($"[{DateTime.Now:HH:mm:ss.fff}] {message}", color));
@@ -61,7 +61,7 @@ public class DebugManager(EngineManager manager)
 	/// </summary>
 	private void AddFigure(string id, object figure, Color? color = null)
 	{
-		if (Manager.EngineSettings.DebugMode)
+		if (Manager.EngineSettings.DebugSettings.IsDebugging)
 			_figures.Add((id, figure, color));
 	}
 
@@ -70,11 +70,11 @@ public class DebugManager(EngineManager manager)
     /// </summary>
     public void Update(GameContext gameContext)
     {
-        if (Manager.EngineSettings.DebugMode)
+        if (Manager.EngineSettings.DebugSettings.IsDebugging)
         {
             // Obtiene la fuente
-            if (!string.IsNullOrWhiteSpace(Manager.EngineSettings.DebugFont) && DebugFont is null)
-                DebugFont = new SpriteTextDefinition(Manager.EngineSettings.DebugFont);
+            if (!string.IsNullOrWhiteSpace(Manager.EngineSettings.DebugSettings.Font) && DebugFont is null)
+                DebugFont = new SpriteTextDefinition(Manager.EngineSettings.DebugSettings.Font);
             // Incrementa el tiempo y el número de frames
             _elapsedTime += gameContext.DeltaTime;
             _frameCount++;
@@ -93,7 +93,7 @@ public class DebugManager(EngineManager manager)
     /// </summary>
     public void DrawLogFigures(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
-        if (Manager.EngineSettings.DebugMode && DebugFont is not null)
+        if (Manager.EngineSettings.DebugSettings.IsDebugging && DebugFont is not null)
         {
 		}
 	}
@@ -103,23 +103,25 @@ public class DebugManager(EngineManager manager)
     /// </summary>
     public void DrawLogStrings(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
     {
-        if (Manager.EngineSettings.DebugMode && DebugFont is not null)
+        if (Manager.EngineSettings.DebugSettings.IsDebugging && DebugFont is not null)
         {
             Vector2 position = renderingManager.Scene.Camera.WorldToScreenRelative(LogPosition);
 
                 // Muestra los mensajes
                 foreach ((string message, Color? color) in _messages)
                 {
-                    renderingManager.SpriteTextRenderer.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugColor);
+                    renderingManager.SpriteTextRenderer.DrawString(DebugFont, message, position, color ?? Manager.EngineSettings.DebugSettings.Color);
                     position.Y += DebugFont.GetLineSpacing();
                 }
                 // Muestra las estadísticas
                 position = renderingManager.Scene.Camera.WorldToScreenRelative(OverlayPosition);
-                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugOverlayColor);
+                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"FPS: {_fps:F1}", position, Manager.EngineSettings.DebugSettings.OverlayColor);
                 position.Y += DebugFont.GetLineSpacing();
-                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, Manager.EngineSettings.DebugOverlayColor);
+                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"TimeScale: {gameContext.TimeScale}", position, 
+                                                               Manager.EngineSettings.DebugSettings.OverlayColor);
                 position.Y += DebugFont.GetLineSpacing();
-                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, Manager.EngineSettings.DebugOverlayColor);
+                renderingManager.SpriteTextRenderer.DrawString(DebugFont, $"Paused: {gameContext.Paused}", position, 
+                                                               Manager.EngineSettings.DebugSettings.OverlayColor);
                 position.Y += DebugFont.GetLineSpacing();
         }
     }

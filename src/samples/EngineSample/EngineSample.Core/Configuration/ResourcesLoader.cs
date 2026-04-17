@@ -2,6 +2,7 @@
 using Bau.BauEngine.Entities.UserInterface.Styles;
 using Bau.BauEngine.Entities.UserInterface;
 using Bau.BauEngine.Managers;
+using Bau.BauEngine.Configuration;
 
 namespace EngineSample.Core.Configuration;
 
@@ -20,9 +21,14 @@ public class ResourcesLoader
 	}
 
 	/// <summary>
-	///		Carga la configuración
+	///		Carga la configuración del sistema
 	/// </summary>
-	public void Load()
+	public EngineSettings LoadConfiguration() => _filesLoader.LoadConfiguration("Settings/System/system-settings.xml", Manager.EngineSettings);
+
+	/// <summary>
+	///		Carga la configuración de texturas, partículas...
+	/// </summary>
+	public void LoadResourcesSettings()
 	{
 		LoadTexturesSettings();
 		LoadParticlesSystem();

@@ -24,23 +24,22 @@ public class SpriteTextDefinition
 	/// </summary>
 	public void Update(GameContext gameContext)
 	{
-		LoadAsset();
 	}
 
 	/// <summary>
 	///		Carga la fuente si es la primera vez o ha habido modificaciones
 	/// </summary>
-	public SpriteFont? LoadAsset()
+	public SpriteFont? LoadAsset(Scenes.AbstractScene scene)
 	{
 		// Carga la fuente si no estaba ya en memoria o se ha modificado
 		if (_isDirty)
 		{
 			// Carga la fuente
 			if (!string.IsNullOrEmpty(Font))
-				_spriteFont = GameEngine.Instance.ResourcesManager.GlobalContentManager.LoadAsset<SpriteFont>(Font);
+				_spriteFont = scene.SceneManager.EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<SpriteFont>(Font);
 			// Si no ha podido cargar la fuente, carga la predeterminada
-			if (_spriteFont is null && !string.IsNullOrWhiteSpace(GameEngine.Instance.EngineSettings.DefaultFont))
-				_spriteFont = GameEngine.Instance.ResourcesManager.GlobalContentManager.LoadAsset<SpriteFont>(GameEngine.Instance.EngineSettings.DefaultFont);
+			if (_spriteFont is null && !string.IsNullOrWhiteSpace(scene.SceneManager.EngineManager.EngineSettings.DefaultFont))
+				_spriteFont = scene.SceneManager.EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<SpriteFont>(scene.SceneManager.EngineManager.EngineSettings.DefaultFont);
 			// Indica que se ha cargado con las últimas modificaciones
 			_isDirty = false;
 		}

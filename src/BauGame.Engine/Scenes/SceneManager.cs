@@ -3,65 +3,39 @@
 /// <summary>
 ///     Manager de escenas
 /// </summary>
-public class SceneManager
+public class SceneManager(Managers.EngineManager engineManager)
 {
     // Variables privadas
     private AbstractScene? _currentScene;
-    private Entities.Common.DictionaryModel<AbstractScene> _scenes = new();
-
-    /// <summary>
-    ///     Añade una escena
-    /// </summary>
-    public AbstractScene AddScene(AbstractScene scene)
-    {
-        // Añade la escena
-        _scenes.Add(scene.Name, scene);
-        // Si era la primera, la asigna
-        if (_scenes.Items.Count == 1)
-            _currentScene = scene;
-        // Devuelve la escena añadida
-        return scene;
-    }
 
     /// <summary>
     ///     Cambia la escena
     /// </summary>
     public void ChangeScene(string name, Managers.GameContext gameContext)
     {
-        AbstractScene? newScene = _scenes.Get(name);
+        AbstractScene? newScene = EngineManager.EngineGame.GetScene(name); // _scenes.Get(name);
 
             // Cambia la escena
             if (newScene is not null)
-                ChangeScene(newScene, gameContext);
+            {
+                // Finaliza la escena
+                _currentScene?.End(gameContext);
+                // Cambia la escena actual
+                _currentScene = newScene;
+                // Inicia la escena
+                _currentScene?.Start();
+            }
     }
-
-    /// <summary>
-    ///     Cambia la escena
-    /// </summary>
-    public void ChangeScene(AbstractScene? newScene, Managers.GameContext gameContext)
-    {
-        // Finaliza la escena
-        _currentScene?.End(gameContext);
-        // Cambia la escena actual
-        _currentScene = newScene;
-        // Inicia la escena
-        _currentScene?.Start();
-    }
-
-    /// <summary>
-    ///     Obtiene una escena por su nombre
-    /// </summary>
-	public AbstractScene? GetScene(string scene) => _scenes.Get(scene);
 
     /// <summary>
     ///     Actualiza la escena
     /// </summary>
     public void Update(Managers.GameContext gameContext)
     {
-        AbstractScene? nextScene = _currentScene?.Update(gameContext);
+        string? nextScene = _currentScene?.Update(gameContext);
 
             // Cambia la escena
-            if (nextScene != _currentScene)
+            if (!string.IsNullOrWhiteSpace(nextScene) && !nextScene.Equals(_currentScene?.Name, StringComparison.CurrentCultureIgnoreCase))
                 ChangeScene(nextScene, gameContext);
     }
 
@@ -73,4 +47,9 @@ public class SceneManager
         if (_currentScene is not null)
             _currentScene.Draw(gameContext);
     }
+
+    /// <summary>
+    ///     Manager del motor principal
+    /// </summary>
+    public Managers.EngineManager EngineManager { get; } = engineManager;
 }

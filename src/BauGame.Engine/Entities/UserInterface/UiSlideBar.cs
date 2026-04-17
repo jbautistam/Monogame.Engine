@@ -65,8 +65,8 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     /// </summary>
     private void TreatInputs()
     {
-        bool leftButtonPressed = GameEngine.Instance.InputManager.MouseManager.IsPressed(Managers.Input.MouseController.MouseStatus.MouseButton.Left);
-        Vector2 mousePosition = GameEngine.Instance.InputManager.MouseManager.MousePosition;
+        bool leftButtonPressed = Layer.Scene.SceneManager.EngineManager.InputManager.MouseManager.IsPressed(Managers.Input.MouseController.MouseStatus.MouseButton.Left);
+        Vector2 mousePosition = Layer.Scene.SceneManager.EngineManager.InputManager.MouseManager.MousePosition;
         bool isHovering = _thumbBounds.Contains(mousePosition) || GetTrackBounds().Contains(mousePosition);
             
             // Si estamos sobre el control y pulsamos el botón izquierdo, comenzamos el drag

@@ -57,8 +57,8 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
                 // Dibuja la imagen
                 renderingManager.SpriteRenderer.Draw(Sprite, target, Origin, Rotation, style.StylePresentation.Color * style.StylePresentation.Opacity * Opacity);
                 // Dibuja un rectángulo para depuración
-		        if (GameEngine.Instance.EngineSettings.DebugMode)
-                    renderingManager.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, GameEngine.Instance.EngineSettings.DebugImageColor, 2);
+		        if (Layer.Scene.SceneManager.EngineManager.EngineSettings.DebugSettings.IsDebugging)
+                    renderingManager.FiguresRenderer.DrawRectangleOutline(Position.ContentBounds, Layer.Scene.SceneManager.EngineManager.EngineSettings.DebugSettings.ImageColor, 2);
         }
     }
 

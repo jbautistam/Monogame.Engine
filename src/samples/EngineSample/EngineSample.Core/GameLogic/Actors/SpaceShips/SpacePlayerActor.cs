@@ -173,14 +173,14 @@ public class SpacePlayerActor : AbstractActorDrawable
 	private void Move(GameContext gameContext)
 	{
 		// Cambia la rotación
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionLeft))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionLeft))
 			Transform.Rotation -= RotationSpeed * gameContext.DeltaTime;
-		else if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionRight))
+		else if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionRight))
 			Transform.Rotation += RotationSpeed * gameContext.DeltaTime;
 		// Normaliza la rotación para evitar la acumulación
 		Transform.Rotation = MathHelper.WrapAngle(Transform.Rotation); //TODO ... ¿no se podría cambiar el field de la propiedad?
 		// Acelera / decelera (después de rotar)
-		if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionUp))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionUp))
 		{
             // Acelera en la dirección a la que apunta el jugador
             Velocity += new Vector2((float) Math.Cos(Transform.Rotation), (float) Math.Sin(Transform.Rotation)) * Acceleration;
@@ -188,7 +188,7 @@ public class SpacePlayerActor : AbstractActorDrawable
             if (Velocity.Length() > MaximumSpeed)
                 Velocity = Vector2.Normalize(Velocity) * MaximumSpeed;
 		}
-		else if (GameEngine.Instance.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionDown))
+		else if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaultActionDown))
 		{
             if (Velocity.Length() > Deceleration)
                 Velocity -= new Vector2((float) Math.Cos(Transform.Rotation), (float) Math.Sin(Transform.Rotation)) * Deceleration;
@@ -213,9 +213,9 @@ public class SpacePlayerActor : AbstractActorDrawable
 	/// </summary>
 	private void Shoot(GameContext gameContext)
 	{
-		if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootAction))
+		if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Constants.InputShootAction))
 			Shoot(SlotPrimary);
-		else if (GameEngine.Instance.InputManager.IsAction(Constants.InputShootGrenadeAction))
+		else if (Layer.Scene.SceneManager.EngineManager.InputManager.IsAction(Constants.InputShootGrenadeAction))
 			Shoot(SlotSecondary);
 			
 		// Lanza el proyectil
