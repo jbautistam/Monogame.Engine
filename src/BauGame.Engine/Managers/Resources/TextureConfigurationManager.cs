@@ -66,7 +66,7 @@ public class TextureConfigurationManager(ResourcesManager resourcesManager)
 
 					if (texture is not null)
 					{
-						if (configuration.Regions.Items.Count == 0)
+						if (configuration.Regions.Items.Count == 0 || string.IsNullOrWhiteSpace(region))
 							return new TextureResolved(texture, new Rectangle(0, 0, texture.Width, texture.Height), null, null);
 						else if (!string.IsNullOrWhiteSpace(region))
 						{

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Particles>
-	<System Name ="Smoke">
+	<System Name ="Explossion">
 		<Emitter Position="0, 0" Start = "0" Duration ="8" Maximum="10000" ParticlesPerEmission ="50,200"
                  Lifetime="4,8" Scale ="3,7" Color="White,Red" Opacity="1,0.3"
                  Speed ="20,50">
@@ -22,26 +22,15 @@
 		</Emitter>
 	</System>
 
-	<System Name ="Smoke2">
-		<Emitter Type = "Point" Position="0, 0" Start = "0" Duration ="8" Maximum="10000" ParticlesPerEmission ="50,200"
-                 Lifetime="4,8" DirectionMode="Fixed" FixedDirection="0, 1" Scale ="3,7" Color="White,Red" Opacity="1,0.3"
-                 Speed ="20,50">
-			<Modifier Type="Gravity">
-				<Parameter Name="Gravity" Type="Vector" Value="0,1"/>
-			</Modifier>
-			<Modifier Type="Drag">
-				<Parameter Name="Drag" Type="Decimal" Value="0.18"/>
-			</Modifier>
-			<Modifier Type="Scale">
-			</Modifier>
-			<Modifier Type="Opacity">
-				<Parameter Name="Minimum" Type="Decimal" Value="0"/>
-				<Parameter Name="Maximum" Type="Decimal" Value="0.8"/>
-			</Modifier>
-			<Modifier Type="Color">
-			</Modifier>
+	<System Name ="Books-01">
+		<Emitter Position="0, 0" Start = "0" Duration ="8" Maximum="10000" ParticlesPerEmission ="2,8"
+                 Lifetime="4,8" Scale ="1" Color="White,Red" Opacity="1,0.3" Speed ="1,2"
+				 Texture ="monsterA-run" Animation="monsterA-run-animation">
+			<Circle Location ="Surface" Direction="Outward" Radius ="3" FixedDirection="0,1" />
 		</Emitter>
 	</System>
+
+
 	<!--
 /*
 

@@ -1,5 +1,4 @@
-﻿using Bau.BauEngine.Actors.ParticlesEngine;
-using Bau.BauEngine.Managers;
+﻿using Bau.BauEngine.Managers;
 using Bau.BauEngine.Scenes;
 using Bau.BauEngine.Scenes.Layers.Games;
 using Microsoft.Xna.Framework;
@@ -11,15 +10,20 @@ namespace EngineSample.Core.GameLogic.Scenes.Particles;
 /// </summary>
 public class ParticlesLayer(AbstractScene scene, string name, int sortOrder) : AbstractGameLayer(scene, name, sortOrder)
 {
-	// Variables privadas
-	private ParticleEngineActor? _particlesActor;
-
 	/// <summary>
 	///		Inicia la capa
 	/// </summary>
 	protected override void StartGameLayer()
 	{
-		_particlesActor = Scene.SceneManager.EngineManager.ResourcesManager.ParticlesResourcesManagers.Create(this, "Smoke", new Vector2(100, 100));
+		ShowParticles("Explossion", new Vector2(100, 100));
+	}
+
+	/// <summary>
+	///		Muestra un sistema de partículas
+	/// </summary>
+	public void ShowParticles(string name, Vector2 position)
+	{
+		Scene.SceneManager.EngineManager.ResourcesManager.ParticlesResourcesManagers.Create(this, name, position);
 	}
 
 	/// <summary>

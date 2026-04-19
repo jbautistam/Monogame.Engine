@@ -73,6 +73,9 @@ public class ParticleEmitter
                         particle.LifeTime = 0;
                         particle.Scale = Profile.Scale.GetValue();
                         particle.Color = Profile.Color.GetValue();
+                        // Asigna el sprite
+                        if (Profile.Sprite is not null)
+                            particle.Sprite = Profile.Sprite.Clone();
                 }
         }
     }

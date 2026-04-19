@@ -14,6 +14,7 @@ public class ParticleModel
 	{
 		Position += Velocity;
 		LifeTime += gameContext.DeltaTime;
+		Sprite?.Update(gameContext);
 	}
 
 	/// <summary>
@@ -44,7 +45,7 @@ public class ParticleModel
 	/// <summary>
 	///		Definición del sprite
 	/// </summary>
-	public Entities.Sprites.SpriteDefinition? Sprite { get; set; }
+	public Entities.Sprites.AbstractSpriteDefinition? Sprite { get; set; }
 
 	/// <summary>
 	///		Escala

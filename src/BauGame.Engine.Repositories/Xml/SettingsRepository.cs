@@ -27,6 +27,7 @@ internal class SettingsRepository
 	private const string TagViewPortHeight = "ViewPortHeight";
 	private const string TagAllowUserResizing = "AllowUserResizing";
 	private const string TagOrientation = "Orientation";
+	private const string TagProfile = "Profile";
 	private const string TagDebug = "Debug";
 	private const string TagDebugging = "Debugging";
 	private const string TagColor = "Color";
@@ -38,16 +39,6 @@ internal class SettingsRepository
 	private const string TagSoundVolume = "SoundVolume";
 	private const string TagVoiceVolume = "VoiceVolume";
 	private const string TagAmbienceVolume = "AmbienceVolume";
-	// Enumerados privados
-	private enum Orientation
-	{
-		Default = 0,
-		LandscapeLeft,
-		LandscapeRight,
-		LandscapeLeftAndRight,
-		Portrait,
-		PortraitDown
-	}
 	// Variables privadas
 	private RepositoryXmlHelper _helper = new();
 
@@ -107,21 +98,8 @@ internal class SettingsRepository
 		settings.ScreenSettings.ViewPortWidth = rootML.Attributes[TagViewPortWidth].Value.GetInt(settings.ScreenSettings.ViewPortWidth);
 		settings.ScreenSettings.ViewPortHeight = rootML.Attributes[TagViewPortHeight].Value.GetInt(settings.ScreenSettings.ViewPortHeight);
 		settings.ScreenSettings.WindowAllowUserResizing = rootML.Attributes[TagAllowUserResizing].Value.GetBool(settings.ScreenSettings.WindowAllowUserResizing);
-		settings.ScreenSettings.DisplayOrientation = Convert(rootML.Attributes[TagOrientation].Value.GetEnum(Orientation.Default));
-
-		// Convierte la orientación
-		DisplayOrientation Convert(Orientation orientation)
-		{
-			return orientation switch
-						{
-							Orientation.LandscapeLeft => DisplayOrientation.LandscapeLeft,
-							Orientation.LandscapeRight => DisplayOrientation.LandscapeRight,
-							Orientation.LandscapeLeftAndRight => DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight,
-							Orientation.Portrait => DisplayOrientation.Portrait,
-							Orientation.PortraitDown => DisplayOrientation.PortraitDown,
-							_ => DisplayOrientation.Default,
-						};
-		}
+		settings.ScreenSettings.DisplayOrientation = rootML.Attributes[TagOrientation].Value.GetEnum(ScreenSettings.DeviceOrientation.Default);
+		settings.ScreenSettings.Profile = rootML.Attributes[TagProfile].Value.GetEnum(ScreenSettings.GraphicsProfile.LowDefinition);
 	}
 
 	/// <summary>

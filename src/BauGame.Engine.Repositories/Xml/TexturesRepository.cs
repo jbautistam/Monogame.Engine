@@ -170,10 +170,25 @@ internal class TexturesRepository
 												   []);
 
 			// Añade los frames
-			foreach (MLNode nodeML in rootML.Nodes)
-				if (nodeML.Name == TagFrame)
-					animation.Frames.Add(new Animation.AnimationFrame(nodeML.Attributes[TagRegion].Value.TrimIgnoreNull(),
-																	  (float) nodeML.Attributes[TagTime].Value.GetDouble(0.07f)));
+			if (rootML.Nodes.Count != 0)
+			{
+				foreach (MLNode nodeML in rootML.Nodes)
+					if (nodeML.Name == TagFrame)
+						animation.Frames.Add(new Animation.AnimationFrame(nodeML.Attributes[TagRegion].Value.TrimIgnoreNull(),
+																		  (float) nodeML.Attributes[TagTime].Value.GetDouble(0.07f)));
+			}
+			else
+			{
+				int rows = rootML.Attributes[TagRows].Value.GetInt(-1);
+				int columns = rootML.Attributes[TagColumns].Value.GetInt(-1);
+				float time = (float) rootML.Attributes[TagTime].Value.GetDouble(0.07);
+
+					// Crea las regiones
+					if (rows > 0 && columns > 0)
+						for (int row = 0; row < rows; row++)
+							for (int column = 0; column < columns; column++)
+								animation.Frames.Add(new Animation.AnimationFrame($"{row.ToString()},{column.ToString()}", time));
+			}
 	}
 
 	/// <summary>

@@ -37,6 +37,7 @@ internal class ParticleSystemRepository
 	private const string TagFixedDirection = "FixedDirection";
 	private const string TagTexture = "Texture";
 	private const string TagRegion = "Region";
+	private const string TagAnimation = "Animation";
 	private const string TagCircle = "Circle";
 	private const string TagCone = "Cone";
 	private const string TagLine = "Line";
@@ -128,8 +129,14 @@ internal class ParticleSystemRepository
 			emitter.Profile.Opacity = _helper.GetFloatInterval(rootML.Attributes[TagOpacity].Value, 1);
 			// Crea el sprite
 			if (!string.IsNullOrWhiteSpace(rootML.Attributes[TagTexture].Value))
-				emitter.Profile.Sprite = new Entities.Sprites.SpriteDefinition(rootML.Attributes[TagTexture].Value.TrimIgnoreNull(),
-																			   rootML.Attributes[TagRegion].Value.TrimIgnoreNull());
+			{
+				if (!string.IsNullOrWhiteSpace(rootML.Attributes[TagAnimation].Value))
+					emitter.Profile.Sprite = new Entities.Sprites.SpriteAnimatedDefinition(rootML.Attributes[TagTexture].Value.TrimIgnoreNull(),
+																						   rootML.Attributes[TagAnimation].Value.TrimIgnoreNull());
+				else
+					emitter.Profile.Sprite = new Entities.Sprites.SpriteDefinition(rootML.Attributes[TagTexture].Value.TrimIgnoreNull(),
+																				   rootML.Attributes[TagRegion].Value.TrimIgnoreNull());
+			}
 			// Carga los modificadores
 			emitter.Modifiers.AddRange(LoadModifiers(rootML));
 			// Devuelve los datos del emisor

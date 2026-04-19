@@ -6,6 +6,29 @@
 public class ScreenSettings
 {
     /// <summary>
+    ///     Perfil de gráficos
+    /// </summary>
+    public enum GraphicsProfile
+    {
+        /// <summary>Baja definición: para todo tipo de dispositivos</summary>
+        LowDefinition,
+        /// <summary>Alta definición: para dispositivos de gama alta (permite HLSL 4.0)</summary>
+        HighDefinition
+    }
+	/// <summary>
+    ///     Orientación del dispositivo
+    /// </summary>
+	public enum DeviceOrientation
+	{
+		Default = 0,
+		LandscapeLeft,
+		LandscapeRight,
+		LandscapeLeftAndRight,
+		Portrait,
+		PortraitDown
+	}
+
+    /// <summary>
     ///     Indica si se muestra el cursor del ratón
     /// </summary>
     public bool IsMouseVisible { get; set; } = true;
@@ -56,7 +79,12 @@ public class ScreenSettings
     public bool WindowAllowUserResizing { get; set; } = true;
 
     /// <summary>
+    ///     Perfil de gráficos
+    /// </summary>
+    public GraphicsProfile Profile { get; set; } = GraphicsProfile.LowDefinition;
+
+    /// <summary>
     ///     Direcciones de pantalla permitidas
     /// </summary>
-    public Microsoft.Xna.Framework.DisplayOrientation DisplayOrientation { get; set; }
+    public DeviceOrientation DisplayOrientation { get; set; }
 }

@@ -11,6 +11,9 @@ namespace Bau.BauEngine.Actors.ParticlesEngine;
 /// </summary>
 public class ParticleEngineActor : AbstractActorDrawable, Entities.Common.Collections.ISecureListItem
 {
+	// Eventos públicos
+	public event EventHandler? EndParticleEngine;
+
 	public ParticleEngineActor(AbstractLayer layer, Vector2 position, int? zOrder) : base(layer, zOrder)
 	{
 		StartPosition = position;
@@ -100,6 +103,7 @@ public class ParticleEngineActor : AbstractActorDrawable, Entities.Common.Collec
 	/// </summary>
 	protected override void EndActor(GameContext gameContext)
 	{
+		EndParticleEngine?.Invoke(this, EventArgs.Empty);
 	}
 
 	/// <summary>

@@ -102,7 +102,7 @@ public abstract class AbstractRendererComponent(AbstractActorDrawable actor) : A
 	/// <summary>
 	///		Sprite
 	/// </summary>
-	public SpriteDefinition? Sprite { get; set; }
+	public AbstractSpriteDefinition? Sprite { get; set; }
 
 	/// <summary>
 	///		Efectos de dibujo

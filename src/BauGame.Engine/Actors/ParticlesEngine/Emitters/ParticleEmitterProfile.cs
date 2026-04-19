@@ -8,6 +8,33 @@ namespace Bau.BauEngine.Actors.ParticlesEngine.Emitters;
 public class ParticleEmitterProfile
 {
     /// <summary>
+    ///     Clona el objeto
+    /// </summary>
+	public ParticleEmitterProfile Clone()
+	{
+		ParticleEmitterProfile cloned = new();
+
+			// Asigna las propiedades
+			cloned.MaximumParticles = MaximumParticles;
+			cloned.Start = Start;
+			cloned.Duration = Duration;
+			cloned.EmissionRate = EmissionRate;
+			cloned.ParticlesPerEmission = ParticlesPerEmission;
+			cloned.Lifetime = Lifetime;
+			cloned.Scale = Scale;
+			cloned.Rotation = Rotation;
+			cloned.RotationSpeed = RotationSpeed;
+			cloned.Speed = Speed;
+			cloned.Color = Color;
+			cloned.Opacity = Opacity;
+            // Asigna los datos del sprite
+            if (Sprite is not null)
+			    cloned.Sprite = Sprite.Clone();
+			// Devuelve el perfil
+			return cloned;
+	}
+
+    /// <summary>
     ///     Número máximo de partículas
     /// </summary>
     public int MaximumParticles { get; set; } = 10_000;
@@ -60,7 +87,7 @@ public class ParticleEmitterProfile
     /// <summary>
     ///     Sprite
     /// </summary>
-    public Entities.Sprites.SpriteDefinition? Sprite { get; set; }
+    public Entities.Sprites.AbstractSpriteDefinition? Sprite { get; set; }
 
     /// <summary>
     ///     Color

@@ -60,7 +60,7 @@ public class AnimatorComponent(RendererAnimatorComponent rendererAnimatorCompone
 				// Añade el tiempo pasado
 				_elapsed += gameContext.DeltaTime;
 				// Pasa al siguiente frame
-				if (_elapsed >= _frame.time)
+				if (_elapsed >= _frame.Time)
 				{
 					// Incrementa el índice
 					_frameIndex++;
@@ -101,7 +101,7 @@ public class AnimatorComponent(RendererAnimatorComponent rendererAnimatorCompone
 	/// </summary>
 	internal string? GetDefaultRegion()
 	{
-		if (_actualAnimation is not null)
+		if (_actualAnimation is not null && _actualAnimation.Frames.Count > 0)
 			return _actualAnimation.Frames[0].Region;
 		else
 			return "default";
@@ -129,7 +129,7 @@ public class AnimatorComponent(RendererAnimatorComponent rendererAnimatorCompone
 	/// <summary>
 	///		Indica si se está animando en bucle
 	/// </summary>
-	public bool Loop { get; set; }
+	public bool Loop { get; set; } = true;
 
 	/// <summary>
 	///		Indica si ha terminado el bucle de animación

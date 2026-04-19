@@ -23,7 +23,7 @@ public class EngineManager
 	    EngineSettings.ScreenSettings.ScreenBufferHeight = 720;
 	    EngineSettings.ScreenSettings.ViewPortWidth = 1_200;
 	    EngineSettings.ScreenSettings.ViewPortHeight = 720;
-	    EngineSettings.ScreenSettings.DisplayOrientation = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+	    EngineSettings.ScreenSettings.DisplayOrientation = Configuration.ScreenSettings.DeviceOrientation.LandscapeLeftAndRight;
         // Configura los objetos
         FilesManager = new Files.FilesManager(this);
         InputManager = new Input.InputManager();

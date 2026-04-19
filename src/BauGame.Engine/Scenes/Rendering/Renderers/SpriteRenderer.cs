@@ -34,7 +34,7 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	/// <summary>
 	///		Dibuja el sprite
 	/// </summary>
-    public void Draw(SpriteDefinition? sprite, Point position, Point center, Vector2 scale, float rotation, Color color)
+    public void Draw(AbstractSpriteDefinition? sprite, Point position, Point center, Vector2 scale, float rotation, Color color)
     {
 		Draw(sprite, new Vector2(position.X, position.Y), new Vector2(center.X, center.Y), scale, rotation, color);
     }
@@ -42,7 +42,7 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	/// <summary>
 	///		Dibuja la textura en una posición con escala
 	/// </summary>
-	public void Draw(SpriteDefinition? sprite, Vector2 position, Vector2 origin, Vector2 scale, float rotation, Color color)
+	public void Draw(AbstractSpriteDefinition? sprite, Vector2 position, Vector2 origin, Vector2 scale, float rotation, Color color)
 	{
 		if (sprite is not null && RenderingManager.SpriteBatch is not null)
 		{
@@ -65,7 +65,7 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	/// <summary>
 	///		Dibuja la textura en un rectángulo concreto (ajusta al ancho y alto del rectángulo)
 	/// </summary>
-	public void Draw(SpriteDefinition? sprite, Rectangle destination, Vector2 origin, float rotation, Color color)
+	public void Draw(AbstractSpriteDefinition? sprite, Rectangle destination, Vector2 origin, float rotation, Color color)
 	{
 		if (sprite is not null && RenderingManager.SpriteBatch is not null)
 		{
@@ -87,7 +87,7 @@ public class SpriteRenderer(RenderingManager renderingManager)
     /// <summary>
     ///     Dibuja un sprite escalado al rectángulo destino
     /// </summary>
-    public void Draw(SpriteDefinition? sprite, DrawMode mode, Rectangle destination, Vector2 origin, RectangleF window, float rotation, Color color)
+    public void Draw(AbstractSpriteDefinition? sprite, DrawMode mode, Rectangle destination, Vector2 origin, RectangleF window, float rotation, Color color)
     {
 		if (sprite is not null && RenderingManager.SpriteBatch is not null)
 		{
@@ -152,7 +152,7 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	/// <summary>
 	///		Dibuja una textura definida como NineSlice
 	/// </summary>
-	private void DrawNineSlice(SpriteDefinition sprite, Texture2D texture, Rectangle region, TextureRegionNineSliceConfiguration nineSlice,
+	private void DrawNineSlice(AbstractSpriteDefinition sprite, Texture2D texture, Rectangle region, TextureRegionNineSliceConfiguration nineSlice,
 							   Rectangle destination, Vector2 origin, Vector2 vector2, float rotation, Color color)
 	{
 		Rectangle[] slices = GenerateSlices(region, nineSlice);

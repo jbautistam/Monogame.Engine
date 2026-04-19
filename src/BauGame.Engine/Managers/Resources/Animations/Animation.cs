@@ -6,7 +6,7 @@
 public class Animation(AnimationManager manager, string name, string texture)
 {
 	// Datos de un frame de animación
-	public record AnimationFrame(string Region, float time);
+	public record AnimationFrame(string Region, float Time);
 
 	/// <summary>
 	///		Obtiene un frame
