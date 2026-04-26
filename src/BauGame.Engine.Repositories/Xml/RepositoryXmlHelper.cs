@@ -14,7 +14,7 @@ public class RepositoryXmlHelper
 	/// <summary>
 	///		Carga un color
 	/// </summary>
-	public Color GetColor(string value, Color defaultColor) => Bau.BauEngine.Tools.Conversors.ColorConversor.Parse(value, defaultColor);
+	public Color GetColor(string value, Color defaultColor) => Tools.Conversors.ColorConversor.Parse(value, defaultColor);
 
 	/// <summary>
 	///		Carga un margen de una cadena
@@ -181,4 +181,9 @@ public class RepositoryXmlHelper
 		// Devuelve el rango predeterminado
 		return new ColorRange(defaultValue, defaultValue);
 	}
+
+	/// <summary>
+	///		Convierte un color en una cadena XML
+	/// </summary>
+	public string ToXml(Color color) => $"#{color.R:X}{color.G:X}{color.B:X}{color.A:X}";
 }

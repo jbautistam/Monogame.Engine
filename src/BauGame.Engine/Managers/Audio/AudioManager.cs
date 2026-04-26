@@ -40,6 +40,7 @@ public class AudioManager
     private record AudioSystem(AudioDefinitionType Type, AudioSystems.AudioSystem System);
     // Variables privadas
     private List<AudioSystem> _audioSystems = [];
+    private bool _enabled = true;
 
     public AudioManager(EngineManager engineManager)
     {
@@ -76,10 +77,13 @@ public class AudioManager
     /// </summary>
     public void PlaySong(string name, TransitionType transition, float duration)
     {
-        Song? song = EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<Song>(name);
+        if (Enabled)
+        {
+            Song? song = EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<Song>(name);
 
-            if (song is not null)
-                Enqueue(AudioDefinitionType.Music, transition, new Sources.MusicSource(song, null), duration);
+                if (song is not null)
+                    Enqueue(AudioDefinitionType.Music, transition, new Sources.MusicSource(song, null), duration);
+        }
     }
 
     /// <summary>
@@ -87,16 +91,19 @@ public class AudioManager
     /// </summary>
 	public void PlayEffect(string name, float pitch = 0.0f, float pan = 0.0f)
 	{
-        SoundEffectInstance? effect = EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<SoundEffectInstance>(name);
+        if (Enabled)
+        {
+            SoundEffectInstance? effect = EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<SoundEffectInstance>(name);
 
-            if (effect is not null)
-            {
-                // Ajusta los valores
-                effect.Pitch = pitch;
-                effect.Pan = pan;
-                // Encola el sonido
-                Enqueue(AudioDefinitionType.Sfx, TransitionType.None, new Sources.SfxSource(effect, null), 0);
-            }
+                if (effect is not null)
+                {
+                    // Ajusta los valores
+                    effect.Pitch = pitch;
+                    effect.Pan = pan;
+                    // Encola el sonido
+                    Enqueue(AudioDefinitionType.Sfx, TransitionType.None, new Sources.SfxSource(effect, null), 0);
+                }
+        }
 	}
 
     /// <summary>
@@ -104,16 +111,19 @@ public class AudioManager
     /// </summary>
 	public void PlayVoice(string name, float pitch = 0.0f, float pan = 0.0f, List<Sources.ScheduleEvent>? scheduleEvents = null)
 	{
-        SoundEffectInstance? effect = EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<SoundEffectInstance>(name);
+        if (Enabled)
+        {
+            SoundEffectInstance? effect = EngineManager.ResourcesManager.GlobalContentManager.LoadAsset<SoundEffectInstance>(name);
 
-            if (effect is not null)
-            {
-                // Ajusta los valores
-                effect.Pitch = pitch;
-                effect.Pan = pan;
-                // Encola el sonido
-                Enqueue(AudioDefinitionType.Sfx, TransitionType.None, new Sources.VoiceSource(effect, scheduleEvents), 0);
-            }
+                if (effect is not null)
+                {
+                    // Ajusta los valores
+                    effect.Pitch = pitch;
+                    effect.Pan = pan;
+                    // Encola el sonido
+                    Enqueue(AudioDefinitionType.Sfx, TransitionType.None, new Sources.VoiceSource(effect, scheduleEvents), 0);
+                }
+        }
 	}
 
     /// <summary>
@@ -176,4 +186,21 @@ public class AudioManager
 	///     Manager del motor
 	/// </summary>
 	public EngineManager EngineManager { get; }
+
+    /// <summary>
+    ///     Activa / desactiva el audio
+    /// </summary>
+    public bool Enabled
+    {
+        get { return _enabled; }
+        set
+        {
+            if (_enabled != value)
+            {
+                _enabled = value;
+                if (!_enabled)
+                    Stop();
+            }
+        }
+    }
 }

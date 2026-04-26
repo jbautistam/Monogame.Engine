@@ -17,11 +17,13 @@ public class SpriteTextParameters
     /// <summary>
     ///     Divide las líneas
     /// </summary>
-    public List<string> GetLines(SpriteTextDefinition font)
+    public List<string> GetLines(SpriteTextDefinition font, Rectangle bounds)
     {
         // Si algo ha cambiado desde la última vez, separa las líneas
-        if (_lastFont is null || _lastFont != font || _isDirty)
+        if (MustUpdate(font, bounds))
         {
+            // Cambia los límites
+            Bounds = bounds;
             // Separa las líneas
             _lines = WrapText(font, Bounds.Width);
             // Indica que no ha habido cambiios
@@ -30,6 +32,12 @@ public class SpriteTextParameters
         }
         // Devuelve la lista de líneas
         return _lines;
+
+        // Comprueba si se debe recalcular
+        bool MustUpdate(SpriteTextDefinition font, Rectangle bounds) 
+        {
+            return _lastFont is null || _lastFont != font || _isDirty || bounds.Width != Bounds.Width || bounds.Height != Bounds.Height;
+        }
     }
 
     /// <summary>
@@ -71,21 +79,9 @@ public class SpriteTextParameters
     /// <summary>
     ///     Obtiene la altura total de las líneas
     /// </summary>
-    public float GetHeight(SpriteTextDefinition font, int width)
+    public float GetHeight(SpriteTextDefinition font, Rectangle bounds)
     {
-        // Cambia el rectángulo
-        if (width != Bounds.Width)
-            Bounds = new Rectangle(Bounds.X, Bounds.Y, width, Bounds.Height);
-        // Obtiene la altura
-        return GetHeight(font);
-    }
-
-    /// <summary>
-    ///     Obtiene la altura total de las líneas
-    /// </summary>
-    public float GetHeight(SpriteTextDefinition font)
-    {
-        List<string> lines = GetLines(font);
+        List<string> lines = GetLines(font, bounds);
         float contentHeight = 0;
 
             // Calcula el tamaño de las líneas
@@ -104,7 +100,7 @@ public class SpriteTextParameters
     /// </summary>
 	public void ComputeBounds(SpriteTextDefinition font, int x, int y, int width)
 	{
-        int height = (int) GetHeight(font, width);
+        int height = (int) GetHeight(font, new Rectangle(x, y, width, 2_000));
 
             // Cambia los límites
             Bounds = new Rectangle(x, y - height, width, height);

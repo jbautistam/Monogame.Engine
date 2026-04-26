@@ -31,11 +31,14 @@ public class SpriteTextRenderer(RenderingManager renderingManager)
 	/// <summary>
 	///		Escribe una cadena
 	/// </summary>
-	public void DrawString(SpriteTextDefinition? sprite, SpriteTextParameters parameters)
+	public void DrawString(SpriteTextDefinition? sprite, SpriteTextParameters parameters, Rectangle bounds)
 	{
+        // Cargamos el sprite font. Lo necesitamos porque vamos a medir el ancho de visualización de la cadena
+        sprite?.LoadAsset(RenderingManager.Scene);
+        // Recalcula los datos y dibuja la cadena
         if (sprite is not null)
         {
-            List<string> lines = parameters.GetLines(sprite);
+            List<string> lines = parameters.GetLines(sprite, bounds);
             float lineHeight = sprite.GetLineSpacing();
             float textHeight = lines.Count * lineHeight;
             float startY;

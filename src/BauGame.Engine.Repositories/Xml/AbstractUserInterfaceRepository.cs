@@ -60,7 +60,17 @@ public abstract class AbstractUserInterfaceRepository
 	private const string TagRightBar = "RightBar";
 	private const string TagMinimum = "Minimum";
 	private const string TagOrientation = "Orientation";
-	private const string TagClipMode = "ClipMode";
+	private const string TagDrawMode = "DrawMode";
+	private const string TagMargin = "Margin";
+	private const string TagPadding = "Padding";
+	private const string TagCheckbox = "Checkbox";
+	private const string TagIsChecked = "IsChecked";
+	private const string TagCheckedImage = "CheckedImage";
+	private const string TagUncheckedImage = "UncheckedImage";
+	private const string TagCheckedLabel = "CheckedLabel";
+	private const string TagUncheckedLabel = "UncheckedLabel";
+	// Variables privadas
+	private RepositoryXmlHelper _helper = new();
 
 	/// <summary>
 	///		Carga los estilos a partir de un texto XML
@@ -108,6 +118,9 @@ public abstract class AbstractUserInterfaceRepository
 						break;
 					case TagButton:
 							items.Add(LoadButton(layer, nodeML));
+						break;
+					case TagCheckbox:
+							items.Add(LoadCheckbox(layer, nodeML));
 						break;
 					case TagGrid:
 							items.Add(LoadGrid(layer, nodeML));
@@ -237,6 +250,37 @@ public abstract class AbstractUserInterfaceRepository
 	}
 
 	/// <summary>
+	///		Carga los datos de un <see cref="UiCheckbox"/>
+	/// </summary>
+	protected UiCheckbox LoadCheckbox(AbstractUserInterfaceLayer layer, MLNode rootML)
+	{
+		UiCheckbox checkbox = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
+
+			// Asigna los valores
+			AssignGeneralAttributes(checkbox, rootML);
+			// Carga los datos básicos
+			checkbox.IsChecked = rootML.Attributes[TagIsChecked].Value.GetBool();
+			foreach (MLNode nodeML in rootML.Nodes)
+				switch (nodeML.Name)
+				{
+					case TagCheckedImage:
+							checkbox.CheckedImage = LoadImage(layer, nodeML);
+						break;
+					case TagUncheckedImage:
+							checkbox.UncheckedImage = LoadImage(layer, nodeML);
+						break;
+					case TagCheckedLabel:
+							checkbox.CheckedLabel = LoadLabel(layer, nodeML);
+						break;
+					case TagUncheckedLabel:
+							checkbox.UncheckedLabel = LoadLabel(layer, nodeML);
+						break;
+				}
+			// Devuelve el botón
+			return checkbox;
+	}
+
+	/// <summary>
 	///		Carga los datos de una slidebar
 	/// </summary>
 	protected UiSlideBar LoadSlideBar(AbstractUserInterfaceLayer layer, MLNode rootML)
@@ -250,7 +294,7 @@ public abstract class AbstractUserInterfaceRepository
 			slideBar.Maximum = (float) rootML.Attributes[TagMaximum].Value.GetDouble(0);
 			slideBar.Value = (float) rootML.Attributes[TagValue].Value.GetDouble(0);
 			slideBar.Orientation = rootML.Attributes[TagOrientation].Value.GetEnum(UiSlideBar.SliderOrientation.Horizontal);
-			slideBar.Mode = rootML.Attributes[TagClipMode].Value.GetEnum(UiSlideBar.ClipMode.Stretch);
+			slideBar.DrawMode = rootML.Attributes[TagDrawMode].Value.GetEnum(Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.Fill);
 			// Carga los sprites
 			foreach (MLNode nodeML in rootML.Nodes)
 				switch (nodeML.Name)
@@ -328,11 +372,17 @@ public abstract class AbstractUserInterfaceRepository
 	/// </summary>
 	protected void AssignGeneralAttributes(UiElement component, MLNode rootML)
 	{
+		// Carga los datos básicos
 		component.Id = GetId(rootML.Attributes[TagId].Value.TrimIgnoreNull());
 		component.Style = rootML.Attributes[TagStyle].Value.TrimIgnoreNull();
 		component.Tag = rootML.Attributes[TagTag].Value.TrimIgnoreNull();
 		component.ZIndex = rootML.Attributes[TagZIndex].Value.GetInt(0);
 		component.Visible = rootML.Attributes[TagVisible].Value.GetBool(true);
+		// Carga el margen y el espaciado
+		if (!string.IsNullOrWhiteSpace(rootML.Attributes[TagMargin].Value))
+			component.Position.Margin = _helper.GetMargin(rootML.Attributes[TagMargin].Value);
+		if (!string.IsNullOrWhiteSpace(rootML.Attributes[TagPadding].Value))
+			component.Position.Margin = _helper.GetMargin(rootML.Attributes[TagPadding].Value);
 	}
 
 	/// <summary>

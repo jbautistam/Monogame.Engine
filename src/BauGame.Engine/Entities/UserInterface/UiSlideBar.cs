@@ -1,6 +1,7 @@
 ﻿using Bau.BauEngine.Managers;
 using Bau.BauEngine.Entities.Sprites;
 using Microsoft.Xna.Framework;
+using Bau.BauEngine.Scenes.Rendering.Renderers;
 
 namespace Bau.BauEngine.Entities.UserInterface;
 
@@ -18,16 +19,6 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
         Horizontal,
         /// <summary>Orientación vertical</summary>
         Vertical
-    }
-    /// <summary>
-    ///     Modo de clip de las texturas
-    /// </summary>
-    public enum ClipMode
-    {
-        /// <summary>Ajuste de la textura</summary>
-        Stretch,
-        /// <summary>Ventana sobre la textura</summary>
-        Window
     }
     // Variables privadas
     private Rectangle _thumbBounds;
@@ -215,7 +206,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
         (Rectangle left, Rectangle right) = GetHorizontalRectangles();
 
             // Dibuja las barras
-            if (Mode == ClipMode.Stretch)
+            if (DrawMode == SpriteRenderer.DrawMode.Fill)
             {
                 if (left.Width > 0)
                     renderingManager.SpriteRenderer.Draw(trackLeft, left, Vector2.Zero, 0, Color.White);
@@ -225,11 +216,11 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
             else
             {
                 if (left.Width > 0)
-                    renderingManager.SpriteRenderer.Draw(trackLeft, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
+                    renderingManager.SpriteRenderer.Draw(trackLeft, DrawMode, 
                                                          left, Vector2.Zero,
                                                          new Common.RectangleF(0, 0, GetPercentage(), 1), 0, Color.White);
                 if (right.Width > 0)
-                    renderingManager.SpriteRenderer.Draw(trackRight, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
+                    renderingManager.SpriteRenderer.Draw(trackRight, DrawMode, 
                                                          right, Vector2.Zero,
                                                          new Common.RectangleF(GetPercentage(), 0, 1, 1), 0, Color.White);
             }
@@ -243,7 +234,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
         (Rectangle top, Rectangle bottom) = GetVerticalRectangles();
 
             // Dibuja las barras
-            if (Mode == ClipMode.Stretch)
+            if (DrawMode == SpriteRenderer.DrawMode.Fill)
             {
                 // Parte inferior: desde el thumb hacia abajo
                 if (bottom.Height > 0)
@@ -256,23 +247,23 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
             {
                 // Parte inferior: desde el thumb hacia abajo
                 if (bottom.Height > 0)
-                    renderingManager.SpriteRenderer.Draw(trackBottom, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
+                    renderingManager.SpriteRenderer.Draw(trackBottom, DrawMode, 
                                                          bottom, Vector2.Zero, 
                                                          new Common.RectangleF(0, GetPercentage(), 1, 1),
                                                          0, Color.White);
                 // Parte superior: desde arriba hasta el thumb
                 if (top.Height > 0)
-                    renderingManager.SpriteRenderer.Draw(trackUp, Scenes.Rendering.Renderers.SpriteRenderer.DrawMode.WindowFill, 
+                    renderingManager.SpriteRenderer.Draw(trackUp, DrawMode, 
                                                          top, Vector2.Zero, 
                                                          new Common.RectangleF(0, 0, 1, GetPercentage()),
                                                          0, Color.White);
             }
     }
 
-    /// <summary>
-    ///     Obtiene los rectángulos de dibujo en horizontal
-    /// </summary>
-    private (Rectangle left, Rectangle right) GetHorizontalRectangles()
+	/// <summary>
+	///     Obtiene los rectángulos de dibujo en horizontal
+	/// </summary>
+	private (Rectangle left, Rectangle right) GetHorizontalRectangles()
     {
         int trackY = Position.ContentBounds.Y + (Position.ContentBounds.Height - _trackThickness) / 2;
         int leftWidth = _thumbBounds.Center.X - Position.ContentBounds.X;
@@ -329,7 +320,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     ///     Textura de la parte derecha / inferior al thumb
     /// </summary>
     public SpriteDefinition? TrackRight { get; set; }
-        
+
     /// <summary>
     ///     Valor actual del control
     /// </summary>
@@ -373,7 +364,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     /// <summary>
     ///     Modo de dibujo
     /// </summary>
-    public ClipMode Mode { get; set;  } = ClipMode.Stretch;
+    public SpriteRenderer.DrawMode DrawMode { get; set;  } = SpriteRenderer.DrawMode.WindowOriginal;
 
     /// <summary>
     ///     Espacio entre el thumb y las barras

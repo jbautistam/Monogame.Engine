@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Bau.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
@@ -75,7 +75,6 @@
     <Compile Remove="Entities\UserInterface\Popups\Class1.cs" />
     <Compile Remove="Entities\UserInterface\UiBalloonLabel.cs" />
     <Compile Remove="Entities\UserInterface\UiBorder.cs" />
-    <Compile Remove="Entities\UserInterface\UiCheckBox.cs" />
     <Compile Remove="Entities\UserInterface\UiListBox.cs" />
     <Compile Remove="Entities\UserInterface\UiScrollBar.cs" />
     <Compile Remove="GameEngine.cs" />

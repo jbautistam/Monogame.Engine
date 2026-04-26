@@ -1,17 +1,14 @@
-﻿using Bau.BauEngine.Scenes.Cameras;
-using Bau.BauEngine.Scenes.Layers;
-using Microsoft.Xna.Framework;
+﻿using Bau.BauEngine.Scenes.Layers;
 
 namespace Bau.BauEngine.Entities.UserInterface;
 
 /// <summary>
 ///     Control botón para el interface
 /// </summary>
-public class UiButton : UiElement
+public class UiButton : UiElementClickable
 {
     // Variables privadas
     private UiLabel? _label;
-    private float _timeFromLastClick;
 
     public UiButton(AbstractUserInterfaceLayer layer, UiPosition position) : base(layer, position)
     {
@@ -29,44 +26,16 @@ public class UiButton : UiElement
     /// <summary>
     ///     Actualiza el contenido del elemento
     /// </summary>
-    protected override void UpdateSelf(Managers.GameContext gameContext)
+    protected override void UpdateComponent(Managers.GameContext gameContext)
     {
-        if (Enabled)
-        {
-            Vector2 mousePosition = Layer.Scene.SceneManager.EngineManager.InputManager.MouseManager.MousePosition;
-            bool wasHovered = IsHovered;
-
-                // Incrementa el tiempo pasado desde el último click
-                _timeFromLastClick += gameContext.DeltaTime;
-                // Indica que por ahora no está pulsado
-                IsPressed = false;
-                // Comprueba si el ratón está encima del control
-                IsHovered = Position.Bounds.Contains(mousePosition);
-                // Detecta clicks
-                if (IsHovered)
-                {
-                    // Indica si se ha pulsado el elemento
-                    IsPressed = Layer.Scene.SceneManager.EngineManager.InputManager.MouseManager.IsPressed(Managers.Input.MouseController.MouseStatus.MouseButton.Left);
-                    // Lanza el evento de pulsación
-                    if (IsPressed && _timeFromLastClick > 1f)
-                    {
-                        Layer.RaiseCommandClick(new EventArguments.ClickEventArgs(this));
-                        _timeFromLastClick = 0;
-                    }
-                }
-                // Actualiza los elementos
-                Label?.Update(gameContext);
-        }
+        Label?.Update(gameContext);
     }
 
     /// <summary>
     ///     Dibuja el contenido del elemento
     /// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    protected override void DrawComponent(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
     {
-        // Dibujar textura de fondo si existe
-        Layer.DrawStyle(renderingManager, Style, State, Position.ContentBounds, gameContext);
-        // Dibuja el texto
         Label?.Draw(renderingManager, gameContext);
     }
 
@@ -81,41 +50,6 @@ public class UiButton : UiElement
             _label = value;
             if (_label is not null)
                 _label.Parent = this;
-        }
-    }
-
-    /// <summary>
-    ///     Indica si el cursor está sobre el botón
-    /// </summary>
-    public bool IsHovered { get; private set; }
-
-    /// <summary>
-    ///     Indica si el botón está presionado
-    /// </summary>
-    public bool IsPressed { get; private set; }
-
-    /// <summary>
-    ///     Indica si está seleccionado
-    /// </summary>
-    public bool IsSelected { get; private set; }
-
-    /// <summary>
-    ///     Estado del botón
-    /// </summary>
-    public Styles.UiStyle.StyleType State 
-    { 
-        get
-        {
-            if (!Enabled)
-                return Styles.UiStyle.StyleType.Disabled;
-            else if (IsPressed)
-                return Styles.UiStyle.StyleType.Pressed;
-            else if (IsSelected)
-                return Styles.UiStyle.StyleType.Selected;
-            else if (IsHovered)
-                return Styles.UiStyle.StyleType.Hover;
-            else
-                return Styles.UiStyle.StyleType.Normal;
         }
     }
 }

@@ -53,10 +53,14 @@ public class LocalFilesManager(FilesManager filesManager) : AbstractFilesManager
             // Escribe el archivo
             try
             {
-                // Graba el archivo
-                File.WriteAllText(GetFullFileName(fileName), content);
-                // Indica que se ha posido grabar
-                written = true;
+                string fullFileName = GetFullFileName(fileName);
+
+                    // Crea el directorio si no existe
+                    Directory.CreateDirectory(Path.GetDirectoryName(fullFileName)!);
+                    // Graba el archivo
+                    File.WriteAllText(fullFileName, content);
+                    // Indica que se ha posido grabar
+                    written = true;
             }
             catch (Exception exception)
             {
@@ -76,8 +80,14 @@ public class LocalFilesManager(FilesManager filesManager) : AbstractFilesManager
             // Escribe el contenido del archivo
             try
             {
-                File.WriteAllBytes(GetFullFileName(fileName), data);
-                written = true;
+                string fullFileName = GetFullFileName(fileName);
+
+                    // Crea el directorio si no existe
+                    Directory.CreateDirectory(Path.GetDirectoryName(fullFileName)!);
+                    // Graba el archivo
+                    File.WriteAllBytes(fullFileName, data);
+                    // Indica que se ha escrito correctamente
+                    written = true;
             }
             catch (Exception exception)
             {
@@ -113,10 +123,10 @@ public class LocalFilesManager(FilesManager filesManager) : AbstractFilesManager
                 {
                     string? xdgDataHome = Environment.GetEnvironmentVariable("XDG_DATA_HOME");
 
-                    if (string.IsNullOrEmpty(xdgDataHome))
-                        return Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? string.Empty, ".local", "share");
-                    else
-                        return xdgDataHome;
+                        if (string.IsNullOrEmpty(xdgDataHome))
+                            return Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? string.Empty, ".local", "share");
+                        else
+                            return xdgDataHome;
                 }
             default: // móvil
                 return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

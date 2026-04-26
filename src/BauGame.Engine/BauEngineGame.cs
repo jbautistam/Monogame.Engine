@@ -73,6 +73,11 @@ public abstract class BauEngineGame : Game
 	public abstract AbstractScene GetScene(string name);
 
 	/// <summary>
+	///		Graba la configuración de la partida
+	/// </summary>
+	public abstract void SaveConfiguration();
+
+	/// <summary>
 	///		Manager del motor
 	/// </summary>
 	public Managers.EngineManager EngineManager { get; }

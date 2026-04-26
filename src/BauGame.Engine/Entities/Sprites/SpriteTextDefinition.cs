@@ -12,7 +12,7 @@ public class SpriteTextDefinition
 	// Variables privadas
 	private string? _font;
 	private SpriteFont? _spriteFont;
-	private bool _isDirty;
+	private bool _isDirty = true;
 
 	public SpriteTextDefinition(string? font)
 	{

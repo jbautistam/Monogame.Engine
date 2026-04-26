@@ -3,7 +3,7 @@
 /// <summary>
 ///		Configuración para el motor
 /// </summary>
-public class EngineSettings
+public class EngineSettings(string contentRoot)
 {
     /// <summary>
     ///     Indica si el juego se está ejecutando en una plataforma móvil
@@ -18,12 +18,12 @@ public class EngineSettings
     /// <summary>
     ///     Fuente predetermianda
     /// </summary>
-    public string DefaultFont { get; set; } = "";
+    public string DefaultFont { get; set; } = "Font/Hud";
 
     /// <summary>
     ///     Directorio raíz del contenido
     /// </summary>
-    public required string ContentRoot { get; init; }
+    public string ContentRoot { get; } = contentRoot;
 
     /// <summary>
     ///     Título de la ventana

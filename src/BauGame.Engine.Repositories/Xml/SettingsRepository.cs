@@ -1,7 +1,6 @@
 ﻿using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
 using Bau.BauEngine.Configuration;
-using Microsoft.Xna.Framework;
 
 namespace Bau.BauEngine.Repositories.Xml;
 
@@ -98,8 +97,8 @@ internal class SettingsRepository
 		settings.ScreenSettings.ViewPortWidth = rootML.Attributes[TagViewPortWidth].Value.GetInt(settings.ScreenSettings.ViewPortWidth);
 		settings.ScreenSettings.ViewPortHeight = rootML.Attributes[TagViewPortHeight].Value.GetInt(settings.ScreenSettings.ViewPortHeight);
 		settings.ScreenSettings.WindowAllowUserResizing = rootML.Attributes[TagAllowUserResizing].Value.GetBool(settings.ScreenSettings.WindowAllowUserResizing);
-		settings.ScreenSettings.DisplayOrientation = rootML.Attributes[TagOrientation].Value.GetEnum(ScreenSettings.DeviceOrientation.Default);
-		settings.ScreenSettings.Profile = rootML.Attributes[TagProfile].Value.GetEnum(ScreenSettings.GraphicsProfile.LowDefinition);
+		settings.ScreenSettings.DisplayOrientation = rootML.Attributes[TagOrientation].Value.GetEnum(settings.ScreenSettings.DisplayOrientation);
+		settings.ScreenSettings.Profile = rootML.Attributes[TagProfile].Value.GetEnum(settings.ScreenSettings.Profile);
 	}
 
 	/// <summary>
@@ -135,5 +134,82 @@ internal class SettingsRepository
 			return value;
 		else
 			return defaultValue;
+	}
+
+	/// <summary>
+	///		Obtiene el XML de una configuración
+	/// </summary>
+	internal string GetXml(EngineSettings settings)
+	{
+		MLFile fileML = new();
+		MLNode rootML = fileML.Nodes.Add(TagRoot);
+
+			// Añade los atributos
+			rootML.Attributes.Add(TagWindowTitle, settings.WindowTitle);
+			rootML.Attributes.Add(TagFont, settings.DefaultFont);
+			// Añade los nodos
+			rootML.Nodes.Add(GetXmlScreenSettings(settings.ScreenSettings));
+			rootML.Nodes.Add(GetXmlDebugSettings(settings.DebugSettings));
+			rootML.Nodes.Add(GetXmlAudioSettings(settings.AudioSettings));
+			// Devuelve el texto XML
+			return new Libraries.LibMarkupLanguage.Services.XML.XMLWriter().ConvertToString(fileML);
+	}
+
+	/// <summary>
+	///		Obtiene el XML de configuración de pantalla
+	/// </summary>
+	private MLNode GetXmlScreenSettings(ScreenSettings screenSettings)
+	{
+		MLNode rootML = new(TagScreen);
+
+			// Asigna los atributos del nodo
+			rootML.Attributes.Add(TagMouseVisible, screenSettings.IsMouseVisible);
+			rootML.Attributes.Add(TagFullScreen, screenSettings.FullScreen);
+			rootML.Attributes.Add(TagBorderless, screenSettings.Borderless);
+			rootML.Attributes.Add(TagMultiSampling, screenSettings.PreferMultiSampling);
+			rootML.Attributes.Add(TagSynchronizeWithVerticalRetrace, screenSettings.SynchronizeWithVerticalRetrace);
+			rootML.Attributes.Add(TagBufferWidth, screenSettings.ScreenBufferWidth);
+			rootML.Attributes.Add(TagBufferHeight, screenSettings.ScreenBufferHeight);
+			rootML.Attributes.Add(TagViewPortWidth, screenSettings.ViewPortWidth);
+			rootML.Attributes.Add(TagViewPortHeight, screenSettings.ViewPortHeight);
+			rootML.Attributes.Add(TagAllowUserResizing, screenSettings.WindowAllowUserResizing);
+			rootML.Attributes.Add(TagOrientation, screenSettings.DisplayOrientation.ToString());
+			rootML.Attributes.Add(TagProfile, screenSettings.Profile.ToString());
+			// Devuelve el nodo
+			return rootML;
+	}
+
+	/// <summary>
+	///		Obtiene el XML de configuración de depuración
+	/// </summary>
+	private MLNode GetXmlDebugSettings(DebugSettings debugSettings)
+	{
+		MLNode rootML = new(TagDebug);
+
+			// Asigna los atributos del nodo
+			rootML.Attributes.Add(TagDebugging, debugSettings.IsDebugging);
+			rootML.Attributes.Add(TagFont, debugSettings.Font ?? "fonts/hud");
+			rootML.Attributes.Add(TagColor, _helper.ToXml(debugSettings.Color));
+			rootML.Attributes.Add(TagOverlayColor, _helper.ToXml(debugSettings.OverlayColor));
+			rootML.Attributes.Add(TagImageColor, _helper.ToXml(debugSettings.ImageColor));
+			// Devuelve el nodo
+			return rootML;
+	}
+
+	/// <summary>
+	///		Obtiene el XML de configuración de audio
+	/// </summary>
+	private MLNode GetXmlAudioSettings(AudioSettings audioSettings)
+	{
+		MLNode rootML = new(TagAudio);
+
+			// Asigna los atributos del nodo
+			rootML.Attributes.Add(TagMasterVolume, audioSettings.MasterVolume);
+			rootML.Attributes.Add(TagMusicVolume, audioSettings.MusicVolume);
+			rootML.Attributes.Add(TagSoundVolume, audioSettings.SoundVolume);
+			rootML.Attributes.Add(TagVoiceVolume, audioSettings.VoiceVolume);
+			rootML.Attributes.Add(TagAmbienceVolume, audioSettings.AmbienceVolume);
+			// Devuelve el nodo
+			return rootML;
 	}
 }

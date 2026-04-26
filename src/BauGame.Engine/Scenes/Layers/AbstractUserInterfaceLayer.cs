@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Bau.BauEngine.Entities.UserInterface;
 using Bau.BauEngine.Entities.UserInterface.Popups;
 using Bau.BauEngine.Entities.UserInterface.Styles;
-using Bau.BauEngine.Scenes.Cameras;
 using Bau.BauEngine.Managers;
 using Bau.BauEngine.Entities.UserInterface.EventArguments;
 

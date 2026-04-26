@@ -12,10 +12,7 @@ public class EngineManager
         // Configura el objeto de la partida
         EngineGame = engineGame;
         // Configura el motor
-        EngineSettings = new Configuration.EngineSettings()
-                                        {
-                                            ContentRoot = contentRoot
-                                        };
+        EngineSettings = new Configuration.EngineSettings(contentRoot);
 	    // Configura los datos predeterminados de la pantalla
 	    EngineSettings.ScreenSettings.FullScreen = false;
 	    EngineSettings.ScreenSettings.Borderless = false;
@@ -72,10 +69,10 @@ public class EngineManager
         EngineGame.Exit();
 	}
 
-    /// <summary>
-    ///     Juego
-    /// </summary>
-    public BauEngineGame EngineGame { get; }
+	/// <summary>
+	///     Juego
+	/// </summary>
+	public BauEngineGame EngineGame { get; }
 
 	/// <summary>
 	///		Configuración global

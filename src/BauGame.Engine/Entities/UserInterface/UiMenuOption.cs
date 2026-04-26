@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Bau.BauEngine.Entities.UserInterface.Styles;
-using Bau.BauEngine.Entities.Sprites;
 
 namespace Bau.BauEngine.Entities.UserInterface;
 

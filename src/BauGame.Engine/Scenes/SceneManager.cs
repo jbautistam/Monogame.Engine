@@ -13,7 +13,7 @@ public class SceneManager(Managers.EngineManager engineManager)
     /// </summary>
     public void ChangeScene(string name, Managers.GameContext gameContext)
     {
-        AbstractScene? newScene = EngineManager.EngineGame.GetScene(name); // _scenes.Get(name);
+        AbstractScene? newScene = EngineManager.EngineGame.GetScene(name);
 
             // Cambia la escena
             if (newScene is not null)

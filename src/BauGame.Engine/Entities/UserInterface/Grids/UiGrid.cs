@@ -55,6 +55,9 @@ public class UiGrid : UiElement, Interfaces.IComponentPanel
     /// </summary>
 	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
 	{
+        // Dibujar el estilo
+        Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
+        // Dibuja los elementos
         Items.Draw(renderingManager, gameContext);
     }
 

@@ -14,7 +14,6 @@ internal class StylesRepository
 	private const string TagRoot = "Styles";
 	private const string TagStyle = "Style";
 	private const string TagName = "Name";
-	private const string TagType = "Type";
 	private const string TagMargin = "Margin";
 	private const string TagPadding = "Padding";
 	private const string TagBackground = "Background";

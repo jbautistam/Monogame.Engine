@@ -100,7 +100,7 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Definición de la textura
     /// </summary>
-    public SpriteDefinition? Sprite { get; set; }
+    public AbstractSpriteDefinition? Sprite { get; set; }
 
     /// <summary>
     ///     Rotación de la imagen

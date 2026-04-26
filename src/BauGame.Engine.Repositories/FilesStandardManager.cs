@@ -1,0 +1,116 @@
+﻿using Bau.BauEngine.Configuration;
+using Bau.BauEngine.Entities.UserInterface;
+using Bau.BauEngine.Entities.UserInterface.Styles;
+using Bau.BauEngine.Managers;
+using Bau.BauEngine.Scenes.Layers;
+
+namespace Bau.BauEngine.Repositories;
+
+/// <summary>
+///		Clases de carga de archivos de configuración como configuración de definición de texturas, sistemas de partículas,
+///	datos de interface de usuario...
+/// </summary>
+public class FilesStandardManager(EngineManager manager)
+{
+	/// <summary>
+	///		Carga el texto de un archivo de contenido
+	/// </summary>
+	public string? LoadTextFile(string fileName, bool userPath)
+	{
+		if (userPath)
+			return Manager.FilesManager.LocalFilesManager.ReadTextFile(fileName);
+		else
+			return Manager.FilesManager.StorageManager.ReadTextFile($"Content/{fileName}");
+	}
+
+	/// <summary>
+	///		Graba el texto de un archivo de contenido en el directorio de usuario
+	/// </summary>
+	public bool SaveTextFile(string fileName, string text) => Manager.FilesManager.LocalFilesManager.WriteTextFile(fileName, text);
+
+	/// <summary>
+	///		Carga la configuración de sistema de un archivo del directorio de usuario: audio, vídeo, depuración
+	/// </summary>
+	public EngineSettings LoadConfiguration(string fileName, EngineSettings defaultSettings)
+	{
+		string? xml = LoadTextFile(fileName, true);
+
+			if (string.IsNullOrWhiteSpace(xml))
+				return defaultSettings;
+			else
+			{
+				// Carga la configuración
+				new Xml.SettingsRepository().Load(xml, defaultSettings);
+				// Devuelve la configuración cargada
+				return defaultSettings;
+			}
+	}
+
+	/// <summary>
+	///		Graba la configuración de sistema en un archivo local
+	/// </summary>
+	public bool SaveConfiguration(string fileName, EngineSettings engineSettings) => SaveTextFile(fileName, new Xml.SettingsRepository().GetXml(engineSettings));
+
+	/// <summary>
+	///		Carga las configuraciones de texturas y animación
+	/// </summary>
+	public void LoadTexturesSettings(string fileName)
+	{
+		string? xml = LoadTextFile(fileName, false);
+			
+			if (!string.IsNullOrWhiteSpace(xml))
+				new Xml.TexturesRepository().Load(xml, Manager.ResourcesManager);
+	}
+
+	/// <summary>
+	///		Carga las definiciones de los sistemas de partículas
+	/// </summary>
+	public void LoadParticlesSystem(string fileName)
+	{
+		string? xml = LoadTextFile(fileName, false);
+			
+			if (!string.IsNullOrWhiteSpace(xml))
+				Manager.ResourcesManager.ParticlesResourcesManagers.AddRange(new Xml.ParticleSystemRepository().Load(xml));
+	}
+
+	/// <summary>
+	///		Carga los estilos
+	/// </summary>
+	public UiStylesCollection LoadStyles(AbstractUserInterfaceLayer layer, string fileName)
+	{
+		string? xml = LoadTextFile(fileName, false);
+			
+			if (!string.IsNullOrWhiteSpace(xml))
+				return new Xml.StylesRepository().Load(layer, xml);
+			else
+				return new UiStylesCollection(layer);
+	}
+
+	/// <summary>
+	///		Carga los datos de una pantalla
+	/// </summary>
+	public (UiStylesCollection styles, List<UiElement> components) LoadScreen(AbstractUserInterfaceLayer layer, string fileName,
+																			  Xml.AbstractUserInterfaceRepository? repository = null)
+	{
+		string? xml = LoadTextFile(fileName, false);
+		UiStylesCollection styles = new(layer);
+		List<UiElement> components = [];
+			
+			// Obtiene los datos
+			if (!string.IsNullOrWhiteSpace(xml))
+			{
+				(string? style, components) = (repository ?? new Xml.UserInterfaceRepository()).Load(layer, xml);
+
+					// Carga los estilos
+					if (!string.IsNullOrWhiteSpace(style))
+						styles = LoadStyles(layer, style);
+			}
+			// Devuelve los estilos y componentes de la pantalla
+			return new (styles, components);
+	}
+
+	/// <summary>
+	///		Manager principal del motor
+	/// </summary>
+	public EngineManager Manager { get; } = manager;
+}

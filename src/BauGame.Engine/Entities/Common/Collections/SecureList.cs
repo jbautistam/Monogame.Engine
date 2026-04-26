@@ -59,6 +59,8 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 	{
 		foreach (TypeData item in Items)
 			yield return item;
+		foreach (TypeData item in _itemsToAdd)
+			yield return item;
 	}
 
 	/// <summary>
@@ -120,7 +122,16 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 	/// <summary>
 	///		Obtiene un elemento por su Id
 	/// </summary>
-	public TypeData? Get(string id) => Items.FirstOrDefault(item => item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase));
+	public TypeData? Get(string id)
+	{
+		TypeData? found = Items.FirstOrDefault(item => item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase));
+
+			// Si no ha encontrado el elemento, busca entre los elementos a añadir
+			if (found is null)
+				found = _itemsToAdd.FirstOrDefault(item => item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase));
+			// Devuelve el elemento
+			return found;
+	}
 
 	/// <summary>
 	///		Limpia los elementos de la lista
