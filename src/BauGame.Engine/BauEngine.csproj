@@ -200,6 +200,7 @@
     <Compile Include="Scenes\Rendering\Transitions\Effects\ZoomBlurEffect.cs" />
     <Compile Include="Scenes\Rendering\Transitions\RenderTargetPool.cs" />
     <Compile Include="Scenes\Rendering\Transitions\TransitionManager.cs" />
+    <Compile Include="Scenes\NextSceneContextModel.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Scenes\Timers\TimerModel.cs" />
     <Compile Include="Scenes\Timers\TimerManager.cs" />

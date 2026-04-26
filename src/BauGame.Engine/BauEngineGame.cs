@@ -70,7 +70,7 @@ public abstract class BauEngineGame : Game
 	/// <summary>
 	///		Obtiene la escena que se corresponde a un nombre
 	/// </summary>
-	public abstract AbstractScene GetScene(string name);
+	public abstract AbstractScene GetScene(NextSceneContextModel nextScene);
 
 	/// <summary>
 	///		Graba la configuración de la partida

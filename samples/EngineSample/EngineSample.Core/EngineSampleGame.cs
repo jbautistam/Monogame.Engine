@@ -25,7 +25,7 @@ public class EngineSampleGame : BauEngineGame
 		// Carga la configuración de recursos
 		new Configuration.ResourcesLoader(EngineManager).LoadResourcesSettings();
 		// Prepara la escena
-		EngineManager.SceneManager.ChangeScene("MainMenu", new Bau.BauEngine.Managers.GameContext());
+		EngineManager.SceneManager.ChangeScene(new NextSceneContextModel(GameLogic.Scenes.MainMenu.MainMenuScene.SceneName), new Bau.BauEngine.Managers.GameContext());
 		// Prepara los mapeos
 		CreateMappings(EngineManager.InputManager);
 	}
@@ -74,24 +74,24 @@ public class EngineSampleGame : BauEngineGame
 	/// <summary>
 	///		Obtiene una escena
 	/// </summary>
-	public override AbstractScene GetScene(string scene)
+	public override AbstractScene GetScene(NextSceneContextModel nextScene)
 	{
 		// Busca la escena adecuada
-		if (!string.IsNullOrWhiteSpace(scene))
+		if (!string.IsNullOrWhiteSpace(nextScene.Scene))
 		{
-			if (scene.Equals(GameLogic.Scenes.Games.GameScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+			if (nextScene.Scene.Equals(GameLogic.Scenes.Games.GameScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.Games.GameScene(EngineManager.SceneManager);
-			else if (scene.Equals(GameLogic.Scenes.TilesSample.TilesScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+			else if (nextScene.Scene.Equals(GameLogic.Scenes.TilesSample.TilesScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.TilesSample.TilesScene(EngineManager.SceneManager, 1);
-			else if (scene.Equals(GameLogic.Scenes.Particles.ParticlesScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+			else if (nextScene.Scene.Equals(GameLogic.Scenes.Particles.ParticlesScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.Particles.ParticlesScene(EngineManager.SceneManager);
-			else if (scene.Equals(GameLogic.Scenes.Space.SpaceShipsScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+			else if (nextScene.Scene.Equals(GameLogic.Scenes.Space.SpaceShipsScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.Space.SpaceShipsScene(EngineManager.SceneManager);
-			else if (scene.Equals(GameLogic.Scenes.Animations.AnimationsScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+			else if (nextScene.Scene.Equals(GameLogic.Scenes.Animations.AnimationsScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.Animations.AnimationsScene(EngineManager.SceneManager);
-			else if (scene.Equals(GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+			else if (nextScene.Scene.Equals(GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene(EngineManager.SceneManager);
-			else if (scene.Equals(GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+			else if (nextScene.Scene.Equals(GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene(EngineManager.SceneManager);
 		}
 		// Si ha llegado hasta aquí es porque no hay ninguna escena con ese nombre y devuelve la principal

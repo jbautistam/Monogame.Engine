@@ -55,15 +55,15 @@ internal class SpaceShipsScene(SceneManager sceneManager) : AbstractScene(sceneM
 	/// <summary>
 	///		Actualiza la escena
 	/// </summary>
-	protected override string? UpdateScene(Bau.BauEngine.Managers.GameContext gameContext)
+	protected override NextSceneContextModel? UpdateScene(Bau.BauEngine.Managers.GameContext gameContext)
 	{
 		// Actualiza los actores y el interface de usuario
 		LayerManager.Update(gameContext);
 		// Sale de la partida si se ha pulsado el botón de Scape o el Back del GamePad
 		if (SceneManager.EngineManager.InputManager.IsAction(Bau.BauEngine.Managers.Input.InputMappings.DefaulQuitAction))
-			return MainMenu.MainMenuScene.SceneName;
+			return new NextSceneContextModel(MainMenu.MainMenuScene.SceneName);
 		else
-			return string.Empty;
+			return null;
 	}
 
 	/// <summary>

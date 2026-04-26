@@ -35,7 +35,7 @@ public abstract class AbstractScene
     /// <summary>
     ///     Actualiza la escena
     /// </summary>
-    public string? Update(Managers.GameContext gameContext)
+    public NextSceneContextModel? Update(Managers.GameContext gameContext)
     {   
         // Actualiza los datos de la escena
         PhysicsManager.Update(gameContext);
@@ -48,7 +48,7 @@ public abstract class AbstractScene
     /// <summary>
     ///     Actualiza la escena
     /// </summary>
-    protected abstract string? UpdateScene(Managers.GameContext gameContext);
+    protected abstract NextSceneContextModel? UpdateScene(Managers.GameContext gameContext);
 
     /// <summary>
     ///     Cambia la definición del mundo

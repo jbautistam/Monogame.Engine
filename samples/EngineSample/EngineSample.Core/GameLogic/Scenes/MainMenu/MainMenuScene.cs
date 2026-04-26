@@ -105,7 +105,7 @@ internal class MainMenuScene(SceneManager sceneManager) : AbstractScene(sceneMan
 	/// <summary>
 	///		Actualiza la escena
 	/// </summary>
-	protected override string? UpdateScene(Bau.BauEngine.Managers.GameContext gameContext)
+	protected override NextSceneContextModel? UpdateScene(Bau.BauEngine.Managers.GameContext gameContext)
 	{
 			// Actualiza los actores
 			LayerManager.Update(gameContext);
@@ -117,19 +117,19 @@ internal class MainMenuScene(SceneManager sceneManager) : AbstractScene(sceneMan
 				switch ((MenuOption?) _menu.GetAndResetClickOption())
 				{
 					case MenuOption.Play:
-						return Games.GameScene.SceneName;
+						return new NextSceneContextModel(Games.GameScene.SceneName);
 					case MenuOption.TilesSample:
-						return TilesSample.TilesScene.SceneName;
+						return new NextSceneContextModel(TilesSample.TilesScene.SceneName);
 					case MenuOption.SpaceShips:
-						return Space.SpaceShipsScene.SceneName;
+						return new NextSceneContextModel(Space.SpaceShipsScene.SceneName);
 					case MenuOption.Particles:
-						return Particles.ParticlesScene.SceneName;
+						return new NextSceneContextModel(Particles.ParticlesScene.SceneName);
 					case MenuOption.Animations:
-						return Animations.AnimationsScene.SceneName;
+						return new NextSceneContextModel(Animations.AnimationsScene.SceneName);
 					case MenuOption.UserInterfaceGrid:
-						return UserInterfaceGridTest.UserInterfaceGridScene.SceneName;
+						return new NextSceneContextModel(UserInterfaceGridTest.UserInterfaceGridScene.SceneName);
 					case MenuOption.UserInterfaceGallery:
-						return UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName;
+						return new NextSceneContextModel(UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName);
 					case MenuOption.Music:
 							PlaySong();
 						break;
@@ -144,7 +144,7 @@ internal class MainMenuScene(SceneManager sceneManager) : AbstractScene(sceneMan
 						break;
 				}
 			// Devuelve la nueva escena
-			return string.Empty;
+			return null;
 	}
 
 	/// <summary>

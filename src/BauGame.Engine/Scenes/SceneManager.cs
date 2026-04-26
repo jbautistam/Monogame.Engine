@@ -11,9 +11,9 @@ public class SceneManager(Managers.EngineManager engineManager)
     /// <summary>
     ///     Cambia la escena
     /// </summary>
-    public void ChangeScene(string name, Managers.GameContext gameContext)
+    public void ChangeScene(NextSceneContextModel nextScene, Managers.GameContext gameContext)
     {
-        AbstractScene? newScene = EngineManager.EngineGame.GetScene(name);
+        AbstractScene? newScene = EngineManager.EngineGame.GetScene(nextScene);
 
             // Cambia la escena
             if (newScene is not null)
@@ -32,10 +32,10 @@ public class SceneManager(Managers.EngineManager engineManager)
     /// </summary>
     public void Update(Managers.GameContext gameContext)
     {
-        string? nextScene = _currentScene?.Update(gameContext);
+        NextSceneContextModel? nextScene = _currentScene?.Update(gameContext);
 
             // Cambia la escena
-            if (!string.IsNullOrWhiteSpace(nextScene) && !nextScene.Equals(_currentScene?.Name, StringComparison.CurrentCultureIgnoreCase))
+            if (nextScene is not null)
                 ChangeScene(nextScene, gameContext);
     }
 
