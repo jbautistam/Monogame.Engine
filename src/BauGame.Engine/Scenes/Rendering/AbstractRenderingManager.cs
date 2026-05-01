@@ -12,12 +12,25 @@ public abstract class AbstractRenderingManager
 
 	public AbstractRenderingManager(AbstractScene scene)
 	{
+		// Inicializa las propoiedades
 		Scene = scene;
 		Device = Scene.SceneManager.EngineManager.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice;
+		Width = Device.PresentationParameters.BackBufferWidth;
+		Height = Device.PresentationParameters.BackBufferHeight;
+		// Inicializa los objetos
 		PostprocessingEffects = new Postprocessing.PostProcessEfectsList(this);
 		FiguresRenderer = new Renderers.FiguresRenderer(this);
 		SpriteRenderer = new Renderers.SpriteRenderer(this);
 		SpriteTextRenderer = new Renderers.SpriteTextRenderer(this);
+	}
+
+	/// <summary>
+	///		Actualiza el tamaño del viewPort cuando se modifica el tamaño de la ventana
+	/// </summary>
+	public void UpdateViewPort(Viewport viewport)
+	{
+		Width = viewport.Width;
+		Height = viewport.Height;
 	}
 
     /// <summary>
@@ -40,10 +53,10 @@ public abstract class AbstractRenderingManager
 	/// </summary>
 	public abstract void End();
 
-	/// <summary>
-	///		Escena
-	/// </summary>
-	public AbstractScene Scene { get; }
+    /// <summary>
+    ///		Escena
+    /// </summary>
+    public AbstractScene Scene { get; }
 	
 	/// <summary>
 	///		Ancho de dibujo

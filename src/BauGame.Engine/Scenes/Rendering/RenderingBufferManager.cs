@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Bau.BauEngine.Scenes.Rendering.Postprocessing;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Bau.BauEngine.Scenes.Rendering;
@@ -19,9 +20,7 @@ public class RenderingBufferManager(AbstractScene scene) : AbstractRenderingMana
 	{
 		// Crea la textura de dibujo
 		if (IsDirty || _renderTarget is null)
-			_renderTarget = new RenderTarget2D(Device, Device.PresentationParameters.BackBufferWidth, 
-											   Device.PresentationParameters.BackBufferHeight,
-											   false, SurfaceFormat.Color, DepthFormat.None);
+			_renderTarget = new RenderTarget2D(Device, Width, Height, false, SurfaceFormat.Color, DepthFormat.None);
 		// Configura el dispositivo para pintar sobre la textura intermedia
 		Device.SetRenderTarget(_renderTarget);
 		Device.Clear(Color.Black);
@@ -54,6 +53,33 @@ public class RenderingBufferManager(AbstractScene scene) : AbstractRenderingMana
 			End();
 		}
 	}
+
+	/// <summary>
+	///		Aplica los efectos sobre la textura dibujada
+	/// </summary>
+    private RenderTarget2D ApplyEffects(RenderTarget2D source)
+    {
+		RenderTarget2D destination = new(Device, Width, Height);
+
+			// Aplica los efectos
+			foreach (AbstractPostProcessingEffect effect in PostprocessingEffects.Enumerate())
+			{
+				SpriteBatch spriteBatch;
+
+					// Cambia el destino del render
+					Device.SetRenderTarget(destination);
+					Device.Clear(Color.Black);
+					// Aplica el efecto
+					spriteBatch = new SpriteBatch(Device);
+					effect.Apply(source, spriteBatch);
+					spriteBatch.End();
+					// Intercambia el origen y el destino
+					(source, destination) = (destination, source);
+	        }
+			// Devuelve el resultado
+			return source;
+    }
+
 
     /// <summary>
     ///     Arranca el dibujo de la UI

@@ -94,10 +94,11 @@ public abstract class AbstractScene
     }
 
     /// <summary>
-    ///     Actualiza el ViewPort cuando se cambia
+    ///     Actualiza el ViewPort cuando se cambia el tamaño de la ventana
     /// </summary>
     private void UpdateViewPort()
     {
+        RenderingManager.UpdateViewPort(GetViewPort());
         Camera?.UpdateViewPort(GetViewPort());
         UpdateViewPortSelf();
     }
