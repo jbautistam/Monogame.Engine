@@ -51,7 +51,7 @@ public class TileActor(TileMapActor map, int tileDefinitionId, bool isSolid) : A
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
 	{
 		// ... por ahora sólo implementa la interface
 	}

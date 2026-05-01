@@ -57,7 +57,7 @@ public abstract class UiAbstractPopup : UiElement
     /// <summary>
     ///     Dibuja el elemento
     /// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         if (!IsClosed)
         {

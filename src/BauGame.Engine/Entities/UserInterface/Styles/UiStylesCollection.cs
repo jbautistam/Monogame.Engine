@@ -78,7 +78,7 @@ public class UiStylesCollection(AbstractUserInterfaceLayer layer)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public void Draw(Scenes.Rendering.RenderingManager renderingManager, string key, UiStyle.StyleType type, Rectangle position, Managers.GameContext gameContext)
+	public void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, string key, UiStyle.StyleType type, Rectangle position, Managers.GameContext gameContext)
 	{
 		UiStyle? style = GetStyle(key, type);
 

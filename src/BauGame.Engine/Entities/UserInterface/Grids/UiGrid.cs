@@ -53,7 +53,7 @@ public class UiGrid : UiElement, Interfaces.IComponentPanel
     /// <summary>
     ///     Dibuja el grid
     /// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
 	{
         // Dibujar el estilo
         Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);

@@ -11,7 +11,7 @@ public class FiguresRenderer
 	// Variables privadas
 	private Texture2D _whitePixel = default!;
 
-	public FiguresRenderer(RenderingManager renderingManager)
+	public FiguresRenderer(AbstractRenderingManager renderingManager)
 	{
 		// Guarda los objetos
 		RenderingManager = renderingManager;
@@ -65,5 +65,5 @@ public class FiguresRenderer
 	/// <summary>
 	///		Manager de presentación
 	/// </summary>
-	public RenderingManager RenderingManager { get; }
+	public AbstractRenderingManager RenderingManager { get; }
 }

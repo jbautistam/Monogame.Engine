@@ -6,19 +6,10 @@ namespace Bau.BauEngine.Scenes.Rendering;
 /// <summary>
 ///		Manager para rendering
 /// </summary>
-public class RenderingManager
+public class RenderingManager(AbstractScene scene) : AbstractRenderingManager(scene)
 {
 	// Variables privadas
 	private bool _isDrawing = false;
-
-	public RenderingManager(AbstractScene scene)
-	{
-		Scene = scene;
-		Device = Scene.SceneManager.EngineManager.MonogameServicesManager.GraphicsDeviceManager.GraphicsDevice;
-		FiguresRenderer = new Renderers.FiguresRenderer(this);
-		SpriteRenderer = new Renderers.SpriteRenderer(this);
-		SpriteTextRenderer = new Renderers.SpriteTextRenderer(this);
-	}
 
 	/// <summary>
 	///		Prepara el spritebatch
@@ -46,7 +37,7 @@ public class RenderingManager
     /// <summary>
     ///     Comienza el dibujo del mundo
     /// </summary>
-	public void BeginDrawWorld()
+	public override void BeginDrawWorld()
 	{
 		Clear();
         BeginDraw(Scene.Camera.GetMatrixDrawWorld());
@@ -55,7 +46,7 @@ public class RenderingManager
     /// <summary>
     ///     Arranca el dibujo de la UI
     /// </summary>
-	public void BeginDrawUI()
+	public override void BeginDrawUI()
 	{
         BeginDraw(null);
 	}
@@ -81,9 +72,16 @@ public class RenderingManager
 	}
 
 	/// <summary>
+	///		Comienza el postproceso
+	/// </summary>
+    public override void Postprocess()
+	{
+	}
+
+	/// <summary>
 	///		Finaliza el dibujo
 	/// </summary>
-	public void End()
+	public override void End()
 	{
 		if (SpriteBatch is not null && _isDrawing)
 		{
@@ -91,34 +89,4 @@ public class RenderingManager
 			_isDrawing = false;
 		}
 	}
-
-	/// <summary>
-	///		Escena
-	/// </summary>
-	public AbstractScene Scene { get; }
-
-	/// <summary>
-	///		Dispositivo de dibujo
-	/// </summary>
-	public GraphicsDevice Device { get; }
-
-	/// <summary>
-	///		Batch de sprites
-	/// </summary>
-	public SpriteBatch? SpriteBatch { get; private set; }
-
-	/// <summary>
-	///		Renderer para figuras
-	/// </summary>
-	public Renderers.FiguresRenderer FiguresRenderer { get; }
-
-	/// <summary>
-	///		Renderer para <see cref="Entities.Common.Sprites.SpriteDefinition"/>
-	/// </summary>
-	public Renderers.SpriteRenderer SpriteRenderer { get; }
-
-	/// <summary>
-	///		Renderer para <see cref="Entities.Common.Sprites.SpriteTextDefinition"/>
-	/// </summary>
-	public Renderers.SpriteTextRenderer SpriteTextRenderer { get; }
 }

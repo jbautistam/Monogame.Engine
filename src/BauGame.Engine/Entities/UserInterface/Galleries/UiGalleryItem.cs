@@ -36,7 +36,7 @@ public class UiGalleryItem : UiElement
     /// <summary>
     ///     Dibuja el elemento
     /// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
 	{
         if (Item.Visible)
 		    Item.Draw(renderingManager, gameContext);

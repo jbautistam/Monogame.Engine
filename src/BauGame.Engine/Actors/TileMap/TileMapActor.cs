@@ -55,7 +55,7 @@ public class TileMapActor(Scenes.Layers.AbstractLayer layer, int physicsLayer, i
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
 	{
 		foreach (TileActor tile in Tiles)
 			if (renderingManager.Scene.Camera.IsAtView(tile.Transform.Bounds))

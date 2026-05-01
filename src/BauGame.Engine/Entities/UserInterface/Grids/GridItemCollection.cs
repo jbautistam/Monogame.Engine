@@ -66,7 +66,7 @@ public class GridItemCollection(UiGrid grid) : List<GridItemModel>
     /// <summary>
     ///     Dibuja los elementos
     /// </summary>
-	public void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	public void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
 	{
         // Ordena los elementos
         Sort((first, second) => first.ZIndex.CompareTo(second.ZIndex));

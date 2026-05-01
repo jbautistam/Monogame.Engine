@@ -25,7 +25,7 @@ public class UiMenuOption(UiMenu menu, UiPosition position, int optionId) : UiEl
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         UiStyle? style = GetStyle();
 

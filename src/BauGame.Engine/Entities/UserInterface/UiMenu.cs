@@ -164,7 +164,7 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja el título, borde y fondo
         Title?.Draw(renderingManager, gameContext);

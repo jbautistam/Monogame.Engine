@@ -7,7 +7,7 @@ namespace Bau.BauEngine.Scenes.Rendering.Renderers;
 /// <summary>
 ///     Clase para dibujo de un <see cref="SpriteTextDefinition"/>
 /// </summary>
-public class SpriteTextRenderer(RenderingManager renderingManager)
+public class SpriteTextRenderer(AbstractRenderingManager renderingManager)
 {
 	/// <summary>
 	///		Escribe una cadena
@@ -90,5 +90,5 @@ public class SpriteTextRenderer(RenderingManager renderingManager)
     /// <summary>
     ///     Manager de representación
     /// </summary>
-    public RenderingManager RenderingManager { get; } = renderingManager;
+    public AbstractRenderingManager RenderingManager { get; } = renderingManager;
 }

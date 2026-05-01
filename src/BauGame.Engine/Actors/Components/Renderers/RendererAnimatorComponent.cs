@@ -82,7 +82,7 @@ public class RendererAnimatorComponent : AbstractRendererComponent, Interfaces.I
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-    protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+    protected override void DrawSelf(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
     {
 		if (Sprite is not null)
 		{

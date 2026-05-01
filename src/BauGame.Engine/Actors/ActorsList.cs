@@ -54,7 +54,7 @@ public class ActorsList(Scenes.Layers.AbstractLayer layer) : Entities.Common.Col
     /// <summary>
     ///     Dibuja los actores de la lista
     /// </summary>
-	public void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	public void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
 	{
         foreach (AbstractActor actor in Enumerate())
             if (actor.Enabled && actor is Interfaces.IActorDrawable actorDrawable)

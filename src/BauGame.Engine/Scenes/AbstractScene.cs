@@ -18,7 +18,7 @@ public abstract class AbstractScene
         LayerManager = new Layers.LayerManager(this);
         PhysicsManager = new Physics.PhysicsManager(this);
         MessagesManager = new Messages.MessagesManager(this);
-        RenderingManager = new Rendering.RenderingManager(this);
+        RenderingManager = new Rendering.RenderingBufferManager(this);
         TimerManager = new Timers.TimerManager(this);
         // Inicializa el manejador de eventos de cambio de tamaño de pantalla
         SceneManager.EngineManager.MonogameServicesManager.ViewPortChanged += (sender, args) => UpdateViewPort();
@@ -69,15 +69,17 @@ public abstract class AbstractScene
         foreach (Layers.AbstractLayer layer in LayerManager.Layers)
             if (layer.Enabled && layer.Type != Layers.AbstractLayer.LayerType.UserInterface)
                 layer.Draw(RenderingManager, gameContext);
-		// Dibuja la capa de log
+		// Dibuja las figuras de la capa de log (rectángulos, líneas...)
         SceneManager.EngineManager.DebugManager.DrawLogFigures(RenderingManager, gameContext);
+        // Aplica los efectos
+        RenderingManager.Postprocess();
 		// Comienza el dibujo de la interface de usuario
         RenderingManager.BeginDrawUI();
         // Dibuja las capas de interface de usuario
         foreach (Layers.AbstractLayer layer in LayerManager.Layers)
             if (layer.Enabled && layer.Type == Layers.AbstractLayer.LayerType.UserInterface)
                 layer.Draw(RenderingManager, gameContext);
-        // Dibuja la capa de log
+        // Dibuja los textos de la capa de log
         SceneManager.EngineManager.DebugManager.DrawLogStrings(RenderingManager, gameContext);
 		// Finaliza el dibujo
         RenderingManager.End();
@@ -158,7 +160,7 @@ public abstract class AbstractScene
     /// <summary>
     ///     Manager de dibujo
     /// </summary>
-    public Rendering.RenderingManager RenderingManager { get; private set; }
+    public Rendering.AbstractRenderingManager RenderingManager { get; private set; }
 
     /// <summary>
     ///     Manager de físicas

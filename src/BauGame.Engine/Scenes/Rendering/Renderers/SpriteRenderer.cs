@@ -10,7 +10,7 @@ namespace Bau.BauEngine.Scenes.Rendering.Renderers;
 /// <summary>
 ///     Clase para dibujo de un <see cref="SpriteDefinition"/>
 /// </summary>
-public class SpriteRenderer(RenderingManager renderingManager)
+public class SpriteRenderer(AbstractRenderingManager renderingManager)
 {
     /// <summary>
     ///     Modos de dibujo
@@ -239,5 +239,5 @@ public class SpriteRenderer(RenderingManager renderingManager)
 	/// <summary>
 	///		Manager de presentación
 	/// </summary>
-	public RenderingManager RenderingManager { get; } = renderingManager;
+	public AbstractRenderingManager RenderingManager { get; } = renderingManager;
 }

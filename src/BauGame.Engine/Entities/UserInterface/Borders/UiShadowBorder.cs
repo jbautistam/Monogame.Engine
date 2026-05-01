@@ -17,7 +17,7 @@ public class UiShadowBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, GameContext gameContext)
     {
         Rectangle shadowBounds = new(position.X + (int) Offset.X, position.Y + (int) Offset.Y, position.Width, position.Height);
             

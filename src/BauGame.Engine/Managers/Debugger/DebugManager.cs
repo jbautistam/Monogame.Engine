@@ -91,7 +91,7 @@ public class DebugManager(EngineManager manager)
     /// <summary>
     ///     Dibuja las figuras de log
     /// </summary>
-    public void DrawLogFigures(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+    public void DrawLogFigures(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
     {
         if (Manager.EngineSettings.DebugSettings.IsDebugging && DebugFont is not null)
         {
@@ -101,7 +101,7 @@ public class DebugManager(EngineManager manager)
     /// <summary>
     ///     Dibuja la información de log
     /// </summary>
-    public void DrawLogStrings(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+    public void DrawLogStrings(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
     {
         if (Manager.EngineSettings.DebugSettings.IsDebugging && DebugFont is not null)
         {

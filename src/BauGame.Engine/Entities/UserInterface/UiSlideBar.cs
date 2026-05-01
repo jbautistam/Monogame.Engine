@@ -181,7 +181,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     /// <summary>
     ///     Dibuja los componentes del control
     /// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
 	{
         // Dibuja los estilos
         Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
@@ -201,7 +201,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     /// <summary>
     ///     Dibuja el control en horizontal
     /// </summary>
-    private void DrawHorizontalTrack(Scenes.Rendering.RenderingManager renderingManager, SpriteDefinition trackLeft, SpriteDefinition trackRight)
+    private void DrawHorizontalTrack(Scenes.Rendering.AbstractRenderingManager renderingManager, SpriteDefinition trackLeft, SpriteDefinition trackRight)
     {
         (Rectangle left, Rectangle right) = GetHorizontalRectangles();
 
@@ -229,7 +229,7 @@ public class UiSlideBar(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositi
     /// <summary>
     ///     Dibuja el control en vertical
     /// </summary>
-    private void DrawVerticalTrack(Scenes.Rendering.RenderingManager renderingManager, SpriteDefinition trackUp, SpriteDefinition trackBottom)
+    private void DrawVerticalTrack(Scenes.Rendering.AbstractRenderingManager renderingManager, SpriteDefinition trackUp, SpriteDefinition trackBottom)
     {
         (Rectangle top, Rectangle bottom) = GetVerticalRectangles();
 

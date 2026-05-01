@@ -17,7 +17,7 @@ public abstract class UiAbstractBorder(Styles.UiStyle style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public abstract void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext);
+	public abstract void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, GameContext gameContext);
 
 	/// <summary>
 	///		Obtiene un rectángulo que coloca al borde por fuera del contenido

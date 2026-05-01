@@ -19,7 +19,7 @@ public class UiRoundedBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, GameContext gameContext)
     {
         int radius = (int) Math.Min(Radius, Math.Min(position.Width, position.Height) / 2f);
 
@@ -42,7 +42,7 @@ public class UiRoundedBorder(Styles.UiStyle style) : UiAbstractBorder(style)
     /// <summary>
     ///     Dibuja una esquina. Utiliza una aproximación dibujando segmentos pequeños escalonados
     /// </summary>
-    private void DrawCorner(Scenes.Rendering.RenderingManager renderingManager, int cx, int cy, int dirX, int dirY, int radius)
+    private void DrawCorner(Scenes.Rendering.AbstractRenderingManager renderingManager, int cx, int cy, int dirX, int dirY, int radius)
     {
         int steps = Math.Max(3, radius / 2);
 

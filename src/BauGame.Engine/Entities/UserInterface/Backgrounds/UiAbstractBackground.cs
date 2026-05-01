@@ -17,7 +17,7 @@ public abstract class UiAbstractBackground(Styles.UiStyle style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public abstract void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext);
+	public abstract void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, GameContext gameContext);
 
 	/// <summary>
 	///		Estilo padre

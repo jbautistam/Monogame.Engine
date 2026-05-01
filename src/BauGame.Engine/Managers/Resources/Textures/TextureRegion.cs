@@ -12,7 +12,7 @@ public class TextureRegion(AbstractTexture texture, string name)
 	/// <summary>
 	///		Dibuja la textura en una posición con escala
 	/// </summary>
-	public void Draw(Scenes.Rendering.RenderingManager renderingManager, Vector2 position, Vector2 origin, Vector2 scale, SpriteEffects effects, 
+	public void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Vector2 position, Vector2 origin, Vector2 scale, SpriteEffects effects, 
 					 Color color, float rotation)
 	{
 		SpriteDefinition sprite = new(Texture.Id, Name)
@@ -27,7 +27,7 @@ public class TextureRegion(AbstractTexture texture, string name)
 	/// <summary>
 	///		Dibuja la textura en un rectángulo concreto (ajusta al ancho y alto del rectángulo)
 	/// </summary>
-	public void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle destination, Vector2 origin, SpriteEffects effects, Color color, float rotation)
+	public void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle destination, Vector2 origin, SpriteEffects effects, Color color, float rotation)
 	{
 		SpriteDefinition sprite = new(Texture.Id, Name)
 										{

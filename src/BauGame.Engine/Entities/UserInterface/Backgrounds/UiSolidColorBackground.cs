@@ -17,7 +17,7 @@ public class UiSolidColorBackground(Styles.UiStyle style) : UiAbstractBackground
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, Managers.GameContext gameContext)
 	{
 		renderingManager.FiguresRenderer.DrawRectangle(position, Color * Opacity);
 	}

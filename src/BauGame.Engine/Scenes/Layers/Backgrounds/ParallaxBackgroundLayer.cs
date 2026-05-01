@@ -25,7 +25,7 @@ public class ParallaxBackgroundLayer(AbstractScene scene, string name, string as
     /// <summary>
     ///     Dibuja la capa
     /// </summary>
-    protected override void DrawSelf(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    protected override void DrawSelf(Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         Entities.Common.Size size = Sprite.GetSize();
 

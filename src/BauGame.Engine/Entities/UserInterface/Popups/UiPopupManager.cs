@@ -97,7 +97,7 @@ public class UiPopupManager(AbstractUserInterfaceLayer layer)
     /// <summary>
     ///     Dibuja los popups
     /// </summary>
-    public void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja un fondo oscuro
         if (_lastModal is not null)

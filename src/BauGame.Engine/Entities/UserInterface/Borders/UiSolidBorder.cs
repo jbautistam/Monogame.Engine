@@ -17,7 +17,7 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, GameContext gameContext)
     {
         if (ShadowOffset != Vector2.Zero)
             DrawShadow(renderingManager, position, gameContext);
@@ -30,7 +30,7 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el rectángulo
 	/// </summary>
-	private void DrawOutline(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
+	private void DrawOutline(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, GameContext gameContext)
     {
         // Arriba
         renderingManager.FiguresRenderer.DrawLine(new Vector2(position.X, position.Y), 
@@ -53,7 +53,7 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control con la sombra
 	/// </summary>
-	private void DrawShadow(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
+	private void DrawShadow(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, GameContext gameContext)
     {
         Rectangle shadowBounds = new(position.X + (int) ShadowOffset.X, position.Y + (int) ShadowOffset.Y, position.Width, position.Height);
             
@@ -79,7 +79,7 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control con el borde redondeado
 	/// </summary>
-	private void DrawRoundBorder(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, GameContext gameContext)
+	private void DrawRoundBorder(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, GameContext gameContext)
     {
         int radius = (int) Math.Min(CornerRadius, Math.Min(position.Width, position.Height) / 2f);
 
@@ -102,7 +102,7 @@ public class UiSolidBorder(Styles.UiStyle style) : UiAbstractBorder(style)
     /// <summary>
     ///     Dibuja una esquina. Utiliza una aproximación dibujando segmentos pequeños escalonados
     /// </summary>
-    private void DrawCorner(Scenes.Rendering.RenderingManager renderingManager, int cx, int cy, int dirX, int dirY, int radius)
+    private void DrawCorner(Scenes.Rendering.AbstractRenderingManager renderingManager, int cx, int cy, int dirX, int dirY, int radius)
     {
         int steps = Math.Max(3, radius / 2);
 

@@ -63,7 +63,7 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 	/// <summary>
 	///		Dibuja el actor y los componentes
 	/// </summary>
-    public void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
 		if (renderingManager.Scene.Camera.IsAtView(Transform.Bounds) || MustDrawOutOfCamera())
 		{
@@ -83,7 +83,7 @@ public abstract class AbstractActorDrawable : AbstractActor, Interfaces.IActorDr
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected abstract void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
+	protected abstract void DrawSelf(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza el trabajo con el actor

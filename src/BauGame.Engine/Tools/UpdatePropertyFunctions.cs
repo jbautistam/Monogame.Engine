@@ -136,4 +136,20 @@ public static class UpdatePropertyFunctions
 		else
 			return false;
 	}
+
+	/// <summary>
+	///		Modifica el valor de una propiedad de tipo <see cref="int"/>
+	/// </summary>
+	public static bool ChangeProperty(ref int field, int value)
+	{
+		if (field != value)
+		{
+			// Modifica el valor
+			field = value;
+			// Devuelve el valor que indica si se ha modificado la propiedad
+			return true;
+		}
+		else
+			return false;
+	}
 }

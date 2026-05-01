@@ -54,7 +54,7 @@ public abstract class AbstractRendererComponent(AbstractActorDrawable actor) : A
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-    public void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+    public void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
     {
 		if (Sprite is not null)
 		{
@@ -68,7 +68,7 @@ public abstract class AbstractRendererComponent(AbstractActorDrawable actor) : A
 	/// <summary>
 	///		Dibuja el actor
 	/// </summary>
-	protected abstract void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext);
+	protected abstract void DrawSelf(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext);
 
 	/// <summary>
 	///		Obtiene el tamaño

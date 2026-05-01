@@ -66,7 +66,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
 	/// <summary>
 	///		Dibuja el interface de usuario sobre la capa
 	/// </summary>
-	protected override void DrawSelf(Rendering.RenderingManager renderingManager, GameContext gameContext)
+	protected override void DrawSelf(Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
 	{
         if (Enabled)
             foreach (UiElement item in Items.Enumerate())
@@ -77,7 +77,7 @@ public abstract class AbstractUserInterfaceLayer : AbstractLayer
     /// <summary>
     ///     Dibuja un componente en la interface de usuario con un estilo
     /// </summary>
-	public void DrawStyle(Rendering.RenderingManager renderingManager, string? style, UiStyle.StyleType type, Rectangle bounds, GameContext gameContext)
+	public void DrawStyle(Rendering.AbstractRenderingManager renderingManager, string? style, UiStyle.StyleType type, Rectangle bounds, GameContext gameContext)
 	{
         if (!string.IsNullOrWhiteSpace(style))
             Styles.Draw(renderingManager, style, type, bounds, gameContext);

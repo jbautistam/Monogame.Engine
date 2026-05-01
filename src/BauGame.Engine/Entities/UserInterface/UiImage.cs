@@ -26,7 +26,7 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja los componentes del estilo
         Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);

@@ -34,7 +34,7 @@ public class UiButton : UiElementClickable
     /// <summary>
     ///     Dibuja el contenido del elemento
     /// </summary>
-    protected override void DrawComponent(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    protected override void DrawComponent(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         Label?.Draw(renderingManager, gameContext);
     }

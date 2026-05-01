@@ -67,7 +67,7 @@ public class UiProgressBar : UiElement
     /// <summary>
     ///     Dibuja el contenido del elemento
     /// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         Rectangle target;
         float percent = _currentValue / Maximum;

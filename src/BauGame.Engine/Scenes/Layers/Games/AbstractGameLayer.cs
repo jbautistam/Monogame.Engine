@@ -56,7 +56,7 @@ public abstract class AbstractGameLayer : AbstractLayer
 	/// <summary>
 	///		Dibuja la capa (los actores se dibujan por separado)
 	/// </summary>
-	protected override void DrawSelf(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+	protected override void DrawSelf(Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 		// Dibuja los datos de los managers
 		ProjectileManager.Draw(renderingManager, gameContext);
@@ -68,7 +68,7 @@ public abstract class AbstractGameLayer : AbstractLayer
 	/// <summary>
 	///		Dibuja los datos de la partida
 	/// </summary>
-	protected abstract void DrawGameLayer(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
+	protected abstract void DrawGameLayer(Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext);
 
 	/// <summary>
 	///		Finaliza la capa

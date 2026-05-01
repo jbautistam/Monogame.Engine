@@ -78,7 +78,7 @@ public abstract class AbstractLayer : Entities.Common.Collections.ISecureListIte
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	public void Draw(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+	public void Draw(Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
 	{
         // Dibuja la capa
         DrawSelf(renderingManager, gameContext);
@@ -91,7 +91,7 @@ public abstract class AbstractLayer : Entities.Common.Collections.ISecureListIte
 	/// <summary>
 	///		Dibuja la capa
 	/// </summary>
-	protected abstract void DrawSelf(Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
+	protected abstract void DrawSelf(Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext);
 
     /// <summary>
     ///     Finaliza la capa

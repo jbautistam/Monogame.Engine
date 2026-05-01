@@ -320,5 +320,5 @@ public class Camera2D
     /// <summary>
     ///     Controlador de sprites
     /// </summary>
-    public Rendering.RenderingManager RenderingManager => Scene.RenderingManager;
+    public Rendering.AbstractRenderingManager RenderingManager => Scene.RenderingManager;
 }

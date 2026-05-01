@@ -45,7 +45,7 @@ public class ComponentCollectionModel(AbstractActor owner)
 	/// <summary>
 	///		Dibuja los componentes
 	/// </summary>
-	internal void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+	internal void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 		foreach (AbstractComponent component in Items)
 			if (component.Enabled && component is Interfaces.IActorDrawable componentDrawable)

@@ -69,7 +69,7 @@ public class ParticleEngineActor : AbstractActorDrawable, Entities.Common.Collec
 	/// <summary>
 	///		Dibuja el actor: dibuja todas las partículas asociadas a los emisores
 	/// </summary>
-    protected override void DrawSelf(RenderingManager renderingManager, GameContext gameContext)
+    protected override void DrawSelf(AbstractRenderingManager renderingManager, GameContext gameContext)
     {
 		foreach (ParticleEmitter emitter in Emitters)
 			foreach (Particles.ParticleModel particle in emitter.Pool.Particles)
@@ -80,7 +80,7 @@ public class ParticleEngineActor : AbstractActorDrawable, Entities.Common.Collec
 	/// <summary>
 	///		Dibuja una partícula
 	/// </summary>
-	private void DrawParticle(RenderingManager renderingManager, Particles.ParticleModel particle)
+	private void DrawParticle(AbstractRenderingManager renderingManager, Particles.ParticleModel particle)
 	{
 		if (particle.Opacity > 0.1f)
 		{

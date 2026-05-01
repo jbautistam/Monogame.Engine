@@ -77,7 +77,7 @@ public class ExplosionActor(Scenes.Layers.AbstractLayer layer) : AbstractActorDr
     /// <summary>
     ///     Dibuja el actor
     /// </summary>
-	protected override void DrawSelf(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+	protected override void DrawSelf(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
 	{
 		// ... en este caso no hace nada
 	}

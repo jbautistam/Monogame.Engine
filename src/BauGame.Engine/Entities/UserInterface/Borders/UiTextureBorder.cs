@@ -19,7 +19,7 @@ public class UiTextureBorder(Styles.UiStyle style) : UiAbstractBorder(style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, Managers.GameContext gameContext)
 	{
 		Rectangle destination = InflateWithSprite(position);
 

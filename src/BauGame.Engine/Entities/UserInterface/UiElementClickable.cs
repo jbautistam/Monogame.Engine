@@ -64,7 +64,7 @@ public abstract class UiElementClickable : UiElement
     /// <summary>
     ///     Dibuja el contenido del elemento
     /// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibujar los datos de fondo si existe
         Layer.DrawStyle(renderingManager, Style, State, Position.ContentBounds, gameContext);
@@ -75,7 +75,7 @@ public abstract class UiElementClickable : UiElement
     /// <summary>
     ///     Dibuja el componente
     /// </summary>
-    protected abstract void DrawComponent(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
+    protected abstract void DrawComponent(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext);
 
     /// <summary>
     ///     Obtiene el estilo correspondiente al estado

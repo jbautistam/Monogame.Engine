@@ -19,7 +19,7 @@ public class UiBackground(Styles.UiStyle style) : UiAbstractBackground(style)
 	/// <summary>
 	///		Dibuja el control
 	/// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Rectangle position, Managers.GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Rectangle position, Managers.GameContext gameContext)
 	{
 		if (Sprite is not null)
 			renderingManager.SpriteRenderer.Draw(Sprite, position, Vector2.Zero, 0, Color * Opacity);

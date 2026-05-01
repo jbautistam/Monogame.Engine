@@ -73,7 +73,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Dibuja el contenido
     /// </summary>
-    public override void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext)
+    public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja el estilo
         Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
@@ -90,7 +90,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Dibuja el texto en una línea
     /// </summary>
-    private void DrawSimpleText(Scenes.Rendering.RenderingManager renderingManager, string text, SpriteTextDefinition font)
+    private void DrawSimpleText(Scenes.Rendering.AbstractRenderingManager renderingManager, string text, SpriteTextDefinition font)
     {
         Vector2 textSize = font.MeasureString(text);
         Vector2 textPosition = new(Position.ContentBounds.X, Position.ContentBounds.Y);
@@ -129,7 +129,7 @@ public class UiLabel(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     /// <summary>
     ///     Dibuja el texto en varias líneas
     /// </summary>
-    private void DrawWrappedText(Scenes.Rendering.RenderingManager renderingManager, string text, SpriteTextDefinition font)
+    private void DrawWrappedText(Scenes.Rendering.AbstractRenderingManager renderingManager, string text, SpriteTextDefinition font)
     {
         string[] words = text.Split(' ');
         string line = "";

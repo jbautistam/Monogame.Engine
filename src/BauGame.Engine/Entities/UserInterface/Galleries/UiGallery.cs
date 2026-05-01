@@ -103,7 +103,7 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
     /// <summary>
     ///     Dibuja los elementos
     /// </summary>
-	public override void Draw(Scenes.Rendering.RenderingManager renderingManager, GameContext gameContext)
+	public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, GameContext gameContext)
 	{
         for (int row = FirstVisibleRow; row < FirstVisibleRow + ViewportRows; row++)
             for (int column = FirstVisibleColumn; column < FirstVisibleColumn + ViewportColumns; column++)

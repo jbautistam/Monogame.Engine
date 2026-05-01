@@ -98,7 +98,7 @@ public abstract class UiElement(AbstractUserInterfaceLayer layer, UiPosition pos
     /// <summary>
     ///     Dibuja el elemento
     /// </summary>
-    public abstract void Draw(Scenes.Rendering.RenderingManager renderingManager, Managers.GameContext gameContext);
+    public abstract void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext);
 
     /// <summary>
     ///     Detiene el elemento
