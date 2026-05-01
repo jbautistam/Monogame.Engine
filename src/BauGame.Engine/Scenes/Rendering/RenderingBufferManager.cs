@@ -46,9 +46,15 @@ public class RenderingBufferManager(AbstractScene scene) : AbstractRenderingMana
 			Device.Clear(Color.Black);
 			// Crea el nuevo spritebatch donde aplicar los efectos
 			SpriteBatch = new SpriteBatch(Device);
-			// Arranca el SpriteBatch y dibuja la textura destino
 			SpriteBatch.Begin();
-			SpriteBatch.Draw(_renderTarget, Vector2.Zero, Color.White);
+			// Aplica los efectos o dibuja directamente la textura del buffer
+			if (PostprocessingEffects.Count == 0)
+				SpriteBatch.Draw(_renderTarget, Vector2.Zero, Color.White);
+			else if (_renderTarget is not null)
+			{
+				_renderTarget = ApplyEffects(_renderTarget);
+				SpriteBatch.Draw(_renderTarget, Vector2.Zero, Color.White);
+			}
 			// Y finaliza el dibujo por lotes
 			End();
 		}
@@ -80,7 +86,6 @@ public class RenderingBufferManager(AbstractScene scene) : AbstractRenderingMana
 			return source;
     }
 
-
     /// <summary>
     ///     Arranca el dibujo de la UI
     /// </summary>
@@ -103,7 +108,7 @@ public class RenderingBufferManager(AbstractScene scene) : AbstractRenderingMana
 		{
 			// Inicia el SpriteBatch y dibuja la textura destino
 			SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
-							  RasterizerState.CullCounterClockwise, null, null);
+							  RasterizerState.CullCounterClockwise, null, drawMatrix);
 			// ... e indica que está dibujando
 			_isDrawing = true;
 		}

@@ -36,10 +36,14 @@ public class PostProcessEfectsList(AbstractRenderingManager renderingManager) : 
 	protected override void UpdateSelf(GameContext gameContext)
 	{
         foreach (AbstractPostProcessingEffect effect in Enumerate()) 
-            if (effect.Enabled) 
+		{
+			// Actualiza el efecto
+            if (effect.IsActive) 
                 effect.Update(gameContext);
-			else
+			// Destruye el efecto si ya ha terminado
+			if (effect.IsComplete)
 				MarkToDestroy(effect, TimeSpan.FromSeconds(2));
+		}
 	}
 
 	/// <summary>
