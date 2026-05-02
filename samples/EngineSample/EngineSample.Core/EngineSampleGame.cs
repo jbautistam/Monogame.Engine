@@ -21,9 +21,9 @@ public class EngineSampleGame : BauEngineGame
 	protected override void InitializeGame()
 	{
 		// Carga la configuración del sistema
-		EngineManager.MonogameServicesManager.Configure(new Configuration.ResourcesLoader(EngineManager).LoadConfiguration());
+		EngineManager.MonogameServicesManager.Configure(new Configuration.FilesManager(EngineManager).LoadConfiguration());
 		// Carga la configuración de recursos
-		new Configuration.ResourcesLoader(EngineManager).LoadResourcesSettings();
+		new Configuration.FilesManager(EngineManager).LoadResourcesSettings();
 		// Prepara la escena
 		EngineManager.SceneManager.ChangeScene(new NextSceneContextModel(GameLogic.Scenes.MainMenu.MainMenuScene.SceneName), new Bau.BauEngine.Managers.GameContext());
 		// Prepara los mapeos
@@ -89,6 +89,8 @@ public class EngineSampleGame : BauEngineGame
 				return new GameLogic.Scenes.Space.SpaceShipsScene(EngineManager.SceneManager);
 			else if (nextScene.Scene.Equals(GameLogic.Scenes.Animations.AnimationsScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.Animations.AnimationsScene(EngineManager.SceneManager);
+			else if (nextScene.Scene.Equals(GameLogic.Scenes.Effects.EffectsScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
+				return new GameLogic.Scenes.Effects.EffectsScene(EngineManager.SceneManager);
 			else if (nextScene.Scene.Equals(GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene.SceneName, StringComparison.CurrentCultureIgnoreCase))
 				return new GameLogic.Scenes.UserInterfaceGridTest.UserInterfaceGridScene(EngineManager.SceneManager);
 			else if (nextScene.Scene.Equals(GameLogic.Scenes.UserInterfaceGalleryTest.UserInterfaceGalleryScene.SceneName, StringComparison.CurrentCultureIgnoreCase))

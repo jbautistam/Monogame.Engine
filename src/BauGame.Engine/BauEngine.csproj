@@ -141,6 +141,7 @@
     <Compile Include="Scenes\Cameras\CameraDirector.cs" />
     <Compile Include="Scenes\Rendering\Postprocessing\AbstractPostProcessingEffect.cs" />
     <Compile Include="Scenes\Rendering\Postprocessing\PostProcessEfectsList.cs" />
+    <Compile Include="Scenes\Rendering\Postprocessing\TintEffect.cs" />
     <Compile Include="Scenes\Rendering\RenderingBufferManager.cs" />
     <Compile Include="Scenes\Rendering\Renderers\SpriteRenderer.cs" />
     <Compile Include="Scenes\Rendering\Renderers\SpriteTextRenderer.cs" />

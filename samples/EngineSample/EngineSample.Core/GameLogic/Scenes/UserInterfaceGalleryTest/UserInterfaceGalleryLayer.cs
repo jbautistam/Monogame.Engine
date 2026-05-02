@@ -19,11 +19,11 @@ public class UserInterfaceGalleryLayer(AbstractScene scene, string name, int sor
 	/// </summary>
 	protected override void StartLayer()
 	{
-		Configuration.ResourcesLoader loader = new(Scene.SceneManager.EngineManager);
-		(UiStylesCollection styles, List<UiElement> components) = loader.LoadScreen(this, "Settings/VisualNovel/ScreenUserInterfaceGallery.xml");
+		Configuration.FilesManager loader = new(Scene.SceneManager.EngineManager);
+		(UiStylesCollection styles, List<UiElement> components) = loader.LoadScreen(this, "Settings/Screens/ScreenUserInterfaceGallery.xml");
 
 			// Carga los etilos
-			Styles = loader.LoadStyles(this, "Settings/VisualNovel/Styles.xml");
+			Styles = loader.LoadStyles(this, "Settings/Screens/Styles.xml");
 			// Carga el archivo de elementos de la pantalla
 			Items.AddRange(components);
 			// Obtiene la galería

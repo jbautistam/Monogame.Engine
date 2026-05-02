@@ -33,6 +33,14 @@ public abstract class AbstractRenderingManager
 		Height = viewport.Height;
 	}
 
+	/// <summary>
+	///		Actualiza el pipeline de presentación
+	/// </summary>
+	public void Update(Managers.GameContext gameContext)
+	{
+		PostprocessingEffects.Update(gameContext);
+	}
+
     /// <summary>
     ///     Comienza el dibujo del mundo
     /// </summary>

@@ -39,6 +39,7 @@ public abstract class AbstractScene
     {   
         // Actualiza los datos de la escena
         PhysicsManager.Update(gameContext);
+        RenderingManager.Update(gameContext);
         Camera.Update(gameContext);
         MessagesManager.Update(gameContext);
         // Actualiza la escena

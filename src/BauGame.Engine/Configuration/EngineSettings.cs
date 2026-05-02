@@ -18,7 +18,7 @@ public class EngineSettings(string contentRoot)
     /// <summary>
     ///     Fuente predetermianda
     /// </summary>
-    public string DefaultFont { get; set; } = "Font/Hud";
+    public string DefaultFont { get; set; } = "Fonts/Hud";
 
     /// <summary>
     ///     Directorio raíz del contenido

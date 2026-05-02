@@ -35,7 +35,10 @@
     <ProjectReference Include="..\..\..\src\BauGame.Engine\BauEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Content\Settings\VisualNovel\ParticlesSceneScreen.xml">
+    <None Update="Content\Settings\Screens\EffectsScreen.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Settings\Screens\ParticlesSceneScreen.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\Settings\System\system-settings.xml">
@@ -59,19 +62,16 @@
     <None Update="Content\Settings\tilesets.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\Settings\VisualNovel\GraphicNovelUserInterface.xml">
+    <None Update="Content\Settings\Screens\ScreenUserInterfaceGallery.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\Settings\VisualNovel\ScreenUserInterfaceGallery.xml">
+    <None Update="Content\Settings\Screens\ScreenUserInterfaceGrid.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\Settings\VisualNovel\ScreenUserInterfaceGrid.xml">
+    <None Update="Content\Settings\Screens\ScreenUserInterface.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\Settings\VisualNovel\ScreenUserInterface.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Content\Settings\VisualNovel\Styles.xml">
+    <None Update="Content\Settings\Screens\Styles.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

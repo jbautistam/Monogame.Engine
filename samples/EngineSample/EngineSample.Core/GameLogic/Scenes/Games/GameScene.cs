@@ -15,7 +15,6 @@ internal class GameScene(SceneManager sceneManager) : AbstractScene(sceneManager
 	public const int PhysicsPlayerProjectileLayer = 2;
 	public const int PhysicsNpcLayer = 3;
 	public const int PhysicsNpcProjectileLayer = 4;
-
 	// Variables privadas
 	private Common.HudLayer? _hudLayer;
 

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Screen Style="settings/Screens/styles.xml">
+	<!-- Menú -->
+	<Menu Id ="Menu" Style = "MenuStyle" Position = "0.65, 0.05, 0.35, 0.6">
+		<Option Value = "1" Text = "Wipe" Font = "Fonts/Hud" Style = "MenuOptionsStyle" Position = "0.2, 0, 0.6, 1" />
+	</Menu>
+</Screen>

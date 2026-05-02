@@ -9,12 +9,12 @@ namespace EngineSample.Core.Configuration;
 /// <summary>
 ///		Clases de carga de configuración
 /// </summary>
-public class ResourcesLoader
+public class FilesManager
 {
 	// Variables privadas
 	private Bau.BauEngine.Repositories.FilesStandardManager _filesLoader;
 
-	public ResourcesLoader(EngineManager manager)
+	public FilesManager(EngineManager manager)
 	{
 		Manager = manager;
 		_filesLoader = new Bau.BauEngine.Repositories.FilesStandardManager(manager);

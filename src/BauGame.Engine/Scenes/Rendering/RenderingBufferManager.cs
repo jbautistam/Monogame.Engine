@@ -60,6 +60,53 @@ public class RenderingBufferManager(AbstractScene scene) : AbstractRenderingMana
 		}
 	}
 
+/*
+	// Dibuja TODO el mundo en el render target y luego aplica el efecto
+    public void DrawGameWorldAndApplyTransition(System.Action worldDrawingAction)
+    {
+        // 1. Dibujar el mundo en el render target
+        _graphicsDevice.SetRenderTarget(_gameWorldTarget);
+        _graphicsDevice.Clear(Color.Transparent); // o Color.CornflowerBlue
+
+        _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+        worldDrawingAction?.Invoke(); // Aquí dibujas tus entidades, tiles, etc.
+        _spriteBatch.End();
+
+        // 2. Volver a dibujar en la pantalla principal
+        _graphicsDevice.SetRenderTarget(null);
+        _graphicsDevice.Clear(Color.Black); // o el color de fondo
+
+        if (_useShaderEffect && _postProcessEffect != null)
+        {
+            // Dibujar el render target aplicando el shader
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, 
+                               SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
+            _postProcessEffect.CurrentTechnique.Passes[0].Apply();
+            _spriteBatch.Draw(_gameWorldTarget, new Rectangle(0, 0, Width, Height), Color.White);
+            _spriteBatch.End();
+        }
+        else if (_transitionAlpha > 0f)
+        {
+            // Efecto simple: dibujar el mundo normalmente y encima un rectángulo semitransparente
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            _spriteBatch.Draw(_gameWorldTarget, new Rectangle(0, 0, Width, Height), Color.White);
+            
+            // Textura de 1x1 blanca para el overlay
+            Texture2D whitePixel = GetWhitePixel();
+            _spriteBatch.Draw(whitePixel, new Rectangle(0, 0, Width, Height), 
+                              _transitionColor * _transitionAlpha);
+            _spriteBatch.End();
+        }
+        else
+        {
+            // Sin efecto: solo dibujar el mundo
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(_gameWorldTarget, new Rectangle(0, 0, Width, Height), Color.White);
+            _spriteBatch.End();
+        }
+    }
+*/
+
 	/// <summary>
 	///		Aplica los efectos sobre la textura dibujada
 	/// </summary>
@@ -77,6 +124,7 @@ public class RenderingBufferManager(AbstractScene scene) : AbstractRenderingMana
 					Device.Clear(Color.Black);
 					// Aplica el efecto
 					spriteBatch = new SpriteBatch(Device);
+					spriteBatch.Begin();
 					effect.Apply(source, spriteBatch);
 					spriteBatch.End();
 					// Intercambia el origen y el destino

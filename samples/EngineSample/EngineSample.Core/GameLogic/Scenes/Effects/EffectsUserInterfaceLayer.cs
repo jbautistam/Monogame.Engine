@@ -2,14 +2,13 @@
 using Bau.BauEngine.Scenes.Layers;
 using Bau.BauEngine.Entities.UserInterface;
 using Bau.BauEngine.Entities.UserInterface.Styles;
-using Microsoft.Xna.Framework;
 
-namespace EngineSample.Core.GameLogic.Scenes.Particles;
+namespace EngineSample.Core.GameLogic.Scenes.Effects;
 
 /// <summary>
-///		Layer del interface de usuario de la escena
+///		Layer de la partida
 /// </summary>
-public class ParticlesUserInterfaceLayer(ParticlesScene scene, string name, int sortOrder) : AbstractUserInterfaceLayer(scene, name, sortOrder)
+public class EffectsUserInterfaceLayer(EffectsScene scene, string name, int sortOrder) : AbstractUserInterfaceLayer(scene, name, sortOrder)
 {
 	// Contantes privadas
 	private const string PromptControlName = nameof(PromptControlName);
@@ -17,8 +16,7 @@ public class ParticlesUserInterfaceLayer(ParticlesScene scene, string name, int 
 	private enum MenuOption
 	{
 		Unknown,
-		Explossion,
-		Books
+		Wipe
 	}
 
 	/// <summary>
@@ -27,7 +25,7 @@ public class ParticlesUserInterfaceLayer(ParticlesScene scene, string name, int 
 	protected override void StartLayer()
 	{
 		Configuration.FilesManager loader = new(Scene.SceneManager.EngineManager);
-		(UiStylesCollection styles, List<UiElement> components) = loader.LoadScreen(this, "Settings/Screens/ParticlesSceneScreen.xml");
+		(UiStylesCollection styles, List<UiElement> components) = loader.LoadScreen(this, "Settings/Screens/EffectsScreen.xml");
 
 			// Carga los estilos
 			Styles = styles;
@@ -39,28 +37,6 @@ public class ParticlesUserInterfaceLayer(ParticlesScene scene, string name, int 
 	}
 
 	/// <summary>
-	///		Trata las pulsaciones
-	/// </summary>
-	private void TreatClick(UiElement component, string? tag)
-	{
-		switch (component)
-		{
-			case UiMenu menu:
-					if (!string.IsNullOrWhiteSpace(tag))
-						switch ((MenuOption) tag.GetInt(0))
-						{
-							case MenuOption.Explossion:
-									ShowParticles("Explossion", new Vector2(300, 300));
-								break;
-							case MenuOption.Books:
-									ShowParticles("Books-01", new Vector2(50, 50));
-								break;
-						}
-				break;
-		}
-	}
-
-	/// <summary>
 	///		Actualiza el interface de usuario
 	/// </summary>
 	protected override void UpdateUserInterface(Bau.BauEngine.Managers.GameContext gameContext)
@@ -68,11 +44,34 @@ public class ParticlesUserInterfaceLayer(ParticlesScene scene, string name, int 
 	}
 
 	/// <summary>
-	///		Muestra las partículas
+	///		Trata las pulsaciones sobre la interface de usuario
 	/// </summary>
-	private void ShowParticles(string name, Vector2 position)
+	private void TreatClick(UiElement component, string? tag)
 	{
-		if (Scene is ParticlesScene particlesScene)
-			particlesScene.ShowParticles(name, position);
+		switch (component)
+		{
+			case UiMenu menu:
+					if (!string.IsNullOrWhiteSpace(tag))
+						TreatMenuOption((MenuOption) tag.GetInt(0));
+				break;
+		}
 	}
+
+	/// <summary>
+	///		Trata las opciones del menú
+	/// </summary>
+	private void TreatMenuOption(MenuOption option)
+	{
+		switch (option)
+		{
+			case MenuOption.Wipe:
+					MainScene.EffectsLayer?.CreateEffectWipe();
+				break;
+		}
+	}
+
+	/// <summary>
+	///		Escena principal
+	/// </summary>
+	private EffectsScene MainScene { get; } = scene;
 }

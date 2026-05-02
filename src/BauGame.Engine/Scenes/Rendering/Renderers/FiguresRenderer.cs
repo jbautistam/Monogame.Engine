@@ -8,16 +8,13 @@ namespace Bau.BauEngine.Scenes.Rendering.Renderers;
 /// </summary>
 public class FiguresRenderer
 {
-	// Variables privadas
-	private Texture2D _whitePixel = default!;
-
 	public FiguresRenderer(AbstractRenderingManager renderingManager)
 	{
 		// Guarda los objetos
 		RenderingManager = renderingManager;
 		// Prepara la textura de 1x1 en color blanco
-		_whitePixel = new Texture2D(renderingManager.Device, 1, 1);
-		_whitePixel.SetData([ Color.White ]);
+		WhitePixel = new Texture2D(renderingManager.Device, 1, 1);
+		WhitePixel.SetData([ Color.White ]);
 	}
 
 	/// <summary>
@@ -26,7 +23,7 @@ public class FiguresRenderer
 	public void DrawRectangle(Rectangle rectangle, Color color)
 	{
 		if (RenderingManager.SpriteBatch is not null)
-			RenderingManager.SpriteBatch.Draw(_whitePixel, rectangle, color);
+			RenderingManager.SpriteBatch.Draw(WhitePixel, rectangle, color);
 	}
 
 	/// <summary>
@@ -37,13 +34,13 @@ public class FiguresRenderer
 		if (RenderingManager.SpriteBatch is not null)
 		{
 			// Arriba
-			RenderingManager.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, thickness), color);
+			RenderingManager.SpriteBatch.Draw(WhitePixel, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, thickness), color);
 			// Abajo
-			RenderingManager.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - thickness, rectangle.Width, thickness), color);
+			RenderingManager.SpriteBatch.Draw(WhitePixel, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - thickness, rectangle.Width, thickness), color);
 			// Izquierda
-			RenderingManager.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X, rectangle.Y, thickness, rectangle.Height), color);
+			RenderingManager.SpriteBatch.Draw(WhitePixel, new Rectangle(rectangle.X, rectangle.Y, thickness, rectangle.Height), color);
 			// Derecha
-			RenderingManager.SpriteBatch.Draw(_whitePixel, new Rectangle(rectangle.X + rectangle.Width - thickness, rectangle.Y, thickness, rectangle.Height), color);
+			RenderingManager.SpriteBatch.Draw(WhitePixel, new Rectangle(rectangle.X + rectangle.Width - thickness, rectangle.Y, thickness, rectangle.Height), color);
 		}
 	}
 
@@ -58,7 +55,7 @@ public class FiguresRenderer
 			float angle = (float) Math.Atan2(edge.Y, edge.X);
 
 				// Dibuja la línea como un rectángulo rotado
-				RenderingManager.SpriteBatch.Draw(_whitePixel, start, null, color, angle, Vector2.Zero, new Vector2(edge.Length(), thickness), SpriteEffects.None, 0);
+				RenderingManager.SpriteBatch.Draw(WhitePixel, start, null, color, angle, Vector2.Zero, new Vector2(edge.Length(), thickness), SpriteEffects.None, 0);
 		}
 	}
 
@@ -66,4 +63,9 @@ public class FiguresRenderer
 	///		Manager de presentación
 	/// </summary>
 	public AbstractRenderingManager RenderingManager { get; }
+
+	/// <summary>
+	///		Textura de un pixel en blanco
+	/// </summary>
+	public Texture2D WhitePixel { get; private set; }
 }

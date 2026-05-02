@@ -25,8 +25,9 @@ internal class MainMenuScene(SceneManager sceneManager) : AbstractScene(sceneMan
 		SpaceShips,
 		Animations,
 		Particles,
+		Effects,
 		Music,
-		Effect,
+		Sound,
 		UserInterfaceGrid,
 		UserInterfaceGallery,
 		DebugMode,
@@ -54,10 +55,10 @@ internal class MainMenuScene(SceneManager sceneManager) : AbstractScene(sceneMan
 	private UserInterfaceLayer CreateHudLayer()
 	{
 		UserInterfaceLayer uiLayer = new(this, MenuLayer, 1);
-		Configuration.ResourcesLoader loader = new(SceneManager.EngineManager);
+		Configuration.FilesManager loader = new(SceneManager.EngineManager);
 
 			// Carga los estilos
-			uiLayer.Styles = loader.LoadStyles(uiLayer, "Settings/VisualNovel/Styles.xml");
+			uiLayer.Styles = loader.LoadStyles(uiLayer, "Settings/Screens/Styles.xml");
 			// Crea los componentes
 			CreateComponents(uiLayer);
 			// Devuelve la capa generada
@@ -90,10 +91,11 @@ internal class MainMenuScene(SceneManager sceneManager) : AbstractScene(sceneMan
 					.WithOption((int) MenuOption.TilesSample, "Tiles sample", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Animations, "Animations", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Particles, "Particles", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Effects, "Effects", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.UserInterfaceGrid, "UI Grid", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.UserInterfaceGallery, "Gallery", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Music, "Music", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
-					.WithOption((int) MenuOption.Effect, "Effect", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
+					.WithOption((int) MenuOption.Sound, "Sound", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.DebugMode, "Debug mode", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithOption((int) MenuOption.Quit, "Quit", MenuOptionsStyle, 0.2f, 0.4f, 0.6f, 1)
 					.WithStyle(MenuStyle);
@@ -126,6 +128,8 @@ internal class MainMenuScene(SceneManager sceneManager) : AbstractScene(sceneMan
 						return new NextSceneContextModel(Particles.ParticlesScene.SceneName);
 					case MenuOption.Animations:
 						return new NextSceneContextModel(Animations.AnimationsScene.SceneName);
+					case MenuOption.Effects:
+						return new NextSceneContextModel(Effects.EffectsScene.SceneName);
 					case MenuOption.UserInterfaceGrid:
 						return new NextSceneContextModel(UserInterfaceGridTest.UserInterfaceGridScene.SceneName);
 					case MenuOption.UserInterfaceGallery:
@@ -133,7 +137,7 @@ internal class MainMenuScene(SceneManager sceneManager) : AbstractScene(sceneMan
 					case MenuOption.Music:
 							PlaySong();
 						break;
-					case MenuOption.Effect:
+					case MenuOption.Sound:
 							PlayEffect();
 						break;
 					case MenuOption.DebugMode:
