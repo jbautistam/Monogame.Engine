@@ -11,7 +11,7 @@ namespace Bau.BauEngine.Repositories.Xml;
 /// <summary>
 ///		Repositorio para carga de interface de usuario
 /// </summary>
-public abstract class AbstractUserInterfaceRepository
+public abstract class AbstractScreenRepository
 {
 	// Constantes privadas
 	private const string TagRoot = "Screen";
@@ -35,6 +35,7 @@ public abstract class AbstractUserInterfaceRepository
 	private const string TagBarTexture = "BarTexture";
 	private const string TagBarRegion = "BarRegion";
 	private const string TagStrech = "Strech";
+	private const string TagEnabled = "Enabled";
 	private const string TagPreserveAspectRatio = "PreserveAspectRatio";
 	private const string TagMaximum = "Maximum";
 	private const string TagHorizontal = "Horizontal";
@@ -53,6 +54,7 @@ public abstract class AbstractUserInterfaceRepository
 	private const string TagRowSpacing = "RowSpacing";
 	private const string TagColumnSpacing = "ColumnSpacing";
 	private const string TagGallery = "Gallery";
+	private const string TagItems = "Items";
 	private const string TagVisibleRows = "VisibleRows";
 	private const string TagVisibleColumns = "VisibleColumns";
 	private const string TagThumb = "Thumb";
@@ -241,6 +243,8 @@ public abstract class AbstractUserInterfaceRepository
 
 			// Asigna los valores
 			AssignGeneralAttributes(button, rootML);
+			// Asigna el resto de atributos
+			button.Enabled = rootML.Attributes[TagEnabled].Value.GetBool(true);
 			// Carga la etiqueta
 			foreach (MLNode nodeML in rootML.Nodes)
 				if (nodeML.Name == TagLabel)
@@ -351,18 +355,32 @@ public abstract class AbstractUserInterfaceRepository
 	protected UiGallery LoadGallery(AbstractUserInterfaceLayer layer, MLNode rootML)
 	{
 		UiGallery gallery = new(layer, RepositoryHelper.GetPosition(rootML.Attributes[TagPosition].Value));
+		bool loaded = false;
 
 			// Asigna los valores
 			AssignGeneralAttributes(gallery, rootML);
-			gallery.Columns = rootML.Attributes[TagRows].Value.GetInt(1);
-			gallery.Rows = rootML.Attributes[TagColumns].Value.GetInt(1);
+			gallery.Rows = rootML.Attributes[TagRows].Value.GetInt(1);
+			gallery.Columns = rootML.Attributes[TagColumns].Value.GetInt(1);
 			gallery.ViewportRows = rootML.Attributes[TagVisibleRows].Value.GetInt(1);
 			gallery.ViewportColumns = rootML.Attributes[TagVisibleColumns].Value.GetInt(1);
-			// Carga los elementos
+			// Carga los elementos del nodo Items
 			foreach (MLNode nodeML in rootML.Nodes)
-				if (nodeML.Name == TagItem)
-					foreach (UiElement item in LoadItems(layer, nodeML.Nodes))
-						gallery.Add(item, nodeML.Attributes[TagRow].Value.GetInt(0), nodeML.Attributes[TagColumn].Value.GetInt(0));
+				if (nodeML.Name == TagItems)
+				{
+					// Carga los elementos para cada fila / columna
+					for (int row = 0; row < gallery.Rows; row++)
+						for (int column = 0; column < gallery.Columns; column++)
+							foreach (UiElement item in LoadItems(layer, nodeML.Nodes))
+								gallery.Add(item, row, column);
+					// Indica que se ha cargado la plantilla
+					loaded = true;
+				}
+			// Si no se han leido elementos carga cada unos de los elementos
+			if (!loaded)
+				foreach (MLNode nodeML in rootML.Nodes)
+					if (nodeML.Name == TagItem)
+						foreach (UiElement item in LoadItems(layer, nodeML.Nodes))
+							gallery.Add(item, nodeML.Attributes[TagRow].Value.GetInt(0), nodeML.Attributes[TagColumn].Value.GetInt(0));
 			// Devuelve el grid
 			return gallery;
 	}
@@ -382,7 +400,7 @@ public abstract class AbstractUserInterfaceRepository
 		if (!string.IsNullOrWhiteSpace(rootML.Attributes[TagMargin].Value))
 			component.Position.Margin = _helper.GetMargin(rootML.Attributes[TagMargin].Value);
 		if (!string.IsNullOrWhiteSpace(rootML.Attributes[TagPadding].Value))
-			component.Position.Margin = _helper.GetMargin(rootML.Attributes[TagPadding].Value);
+			component.Position.Padding = _helper.GetMargin(rootML.Attributes[TagPadding].Value);
 	}
 
 	/// <summary>

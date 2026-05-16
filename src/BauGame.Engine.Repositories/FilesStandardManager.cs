@@ -90,7 +90,7 @@ public class FilesStandardManager(EngineManager manager)
 	///		Carga los datos de una pantalla
 	/// </summary>
 	public (UiStylesCollection styles, List<UiElement> components) LoadScreen(AbstractUserInterfaceLayer layer, string fileName,
-																			  Xml.AbstractUserInterfaceRepository? repository = null)
+																			  Xml.AbstractScreenRepository? repository = null)
 	{
 		string? xml = LoadTextFile(fileName, false);
 		UiStylesCollection styles = new(layer);

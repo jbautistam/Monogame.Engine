@@ -7,7 +7,7 @@ namespace Bau.BauEngine.Repositories.Xml;
 /// <summary>
 ///		Repositorio para carga de interface de usuario
 /// </summary>
-public class UserInterfaceRepository : AbstractUserInterfaceRepository
+public class UserInterfaceRepository : AbstractScreenRepository
 {
 	/// <summary>
 	///		Carga un elemento de interface de usuario particular para el proyecto: en el caso básico, devuelve siempre un componente nulo

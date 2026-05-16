@@ -176,6 +176,19 @@ public class UiMenu(AbstractUserInterfaceLayer layer, UiPosition position) : UiE
     }
 
     /// <summary>
+    ///     Obtiene la opción con un valor
+    /// </summary>
+    public UiMenuOption? GetOption(int optionId)
+    {
+        // Busca la opción
+        foreach (UiMenuOption option in Options)
+            if (option.OptionId == optionId)
+                return option;
+        // Si ha llegado hasta aquí es porque no ha encontrado nada
+        return null;
+    }
+
+    /// <summary>
     ///     Etiqueta del título
     /// </summary>
     public UiLabel? Title { get; set; }

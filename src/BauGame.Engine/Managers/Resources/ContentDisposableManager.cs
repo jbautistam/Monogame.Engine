@@ -16,7 +16,7 @@ public class ContentDisposableManager(ResourcesManager resourcesManager) : IDisp
 		// Devuelve el asset desde la caché o cargando el contenido
         if (_loadedAssets.TryGetValue(asset, out object? content))
             return content as TypeAsset;
-        else
+        else if (!string.IsNullOrWhiteSpace(asset))
 			try
 			{
 				TypeAsset assetContent = ResourcesManager.EngineManager.MonogameServicesManager.Content.Load<TypeAsset>(asset);

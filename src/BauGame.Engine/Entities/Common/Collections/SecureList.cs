@@ -6,8 +6,8 @@
 public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 {
 	// Variables privadas
-	private List<TypeData> _itemsToAdd = [];
-	private List<(TypeData Item, TimeSpan TimeToDestroy)> _itemsToRemove = [];
+	private ConcurrentList<TypeData> _itemsToAdd = new();
+	private ConcurrentList<(TypeData Item, TimeSpan TimeToDestroy)> _itemsToRemove = new();
 	private int _countAllLife = 0;
 
 	/// <summary>
@@ -59,7 +59,7 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 	{
 		foreach (TypeData item in Items)
 			yield return item;
-		foreach (TypeData item in _itemsToAdd)
+		foreach (TypeData item in _itemsToAdd.Enumerate())
 			yield return item;
 	}
 
@@ -69,7 +69,7 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 	private void AddPendingItems()
 	{
 		// Añade los elementos pendientes
-		foreach (TypeData item in _itemsToAdd)
+		foreach (TypeData item in _itemsToAdd.Enumerate())
 		{
 			// Incrementa el número de elementos añadidos a la lista
 			_countAllLife++;
@@ -93,6 +93,8 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
     /// </summary>
 	private void RemoveOld(Managers.GameContext gameContext)
 	{
+		List<TypeData> removed = [];
+
         for (int index = _itemsToRemove.Count - 1; index >= 0; index--)
             if (gameContext.GameTime.TotalGameTime > _itemsToRemove[index].TimeToDestroy)
             {
@@ -128,7 +130,9 @@ public abstract class SecureList<TypeData> where TypeData : ISecureListItem
 
 			// Si no ha encontrado el elemento, busca entre los elementos a añadir
 			if (found is null)
-				found = _itemsToAdd.FirstOrDefault(item => item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase));
+				foreach (TypeData item in _itemsToAdd.Enumerate())
+					if (found is null && item.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase))
+						found = item;
 			// Devuelve el elemento
 			return found;
 	}

@@ -29,7 +29,7 @@ public class UiImage(AbstractUserInterfaceLayer layer, UiPosition position) : Ui
     public override void Draw(Scenes.Rendering.AbstractRenderingManager renderingManager, Managers.GameContext gameContext)
     {
         // Dibuja los componentes del estilo
-        Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.ContentBounds, gameContext);
+        Layer.DrawStyle(renderingManager, Style, Styles.UiStyle.StyleType.Normal, Position.Bounds, gameContext);
         // Dibuja la imagen
         if (Sprite is not null)
         {

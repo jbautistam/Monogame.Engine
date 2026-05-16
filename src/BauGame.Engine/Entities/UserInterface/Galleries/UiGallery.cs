@@ -1,5 +1,4 @@
 ﻿using Bau.BauEngine.Managers;
-using Bau.BauEngine.Scenes.Cameras;
 using Microsoft.Xna.Framework;
 
 namespace Bau.BauEngine.Entities.UserInterface.Galleries;
@@ -34,10 +33,10 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
                 // Recoloca los elementos
                 for (int column = FirstVisibleColumn; column < FirstVisibleColumn + ViewportColumns; column++)
                 {
-                    List<UiGalleryItem> gridItems = GetItems(row, column);
+                    UiGalleryItem? gridItem = GetGalleryItem(row, column);
 
                         // Actualiza los elementos
-                        foreach (UiGalleryItem gridItem in gridItems)
+                        if (gridItem is not null)
                         {
                             // Posiciona el elemento
                             gridItem.Position = new UiPosition(x, y, cellWidth, cellHeight);
@@ -54,12 +53,23 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
     }
 
     /// <summary>
-    ///     Añade un elemento a una celda
+    ///     Añade un elemento a una celda. No invalida el grid porque si se añaden muchos elementos se llamaría demasiadas veces a <see cref="ComputeScreenBoundsSelf"/>,
+    /// es mejor añadirlos todos y después llamar al método Invalidate de la galería
     /// </summary>
     public void Add(UiElement item, int row, int column)
     {
-        _items.Add(new UiGalleryItem(this, item, row, column));
-        Invalidate();
+        UiGalleryItem? galleryItem = GetGalleryItem(row, column);
+
+            // Crea el elemento si no estaba en la lista
+            if (galleryItem is null)
+            {
+                // Crea el componente de la galería
+                galleryItem = new UiGalleryItem(this, row, column);
+                // ... y lo añade a la lista de elementos
+                _items.Add(galleryItem);
+            }
+            // Añade el elemento
+            galleryItem.Add(item);
     }
 
     /// <summary>
@@ -96,7 +106,7 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
 	protected override void UpdateSelf(GameContext gameContext)
 	{
         foreach (UiGalleryItem item in _items)
-            if (item.Visible && item.Item.Enabled)
+            if (item.Visible)
                 item.Update(gameContext);
 	}
 
@@ -108,31 +118,18 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
         for (int row = FirstVisibleRow; row < FirstVisibleRow + ViewportRows; row++)
             for (int column = FirstVisibleColumn; column < FirstVisibleColumn + ViewportColumns; column++)
             {
-                List<UiGalleryItem> gridItems = GetItems(row, column);
+                UiGalleryItem? gridItem = GetGalleryItem(row, column);
 
-                    // Ordena los elementos
-                    gridItems.Sort((first, second) => first.ZIndex.CompareTo(second.ZIndex));
-                    // Dibja los elementos
-                    foreach (UiGalleryItem gridItem in gridItems)
-                        if (gridItem.Item.Visible)
-                            gridItem.Draw(renderingManager, gameContext);
+                    // Dibuja los elementos
+                    if (gridItem is not null && gridItem.Visible)
+                        gridItem.Draw(renderingManager, gameContext);
             }
 	}
 
     /// <summary>
-    ///     Obtiene los elementos de una celda
+    ///     Obtiene el elemento asociado a una celda
     /// </summary>
-    private List<UiGalleryItem> GetItems(int row, int column)
-    {
-        List<UiGalleryItem> items = [];
-
-            // Obtiene los elementos de la fila / columna
-            foreach (UiGalleryItem gridItem in _items)
-                if (gridItem.Row == row && gridItem.Column == column)
-                    items.Add(gridItem);
-            // Devuelve la lista de elementos
-            return items;
-    }
+    public UiGalleryItem? GetGalleryItem(int row, int column) => _items.FirstOrDefault(item => item.Row == row && item.Column == column);
 
     /// <summary>
     ///     Comprueba si se modifica un valor e invalida el control si es necesario
@@ -194,10 +191,20 @@ public class UiGallery(Scenes.Layers.AbstractUserInterfaceLayer layer, UiPositio
 		FirstVisibleRow = MathHelper.Clamp(FirstVisibleRow + rows, 0, Rows - ViewportRows);
     }
 
-	/// <summary>
-	///     Número total de columnas en el grid
-	/// </summary>
-	public int Columns 
+    /// <summary>
+    ///     Indica si se pueden mover a la derecha un número de columnas
+    /// </summary>
+    public bool CanMoveRight(int columns) => FirstVisibleColumn + columns < Columns;
+
+    /// <summary>
+    ///     Indica si se pueden mover a la izquierda un número de columnas
+    /// </summary>
+    public bool CanMoveLeft(int columns) => FirstVisibleColumn - columns >= 0;
+
+    /// <summary>
+    ///     Número total de columnas en el grid
+    /// </summary>
+    public int Columns 
     { 
         get { return _columns; } 
         set { CheckUpdated(ref _columns, value); }
